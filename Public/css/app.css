@@ -1,0 +1,89 @@
+:root{
+    --white-color: #fff;
+    --back-color: #000;
+    --text-color: #333;
+    --color-orange: rgb(220, 150, 46);
+    --color-blue:#4287f5;
+    --color-blue-sky:#97b9f0;
+    --color-green:#12c949;
+    --color-red:#eb3b52;
+    --color-pink:#e66adb;
+    --color-yellow:#e3e03b;
+    --color-grey:#c8c6cc;
+    --color-purple:#b992e0;
+    --bg-banner-top:rgb(250, 0, 20);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans", serif;
+}
+
+html {
+  /* font-size: 62.5% !important; */
+  /* line-height: 1.4rem; */
+}
+
+a{
+  text-decoration: none;
+}
+
+/* Font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Noto Sans", serif;
+}
+
+.container-fuild{
+  max-width: 1188px !important;
+}
+/* Font weight */
+.fw-400 {
+  font-weight: 400;
+}
+.fw-600{
+  font-weight: 600;
+}
+.fw-700{
+  font-weight: 700;
+}
+.fw-900{
+  font-weight: 900;
+}
+/* Text */
+.text-sky{
+  color: var(--color-blue-sky) !important;
+}
+.text-pink{
+  color: var(--color-pink) !important;
+}
+.text-purple{
+  color: var(--color-purple) !important;
+}
+.text-yellow{
+  color: var(--color-yellow) !important;
+}
+
+/* opacity */
+.opacity-100{
+  opacity: 1 !important;
+}
+.opacity-75{
+  opacity: 75%;
+}
+.opacity-50{
+  opacity: 50%;
+}
+.opacity-25{
+  opacity: 25%;
+}
+
+.bg-banner-top{
+  background-color: var(--bg-banner-top);
+}
