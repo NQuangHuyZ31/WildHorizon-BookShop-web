@@ -1,18 +1,20 @@
 <footer class="mx-auto container-fuild">
-  <div class="border-t-4 border-indigo-500">
-    <div class="flex">
-      <div class="grid grid-cols-3 px-2 py-4">
-        <div class="me-2">
-          <img src="./Public//images/banners//37713475645bb0698c30715499fdef2d.png_2200x2200q80.jpg" alt="banner1">
-        </div>
-        <div class="me-2">
-          <img src="./Public/images/banners/474e65da5a6ed1a078c0e66e929d378b.png_2200x2200q80.jpg" alt="banner1">
-        </div>
-        <div class="me-2">
-          <img src="./Public/images/banners/f3947c0bcaf171d91ac032e2820bbb88.png_2200x2200q80.jpg" alt="banner1">
+  <div class="border-t-2 border-gray-200">
+    <?php if (isset($homePage)) { ?>
+      <div class="flex">
+        <div class="grid grid-cols-3 px-2 py-4">
+          <div class="me-2">
+            <img src="./Public//images/banners//37713475645bb0698c30715499fdef2d.png_2200x2200q80.jpg" alt="banner1">
+          </div>
+          <div class="me-2">
+            <img src="./Public/images/banners/474e65da5a6ed1a078c0e66e929d378b.png_2200x2200q80.jpg" alt="banner1">
+          </div>
+          <div class="me-2">
+            <img src="./Public/images/banners/f3947c0bcaf171d91ac032e2820bbb88.png_2200x2200q80.jpg" alt="banner1">
+          </div>
         </div>
       </div>
-    </div>
+    <?php } ?>
     <div class="grid grid-cols-4 py-5 px-3">
       <div class="flex flex-col">
         <h1 class="text-lg text-sky-400">Contact us</h1>
@@ -103,9 +105,10 @@
 
 <script src="./Public/fontawesome/js/all.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="./Public/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="./Public/js/app.js"></script>
+<script src="./Public/js/cart.js"></script>
 </body>
 
 </html>

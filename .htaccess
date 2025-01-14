@@ -1,7 +1,12 @@
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /CNMoi/
+
+    # Điều kiện: Nếu không phải file hoặc thư mục thật
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^(.*)$ index.php [QSA,L]
+    RewriteCond %{REQUEST_FILENAME} !-l
+
+    # Chuyển hướng về index.php
+    RewriteRule ^ index.php [L]
 </IfModule>

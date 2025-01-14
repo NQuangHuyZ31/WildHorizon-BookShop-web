@@ -1,0 +1,7 @@
+{
+  "name": "vendor/facebook-login", 
+  "description": "A basic package for Facebook login",
+  "require": {
+    "facebook/graph-sdk": "^5.0"
+  }
+}

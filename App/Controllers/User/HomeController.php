@@ -6,16 +6,18 @@ use App\Controllers\Controller;
 class HomeController extends Controller {
     public function index() {
         $homePage = true;
-        $products = $this->db->query('Select *from tbl_product');
         include_once VIEW_PATH . 'user/index.php';
     }
 
-    public function abc(){
-        $username =$_GET['username'];
-        $password = $_GET['password'];
+    public function feedback(){
 
-        echo $password.','.$username;
-        
-        // include_once VIEW_PATH . 'user/index.php';
+        $nosearch = true;
+
+        include_once VIEW_PATH.'user/feedback.php';
+    }
+
+    public function handleFeedback(){
+
+        echo $_POST['feedback'].','.$_FILES['feedback-img']['name'];
     }
 }

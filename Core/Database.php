@@ -7,13 +7,18 @@ class Database
   private static $instance = null;
 
   private $connection;
+  private $host = DB_HOST;
+  private $dbname = DB_NAME;
+  private $username = DB_USER;
+  private $password = DB_PASS;
 
   private function __construct()
   {
-    $this->connection = new \mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-    if ($this->connection->connect_error) {
-      die("Kết nối thất bại: " . $this->connection->connect_error);
+    try {
+      $this->connection = new \PDO("mysql:host={$this->host};dbname={$this->dbname};charset=utf8", $this->username, $this->password);
+      $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    } catch (\PDOException $e) {
+      die("Kết nối cơ sở dữ liệu thất bại: " . $e->getMessage());
     }
   }
 
