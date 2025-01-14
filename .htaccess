@@ -1,8 +1,7 @@
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-
-    # Điều kiện: Nếu không phải file hoặc thư mục thật
+    RewriteBase /WildHorizon-BookShop/
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-l

@@ -55,6 +55,7 @@ class Router
     // Xử lý request
     public function handleRequest()
     {
+        
         $currentPath = strtok($_SERVER['REQUEST_URI'], '?'); // Lấy đường dẫn không chứa query string
         $currentMethod = strtoupper($_SERVER['REQUEST_METHOD']);
         $baseUrl = BASE_URL_NAME; // Đây là thư mục gốc của ứng dụng

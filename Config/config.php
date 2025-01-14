@@ -6,6 +6,7 @@ define('VIEW_PATH', $_SERVER['DOCUMENT_ROOT'] . '/WildHorizon-BookShop/views/');
 define('BASE_URL_NAME','/WildHorizon-BookShop');
 // database
 define("DB_HOST", 'localhost');
-define("DB_USER", 'hieu');
-define("DB_PASS", '123456');
-define("DB_NAME", 'hnshop-main');
+define("DB_USER", 'root');
+define("DB_PASS", '');
+define("DB_NAME", 'whr_bookshop');
+define('UPLOAD_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WildHorizon/Public/upload/');
