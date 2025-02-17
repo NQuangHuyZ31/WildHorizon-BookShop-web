@@ -1,15 +1,8 @@
 <!-- index.php -->
+<?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<title>Admin Dashboard</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
 <body class="font-sans bg-gray-100">
 
     <div class="flex min-h-screen">
@@ -19,7 +12,7 @@
         <!-- Main Content -->
         <div class="flex-1 p-8 overflow-auto">
             <!-- Top Header -->
-            <?php include('layout/header.php'); ?>
+            <?php include('layout/header.php'); ?>            
 
             <!-- Statistics Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

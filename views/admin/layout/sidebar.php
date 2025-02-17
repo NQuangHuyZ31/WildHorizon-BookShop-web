@@ -12,8 +12,8 @@
                 </li>
                 <li class="mb-4">
                     <a href="#" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
-                        <i class="fas fa-users w-5 h-5"></i>
-                        <span>Quản lý người dùng</span>
+                        <i class="fas fa-tags w-5 h-5"></i>
+                        <span>Giảm giá</span>
                     </a>
                 </li>
                 <li class="mb-4">

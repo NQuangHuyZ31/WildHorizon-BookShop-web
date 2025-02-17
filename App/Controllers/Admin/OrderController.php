@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
+use Core\Encrypt;
 
 class OrderController extends Controller
 {
@@ -12,34 +13,46 @@ class OrderController extends Controller
         $perPage = 15;
         $offset = ($currentPage - 1) * $perPage;
 
-        $countQuery = "SELECT COUNT(*) AS sum FROM orders";
-        $countResult = $this->db->query($countQuery);
-        $totalOrders = $countResult->fetch_assoc()['sum'];
+        // Lấy từ khóa tìm kiếm (nếu có)
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+        // Đếm tổng số đơn hàng (có áp dụng tìm kiếm nếu có từ khóa)
+        $countQuery = "SELECT COUNT(*) AS sum FROM orders WHERE order_id LIKE :search";
+        $stmt = $this->db->prepare($countQuery);
+        $searchParam = '%' . $search . '%';
+        $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
+        $stmt->execute();
+        $totalOrders = $stmt->fetch(\PDO::FETCH_ASSOC)['sum'];
 
         $totalPages = ceil($totalOrders / $perPage);
 
-        $query = "SELECT * FROM orders ORDER BY order_date DESC LIMIT $offset, $perPage";
-        $result = $this->db->query($query);
+        // Lấy danh sách đơn hàng (có áp dụng tìm kiếm nếu có từ khóa)
+        $query = "SELECT * FROM orders WHERE order_id LIKE :search ORDER BY order_date DESC LIMIT :offset, :perPage";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
+        $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->bindParam(':perPage', $perPage, \PDO::PARAM_INT);
+        $stmt->execute();
 
-        $orders = [];
-        while ($row = $result->fetch_assoc()) {
-            $orders[] = $row;
-        }
+        $orders = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
         include_once VIEW_PATH . 'admin/orders/index.php';
     }
+
 
     public function getOrderDetail()
     {
         // Lấy order_id từ query string
-        $order_id = isset($_GET['id']) ? $_GET['id'] : null;
+        $encryptedId = $_GET['id'] ?? null;
+        $order_id = Encrypt::decryptId($encryptedId, KEY);
 
         if ($order_id) {
             // Lấy thông tin đơn hàng
-            $orderQuery = $this->db->prepare("SELECT * FROM orders WHERE order_id = ?");
-            $orderQuery->bind_param('i', $order_id);
-            $orderQuery->execute();
-            $orderResult = $orderQuery->get_result();
-            $order = $orderResult->fetch_assoc();
+            $orderQuery = "SELECT * FROM orders WHERE order_id = :order_id";
+            $stmt = $this->db->prepare($orderQuery);
+            $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
+            $stmt->execute();
+            $order = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             // Nếu không tìm thấy đơn hàng
             if (!$order) {
@@ -47,25 +60,21 @@ class OrderController extends Controller
             }
 
             // Lấy thông tin khách hàng
-            $userQuery = $this->db->prepare("SELECT * FROM users WHERE user_id = ? AND role = 'customer'");
-            $userQuery->bind_param('i', $order['user_id']);
-            $userQuery->execute();
-            $userResult = $userQuery->get_result();
-            $user = $userResult->fetch_assoc();
+            $userQuery = "SELECT * FROM users WHERE user_id = :user_id AND role = 'customer'";
+            $stmt = $this->db->prepare($userQuery);
+            $stmt->bindParam(':user_id', $order['user_id'], \PDO::PARAM_INT);
+            $stmt->execute();
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             // Lấy chi tiết đơn hàng (sản phẩm đã đặt)
-            $orderDetailsQuery = $this->db->prepare("SELECT od.order_detail_id, od.product_id, od.quantity, od.price, p.name AS product_name, p.image, p.price AS product_price
-                                                 FROM order_details od
-                                                 JOIN products p ON od.product_id = p.product_id
-                                                 WHERE od.order_id = ?");
-            $orderDetailsQuery->bind_param('i', $order_id);
-            $orderDetailsQuery->execute();
-            $orderDetailsResult = $orderDetailsQuery->get_result();
-            $orderDetails = [];
-
-            while ($detail = $orderDetailsResult->fetch_assoc()) {
-                $orderDetails[] = $detail;
-            }
+            $orderDetailsQuery = "SELECT od.order_detail_id, od.product_id, od.quantity, od.price, p.name AS product_name, p.image, p.price AS product_price
+                                  FROM order_details od
+                                  JOIN products p ON od.product_id = p.product_id
+                                  WHERE od.order_id = :order_id";
+            $stmt = $this->db->prepare($orderDetailsQuery);
+            $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
+            $stmt->execute();
+            $orderDetails = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
             // Truyền dữ liệu cho view
             include_once VIEW_PATH . 'admin/orders/detail.php';

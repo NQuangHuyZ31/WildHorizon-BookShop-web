@@ -9,4 +9,6 @@ define("DB_HOST", 'localhost');
 define("DB_USER", 'root');
 define("DB_PASS", '');
 define("DB_NAME", 'whr_bookshop');
-define('UPLOAD_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WildHorizon/Public/upload/');
+define('UPLOAD_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WildHorizon-BookShop/Public/upload/');
+
+define('KEY', 'wildhorizonbookshopwiburomax');

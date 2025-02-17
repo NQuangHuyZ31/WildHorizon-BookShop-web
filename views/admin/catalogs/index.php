@@ -1,3 +1,4 @@
+
 <?php
 
 use Core\Session;
@@ -5,6 +6,8 @@ use Core\Session;
 $messge = Session::get('message')??[];
 // Session::delete('message');
 ?>
+<?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -51,13 +54,14 @@ $messge = Session::get('message')??[];
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($catalog['description']) ?></td>
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
-                                        <a href="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $catalog['catalog_id'] ?>" class="text-blue-500 hover:text-blue-700">
+                                        <?php $encryptedId = \Core\Encrypt::encryptId($catalog['catalog_id'], KEY); ?>
+                                        <a href="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                             <span>Edit</span>
                                         </a>
-                                        <form action="<?= BASE_URL_NAME ?>/admin/catalogs/delete" method="POST" id="delete-form-<?= $catalog['catalog_id'] ?>" style="display: inline;">
-                                            <input type="hidden" name="id" value="<?= $catalog['catalog_id'] ?>">
-                                            <button type="button" onclick="confirmDelete(<?= $catalog['catalog_id'] ?>)" class="text-red-500 hover:text-red-700">
+                                        <form action="<?= BASE_URL_NAME ?>/admin/catalogs/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
+                                            <input type="hidden" name="id" value="<?= $encryptedId ?>">
+                                            <button type="button" onclick="confirmDelete()" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i>
                                                 <span>Delete</span>
                                             </button>
@@ -79,7 +83,8 @@ $messge = Session::get('message')??[];
 </body>
 
 <script>
-    function confirmDelete(catalogId) {
+    var safeId = <?php echo json_encode($encryptedId); ?>;
+    function confirmDelete() {
         // Sử dụng SweetAlert để hiển thị hộp thoại xác nhận
         Swal.fire({
             title: 'Bạn có chắc chắn muốn xóa danh mục này?',
@@ -92,8 +97,7 @@ $messge = Session::get('message')??[];
         }).then((result) => {
             if (result.isConfirmed) {
                 // Nếu người dùng nhấn "Có, xóa nó!"
-                
-                document.getElementById('delete-form-' + catalogId).submit();
+                document.getElementById('delete-form-' + safeId).submit();
                 var messge = <?php echo json_encode($messge); ?>;
     
                 if(messge.success){

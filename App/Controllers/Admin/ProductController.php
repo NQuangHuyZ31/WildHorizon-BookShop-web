@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Controllers\Admin;
+
 use Core\Session;
+use Core\Encrypt;
 use App\Controllers\Controller;
 
 class ProductController extends Controller
@@ -17,48 +19,66 @@ class ProductController extends Controller
         // Tính toán offset
         $offset = ($currentPage - 1) * $perPage;
 
-        // Truy vấn để lấy tổng số sản phẩm
-        $countQuery = "SELECT COUNT(*) AS total FROM products";
-        $countResult = $this->db->query($countQuery);
-        $totalProducts = $countResult->fetch_assoc()['total'];
+        // Lấy từ khóa tìm kiếm (nếu có)
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+        // Truy vấn để lấy tổng số sản phẩm (có áp dụng tìm kiếm)
+        $countQuery = "
+        SELECT COUNT(*) AS total 
+        FROM products AS p
+        LEFT JOIN catalogs AS c ON p.catalog_id = c.catalog_id
+        WHERE p.name LIKE :search OR c.name LIKE :search
+    ";
+        $stmt = $this->db->prepare($countQuery);
+        $searchParam = '%' . $search . '%';
+        $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
+        $stmt->execute();
+        $totalProducts = $stmt->fetch(\PDO::FETCH_ASSOC)['total'];
 
         // Tính tổng số trang
         $totalPages = ceil($totalProducts / $perPage);
 
-        // Truy vấn lấy sản phẩm kèm theo tên danh mục, có phân trang
+        // Truy vấn lấy sản phẩm có áp dụng tìm kiếm và phân trang
         $query = "
-            SELECT 
-                p.*, 
-                c.name AS catalog_name 
-            FROM 
-                products AS p
-            LEFT JOIN 
-                catalogs AS c 
-            ON 
-                p.catalog_id = c.catalog_id
-            LIMIT $perPage OFFSET $offset
-        ";
+        SELECT 
+            p.*, 
+            c.name AS catalog_name,
+            fs.discount AS discount
+        FROM 
+            products AS p
+        LEFT JOIN 
+            catalogs AS c ON p.catalog_id = c.catalog_id
+        LEFT JOIN 
+            flashsales AS fs ON fs.product_id = p.product_id
+        WHERE p.name LIKE :search OR c.name LIKE :search
+        LIMIT :perPage OFFSET :offset
+    ";
 
-        $result = $this->db->query($query);
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
+        $stmt->bindParam(':perPage', $perPage, \PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->execute();
 
-        $products = [];
-        while ($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
+        $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        // Truyền sản phẩm, trang hiện tại và tổng số trang vào view
+        // Truyền sản phẩm, trang hiện tại, tổng số trang và từ khóa tìm kiếm vào view
         include_once VIEW_PATH . 'admin/products/index.php';
     }
+
+
     private function getAllCatalogs()
     {
-        $result = $this->db->query("SELECT * FROM catalogs");
-        $catalogs = [];
-        while ($row = $result->fetch_assoc()) {
-            $catalogs[] = $row;
-        }
+        $query = "SELECT * FROM catalogs";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        $catalogs = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
         return $catalogs;
     }
-    
+
+
     private function validateProductData($name, $catalog_id, $price, $stock, $image, $currentImage = null)
     {
         $errors = [];
@@ -113,20 +133,18 @@ class ProductController extends Controller
         }
 
         // Kiểm tra trong cơ sở dữ liệu nếu tên ảnh đã tồn tại
-        $stmt = $this->db->prepare("SELECT COUNT(*) FROM products WHERE image = ?");
-        $stmt->bind_param('s', $imageName);
+        $query = "SELECT COUNT(*) FROM products WHERE image = :imageName";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':imageName', $imageName, \PDO::PARAM_STR);
         $stmt->execute();
-        
-        // Khai báo biến $count trước
-        $count = 0;  // Gán giá trị mặc định cho $count
-        
-        // Liên kết kết quả với biến $count
-        $stmt->bind_result($count);
-        $stmt->fetch();
-        
+
+        // Lấy kết quả
+        $count = $stmt->fetchColumn();
+
         // Kiểm tra nếu có ít nhất một sản phẩm có tên ảnh này
         return $count > 0;
     }
+
     public function createProduct()
     {
         $errors = [];
@@ -173,33 +191,29 @@ class ProductController extends Controller
         }
 
         // Chuẩn bị câu lệnh SQL
-        $stmt = $this->db->prepare("
+        // Chuẩn bị câu lệnh SQL
+        $query = "
             INSERT INTO products (name, description, catalog_id, author, publish_year, color, price, stock, image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+            VALUES (:name, :description, :catalog_id, :author, :publish_year, :color, :price, :stock, :image)
+        ";
 
-        if ($stmt === false) {
-            die('Lỗi chuẩn bị câu lệnh SQL: ' . $this->db->error);
-        }
+        $stmt = $this->db->prepare($query);
 
         // Liên kết các tham số
-        $stmt->bind_param(
-            'ssisssdis',
-            $name,
-            $description,
-            $catalog_id,
-            $author,
-            $publish_year,
-            $color,
-            $price,
-            $stock,
-            $imageName
-        );
+        $stmt->bindParam(':name', $name, \PDO::PARAM_STR);
+        $stmt->bindParam(':description', $description, \PDO::PARAM_STR);
+        $stmt->bindParam(':catalog_id', $catalog_id, \PDO::PARAM_INT);
+        $stmt->bindParam(':author', $author, \PDO::PARAM_STR);
+        $stmt->bindParam(':publish_year', $publish_year, \PDO::PARAM_INT);
+        $stmt->bindParam(':color', $color, \PDO::PARAM_STR);
+        $stmt->bindParam(':price', $price, \PDO::PARAM_STR);
+        $stmt->bindParam(':stock', $stock, \PDO::PARAM_INT);
+        $stmt->bindParam(':image', $imageName, \PDO::PARAM_STR);
 
         // Thực thi câu lệnh SQL
         if ($stmt->execute()) {
             Session::set('message', [
-                'success'=>'Thêm sản phẩm thành công!'
+                'success' => 'Thêm sản phẩm thành công!'
             ]);
             header('Location: ' . BASE_URL_NAME . '/admin/products');
             exit();
@@ -210,21 +224,21 @@ class ProductController extends Controller
 
     public function deleteProduct()
     {
-        $id = $_POST['id'] ?? null;
+        $encryptedId = $_POST['id'] ?? null;
 
-        if (!$id) {
+        if (!$encryptedId) {
             die("ID không hợp lệ.");
         }
 
+        $id = Encrypt::decryptId($encryptedId, KEY);
+
         // Truy vấn tên ảnh từ cơ sở dữ liệu
-        $stmt = $this->db->prepare("SELECT image FROM products WHERE product_id = ?");
-        if ($stmt === false) {
-            die('Lỗi chuẩn bị câu lệnh SQL: ' . $this->db->error);
-        }
-        $stmt->bind_param('i', $id);
+        $query = "SELECT image FROM products WHERE product_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $product = $result->fetch_assoc();
+
+        $product = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($product && !empty($product['image'])) {
             $imagePath = UPLOAD_DIR . 'products/' . $product['image'];
@@ -236,15 +250,13 @@ class ProductController extends Controller
         }
 
         // Xóa bản ghi sản phẩm trong cơ sở dữ liệu
-        $stmt = $this->db->prepare("DELETE FROM products WHERE product_id = ?");
-        if ($stmt === false) {
-            die('Lỗi chuẩn bị câu lệnh SQL: ' . $this->db->error);
-        }
-        $stmt->bind_param('i', $id);
+        $deleteQuery = "DELETE FROM products WHERE product_id = :id";
+        $deleteStmt = $this->db->prepare($deleteQuery);
+        $deleteStmt->bindParam(':id', $id, \PDO::PARAM_INT);
 
-        if ($stmt->execute()) {
+        if ($deleteStmt->execute()) {
             Session::set('message', [
-                'success'=>'Xóa sản phẩm thành công!'
+                'success' => 'Xóa sản phẩm thành công!'
             ]);
             header('Location: ' . BASE_URL_NAME . '/admin/products');
             exit();
@@ -253,16 +265,16 @@ class ProductController extends Controller
         }
     }
 
-    public function getProductById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE product_id = ?");
-        if ($stmt === false) {
-            die('Lỗi chuẩn bị câu lệnh SQL: ' . $this->db->error);
-        }
-        $stmt->bind_param('i', $id);
+    public function getProductById($id)
+    {
+        $query = "SELECT * FROM products WHERE product_id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_assoc(); // Trả về dữ liệu của sản phẩm
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC); // Trả về dữ liệu của sản phẩm
     }
+
 
     private function validateUpdateProductData($name, $catalog_id, $price, $stock, $image, $currentImage = null)
     {
@@ -289,7 +301,7 @@ class ProductController extends Controller
         }
 
         // Kiểm tra hình ảnh
-        
+
         if ($image && $image['error'] === UPLOAD_ERR_OK) {
             // Kiểm tra phần mở rộng của tệp
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -307,19 +319,28 @@ class ProductController extends Controller
 
         return $errors;
     }
-    public function editProduct() {
+    public function editProduct()
+    {
         $errors = [];
         $catalogs = $this->getAllCatalogs();
-        $id = $_GET['id'] ?? null; // Lấy ID sản phẩm từ query string
-    
+        $encryptedId = $_GET['id'] ?? null;
+
         // Nếu không có ID, dừng xử lý
+        if (!$encryptedId) {
+            die("ID không hợp lệ.");
+        }
+
+        // Giải mã ID
+        $id = Encrypt::decryptId($encryptedId, KEY);
+
+        // Kiểm tra xem ID có hợp lệ không
         if (!$id) {
             die("ID không hợp lệ.");
         }
-    
+
         // Lấy thông tin sản phẩm hiện tại
         $product = $this->getProductById($id);
-        
+
         // Nếu là phương thức POST, xử lý dữ liệu form
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
@@ -332,10 +353,10 @@ class ProductController extends Controller
             $price = $_POST['price'] ?? 0;
             $stock = $_POST['stock'] ?? 0;
             $image = $_FILES['image'] ?? null;
-            
+
             // Kiểm tra dữ liệu nhập vào
             $errors = $this->validateUpdateProductData($name, $catalog_id, $price, $stock, $image);
-    
+
             // Nếu không có lỗi, xử lý cập nhật sản phẩm
             if (empty($errors)) {
                 $this->updateProduct($id, $name, $description, $catalog_id, $author, $publish_year, $color, $price, $stock, $image);
@@ -343,7 +364,7 @@ class ProductController extends Controller
                 exit();
             }
         }
-    
+
         // Nếu có lỗi hoặc là phương thức GET, hiển thị thông tin sản phẩm trong form
         $product = $this->getProductById($id);
         include_once VIEW_PATH . 'admin/products/edit.php';
@@ -381,42 +402,37 @@ class ProductController extends Controller
         }
 
         // Chuẩn bị câu lệnh SQL
-        $stmt = $this->db->prepare("
+        $query = "
             UPDATE products 
-            SET name = ?, description = ?, catalog_id = ?, author = ?, publish_year = ?, color = ?, price = ?, stock = ?, image = ? 
-            WHERE product_id = ?
-        ");
-        if ($stmt === false) {
-            die('Lỗi chuẩn bị câu lệnh SQL: ' . $this->db->error);
-        }
+            SET name = :name, description = :description, catalog_id = :catalog_id, author = :author, 
+                publish_year = :publish_year, color = :color, price = :price, stock = :stock, image = :image 
+            WHERE product_id = :id
+        ";
+
+        // Chuẩn bị statement
+        $stmt = $this->db->prepare($query);
 
         // Liên kết các tham số
-        $stmt->bind_param(
-            'ssisssdisi',
-            $name,
-            $description,
-            $catalog_id,
-            $author,
-            $publish_year,
-            $color,
-            $price,
-            $stock,
-            $imagePath,  // Chỉ lưu tên ảnh trong database
-            $id
-        );
+        $stmt->bindParam(':name', $name, \PDO::PARAM_STR);
+        $stmt->bindParam(':description', $description, \PDO::PARAM_STR);
+        $stmt->bindParam(':catalog_id', $catalog_id, \PDO::PARAM_INT);
+        $stmt->bindParam(':author', $author, \PDO::PARAM_STR);
+        $stmt->bindParam(':publish_year', $publish_year, \PDO::PARAM_INT);
+        $stmt->bindParam(':color', $color, \PDO::PARAM_STR);
+        $stmt->bindParam(':price', $price, \PDO::PARAM_STR);
+        $stmt->bindParam(':stock', $stock, \PDO::PARAM_INT);
+        $stmt->bindParam(':image', $imagePath, \PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
 
         // Thực thi câu lệnh SQL
         if ($stmt->execute()) {
             Session::set('message', [
-                'success'=>'Cập nhật sản phẩm thành công!'
+                'success' => 'Cập nhật sản phẩm thành công!'
             ]);
             header('Location: ' . BASE_URL_NAME . '/admin/products');
             exit();
-        }
-        else {
-            die('Đã xảy ra lỗi khi cập nhật sản phẩm: ' . $stmt->error);
+        } else {
+            die('Đã xảy ra lỗi khi cập nhật sản phẩm');
         }
     }
-   
-    
 }

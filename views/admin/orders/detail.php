@@ -1,9 +1,12 @@
+<?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Chi tiết Đơn hàng - <?= htmlspecialchars($order['order_id']) ?></title>
 </head>
 
@@ -79,8 +82,7 @@
                     </div>
                 </div>
                 <!-- Chi tiết đơn hàng -->
-                <div class="mb-6">
-                    <h3 class="text-xl font-semibold">Chi tiết Đơn hàng</h3>
+                <div class="mb-6 mt-6">
                     <table class="min-w-full table-auto border-collapse border border-gray-200 rounded-lg">
                         <thead>
                             <tr class="bg-gray-50">
@@ -110,13 +112,23 @@
                     </table>
                 </div>
 
+                <!-- Tổng giá sản phẩm -->
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Tổng tiền:</h3>
+                    <p class="text-xl text-gray-800"><?= number_format($order['product_total'], 0, ',', '.') ?> VND</p>
+                </div>
+
+                <!-- Tiền ship -->
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-semibold">Tiền ship:</h3>
+                    <p class="text-xl text-gray-800"><?= number_format($order['shipping_fee'], 0, ',', '.') ?> VND</p>
+                </div>
+
                 <!-- Tổng giá -->
-                <div class="flex justify-between items-center mb-6">
+                <div class="flex justify-between items-center mb-2">
                     <h3 class="text-xl font-semibold">Tổng giá đơn hàng:</h3>
                     <p class="text-xl text-gray-800"><?= number_format($order['total'], 0, ',', '.') ?> VND</p>
                 </div>
-
-                
 
             </div>
         </div>

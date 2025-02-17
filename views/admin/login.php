@@ -1,21 +1,13 @@
 <?php
 
 use Core\Session;
-$message = Session::get('message') ?? [];
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet"/>
-</head>
-<body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center min-h-screen">
+
+<?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
+<title>Admin Login</title>
+
+<div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center min-h-screen">
 
     <!-- Container for the login form -->
     <div class="bg-white p-8 rounded-xl shadow-xl w-96 max-w-md">
@@ -45,12 +37,6 @@ $message = Session::get('message') ?? [];
             <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800">Forgot your password?</a>
         </div>
 
-        <!-- Additional message section -->
-        <?php if (isset($message['error'])): ?>
-            <div class="mt-4 text-center text-red-500 text-sm">
-                <?= $message['error'] ?>
-            </div>
-        <?php endif; ?>
     </div>
 
     <script src="<?= BASE_URL_NAME ?>/Public/js/jquery-3.7.1.min.js"></script>
@@ -58,13 +44,13 @@ $message = Session::get('message') ?? [];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-    var messge = <?php echo json_encode($messge); ?>;
-    
-    if(messge.error){
-        toastr.error(messge.error);
-    }
-</script>
+        var messge = <?php echo json_encode(Session::get('message')); ?>;
+        console.log(messge);
+        if(messge.error){
+            toastr.error(messge.error);
+        }
+    </script>
 
     <?php Session::delete('message'); ?>
-</body>
-</html>
+</div>
+
