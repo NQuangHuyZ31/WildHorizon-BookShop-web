@@ -205,10 +205,16 @@ h6 {
 }
 /* FLASH SALES */
 
-.whr-flash-sale, .whr-cart{
+.whr-flash-sale, .whr-product-main{
   min-height: 675px;
   height: auto;
 }
+
+.whr-cart{
+  min-height: 450px;
+  height: auto;
+}
+
 .flash-sale-btn{
   height: 35px;
   border: 1px solid var(--color-orange);
@@ -217,13 +223,23 @@ h6 {
   padding: 5px 5px;
   font-size: 14px;
 }
+
 .flash-sale-product-price-sale{
   font-size: 11px;
 }
-.product{
 
+.whr-product-content{
+  height: 295px;
+}
+
+.whr-product-img{
+  width: 140px;
+  height: 200px;
+  margin: 0 auto;
 }
 .flash-sale-product-title,.product-title{
+  height: 40px;
+  font-size: 13px !important;
   display: -webkit-box;
   -webkit-box-orient: vertical; 
   -webkit-line-clamp: 2; 
@@ -242,6 +258,7 @@ h6 {
   margin: 0 auto;
 }
 .whr-category-title{
+  height: 35px;
   text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical; 
@@ -284,4 +301,39 @@ h6 {
 }
 .poiter-events-none{
   pointer-events: none;
+}
+
+/* Sản phẩm */
+.price-unchecked{
+  background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_uncheck.png') 0 50% no-repeat;
+}
+
+.price-checked{
+  background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_checked.png') 0 50% no-repeat;
+}
+
+/* Chi tiết sản phẩm */
+.product-detail-content{
+  width: 500px;
+}
+
+.product-detail-image{
+  width: 280px;
+  height: 360px;
+}
+
+.product-box-btn{
+  width: 220px;
+  height: 44px;
+}
+
+.border-b-sm{
+  border-bottom: solid 0.0005px #F2F4F5;
+}
+
+.product-suggest{
+  background: url('https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/banner_personalization.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  padding: 8px;
 }

@@ -2,13 +2,15 @@
 
 namespace Core;
 
+use Core\Database;
+
 class Auth
 {
-    private $pdo;
+    protected $db;
 
-    public function __construct($pdo)
+    public function __construct()
     {
-        $this->pdo = $pdo;
+        $this->db = Database::getInstance()->getConnection();
 
         // Bắt đầu phiên làm việc nếu chưa có
         if (session_status() === PHP_SESSION_NONE) {
@@ -26,18 +28,22 @@ class Auth
     public function login($email, $password)
     {
         // Truy vấn người dùng theo email
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $this->db->prepare("select * from users where email=?");
         $stmt->execute([$email]);
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         // Kiểm tra người dùng và xác minh mật khẩu
         if ($user && password_verify($password, $user['password'])) {
+            // if ($user['role'] === 'customer') {
+                $_SESSION['user'] = [
+                    'id' => $user['user_id'],
+                    'name' => $user['name'],
+                    'role' => $user['role'],
+                    'is_first_login' => $user['firstlogin']
+                ];
+                return true;
+            // }
             // Lưu thông tin người dùng vào session
-            $_SESSION['user'] = [
-                'id' => $user['id'],
-                'role' => $user['role']
-            ];
-            return true;
         }
 
         return false;

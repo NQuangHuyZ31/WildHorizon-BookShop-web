@@ -1,8 +1,8 @@
 <?php
+
 use Core\Router;
 // Use Controller
 use App\Controllers\User\CartController;
-use App\Controllers\User\DanhSachSanPhamController;
 use App\Controllers\User\HomeController;
 use App\Controllers\User\FlashSaleController;
 use App\Controllers\User\LoginController;
@@ -13,9 +13,13 @@ use App\Controllers\Admin\CatalogController;
 use App\Controllers\Admin\ProductController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\OrderController;
-
+use App\Controllers\User\CategoryController;
+use App\Controllers\User\ChiTietSanPhamController;
+use App\Controllers\User\DanhSachSanPhamController;
+use App\Controllers\User\FeedbackController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
+use App\Models\Cart;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
@@ -23,30 +27,45 @@ $router = new Router();
 
 // =============================================================ROUTER CUSTOMER==================================================
 // Route đến trang chủ
-$router->get('/', [HomeController::class, 'index'],[AuthMiddleware::class]);
-
-// Route đến trang đăng ký
-$router->get('/dang-ky',[LoginController::class,'register']);
-$router->post('/dang-ky',[LoginController::class,'handleRegister']);
+$router->get('/', [HomeController::class, 'index']);
 
 //Route Trang đăng nhập
-$router->get('/dang-nhap',[LoginController::class,'index']);
-$router->post('/dang-nhap',[LoginController::class,'handelLogin']);
+$router->get('/dang-nhap', [LoginController::class, 'index']);
+$router->post('/dang-nhap', [LoginController::class, 'handelLogin']);
+
+// Route đến trang đăng ký
+$router->get('/dang-ky', [LoginController::class, 'register']);
+$router->post('/dang-ky', [LoginController::class, 'handleRegister']);
 
 // Route Trang đăng xuất
-$router->post('/dang-xuat',[LoginController::class,'logout']);
+$router->post('/dang-xuat', [LoginController::class, 'logout']);
 
 // Route Trang feedback 
-$router->get('/feedback',[HomeController::class,'feedback']);
-$router->post('/feedback',[HomeController::class,'handleFeedback']);
+$router->get('/feedback', [FeedbackController::class, 'feedback'], [AuthMiddleware::class]);
+$router->post('/feedback', [FeedbackController::class, 'handleFeedback']);
+
 // Route trang flash sale
-$router->get('/flash-sale',[FlashSaleController::class,'index']);
+$router->get('/flash-sale', [FlashSaleController::class, 'index']);
+$router->get('/loadmorefs', [FlashSaleController::class, 'loadMoreFlashSale']);
 
 // Route trang giỏ hàng
-$router->get('/gio-hang',[CartController::class,'index']);
-
+$router->get('/gio-hang', [CartController::class, 'index']);
+$router->post('/gio-hang/delete/{id}',[CartController::class,'deleteProduct']);
+$router->post('/addtocart',[CartController::class,'addToCart']);
+$router->post('/updatepricecart',[CartController::class,'updatePriceCart']);
+$router->post('/checkquantitycart',[CartController::class,'checkQuantityCart']);
 // Route trang danh sách sản phẩm
-$router->get('/san-pham',[DanhSachSanPhamController::class,'index']);
+$router->get('/product', [DanhSachSanPhamController::class, 'index']);
+$router->get('/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
+
+// Route đến danh mục sản phẩm
+$router->get('/category/{slug}-{id}', [CategoryController::class, 'index']);
+
+// Route trang chi tiết sản phẩm
+$router->get('/product/{slug}-{id}', [ChiTietSanPhamController::class, 'index']);
+$router->post('/savetempaddress', [ChiTietSanPhamController::class, 'savetempAddress']);
+$router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity']);
+
 
 
 

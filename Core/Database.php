@@ -14,23 +14,23 @@ class Database
 
   private function __construct()
   {
-    $this->connection = new \mysqli($this->host,$this->username,$this->password,$this->dbname);
-    iF($this->connection->connect_error){
-      die('Kết nối thất bại'.$this->connection->connect_error);
-      exit();
-    }
-    // try {
-    //   $this->connection = new \PDO("mysql:host={$this->host};dbname={$this->dbname};charset=utf8", $this->username, $this->password);
-    //   $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-    // } catch (\PDOException $e) {
-    //   die("Kết nối cơ sở dữ liệu thất bại: " . $e->getMessage());
+    // $this->connection = new \mysqli($this->host,$this->username,$this->password,$this->dbname);
+    // iF($this->connection->connect_error){
+    //   die('Kết nối thất bại'.$this->connection->connect_error);
+    //   exit();
     // }
+    try {
+      $this->connection = new \PDO("mysql:host={$this->host};dbname={$this->dbname};charset=utf8", $this->username, $this->password);
+      $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    } catch (\PDOException $e) {
+      die("Kết nối cơ sở dữ liệu thất bại: " . $e->getMessage());
+    }
   }
 
   public static function getInstance()
   {
     if (self::$instance === null) {
-      self::$instance = new self();
+      self::$instance = new Database();
     }
     return self::$instance;
   }

@@ -19,7 +19,7 @@ class DashboardController extends Controller
     {
         $this->authenticate();
         // Tổng số người dùng với role là 'customer'
-        $result = $this->db->query("SELECT COUNT(*) as count FROM users WHERE role = 'customer'");
+        $result = $this->db->prepare("SELECT COUNT(*) as count FROM users WHERE role = 'customer'");
         $totalCustomers = $result->fetch_assoc()['count'];
 
         // Tổng số sản phẩm
@@ -42,12 +42,12 @@ class DashboardController extends Controller
 
             // Sử dụng chuẩn bị truy vấn để tránh SQL injection
             $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
-            $stmt->bind_param("s", $email);  // 's' đại diện cho kiểu dữ liệu string
+            $stmt->bindParam(1, $email);  // 's' đại diện cho kiểu dữ liệu string
             $stmt->execute();
 
             // Lấy kết quả
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
+            // $result = $stmt->get_result();
+            $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password'])) {
                 // Kiểm tra nếu role của người dùng là 'admin'
