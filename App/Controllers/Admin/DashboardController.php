@@ -24,6 +24,7 @@ class DashboardController extends Controller
         $stmt->execute(['role' => 'customer']);
         $totalCustomers = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
 
+
         // Tổng số sản phẩm
         $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM products");
         $stmt->execute();

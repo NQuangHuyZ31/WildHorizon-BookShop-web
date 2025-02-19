@@ -1,23 +1,24 @@
 <?php
 
 use Core\Session;
-var_dump($_SESSION);
 
-if (Session::has('user')) {
-  if(Session::get('user')['role'] == 'admin'){
-    Session::delete('user');
-  } else{
-    header('location: '.Session::get('current_url').'');
-  }
-  
+// var_dump($_SESSION);
+if(Session::has('user') && Session::get('user')['role'] == 'customer'){
+
+  header('location: '.Session::get('current_url').'');
 }
+
 $csrf_token = Core\CSRF::generateToken();
-$errors = Core\Session::get('error');
 
-// $email = $errors['email'];
-// $password = $errors['password'];
+$errors = Session::get('message')['error'] ?? [];
+$failLogin = Session::get('failLogin') ?? '';
 
-Core\Session::delete('error');
+$errorEmail = $errors['email'] ?? '';
+$errorPassword = $errors['password'] ?? '';
+
+
+Session::delete('message');
+Session::delete('failLogin');
 ?>
 
 <?php include_once('layout/header-no-content.php') ?>
@@ -42,8 +43,8 @@ Core\Session::delete('error');
                 Email
               </span>
               <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Please enter your email" />
-              <!-- <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars('') ?></span> -->
             </label>
+            <?php if(!empty($errorPassword)){ echo "<span class='text-sm text-red-700 ps-4 mt-1'>$errorPassword</span>";} ?>
           </div>
           <div>
             <label class="block">
@@ -63,6 +64,8 @@ Core\Session::delete('error');
                   </div>
                 </div>
               </div>
+                <?php if(!empty($errorEmail)){ echo "<span class='text-sm text-red-700 ps-4 mt-1'>$errorEmail</span>";} ?>
+                <?php if(!empty($failLogin)){ echo "<span class='text-sm text-red-700 ps-4 mt-1'>$failLogin</span>";} ?>
             </label>
             <div class="flex justify-end my-1 pb-4">
               <span class="text-sm text-gray-300"><a href="#">Forgot password?</a></span>

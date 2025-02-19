@@ -2,11 +2,12 @@
 // Header
 
 use Core\Session;
+use Core\CreateSlug;
+
 $user = Session::get('user');
-if (!empty($user) && $user['role'] !== 'user') {
-    header('location: ' . BASE_URL . '/dang-nhap');
-}
+
 $csrf_token = Core\CSRF::generateToken();
+
 include_once('layout/header.php');
 ?>
 <!-- Content -->
@@ -14,16 +15,16 @@ include_once('layout/header.php');
     <div class="flex w-100 justify-between">
         <div class="single-item shadow-lg">
             <div class="single-item">
-                <img src="./Public/images/banners/d24973d8-8df9-4de1-8c8d-58d338c3cac3_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="./Public/images/banners/a127309c-7b2b-412f-981a-6533901d5bc6_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="./Public/images/banners/b4ff1157-8492-4483-9a62-acbcc7c3a9b5_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="./Public/images/banners/ac103e8c-7045-4f75-a36a-38b490b3fe9f_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/d24973d8-8df9-4de1-8c8d-58d338c3cac3_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/a127309c-7b2b-412f-981a-6533901d5bc6_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/b4ff1157-8492-4483-9a62-acbcc7c3a9b5_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/ac103e8c-7045-4f75-a36a-38b490b3fe9f_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
             </div>
         </div>
         <div class="flex px-1 flex-col ms-2">
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
-                    <img src="./Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
+                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
                     <p class="uppercase ms-2 text-nowrap font-bold" style="font-size: 14px; color: #6c1d00;;">try wildhorizon app</p>
                 </div>
                 <div class="download-app-content">
@@ -36,18 +37,18 @@ include_once('layout/header.php');
                     </div>
                     <div class="flex justify-around items-center flex-col ms-5 px-4">
                         <div class="flex justify-start items-center">
-                            <img src="./Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
+                            <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">free shipping</p>
                         </div>
                         <div class="flex justify-start items-center">
-                            <img src="./Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
+                            <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">EXCLUSIVE VOUCHERS</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center">
                     <div class="download-app-qr">
-                        <img src="./Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web">
+                        <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web">
                     </div>
                     <div class="flex flex-col ms-2">
                         <a href="#" class="download-app-appstore mb-5"></a>
@@ -68,7 +69,7 @@ include_once('layout/header.php');
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="./Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
                 </div>
             </div>
         </a>
@@ -79,7 +80,7 @@ include_once('layout/header.php');
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="./Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
                 </div>
             </div>
         </a>
@@ -90,7 +91,7 @@ include_once('layout/header.php');
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="./Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
                 </div>
             </div>
         </a>
@@ -107,375 +108,68 @@ include_once('layout/header.php');
                 </div>
             </div>
             <div class="grid grid-cols-6">
-                <a href="#" class="mr-2">
-                    <div class="flex flex-col hover:shadow-md hover:rounded-sm">
-                        <div>
-                            <img src="./Public/images/Probi.avif" alt="sanpham">
-                        </div>
-                        <div class="flash-sale-product mt-1 mx-2">
-                            <p class="text-sm flash-sale-product-title">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flash-sale-product-price">
-                                <p class="text-orange-500"><u class="text-orange-500">đ</u>82,000</p>
-                                <p style="font-size: 13px;"><s class="opacity-50">đ99,000</s><span class="text-black ms-2">-17%</span></p>
+                <?php foreach ($flassale_products as $fproduct) { ?>
+                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($fproduct['name']).'-'.$fproduct['product_id'] . '' ?>" class="mr-2">
+                        <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+                            <div class="whr-product-img py-2">
+                                <img class="w-full h-full" src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fproduct['image'] ?>" alt="sanpham">
+                            </div>
+                            <div class="flash-sale-product mt-1 mx-2">
+                                <p class="text-sm flash-sale-product-title"><?php echo $fproduct['name'] ?></p>
+                                <div class="flash-sale-product-price">
+                                    <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($fproduct['price'], 0, '.', ','); ?></p>
+                                    <p style="font-size: 13px;"><s class="opacity-50"><?php echo 'đ' . number_format($fproduct['price'] * (1 + $fproduct['discount_price'] / 100), 0, '.', ','); ?></s><span class="text-black ms-2"><?php echo '-' . $fproduct['discount_price'] . '%'; ?></span></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                </a>
-                <a href="#" class="mr-2">
-                    <div class="flex flex-col hover:shadow-md hover:rounded-sm">
-                        <div>
-                            <img src="./Public/images/Probi.avif" alt="sanpham">
-                        </div>
-                        <div class="flash-sale-product mt-1 mx-2">
-                            <p class="text-sm flash-sale-product-title">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flash-sale-product-price">
-                                <p class="text-orange-500"><u class="text-orange-500">đ</u>82,000</p>
-                                <p style="font-size: 13px;"><s class="opacity-50">đ99,000</s><span class="text-black ms-2">-17%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                </a>
-                <a href="#" class="mr-2">
-                    <div class="flex flex-col hover:shadow-md hover:rounded-sm">
-                        <div>
-                            <img src="./Public/images/Probi.avif" alt="sanpham">
-                        </div>
-                        <div class="flash-sale-product mt-1 mx-2">
-                            <p class="text-sm flash-sale-product-title">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flash-sale-product-price">
-                                <p class="text-orange-500"><u class="text-orange-500">đ</u>82,000</p>
-                                <p style="font-size: 13px;"><s class="opacity-50">đ99,000</s><span class="text-black ms-2">-17%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                </a>
-                <a href="#" class="mr-2">
-                    <div class="flex flex-col hover:shadow-md hover:rounded-sm">
-                        <div>
-                            <img src="./Public/images/Probi.avif" alt="sanpham">
-                        </div>
-                        <div class="flash-sale-product mt-1 mx-2">
-                            <p class="text-sm flash-sale-product-title">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flash-sale-product-price">
-                                <p class="text-orange-500"><u class="text-orange-500">đ</u>82,000</p>
-                                <p style="font-size: 13px;"><s class="opacity-50">đ99,000</s><span class="text-black ms-2">-17%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                </a>
-                <a href="#" class="mr-2">
-                    <div class="flex flex-col hover:shadow-md hover:rounded-sm">
-                        <div>
-                            <img src="./Public/images/Probi.avif" alt="sanpham">
-                        </div>
-                        <div class="flash-sale-product mt-1 mx-2">
-                            <p class="text-sm flash-sale-product-title">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flash-sale-product-price">
-                                <p class="text-orange-500"><u class="text-orange-500">đ</u>82,000</p>
-                                <p style="font-size: 13px;"><s class="opacity-50">đ99,000</s><span class="text-black ms-2">-17%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                </a>
-                <a href="#" class="mr-0">
-                    <div class="flex flex-col hover:shadow-md hover:rounded-sm">
-                        <div>
-                            <img src="./Public/images/Probi.avif" alt="sanpham">
-                        </div>
-                        <div class="flash-sale-product mt-1 mx-2">
-                            <p class="text-sm flash-sale-product-title">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flash-sale-product-price">
-                                <p class="text-orange-500"><u class="text-orange-500">đ</u>82,000</p>
-                                <p style="font-size: 13px;"><s class="opacity-50">đ99,000</s><span class="text-black ms-2">-17%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                </a>
+                        <div class="flex" style="height: 16px;"></div>
+                    </a>
+                <?php } ?>
             </div>
         </div>
     </div>
     <div class="mt-4">
         <p class="text-lg">Categories</p>
         <div class="grid grid-cols-8 mt-3">
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
+            <?php foreach ($categories as $categorie) {  ?>
+                <a href="<?php echo BASE_URL.'/category/'.CreateSlug::createSlug($categorie['name']).'-'.($categorie['catalog_id']) ?>">
+                    <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
+                        <div class="w-full">
+                            <div class="whr-category">
+                                <img src="<?php echo BASE_URL_NAME ?>/Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
+                            </div>
+                            <div class="whr-category-title mb-2">
+                                <p class="text-sm mx-4 mt-1 category-title"><?php echo $categorie['name'] ?></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
-                    <div class="w-full">
-                        <div class="whr-category">
-                            <img src="./Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
-                        </div>
-                        <div class="whr-category-title mb-2">
-                            <p class="text-sm mx-4 mt-1">Wireless and Bluetooth Speakers</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            <?php } ?>
         </div>
     </div>
     <div class="mt-4">
         <p class="text-lg">Just For You</p>
         <div class="flex flex-col ">
-            <div class="mt-3 grid grid-cols-6">
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
+            <div class="mt-3 grid grid-cols-6 whr-product">
+                <?php foreach ($products as $product) { ?>
+                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['name']).'-'.$product['product_id'] . '' ?>" class="mr-3 mb-4">
+                        <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+                            <div class="whr-product-img py-2">
+                                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image']; ?>" class="w-full h-full" alt="image">
+                            </div>
+                            <div class="px-2 mt-2 pb-3">
+                                <p class="product-title text-sm"><?php echo $product['name'] ?></p>
+                                <div class="flex items-center mt-2">
+                                    <p class="text-orange-500 mr-2"><u>đ</u><?php echo number_format($product['price'], '0', '.', ',') ?></p>
+                                    <p class="text-sm" style="font-size: 12px;"></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="#" class="mr-3 mb-4">
-                    <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm">
-                        <img src="./Public/images/Probi.avif" alt="">
-                        <div class="px-2 mt-2 pb-3">
-                            <p class="product-title text-sm">Probi yogurt drink low sugar bottle 130ml -24 bottles/carton yogurt</p>
-                            <div class="flex items-center mt-2">
-                                <p class="text-orange-500 mr-2"><u>đ</u>82,000</p>
-                                <p class="text-sm" style="font-size: 12px;">-17%</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                <?php } ?>
             </div>
             <div class="mb-2 pt-3">
-                <a href="#" class="load-more-product">Load more</a>
+                <button type="button" id="loadMore-product" class="load-more-product" data-offset="<?php echo isset($primaryProduct)?30:10 ?>" data-load="<?php echo isset($primaryProduct)?1:0 ?>">Load more</button>
             </div>
         </div>
     </div>

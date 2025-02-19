@@ -88,7 +88,7 @@ $csrf_token = Core\CSRF::generateToken();
                 </div>
               </div>
               <?php if (!empty($passwordError)) { ?>
-                <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($emailError) ?></span>
+                <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($passwordError) ?></span>
               <?php } ?>
             </label>
           </div>

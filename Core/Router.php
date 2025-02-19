@@ -29,45 +29,24 @@ class Router
         ];
     }
 
-    // Định nghĩa route cho phương thức PUT
-    public function put($path, $action, $middleware = [], $name = null)
-    {
-        $this->routes[] = [
-            'method' => 'PUT',
-            'path' => $path,
-            'action' => $action,
-            'middleware' => $middleware,
-            'name' => $name
-        ];
-    }
-
-    // Định nghĩa route cho phương thức DELETE
-    public function delete($path, $action, $middleware = [], $name = null)
-    {
-        $this->routes[] = [
-            'method' => 'DELETE',
-            'path' => $path,
-            'action' => $action,
-            'middleware' => $middleware,
-            'name' => $name
-        ];
-    }
     // Xử lý request
     public function handleRequest()
     {
-        
+
         $currentPath = strtok($_SERVER['REQUEST_URI'], '?'); // Lấy đường dẫn không chứa query string
         $currentMethod = strtoupper($_SERVER['REQUEST_METHOD']);
         $baseUrl = BASE_URL_NAME; // Đây là thư mục gốc của ứng dụng
         if (strpos($currentPath, $baseUrl) === 0) {
-            $currentPath = substr($currentPath, strlen($baseUrl)); // Loại bỏ tiền tố /CNMoi
+            $currentPath = substr($currentPath, strlen($baseUrl));
         }
         foreach ($this->routes as $route) {
             if ($currentMethod === $route['method']) {
                 // Kiểm tra xem đường dẫn có chứa tham số hay không
-                $routePattern = preg_replace('/\{(\w+)\}/', '(\w+)', $route['path']);
-                $routePattern = "#^$routePattern$#";
 
+                $routePattern = preg_replace('/\{(\w+)\}/', '([^/]+)', $route['path']);
+                $routePattern = "#^$routePattern$#";
+                $routePattern = preg_replace('/\{slug\}/', '([a-zA-Z0-9-]+)', $routePattern); // Thay {slug} thành regex cho slug
+                $routePattern = preg_replace('/\{id\}/', '(\d+)', $routePattern);            // Thay {id} thành regex cho ID
                 if (preg_match($routePattern, $currentPath, $matches)) {
                     array_shift($matches);
 

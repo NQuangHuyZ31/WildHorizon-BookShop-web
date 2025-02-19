@@ -3,25 +3,44 @@
 namespace App\Controllers\User;
 
 use App\Controllers\Controller;
+use App\Models\FlashSales;
 
 class FlashSaleController extends Controller
 {
+  protected $fs;
+
+  public function __construct()
+  {
+    parent::__construct();
+
+    $this->fs = new FlashSales();
+  }
 
   public function index()
   {
+    $nosearch = true;
 
-    // $keyword = isset($_GET['search']) ? trim($_GET['search']) : '';
+    if (isset($_GET['search']) && $_GET['search'] != '') {
 
-    // // Kiểm tra nếu có từ khóa tìm kiếm
-    // if ($keyword !== '') {
-    //   // Lấy dữ liệu theo keyword
-    //   $product = 'aaaaaa';
-    // } else {
-    //   // Lấy toàn bộ dữ liệu
-    //   $product = 'bbbbbb';
-    // }
+      $keyword = $_GET['search'];
 
-    // Trả về view cùng dữ liệu
-    include_once VIEW_PATH . 'user/flash-sale.php';
+      $fs_products = $this->fs->searchKeyword($keyword);
+    } else {
+
+      $fs_products = $this->fs->getLimit(10,0);
+    }
+    require VIEW_PATH . 'user/products/flash-sale.php';
+  }
+
+  public function loadMoreFlashSale()
+  {
+
+    $limit = 10;
+
+    $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+
+    $products = $this->fs->getLimit($limit, $offset);
+
+    echo json_encode(['products' => $products]);
   }
 }

@@ -1,11 +1,9 @@
-
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /WildHorizon-BookShop/
+
+    # Chuyển hướng tất cả request về index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-l
-
-    # Chuyển hướng về index.php
-    RewriteRule ^ index.php [L]
+    RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
 </IfModule>
