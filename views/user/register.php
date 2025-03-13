@@ -1,4 +1,12 @@
 <?php
+
+use Core\Session;
+
+if(Session::has('user') && Session::get('user')['role'] == 'customer'){
+
+  header('location: '.Session::get('current_url').'');
+}
+
 if (!empty($_SESSION['error'])) {
   $errors = $_SESSION['error'] ?? [];
 }
@@ -6,12 +14,14 @@ if (!empty($_SESSION['error'])) {
 if (!empty($_SESSION['data'])) {
   $data = $_SESSION['data'] ?? [];
 }
-// var_dump($_SESSION);
+
 // lấy dữ liệu form
+$username_hodem = $data['hodem'] ?? '';
 $username = $data['username'] ?? '';
 $email = $data['email'] ?? '';
 // Lấy lỗi 
 $usernameError = $errors['username'] ?? '';
+$username_hodemError = $errors['hodem'] ?? '';
 $emailError = $errors['email'] ?? '';
 $passwordError = $errors['password'] ?? '';
 $cfpasswordError = $errors['cfpassword'] ?? '';
@@ -40,7 +50,19 @@ $csrf_token = Core\CSRF::generateToken();
       <div class="px-9">
         <form action="<?php echo BASE_URL . '/dang-ky' ?>" method="post">
           <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
-          <div class="py-1 mb-3">
+          <div class="py-1 mb-3 flex">
+            <label class="block mr-2">
+              <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                Họ đệm
+              </span>
+              <input type="text" name="hodem"
+                class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                value="<?php echo htmlspecialchars($username_hodem);  ?>"
+                placeholder="Please enter your name" />
+              <?php if (!empty($username_hodemError)) { ?>
+                <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($username_hodemError) ?></span>
+              <?php } ?>
+            </label>
             <label class="block">
               <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Tên người dùng
@@ -118,7 +140,7 @@ $csrf_token = Core\CSRF::generateToken();
           </div>
           <div class="flex justify-start my-1 pb-4">
             <label for="example-checkbox" class="inline-flex items-center space-x-2">
-              <input type="checkbox" id="example-checkbox" class="form-checkbox h-3 w-3 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+              <input type="checkbox" id="example-checkbox" class="form-checkbox h-3 w-3 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500" checked>
               <span class="text-gray-400 text-sm">I agree to the terms and conditions</span>
             </label>
           </div>

@@ -1,83 +1,11 @@
-<?php include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
+<?php
+
+use Core\Format;
+
+include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 <div class="container-fuild mx-auto">
   <div class="flex">
-    <div class="bg-white px-2 mr-3 mt-3 rounded-md text-nowrap w-1/5">
-      <div class="w-full sticky" style="top: 16px;">
-        <div class="mt-2 px-1 border-b border-gray-100">
-          <p class="font-bold mb-1">Danh mục sản phẩm</p>
-          <p class="ps-1 text-slate-600"><a class="<?php echo basename($_SERVER['REQUEST_URI']) == 'product' ? 'text-orange-500' : '' ?>" href="<?php echo BASE_URL . '/product' ?>">Tất cả danh mục</a></p>
-          <ul class="ms-3 px-2 py-1 text-slate-500" style="font-size: 14px;">
-            <?php foreach ($categories as $category) { ?>
-              <li class="leading-5 mb-2 hover:text-orange-400">
-                <a class="<?php echo $id == $category['catalog_id'] ? 'text-orange-400' : '' ?>" href="<?php echo BASE_URL . '/category/' . \Core\CreateSlug::createSlug($category['name']) . '-' . $category['catalog_id'] . '' ?>">
-                  <?php echo $category['name'] ?>
-                </a>
-              </li>
-            <?php } ?>
-          </ul>
-        </div>
-        <div class="mt-2 px-1 border-b border-gray-100">
-          <p class="font-bold mb-1">Giá</p>
-          <ul class="px-2 py-1 text-slate-500" style="font-size: 14px;">
-            <li class="leading-5 mb-2 hover:text-orange-400">
-              <a class="ps-5 price-unchecked cursor-pointer" id="price-m-1" data-id="1" data-from="0" data-to="150000">
-                0đ - 150,000đ
-              </a>
-            </li>
-            <li class="leading-5 mb-2 hover:text-orange-400">
-              <a class="ps-5 price-unchecked cursor-pointer" id="price-m-2" data-id="2" data-from="1500000" data-to="300000">
-                150,000đ - 300,000đ
-              </a>
-            </li>
-            <li class="leading-5 mb-2 hover:text-orange-400">
-              <a class="ps-5 price-unchecked cursor-pointer" id="price-m-3" data-id="3" data-from="300000" data-to="500000">
-                300,000đ - 500,000đ
-              </a>
-            </li>
-            <li class="leading-5 mb-2 hover:text-orange-400">
-              <a class="ps-5 price-unchecked cursor-pointer" id="price-m-4" data-id="4" data-from="500000" data-to="700000">
-                500,000đ - 700,000đ
-              </a>
-            </li>
-            <li class="leading-5 mb-2 hover:text-orange-400">
-              <a class="ps-5 price-unchecked cursor-pointer" id="price-m-5" data-id="5" data-from="700000" data-to="">
-                700,000đ trở lên
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="mt-2 px-1 border-b border-gray-100">
-          <p class="font-bold mb-1">Nhà xuất bản</p>
-          <ul class="px-2 py-1 text-slate-500" style="font-size: 14px;">
-            <li class="leading-5 mb-2">
-              <a class="ps-5 price-unchecked" id="price-m-1" data-id="1" data-from="0" data-to="150000">
-                0đ - 150,000đ
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="mt-2 px-1 border-b border-gray-100">
-          <p class="font-bold mb-1">Thương hiệu</p>
-          <ul class="px-2 py-1 text-slate-500" style="font-size: 14px;">
-            <li class="leading-5 mb-2">
-              <a class="ps-5 price-unchecked" id="price-m-1" data-id="1" data-from="0" data-to="150000">
-                0đ - 150,000đ
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="mt-2 px-1 border-b border-gray-100">
-          <p class="font-bold mb-1">Màu sắc</p>
-          <ul class="px-2 py-1 text-slate-500" style="font-size: 14px;">
-            <li class="leading-5 mb-2">
-              <a class="ps-5 price-unchecked" id="price-m-1" data-id="1" data-from="0" data-to="150000">
-                0đ - 150,000đ
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebarone.php' ?>
     <div class="whr-product-main flex-1">
       <div class="mt-3 ps-4 bg-white py-3 rounded-sm">
         <p class="text-lg uppercase font-bold text-orange-400"><?php echo isset($keyword) ? $keyword : $slug ?></p>
@@ -86,19 +14,30 @@
       <?php if (!empty($products)) { ?>
         <div class="grid grid-cols-4 mt-4 whr-product">
           <?php foreach ($products as $product) { ?>
-            <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['name']) . '-' . $product['product_id'] . '' ?>" class="mr-3 mb-4">
+            <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
               <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                 <div class="whr-product-img py-2">
-                  <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image']; ?>" class="w-full h-full" alt="image">
+                  <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                 </div>
                 <div class="px-2 mt-2">
-                  <p class="product-title text-sm"><?php echo $product['name'] ?></p>
+                  <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
                   <div class="product-price-sale">
-                    <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($product['price'], 0, '.', ',') ?></p>
-                    <p class="flash-sale-product-price-sale <?php echo $product['discount_price'] > 0 ? '' : 'hidden' ?>"><s class="opacity-50">đ<?php echo number_format($product['price'] * (1 + $product['discount_price'] / 100), 0, '.', ',') ?></s>
-                      <span class="text-white ms-2 bg-red-600 rounded-sm px-0.5">-<?php echo $product['discount_price'] . '%' ?></span>
+                    <p class="text-orange-500">
+                      <?php echo $product['f_discount_price'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::forMatPrice($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
+                      <u class="text-orange-500 ms-1">đ</u>
                     </p>
+                    <div class="flex justify-between items-center">
+                      <p class="flash-sale-product-price-sale <?php echo $product['discount_price'] > 0 || $product['f_discount_price'] > 0 ? '' : 'hidden' ?>"><s class="opacity-50">đ<?php echo Format::forMatPrice($product['price']) ?></s>
+                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo ($product['f_discount_price'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price'])) . '%' ?></span>
+                      </p>
+                      <img src="<?php echo BASE_URL_NAME . '/Public/images/icon/label-flashsale.svg' ?>" alt="icon_fs" width="70" height="40" class="mr-2 <?php echo $product['f_quantity'] > 0 ? '' : 'hidden' ?>">
+                    </div>
                   </div>
+                  <?php if ($product['f_quantity']) { ?>
+                    <div class="flex justify-end px-1">
+                      <p class="text-gray-400" style="font-size: 11px;"><?php echo 'còn ' . $product['f_quantity'] . ' sản phẩm' ?></p>
+                    </div>
+                  <?php } ?>
                 </div>
               </div>
             </a>

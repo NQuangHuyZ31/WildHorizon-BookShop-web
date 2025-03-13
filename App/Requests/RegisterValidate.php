@@ -2,14 +2,23 @@
 
 namespace App\Requests;
 
+use App\Models\User;
+
 class RegisterValidate
 {
 
   public static function registerValidate($data)
   {
+
+    $user = new User();
+
     $errors = [];
 
     // Kiểm tra username
+    if (empty($data['hodem'])) {
+      $errors['hodem'] = 'Không được để trống';
+    }
+
     if (empty($data['username'])) {
       $errors['username'] = 'Không được để trống';
     }
@@ -19,6 +28,9 @@ class RegisterValidate
       $errors['email'] = 'Không được để trống';
     }
 
+    if ($user->checkEmail($data['email'])) {
+      $errors['email'] = "email đã tồn tại";
+    }
     // Kiểm tra password
     if (empty($data['password'])) {
       $errors['password'] = 'Không được để trống';

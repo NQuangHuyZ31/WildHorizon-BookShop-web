@@ -3,22 +3,30 @@
 namespace App\Controllers\User;
 
 use App\Controllers\Controller;
-use App\Models\Categories;
+use App\Models\Brand;
 use App\Models\Products;
+use App\Models\Categories;
+use App\Models\Color;
+use App\Models\Supplier;
 
 class CategoryController extends Controller
 {
 
   protected $product;
-
-  protected $category;
+  protected $categories;
+  protected $brands;
+  protected $colors;
+  protected $suppliers;
 
   public function __construct()
   {
     parent::__construct();
 
     $this->product = new Products();
-    $this->category = new Categories();
+    $this->categories = new Categories();
+    $this->brands = new Brand();
+    $this->colors = new Color();
+    $this->suppliers = new Supplier();
   }
 
   public function index($slug, $id)
@@ -28,7 +36,13 @@ class CategoryController extends Controller
 
     $id = $id;
 
-    $categories = $this->category->getAll();
+    $categories = $this->categories->getAll();
+
+    $brands = $this->brands->getAll();
+
+    $colors = $this->colors->getAll();
+
+    $suppliers = $this->suppliers->getAll();
 
     $products = $this->product->getProductCategory($id);
 

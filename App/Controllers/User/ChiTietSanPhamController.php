@@ -8,18 +8,17 @@ use App\Controllers\Controller;
 use App\Models\Products;
 use App\Models\FlashSales;
 use App\Models\Categories;
+use App\Models\ProductAttribute;
 use App\Models\Reviews;
 
 class ChiTietSanPhamController extends Controller
 {
 
   protected $product;
-
   protected $fs;
-
   protected $catogory;
-
   protected $reviews;
+  protected $product_attrs;
 
   public function __construct()
   {
@@ -32,6 +31,9 @@ class ChiTietSanPhamController extends Controller
     $this->catogory = new Categories();
 
     $this->reviews = new Reviews();
+
+    $this->product_attrs = new ProductAttribute();
+
   }
 
   public function index($slug, $id)
@@ -39,17 +41,21 @@ class ChiTietSanPhamController extends Controller
 
     $product = $this->product->find($id);
 
-    $fs_product = $this->fs->find($id);
+    $product_attrs = $this->product_attrs->getProductAttr($id);
 
     $reviews = $this->reviews->find($id);
 
     $rating_reviews = $this->reviews->getRatingProduct($id);
+
+    $avgRating = $this->reviews->getAvgProduct($id);
 
     $moreProducts = $this->product->getMoreProducts($product['catalog_id'], $id);
 
     $suggest_products = $this->product->getSuggestproduct(15);
 
     require VIEW_PATH . 'user/products/chitietsanpham.php';
+
+    // echo json_encode(['product' => $product, 'product_attr' => $product_attrs, 'reviews' => $reviews, 'rating_review' => $rating_reviews]);
   }
 
   public function savetempAddress()
@@ -92,8 +98,8 @@ class ChiTietSanPhamController extends Controller
     }
 
     // Kiểm tra số lượng flash sale
-    if ($product['fs_quantity'] > 0) {
-      if ($quantity >= $product['fs_quantity']) {
+    if ($product['f_quantity'] > 0) {
+      if ($quantity >= $product['f_quantity']) {
         echo json_encode(['success' => 1, 'message' => 'Số lượng flash sale đạt giới hạn']);
         exit();
       }

@@ -18,21 +18,27 @@ class DashboardController extends Controller
     public function index()
     {
         $this->authenticate();
-        // Tổng số người dùng với role là 'customer'
-        $result = $this->db->prepare("SELECT COUNT(*) as count FROM users WHERE role = 'customer'");
-        $totalCustomers = $result->fetch_assoc()['count'];
+
+        // Tổng số người dùng với vai trò 'customer'
+        $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM users WHERE role = :role");
+        $stmt->execute(['role' => 'customer']);
+        $totalCustomers = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
+
 
         // Tổng số sản phẩm
-        $result = $this->db->query("SELECT COUNT(*) as count FROM products");
-        $totalProducts = $result->fetch_assoc()['count'];
+        $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM products");
+        $stmt->execute();
+        $totalProducts = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
 
         // Tổng số đơn hàng với trạng thái 'Chờ xác nhận'
-        $result = $this->db->query("SELECT COUNT(*) as count FROM orders WHERE status = 'Chờ xác nhận'");
-        $pendingOrders = $result->fetch_assoc()['count'];
+        $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM orders WHERE status = :status");
+        $stmt->execute(['status' => 'Chờ xác nhận']);
+        $pendingOrders = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
 
         // Truyền dữ liệu vào view
         include_once VIEW_PATH . 'admin/index.php';
     }
+
     
     public function login()
     {
@@ -41,12 +47,11 @@ class DashboardController extends Controller
             $password = $_POST['password'];
 
             // Sử dụng chuẩn bị truy vấn để tránh SQL injection
-            $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
-            $stmt->bindParam(1, $email);  // 's' đại diện cho kiểu dữ liệu string
+            $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :email");
+            $stmt->bindParam(':email', $email, \PDO::PARAM_STR);  // 's' đại diện cho kiểu dữ liệu string
             $stmt->execute();
 
             // Lấy kết quả
-            // $result = $stmt->get_result();
             $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password'])) {

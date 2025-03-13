@@ -1,27 +1,33 @@
-<?php include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
+<?php
+
+use Core\Format;
+
+include_once VIEW_PATH_USER_LAYOUT . 'header.php';
+
+?>
 <div class="container-fuild mx-auto">
   <div class="w-full mt-6 p-1">
     <div class="flex">
       <div class="product-detail-content shadow-sm">
         <div class="bg-white flex flex-col p-4 rounded-md" style="position: sticky;top:16px;">
           <div class="product-detail-image mb-2 mx-auto">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" class="w-full h-full" alt="product-image">
+            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="w-full h-full" alt="product-image">
           </div>
           <div class="flex justify-around shadow-sm">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" class="" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
           </div>
           <div class="flex py-5 justify-between">
-            <a <?php echo !\Core\Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo \Core\Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['product_id'] ?>">
+            <a <?php echo !\Core\Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo \Core\Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
               <button type="button" class="flex product-box-btn items-center border-2 justify-center rounded-md border-red-700 mr-2">
                 <i class="fa-solid fa-cart-shopping mr-3 text-red-600"></i>
                 <p class="text-red-600 text-sm font-bold">Thêm vào giỏ hàng</p>
               </button>
             </a>
-            <a <?php echo !\Core\Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo \Core\Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['product_id'] ?>">
+            <a <?php echo !\Core\Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo \Core\Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['id'] ?>">
               <button type="button" class="flex product-box-btn items-center justify-center rounded-md bg-red-700">
                 <p class="text-white text-sm font-bold">Mua ngay</p>
               </button>
@@ -52,43 +58,40 @@
       <!-- THÔNG TIN SẢN PHẨM -->
       <div class="ms-5 w-full">
         <div class="bg-white rounded-md px-3 py-4 shadow-sm">
-          <p class="text-2xl font-bold"><?php echo $product['name'] ?></p>
+          <p class="text-2xl font-bold"><?php echo $product['product_name'] ?></p>
           <?php if ($product['catalog_id'] == 10) { ?>
             <div class="mt-3">
-              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['author']) ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['author']) ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold">Thế giới</span></p>
+              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo $product['brand_name'] != null ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else if ($product['catalog_id'] == 11) { ?>
             <div class="mt-3">
-              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['author']) ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['author']) ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold">Thế giới</span></p>
+              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['supplier_name']) ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['brand_name']) ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else { ?>
             <div class="mt-3">
-              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['author']) ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm">Tác giả: <span class="font-bold"><?php echo !empty($product['author']) ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/2 text-sm mt-2">Nhà xuất bản: <span class="font-bold">Thế giới</span></p>
-              <p class="inline-block w-1/3 text-sm mt-2">Năm xuất bản: <span class="font-bold"><?php echo !empty($product['publish_year']) ? $product['publish_year'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/3 text-sm">Tác giả: <span class="font-bold"><?php echo $product['author'] != null ? $product['author'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/2 text-sm mt-2">Nhà xuất bản: <span class="font-bold"><?php echo $product['publisher'] != null ? $product['publisher'] : 'Chưa cập nhật' ?></span></p>
+              <p class="inline-block w-1/3 text-sm mt-2">Năm xuất bản: <span class="font-bold"><?php echo $product['publication_year'] != null ? $product['publication_year'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } ?>
-          <?php if (!empty($fs_product)) { ?>
+          <?php if ($product['f_quantity'] > 0) { ?>
             <div class="mt-3 flex">
               <img src="<?php echo BASE_URL_NAME . '/Public/images/icon/label-flashsale.svg' ?>" alt="icon_fs">
-              <p class="text-lg font-bold ms-5">Còn lại: <span class="text-orange-500"><?php echo $fs_product['quantity'] ?></span></p>
-            </div>
-            <div class="mt-3 flex items-center">
-              <p class="text-3xl font-bold text-red-700"><?php echo number_format($product['price'] - ($product['price'] * $fs_product['discount_price'] / 100), 0, '.', ',') ?> đ</p>
-              <p class="ms-3 text-gray-400 text-lg"><s><?php echo number_format($product['price'], 0, '.', ',') ?></s></p>
-              <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $fs_product['discount_price'] ?>%</span>
-            </div>
-          <?php
-          } else { ?>
-            <div class="mt-3">
-              <p class="text-3xl font-bold text-red-700"><?php echo number_format($product['price'], 0, '.', ',') ?> đ</p>
+              <p class="text-lg font-bold ms-5">Còn lại: <span class="text-orange-500"><?php echo $product['f_quantity'] ?></span></p>
             </div>
           <?php } ?>
+          <div class="mt-3 flex items-center">
+            <p class="text-3xl font-bold text-red-700">
+              <?php echo $product['f_discount_price'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
+              đ</p>
+            <p class="ms-3 text-gray-400 text-lg"><s><?php echo Format::forMatPrice($product['price']) ?></s></p>
+            <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $product['f_discount_price'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
+          </div>
         </div>
         <div class="bg-white flex flex-col p-4 rounded-md mt-3">
           <div>
@@ -119,7 +122,7 @@
                 <span class="w-full "><i class="fa-solid fa-minus"></i></span>
               </div>
               <div class="p-2" style="width: 44px;">
-                <input type="text" value=1 class="w-full text-center outline-none product-detail-quantity" name="cart-quantity" data-id="<?php echo $product['product_id'] ?>">
+                <input type="text" value=1 class="w-full text-center outline-none product-detail-quantity" name="cart-quantity" data-id="<?php echo $product['id'] ?>">
               </div>
               <div class="inc-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
                 <span class="w-full"><i class="fa-solid fa-plus"></i></span>
@@ -135,38 +138,12 @@
               <col width="25%">
               <col>
             </colgroup>
-            <tr>
-              <td class="p-2 border-b-sm">Tên nhà cung cấp</td>
-              <td class="p-2 border-b-sm">Đông A</td>
-            </tr>
-            <tr>
-              <td class="p-2 border-b-sm">Tác giả</td>
-              <td class="p-2 border-b-sm">Đông A</td>
-            </tr>
-            <tr>
-              <td class="p-2 border-b-sm">NXB</td>
-              <td class="p-2 border-b-sm">Đại Học Sư phạm</td>
-            </tr>
-            <tr>
-              <td class="p-2 border-b-sm">Năm XB</td>
-              <td class="p-2 border-b-sm">2024</td>
-            </tr>
-            <tr>
-              <td class="p-2 border-b-sm">Ngôn Ngữ</td>
-              <td class="p-2 border-b-sm">Tiếng Việt</td>
-            </tr>
-            <tr>
-              <td class="p-2 border-b-sm">Kích Thước Bao Bì</td>
-              <td class="p-2 border-b-sm">30 x 25 x 3.7 cm</td>
-            </tr>
-            <tr>
-              <td class="p-2 border-b-sm">Số trang</td>
-              <td class="p-2 border-b-sm">660</td>
-            </tr>
-            <tr>
-              <td class="p-2">Hình thức</td>
-              <td class="p-2">Bìa Cứng</td>
-            </tr>
+            <?php foreach ($product_attrs as $product_attr) { ?>
+              <tr>
+                <td class="p-2 border-b-sm"><?php echo $product_attr['attr_name']; ?></td>
+                <td class="p-2 border-b-sm"><?php echo $product_attr['attr_value']; ?></td>
+              </tr>
+            <?php } ?>
           </table>
           <div class="mt-2 text-sm">
             <p class="mb-1">Giá sản phẩm trên WildHorizon.com đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm,
@@ -176,8 +153,8 @@
         </div>
         <div class="bg-white rounded-md px-3 py-4 shadow-sm mt-5">
           <p class="font-bold text-lg">Mô tả sản phẩm</p>
-          <p class="font-bold text-sm mt-3"><?php echo $product['name'] ?></p>
-          <p class="text-sm text-gray-500 mt-2"><?php echo $product['description'] != null ? $product['description'] : '' ?></p>
+          <p class="font-bold text-sm mt-3"><?php echo $product['product_name'] ?></p>
+          <p class="text-sm text-gray-500 mt-2"><?php echo $product['p_description'] ? $product['p_description'] : '' ?></p>
         </div>
       </div>
     </div>
@@ -187,43 +164,21 @@
         <div class="flex flex-col w-1/4">
           <div class="flex items-center text-4xl justify-center">
             <i class="fa-solid fa-star fill-current text-orange-300 text-lg"></i>
-            <p class="ms-1"><?php echo !empty($rating_reviews) ? '5' : '0' ?><span class="text-sm text-gray-400">/5</span></p>
+            <p class="ms-1"><?php echo !empty($avgRating) ? floatval($avgRating['avgRating']) : '0' ?><span class="text-sm text-gray-400">/5</span></p>
           </div>
           <p class="text-center text-sm text-gray-400"><?php echo count($reviews) . ' đánh giá' ?></p>
         </div>
         <div class="w-1/3">
           <ul>
-            <li class="flex items-center text-sm w-full mb-2">
-              <p class="mr-2 flex items-center">5<i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
-              <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
-                <p class="bg-orange-400 h-full rounded-lg" style="width: <?php echo !empty($rating_reviews['per']) ? intval($rating_reviews['per']) . '%' : '0%' ?>;"></p>
-              </div>
-              <span class="ps-2 font-bold" style="width: 35px;"><?php echo !empty($rating_reviews['per']) ? intval($rating_reviews['per']) . '%' : '0%' ?></span>
-            </li>
-            <li class="flex items-center text-sm w-full mb-2">
-              <p class="mr-2 flex items-center">4<i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
-              <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
-              </div>
-              <p class="ms-2 font-bold">0%</p>
-            </li>
-            <li class="flex items-center text-sm w-full mb-2">
-              <p class="mr-2 flex items-center">3<i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
-              <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
-              </div>
-              <p class="ms-2 font-bold">0%</p>
-            </li>
-            <li class="flex items-center text-sm w-full mb-2">
-              <p class="mr-2 flex items-center">2<i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
-              <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
-              </div>
-              <p class="ms-2 font-bold">0%</p>
-            </li>
-            <li class="flex items-center text-sm w-full">
-              <p class="mr-2 flex items-center">1<i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
-              <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
-              </div>
-              <p class="ms-2 font-bold">0%</p>
-            </li>
+            <?php foreach ($rating_reviews as $rating) { ?>
+              <li class="flex items-center text-sm w-full mb-2">
+                <p class="mr-2 flex items-center"><?php echo $rating['rating_id'] ?><i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
+                <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
+                  <p class="bg-orange-400 h-full rounded-lg" style="width: <?php echo !empty($rating['per']) ? intval($rating['per']) . '%' : '0%' ?>;"></p>
+                </div>
+                <span class="ps-2 font-bold" style="width: 35px;"><?php echo !empty($rating['per']) ? intval($rating['per']) . '%' : '0%' ?></span>
+              </li>
+            <?php } ?>
           </ul>
         </div>
       </div>
@@ -231,10 +186,10 @@
         <?php if (count($reviews) > 0) { ?>
           <?php foreach ($reviews as $review) { ?>
             <div class="mt-3 ps-2 py-1" style="font-size: 12px;">
-              <p class="mb-1 pt-1 mr-2"><?php echo $review['username'] ?></p>
+              <p class="mb-1 pt-1 mr-2"><?php echo $review['firstname'] . ' ' . $review['lastname'] ?></p>
               <div class="flex px-1 items-center">
                 <?php for ($i = 1; $i <= 5; $i++) { ?>
-                  <?php if ($i <= $review['rating']) { ?>
+                  <?php if ($i <= $review['rating_id']) { ?>
                     <i class="fa-solid fa-star fill-current text-orange-500"></i>
                   <?php } else { ?>
                     <i class="fa-regular fa-star fill-current text-orange-500"></i>
@@ -258,18 +213,27 @@
       <div class="bg-white flex flex-col p-4 rounded-md mt-3">
         <p class="text-lg font-bold mb-3">Sản phẩm liên quan</p>
         <div class="more-product-detail">
-          <div class="grid grid-cols-6 py-2 more-product-detail">
+          <div class="grid grid-cols-5 py-2 more-product-detail">
             <?php foreach ($moreProducts as $product) { ?>
-              <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['name']) . '-' . $product['product_id'] . '' ?>" class="mr-3 mb-4">
+              <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                 <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                   <div class="whr-product-img py-2">
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image']; ?>" class="w-full h-full" alt="image">
+                    <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                   </div>
-                  <div class="px-2 mt-2">
-                    <p class="product-title text-sm"><?php echo $product['name'] ?></p>
-                    <div class="flash-sale-product-price">
-                      <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($product['price'], 0, '.', ',') ?></p>
-                      <p class="flash-sale-product-price-sale <?php echo $product['discount_price'] > 0 ? '' : 'hidden' ?>"><s class="opacity-50">đ<?php echo number_format($product['price'] * (1 + $product['discount_price'] / 100), 0, '.', ',') ?></s><span class="text-white ms-2 bg-red-600 rounded-sm px-0.5">-<?php echo $product['discount_price'] . '%' ?></span></p>
+                  <div class="px-2 mt-2 pb-3">
+                    <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
+                    <div class="flex items-start mt-2 flex-col">
+                      <div class="product-price">
+                        <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
+                        <p class="text-sm" style="font-size: 12px;"></p>
+                      </div>
+                      <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
+                        <div class="product-price-sale">
+                          <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
+                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                          </p>
+                        </div>
+                      <?php  } ?>
                     </div>
                   </div>
                 </div>
@@ -283,16 +247,25 @@
       <div class="flex py-1" style="height: 70px;"></div>
       <div class="grid grid-cols-5 mt-7">
         <?php foreach ($suggest_products as $product) { ?>
-          <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['name']) . '-' . $product['product_id'] . '' ?>" class="mr-3 mb-4">
+          <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
             <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
               <div class="whr-product-img py-2">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image']; ?>" class="w-full h-full" alt="image">
+                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
               </div>
-              <div class="px-2 mt-2">
-                <p class="product-title text-sm"><?php echo $product['name'] ?></p>
-                <div class="flash-sale-product-price">
-                  <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($product['price'], 0, '.', ',') ?></p>
-                  <p class="flash-sale-product-price-sale <?php echo $product['discount_price'] > 0 ? '' : 'hidden' ?>"><s class="opacity-50">đ<?php echo number_format($product['price'] * (1 + $product['discount_price'] / 100), 0, '.', ',') ?></s><span class="text-white ms-2 bg-red-600 rounded-sm px-0.5">-<?php echo $product['discount_price'] . '%' ?></span></p>
+              <div class="px-2 mt-2 pb-3">
+                <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
+                <div class="flex items-start mt-2 flex-col">
+                  <div class="product-price">
+                    <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
+                    <p class="text-sm" style="font-size: 12px;"></p>
+                  </div>
+                  <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
+                    <div class="product-price-sale">
+                      <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
+                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                      </p>
+                    </div>
+                  <?php  } ?>
                 </div>
               </div>
             </div>

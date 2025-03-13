@@ -2,7 +2,6 @@
 
 use Core\Session;
 
-// var_dump($_SESSION);
 if(Session::has('user') && Session::get('user')['role'] == 'customer'){
 
   header('location: '.Session::get('current_url').'');
@@ -15,7 +14,6 @@ $failLogin = Session::get('failLogin') ?? '';
 
 $errorEmail = $errors['email'] ?? '';
 $errorPassword = $errors['password'] ?? '';
-
 
 Session::delete('message');
 Session::delete('failLogin');
@@ -96,5 +94,5 @@ Session::delete('failLogin');
   </div>
 </div>
 
-
+</div>
 <?php include_once('layout/footer.php') ?>

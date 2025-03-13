@@ -32,26 +32,31 @@ class CartController extends Controller
 
     $products = $this->cart->getAll($userID);
 
+    $suggestproduct = $this->product->getSuggestproduct(20);
+
     $totalPrice = 0;
     $saveprice = 0;
 
     foreach ($products as $product) {
       $totalPrice += $product['price'] * $product['cart_quantity'];
 
-      $saveprice += ($product['discount_price'] != null ? $product['discount_price'] / 100 * $product['price'] : 0) * $product['cart_quantity'];
+      $saveprice += ($product['f_discount_price'] > 0 ? $product['f_discount_price'] / 100 * $product['price'] : $product['discount_price'] / 100 * $product['price']) * $product['cart_quantity'];
     }
     require VIEW_PATH . 'user/checkouts/cart.php';
   }
 
-  public function deleteProduct($productID)
+  // Xóa sản phẩm trong giỏ hàng
+  public function deleteProduct()
   {
+    $productID = $_POST['productID'];
     $userID = Session::get('user')['id'];
 
     $this->cart->delete($userID, $productID);
 
-    header('location:' . BASE_URL . '/gio-hang' . '');
+    echo json_encode(['success' => 1, 'message' => 'Thành công']);
   }
 
+  // Thêm sản phẩm vào giỏ hàng
   public function addToCart()
   {
     $event = isset($_POST['event']) ? $_POST['event'] : '';
@@ -72,6 +77,7 @@ class CartController extends Controller
     }
   }
 
+  // Update giá qua ajax
   public function updatePriceCart()
   {
     $totalPrice = 0;
@@ -103,7 +109,7 @@ class CartController extends Controller
 
         $totalPrice += $product['price'] * $item['quantity'];
 
-        $saveprice += ($product['fs_dicount_price'] != null ? $product['fs_dicount_price'] / 100 * $product['price'] : 0) * $item['quantity'];
+        $saveprice += ($product['f_discount_price'] != null ? $product['f_discount_price'] / 100 * $product['price'] : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
       }
 
       echo json_encode([
@@ -114,12 +120,13 @@ class CartController extends Controller
 
         'saveprice' => Format::forMatPrice($saveprice),
 
-        'total' => Format::forMatPrice($totalPrice - $saveprice)
+        'total' => Format::forMatPrice($totalPrice - $saveprice + 23000)
 
       ]);
     }
   }
 
+  // Kiểm tra số lượng khi click
   public function checkQuantityCart()
   {
     $userID = Session::get('user')['id'];
@@ -144,8 +151,8 @@ class CartController extends Controller
       }
 
       // Kiểm tra giới hạn flash sale
-      if ($product['fs_quantity'] > 0 && $quantity > $product['fs_quantity']) {
-        $quantity = $product['fs_quantity'];
+      if ($product['f_quantity'] > 0 && $quantity > $product['f_quantity']) {
+        $quantity = $product['f_quantity'];
         $message = "Số lượng flash sale đạt giới hạn";
       }
 
@@ -162,7 +169,7 @@ class CartController extends Controller
 
       echo json_encode([
         'success' => isset($message) ? 1 : 0,
-        'message' => isset($message) ? $message : '',
+        'message' => isset($message) ? $message : 'thành công',
         'quantity' => $quantity
       ]);
     } catch (Exception $e) {

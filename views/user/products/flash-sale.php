@@ -5,16 +5,18 @@
     <?php if (!empty($fs_products)) { ?>
       <div class="grid grid-cols-6 mt-4 whr-product-flash-sale">
         <?php foreach ($fs_products as $fs_product) { ?>
-          <a href="<?php echo BASE_URL . '/product/' . \Core\CreateSlug::createSlug($fs_product['name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white mb-3">
+          <a href="<?php echo BASE_URL . '/product/' . \Core\CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white mb-3">
             <div class="flex flex-col ">
               <div class="whr-product-img py-2">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fs_product['image'] ?>" class="w-full h-full" alt="sanpham">
+                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
               </div>
               <div class="flash-sale-product mt-1 mx-2">
-                <p class="text-sm flash-sale-product-title"><?php echo $fs_product['name'] ?></p>
+                <p class="text-sm flash-sale-product-title"><?php echo $fs_product['product_name'] ?></p>
                 <div class="flash-sale-product-price">
-                  <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($fs_product['price'], 0, '.', ',') ?></p>
-                  <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($fs_product['price'] * (1 + $fs_product['discount_price'] / 100), 0, '.', ',') ?></s><span class="text-white ms-2 bg-red-600 rounded-sm px-0.5">-<?php echo $fs_product['discount_price'] . '%' ?></span></p>
+                  <p class="text-orange-500"><?php echo \Core\Format::forMatPrice($fs_product['price'] - ($fs_product['price'] * $fs_product['discount_price']/100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
+                  <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo \Core\Format::forMatPrice($fs_product['price'], 0, '.', ',') ?></s>
+                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo \Core\Format::formatNumber($fs_product['discount_price']) . '%' ?></span>
+                  </p>
                 </div>
               </div>
             </div>

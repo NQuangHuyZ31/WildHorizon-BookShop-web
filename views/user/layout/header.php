@@ -2,7 +2,7 @@
 
 use Core\Session;
 
-$user = Session::get('user');
+$user = Session::has('user') ? Session::get('user') : [];
 Session::set('current_url', $_SERVER['REQUEST_URI']);
 $csrf_token = Core\CSRF::generateToken();
 // var_dump($_SESSION);
@@ -15,7 +15,7 @@ $csrf_token = Core\CSRF::generateToken();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="<?php echo $csrf_token ?>">
-  <link rel="stylesheet" href="<?php echo BASE_URL_NAME ?>/Public/css/app.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL_NAME ?>/Public/css/app.css?v=<?php echo rand() ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="icon" type="jpg" href="<?php echo BASE_URL_NAME ?>/Public//images//icon.jpg">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@ $csrf_token = Core\CSRF::generateToken();
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
   <!-- <link rel="stylesheet" href="./Public/css/bootstrap.min.css"> -->
-  <link href="<?php echo BASE_URL_NAME ?>/Public/css/output.css" rel="stylesheet">
+  <link href="<?php echo BASE_URL_NAME ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
   <title>WildHorizon BookShop</title>
 </head>
 
@@ -111,9 +111,9 @@ $csrf_token = Core\CSRF::generateToken();
                             }; ?>">
           <form action="<?php echo BASE_URL . '/product' ?>" class="w-full" method="get">
             <div class="w-full flex header-search relative">
-              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
-              <div class="header-search-icon hover:opacity-80 rounded-r-sm">
-                <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3"></i></button>
+              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
+              <div class="header-search-icon hover:opacity-80 rounded-lg">
+                <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3 text-lg"></i></button>
               </div>
             </div>
           </form>

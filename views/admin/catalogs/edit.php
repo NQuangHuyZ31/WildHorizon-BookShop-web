@@ -1,3 +1,6 @@
+<?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -5,8 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chỉnh Sửa Danh Mục</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="font-sans bg-gray-100">
@@ -22,7 +23,8 @@
 
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <form action="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $catalog['catalog_id'] ?>" method="POST">
+                <?php $encryptedId = \Core\Encrypt::encryptId($catalog['catalog_id'], KEY); ?>
+                <form action="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" method="POST">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>

@@ -1,3 +1,6 @@
+<?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -20,7 +23,8 @@
 
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <form action="<?= BASE_URL_NAME ?>/admin/products/edit?id=<?= $product['product_id'] ?>" method="POST" enctype="multipart/form-data">
+                <?php $encryptedId = \Core\Encrypt::encryptId($product['product_id'], KEY); ?>
+                <form action="<?= BASE_URL_NAME ?>/admin/products/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
@@ -59,6 +63,35 @@
                             <?php endif; ?>
                         </div>
 
+                        <!--Author Field -->
+                        <div>
+                            <label for="author" class="block text-gray-700 font-semibold mb-2">Tác giả</label>
+                            <input type="text" id="author" name="author" value="<?= isset($product['author']) ? htmlspecialchars($product['author']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['author']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tác giả">
+                        </div>
+                        <!--Publish Year -->
+                        <div>
+                            <label for="publish_year" class="block text-gray-700 font-semibold mb-2">Năm xuất bản</label>
+                            <select id="publish_year" name="publish_year" 
+                                    class="w-full px-4 py-2 border <?= isset($errors['publish_year']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Chọn năm xuất bản</option>
+                                <?php
+                                $currentYear = date('Y');
+                                for ($year = $currentYear; $year >= 2010; $year--): ?>
+                                    <option value="<?= $year ?>" <?= (isset($product['publish_year']) && $product['publish_year'] == $year) ? 'selected' : '' ?>><?= $year ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <?php if (isset($errors['publish_year'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['publish_year'] ?></p>
+                            <?php endif; ?>
+                        </div>
+                        <!--Color Field -->
+                        <div>
+                            <label for="color" class="block text-gray-700 font-semibold mb-2">Màu Sắc</label>
+                            <input type="text" id="color" name="color" value="<?= isset($product['color']) ? htmlspecialchars($product['color']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['color']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập màu sắc">
+                            <?php if (isset($errors['color'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['color'] ?></p>
+                            <?php endif; ?>
+                        </div>
                         <!-- Price Field -->
                         <div>
                             <label for="price" class="block text-gray-700 font-semibold mb-2">Giá</label>

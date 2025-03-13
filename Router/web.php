@@ -1,6 +1,11 @@
 <?php
 
 use Core\Router;
+
+// API Controller
+use App\Controllers\Api\LoginController as ApiLoginController;
+use App\Controllers\Api\ProductController as ApiProductController;
+
 // Use Controller
 use App\Controllers\User\CartController;
 use App\Controllers\User\HomeController;
@@ -14,6 +19,7 @@ use App\Controllers\Admin\ProductController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\OrderController;
 use App\Controllers\User\CategoryController;
+use App\Controllers\User\CheckoutController;
 use App\Controllers\User\ChiTietSanPhamController;
 use App\Controllers\User\DanhSachSanPhamController;
 use App\Controllers\User\FeedbackController;
@@ -23,7 +29,6 @@ use App\Models\Cart;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
-
 
 // =============================================================ROUTER CUSTOMER==================================================
 // Route đến trang chủ
@@ -50,10 +55,10 @@ $router->get('/loadmorefs', [FlashSaleController::class, 'loadMoreFlashSale']);
 
 // Route trang giỏ hàng
 $router->get('/gio-hang', [CartController::class, 'index']);
-$router->post('/gio-hang/delete/{id}',[CartController::class,'deleteProduct']);
-$router->post('/addtocart',[CartController::class,'addToCart']);
-$router->post('/updatepricecart',[CartController::class,'updatePriceCart']);
-$router->post('/checkquantitycart',[CartController::class,'checkQuantityCart']);
+$router->post('/gio-hang/delete', [CartController::class, 'deleteProduct']);
+$router->post('/addtocart', [CartController::class, 'addToCart']);
+$router->post('/updatepricecart', [CartController::class, 'updatePriceCart']);
+$router->post('/checkquantitycart', [CartController::class, 'checkQuantityCart']);
 // Route trang danh sách sản phẩm
 $router->get('/product', [DanhSachSanPhamController::class, 'index']);
 $router->get('/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
@@ -66,8 +71,9 @@ $router->get('/product/{slug}-{id}', [ChiTietSanPhamController::class, 'index'])
 $router->post('/savetempaddress', [ChiTietSanPhamController::class, 'savetempAddress']);
 $router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity']);
 
-
-
+// Route đến trang checkout
+$router->post('/checkout', [CheckoutController::class, 'index']);
+$router->post('/saveorder', [CheckoutController::class, 'checkout']);
 
 // ===========================================================ROUTER ADMIN==============================================================
 // Route đến trang đăng nhập admin
@@ -99,5 +105,10 @@ $router->post('/admin/catalogs/edit', [CatalogController::class, 'editCatalog'])
 // Route quản trị đơn hàng
 $router->get('/admin/orders', [OrderController::class, 'getAllOrders']);
 $router->get('/admin/orders/detail', [OrderController::class, 'getOrderDetail']);
+
+// ===========================================API ROUTE=========================================================================
+// $router->post('/v1/api/login', [ApiLoginController::class, 'handleLogin']);
+// $router->get('/v1/api/product', [ApiProductController::class, 'getAll']);
+
 // Xử lý request
 $router->handleRequest();
