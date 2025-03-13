@@ -1,7 +1,9 @@
 <?php
 
 use Core\Format;
+use Core\Session;
 
+Session::delete('error');
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'
 
 ?>
@@ -14,56 +16,54 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           <div style="width:788px">
             <div class="flex justify-between w-full bg-white px-3 py-2 rounded-sm">
               <div class="flex items-center">
-                <!-- <label for="cart-checkall" class="relative z-50 " style="width: 16px; height: 17px;">
-                  <span class="border border-orange-500 inline-block w-full h-full relative rounded-sm cart-item-checkall z-50">
-                    <i class="px-0.5 text-sm fa-solid fa-check text-white absolute top-0 opacity-0 cart-icon-checkall"></i>
-                  </span>
-                  <input type="checkbox" class="w-full h-full checked:border-orange-500 absolute left-0 bottom-0 top-0 opacity-0" id="cart-checkall" name="checkall">
-                </label> -->
                 <p class=" text-gray-500 uppercase text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> item)</p>
               </div>
             </div>
-            <div class="w-full mt-3 flex flex-col">
-              <?php foreach ($products as $product) { ?>
-                <div class="flex bg-white px-3 py-2 cart-product-item mb-3 rounded-sm">
-                  <div class="border border-orange-500 bg-orange-500 rounded-sm cursor-pointer cart-item-checkbox relative mt-8" style="width: 16px; height: 17px;">
-                    <i class="px-0.5 text-sm fa-solid fa-check text-white absolute top-0 cart-icon-checkbox cursor-pointer"></i>
-                    <input type="checkbox" class="hidden cart-input-checkbox" name="cart-check-item" checked>
-                  </div>
-                  <div class="ms-3 align-middle">
-                    <a href="<?php echo BASE_URL_NAME . '/product/' . Core\CreateSlug::createSlug($product['name']) . '-' . $product['product_id'] ?>">
-                      <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
-                    </a>
-                  </div>
-                  <div class="flex items-start ms-3 text-sm" style="width: 328px;">
-                    <p><?php echo $product['name'] ?></p>
-                  </div>
-                  <div class="flex flex-col ms-6 items-start">
-                    <p class="text-orange-400 text-lg">
-                      <?php echo $product['discount_price'] != null ? 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['discount_price'] / 100))) : 'đ ' . Format::forMatPrice($product['price']) ?>
-                    </p>
-                    <p class="text-gray-300 text-sm <?php echo $product['discount_price'] != null ? '' : 'hidden' ?>"><s><?php echo 'đ ' . Format::forMatPrice($product['price']) ?></s></p>
-                    <form action="<?php echo BASE_URL . '/gio-hang/delete/' . $product['product_id'] . '' ?>" method="post">
-                      <button type="submit"><i class="fa-regular fa-trash-can text-gray-400 text-md ps-1 pt-2"></i></button>
-                    </form>
-                  </div>
-                  <div class="flex items-center ms-10 p-3">
-                    <div class="dec-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
-                      <span class="w-full "><i class="fa-solid fa-minus"></i></span>
+            <form id="form-checkout" action="<?php echo BASE_URL_NAME . '/checkout' ?>" method="post">
+              <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
+              <div class="w-full mt-3 flex flex-col">
+                <?php foreach ($products as $product) { ?>
+                  <div class="flex bg-white px-3 py-2 cart-product-item mb-3 rounded-sm">
+                    <div class="border border-orange-500 bg-orange-500 rounded-sm cursor-pointer cart-item-checkbox relative mt-8" style="width: 16px; height: 17px;">
+                      <i class="px-0.5 text-sm fa-solid fa-check text-white absolute top-0 cart-icon-checkbox cursor-pointer"></i>
+                      <input type="checkbox" class="hidden cart-input-checkbox" name="cart-product-id[]" value="<?php echo $product['id'] ?>" checked>
                     </div>
-                    <div class="p-2" style="width: 44px;">
-                      <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity" data-productID="<?php echo $product['product_id'] ?>" checked>
+                    <div class="ms-3 align-middle">
+                      <a href="<?php echo BASE_URL_NAME . '/product/' . Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
+                        <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
+                      </a>
                     </div>
-                    <div
-                      class="<?php echo $product['fs_quantity'] > 0 ? ($product['fs_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>
+                    <div class="flex items-start ms-3 text-sm" style="width: 328px;">
+                      <p><?php echo $product['product_name'] ?></p>
+                    </div>
+                    <div class="flex flex-col ms-6 items-start" style="width: 100px;">
+                      <p class="text-orange-400 text-lg">
+                        <?php echo $product['f_quantity'] > 0 ? 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['f_discount_price'] / 100)))
+                          : 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['discount_price'] / 100))) ?>
+                      </p>
+                      <p class="text-gray-300 text-sm"><s><?php echo 'đ ' . Format::forMatPrice($product['price']) ?></s></p>
+                      <button type="button" class="cart-delete-product" data-id="<?php echo $product['id'] ?>">
+                        <i class="fa-regular fa-trash-can text-gray-400 text-md ps-1 pt-2"></i>
+                      </button>
+                    </div>
+                    <div class="flex items-center ms-10 p-3">
+                      <div class="dec-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
+                        <span class="w-full "><i class="fa-solid fa-minus"></i></span>
+                      </div>
+                      <div class="p-2" style="width: 44px;">
+                        <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>" checked>
+                      </div>
+                      <div
+                        class="<?php echo $product['f_quantity'] > 0 ? ($product['f_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>
                       inc-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white"
-                      style="width: 32px;height: 32px;">
-                      <span class="w-full"><i class="fa-solid fa-plus"></i></span>
+                        style="width: 32px;height: 32px;">
+                        <span class="w-full"><i class="fa-solid fa-plus"></i></span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              <?php } ?>
-            </div>
+                <?php } ?>
+              </div>
+            </form>
           </div>
           <div class="bg-white px-3 py-4 ms-2 flex-1 rounded-md" style="max-height: 250px;">
             <div class="mb-3">
@@ -77,14 +77,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
               <p class="checkout-subtotal">Saved</p>
               <p class="mr-2 checkout-subtotal-price text-red-400">- <span id="cart-saved"><?php echo Format::forMatPrice($saveprice) ?></span> <u>đ</u></p>
             </div>
+            <div class="flex justify-between text-gray-500 text-sm mb-4">
+              <p class="checkout-subtotal">Fee shipping (tiêu chuẩn)</p>
+              <p class="mr-2 checkout-subtotal-price text-red-400"><span id="fee-shipping">23.000</span> <u>đ</u></p>
+            </div>
             <div class="flex justify-between text-black text-sm">
               <p class="checkout-subtotal">Total</p>
-              <p class="mr-2 checkout-subtotal-price text-orange-500 text-lg"> <span id="cart-total"><?php echo Format::forMatPrice($totalPrice - $saveprice) ?></span><u>đ</u></p>
+              <p class="mr-2 checkout-subtotal-price text-orange-500 text-lg"> <span id="cart-total"><?php echo Format::forMatPrice($totalPrice - $saveprice + 23000) ?></span><u>đ</u></p>
             </div>
-            <div class="mt-4 text-center bg-orange-500 text-white py-2 rounded-md" id="cart-checkout">
-              <form name="checkout" id="checkout" action="<?php echo BASE_URL . '/checkout' ?>">
-                <button type="button" class="cursor-pointer w-full" name="btn-checkout" id="btn-checkout">Checkout</button>
-              </form>
+            <div class="mt-2 text-center bg-orange-500 text-white py-2 rounded-md" id="cart-checkout">
+              <button type="button" class="cursor-pointer w-full" name="btn-checkout" id="btn-checkout">Checkout</button>
             </div>
           </div>
         </div>
@@ -95,7 +97,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           </div>
           <p class="mb-4 text-sm text-gray-400">Chưa có sản phẩm trong giỏ hàng của bạn</p>
           <div class="mb-3" style="width: 220px;height: 40px;">
-            <button type="button" class="bg-red-600 text-white w-full h-full uppercase rounded-md"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full h-full">mua sắm ngay</a></button>
+            <button type="button" class="bg-red-600 text-white w-full h-full uppercase rounded-md"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full h-full">Mua sắm ngay</a></button>
           </div>
         </div>
       <?php } ?>
@@ -118,7 +120,39 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
         </div>
       </div>
     <?php } ?>
-
+  </div>
+  <div class="rounded-md mt-3">
+    <p class=" text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
+    <div class="grid grid-cols-5 mt-7">
+      <?php foreach ($suggestproduct as $product) { ?>
+        <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+          <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+            <div class="whr-product-img py-2">
+              <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+            </div>
+            <div class="px-2 mt-2 pb-3">
+              <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
+              <div class="flex items-start mt-2 flex-col">
+                <div class="product-price">
+                  <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
+                  <p class="text-sm" style="font-size: 12px;"></p>
+                </div>
+                <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
+                  <div class="product-price-sale">
+                    <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
+                      <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                    </p>
+                  </div>
+                <?php  } ?>
+              </div>
+            </div>
+          </div>
+        </a>
+      <?php } ?>
+    </div>
+    <div class="mb-2 pt-3">
+      <button type="button" id="loadMore-product" class="load-more-product"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
+    </div>
   </div>
 </div>
 <?php include_once VIEW_PATH_USER_LAYOUT . 'footer.php' ?>

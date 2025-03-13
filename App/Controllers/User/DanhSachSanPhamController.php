@@ -3,14 +3,20 @@
 namespace App\Controllers\User;
 
 use App\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Products;
 use App\Models\Categories;
+use App\Models\Color;
+use App\Models\Supplier;
 
 class DanhSachSanPhamController extends Controller
 {
 
   protected $product;
   protected $categories;
+  protected $brands;
+  protected $colors;
+  protected $suppliers;
 
   public function __construct()
   {
@@ -18,6 +24,9 @@ class DanhSachSanPhamController extends Controller
 
     $this->product = new Products();
     $this->categories = new Categories();
+    $this->brands = new Brand();
+    $this->colors = new Color();
+    $this->suppliers = new Supplier();
   }
 
   public function index()
@@ -25,6 +34,12 @@ class DanhSachSanPhamController extends Controller
     $primaryProduct = true;
 
     $categories = $this->categories->getAll();
+
+    $brands = $this->brands->getAll();
+
+    $colors = $this->colors->getAll();
+
+    $suppliers = $this->suppliers->getAll();
 
     if (isset($_GET['search']) && $_GET['search'] != '') {
 
@@ -84,6 +99,6 @@ class DanhSachSanPhamController extends Controller
 
     $products = $this->product->loadMoreProduct($limit, $offset, $dataLoad);
 
-    echo json_encode(['products' => $products, 'offset' => $dataLoad == 0 ? 10 : 30]);
+    echo json_encode(['products' => $products, 'offset' => $dataLoad == 0 ? 10 : 30, 'url' => BASE_URL_NAME, 'join_fs' => $dataLoad == 0 ? 0 : 1]);
   }
 }

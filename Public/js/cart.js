@@ -5,9 +5,13 @@ $(document).ready(function () {
 
     var item = $(this);
     var checkbox = item.find('.cart-input-checkbox');
+    var quantityInput = item.closest('.cart-product-item').find('.cart-product-quantity');
 
     // Đảo trạng thái của checkbox input
     checkbox.prop('checked', !checkbox.prop('checked'));
+
+    // Cập nhật trạng thái của input số lượng
+    quantityInput.prop('disabled', !checkbox.prop('checked'));
 
     // Cập nhật giao diện dựa trên trạng thái mới của checkbox
     item.toggleClass('bg-orange-500', checkbox.prop('checked'));
@@ -73,7 +77,7 @@ $(document).ready(function () {
       const newValue = currentValue - 1;
       quantityInput.val(newValue);
       updatePrice();
-      checkQuantityCart(newValue,productID,$(this))
+      checkQuantityCart(newValue, productID, $(this))
       // Vô hiệu hóa nút giảm nếu giá trị giảm về 1
       if (newValue === 1) {
 
@@ -127,19 +131,34 @@ $(document).ready(function () {
     });
   }
 
-  // Update quantity
-  // function updateQuantity(quantity, productID) {
-  //   $.ajax({
-  //     type: "post",
-  //     url: "/WildHorizon-BookShop/updatequantity",
-  //     data: {
-  //       quantity: quantity,
-  //       productID: productID
-  //     },
-  //     dataType: "json",
-  //     success: function (response) {
+  // Submit form delete  product
+  $('.cart-delete-product').on("click", function (e) {
+    e.preventDefault(); // Ngăn chặn hành vi mặc định của form nếu có
 
-  //     }
-  //   });
-  // }
+    var productID = $(this).data('id');
+
+    $.ajax({
+      type: "POST",
+      url: "/WildHorizon-BookShop/gio-hang/delete",
+      data: { productID: productID }, // Định dạng đúng của dữ liệu
+      dataType: "json",
+      success: function (response) {
+        if (response.success == 1) {
+          location.reload(); // Reload lại trang nếu xóa thành công
+        } else {
+          alert("Xóa thất bại, vui lòng thử lại!");
+        }
+      },
+      error: function () {
+        alert("Có lỗi xảy ra khi gửi yêu cầu!");
+      }
+    });
+  });
+
+  // Submit form checkout
+  $('#cart-checkout').click((e) => {
+    e.preventDefault()
+
+    $('#form-checkout').submit();
+  })
 });

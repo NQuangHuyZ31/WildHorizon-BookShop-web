@@ -4,7 +4,7 @@ use App\Models\Model;
 class Categories extends Model {
 
   protected $table = 'catalogs';
-  protected $primary_key = 'catalog_id';
+  protected $primary_key = 'id';
   
   public function getAll(){
     $query = 'SELECT * FROM catalogs';

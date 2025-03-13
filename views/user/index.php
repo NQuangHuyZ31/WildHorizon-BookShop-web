@@ -1,10 +1,8 @@
 <?php
 // Header
-
+// printf($_SESSION['csrf_token']);
 use Core\Session;
 use Core\CreateSlug;
-
-$user = Session::get('user');
 
 $csrf_token = Core\CSRF::generateToken();
 
@@ -109,16 +107,16 @@ include_once('layout/header.php');
             </div>
             <div class="grid grid-cols-6">
                 <?php foreach ($flassale_products as $fproduct) { ?>
-                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($fproduct['name']).'-'.$fproduct['product_id'] . '' ?>" class="mr-2">
+                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
                         <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img class="w-full h-full" src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fproduct['image'] ?>" alt="sanpham">
+                                <img class="w-full h-full" src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
-                                <p class="text-sm flash-sale-product-title"><?php echo $fproduct['name'] ?></p>
+                                <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
                                 <div class="flash-sale-product-price">
                                     <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($fproduct['price'], 0, '.', ','); ?></p>
-                                    <p style="font-size: 13px;"><s class="opacity-50"><?php echo 'đ' . number_format($fproduct['price'] * (1 + $fproduct['discount_price'] / 100), 0, '.', ','); ?></s><span class="text-black ms-2"><?php echo '-' . $fproduct['discount_price'] . '%'; ?></span></p>
+                                    <p style="font-size: 13px;"><s class="opacity-50"><?php echo 'đ' . number_format($fproduct['price'] * (1 + $fproduct['discount_price'] / 100), 0, '.', ','); ?></s><span class="text-black ms-2"><?php echo '-' . number_format($fproduct['discount_price'], 0) . '%'; ?></span></p>
                                 </div>
                             </div>
                         </div>
@@ -131,15 +129,15 @@ include_once('layout/header.php');
     <div class="mt-4">
         <p class="text-lg">Categories</p>
         <div class="grid grid-cols-8 mt-3">
-            <?php foreach ($categories as $categorie) {  ?>
-                <a href="<?php echo BASE_URL.'/category/'.CreateSlug::createSlug($categorie['name']).'-'.($categorie['catalog_id']) ?>">
+            <?php foreach ($categories as $category) {  ?>
+                <a href="<?php echo BASE_URL . '/category/' . CreateSlug::createSlug($category['catalog_name']) . '-' . ($category['id']) ?>">
                     <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
                         <div class="w-full">
-                            <div class="whr-category">
-                                <img src="<?php echo BASE_URL_NAME ?>/Public/images/categories/wirelessandbluetooth.avif" alt="category" class="w-full">
+                            <div class="whr-category py-1">
+                                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full">
                             </div>
                             <div class="whr-category-title mb-2">
-                                <p class="text-sm mx-4 mt-1 category-title"><?php echo $categorie['name'] ?></p>
+                                <p class="text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -152,16 +150,25 @@ include_once('layout/header.php');
         <div class="flex flex-col ">
             <div class="mt-3 grid grid-cols-6 whr-product">
                 <?php foreach ($products as $product) { ?>
-                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['name']).'-'.$product['product_id'] . '' ?>" class="mr-3 mb-4">
+                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['image']; ?>" class="w-full h-full" alt="image">
+                                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                             </div>
                             <div class="px-2 mt-2 pb-3">
-                                <p class="product-title text-sm"><?php echo $product['name'] ?></p>
-                                <div class="flex items-center mt-2">
-                                    <p class="text-orange-500 mr-2"><u>đ</u><?php echo number_format($product['price'], '0', '.', ',') ?></p>
-                                    <p class="text-sm" style="font-size: 12px;"></p>
+                                <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
+                                <div class="flex items-start mt-2 flex-col">
+                                    <div class="product-price">
+                                        <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
+                                        <p class="text-sm" style="font-size: 12px;"></p>
+                                    </div>
+                                    <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
+                                        <div class="product-price-sale">
+                                            <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
+                                                <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                                            </p>
+                                        </div>
+                                    <?php  } ?>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +176,7 @@ include_once('layout/header.php');
                 <?php } ?>
             </div>
             <div class="mb-2 pt-3">
-                <button type="button" id="loadMore-product" class="load-more-product" data-offset="<?php echo isset($primaryProduct)?30:10 ?>" data-load="<?php echo isset($primaryProduct)?1:0 ?>">Load more</button>
+                <button type="button" id="loadMore-product" class="load-more-product" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Load more</button>
             </div>
         </div>
     </div>

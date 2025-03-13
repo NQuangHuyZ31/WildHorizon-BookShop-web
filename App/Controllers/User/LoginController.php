@@ -40,11 +40,11 @@ class LoginController extends Controller
 
             if (Session::get('user')['role'] == 'customer') {
 
-              if (Session::get('user')['is_first_login'] == 0) {
+              if (Session::get('user')['isfirstlogin'] === 0) {
 
                 Session::set('success', 'Đăng nhập thành công');
-                $stmt = $this->db->prepare("update users set firstlogin = 1 where user_id=?");
-                $stmt->bindParam(1, Session::get('user')['id']);
+                $stmt = $this->db->prepare("update users set firstlogin = 1 where id=?");
+                $stmt->bindParam(1, Session::get('user')['id'], \PDO::PARAM_INT);
                 $stmt->execute();
               }
 
@@ -84,6 +84,7 @@ class LoginController extends Controller
         $data = $_POST;
 
         $_SESSION['data'] = [
+          'hodem' => $data['hodem'],
           'username' => $data['username'],
           'email' => $data['email'],
         ];
@@ -104,14 +105,14 @@ class LoginController extends Controller
         } else {
           Session::delete('data');
           $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
-          $currentDate = date('Y-m-d');
 
-          $stmt = $this->db->prepare('INSERT INTO users(name, email, password, role, created_at) 
-                            VALUES(:name, :email, :password, "customer", :created_at)');
-          $stmt->bindParam(':name', $data['username']);
+          $stmt = $this->db->prepare('INSERT INTO users(firstname, lastname, email, password, role) 
+                            VALUES(:firstname, :lastname, :email, :password, "customer")');
+
+          $stmt->bindParam(':firstname', $data['hodem']);
+          $stmt->bindParam(':lastname', $data['username']);
           $stmt->bindParam(':email', $data['email']);
           $stmt->bindParam(':password', $hashedPassword);
-          $stmt->bindParam(':created_at', $currentDate);
           $stmt->execute();
           header('location:' . BASE_URL . '/dang-nhap');
         }

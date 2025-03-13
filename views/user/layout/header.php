@@ -2,7 +2,7 @@
 
 use Core\Session;
 
-$user = Session::get('user');
+$user = Session::has('user') ? Session::get('user') : [];
 Session::set('current_url', $_SERVER['REQUEST_URI']);
 $csrf_token = Core\CSRF::generateToken();
 // var_dump($_SESSION);
@@ -111,9 +111,9 @@ $csrf_token = Core\CSRF::generateToken();
                             }; ?>">
           <form action="<?php echo BASE_URL . '/product' ?>" class="w-full" method="get">
             <div class="w-full flex header-search relative">
-              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
-              <div class="header-search-icon hover:opacity-80 rounded-r-sm">
-                <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3"></i></button>
+              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
+              <div class="header-search-icon hover:opacity-80 rounded-lg">
+                <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3 text-lg"></i></button>
               </div>
             </div>
           </form>

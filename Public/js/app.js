@@ -113,22 +113,32 @@ $(document).ready(function () {
         if (response.products.length > 0) {
           response.products.forEach(product => {
             $('.whr-product').append(`
-              <a href="/WildHorizon-BookShop/product/${createSlug(product.name)}-${product.product_id}" class="mr-3 mb-4">
-                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                  <div class="whr-product-img py-2">
-                    <img src="./Public/upload/products/${product.image}" class="w-full h-full" alt="image">
-                  </div>
-                  <div class="px-2 mt-2 pb-3">
-                    <p class="product-title text-sm">${product.name}</p>
-                    <div class="flex items-center mt-2">
-                      <p class="text-orange-500 mr-2"><u>đ</u>${new Intl.NumberFormat('en-US').format(product.price)}</p>
-                       <p class="flash-sale-product-price-sale ${product.discount_price > 0 ? '' : 'hidden'}"><s class="opacity-50">đ${new Intl.NumberFormat('en-US').format(product.price * (1 + product.discount_price / 100))}</s>
-                       <span class="text-white ms-2 bg-red-600 rounded-sm px-0.5">-${product.discount_price}%</span></p>
-                    </div>
-                    <div class="flex" style="height: 16px;"></div>
-                  </div>
+             <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
+              <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+                <div class="whr-product-img py-2">
+                  <img src="${response.url}/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
                 </div>
-            </a>`);
+                <div class="px-2 mt-2">
+                  <p class="product-title text-sm">${product.product_name}</p>
+                  <div class="product-price-sale">
+                    <p class="text-orange-500">
+                      ${product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_pice/100)):new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price/100))}
+                      <u class="text-orange-500 ms-1">đ</u>
+                    </p>
+                    <div class="flex justify-between items-center">
+                      <p class="flash-sale-product-price-sale ${product.discount_price > 0 || product.f_discount_pice > 0 ?'':'hidden'} "><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
+                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.f_discount_pice) : new Intl.NumberFormat('vi').format(product.discount_price)}%</span>
+                      </p>
+                      <img src="${response.url}/Public/images/icon/label-flashsale.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'}">
+                    </div>
+                  </div>
+                    <div class="flex justify-end px-1 ${response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'}">
+                      <p class="text-gray-400" style="font-size: 11px;">còn ${product.f_quantity} sản phẩm</p>
+                    </div>
+                </div>
+              </div>
+            </a>
+            `);
           });
         } else {
           $('#loadMore-product').addClass('poiter-events-none opacity-50');
@@ -155,17 +165,17 @@ $(document).ready(function () {
         if (response.products.length > 0) {
           response.products.forEach(product => {
             $('.whr-product-flash-sale').append(`
-              <a href="/WildHorizon-BookShop/product/${createSlug(product.name)}-${product.product_id}" class="mr-2 bg-white mb-3">
+              <a href="/WildHorizon-BookShop/product/${createSlug(product.product_name)}-${product.product_id}" class="mr-2 bg-white mb-3">
             <div class="flex flex-col ">
               <div class="whr-product-img py-2">
-                <img src="./Public/upload/products/${product.image}" class="w-full h-full" alt="sanpham">
+                <img src="./Public/upload/products/${product.product_image}" class="w-full h-full" alt="sanpham">
               </div>
               <div class="flash-sale-product mt-1 mx-2">
-                <p class="text-sm flash-sale-product-title">${product.name}</p>
+                <p class="text-sm flash-sale-product-title">${product.product_name}</p>
                 <div class="product-price-sale">
-                  <p class="text-orange-500"><u class="text-orange-500">đ</u>${new Intl.NumberFormat('en-US').format(product.price)}</p>
-                  <p class="flash-sale-product-price-sale"><s class="opacity-50">đ${new Intl.NumberFormat('en-US').format(product.price * (1 + product.discount_price / 100))}</s>
-                  <span class="text-white ms-2 bg-red-600 rounded-sm px-0.5">-${product.discount_price}%</span></p>
+                  <p class="text-orange-500">${new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price/100))}<u class="text-orange-500 ms-1">đ</u></p>
+                  <p class="flash-sale-product-price-sale"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
+                  <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${new Intl.NumberFormat('vi').format(product.discount_price)}%</span></p>
                 </div>
               </div>
             </div>

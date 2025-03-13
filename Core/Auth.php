@@ -34,14 +34,15 @@ class Auth
 
         // Kiểm tra người dùng và xác minh mật khẩu
         if ($user && password_verify($password, $user['password'])) {
+
+            Session::set('user', [
+                'id' => $user['id'],
+                'name' => $user['firstname'] . ' ' . $user['lastname'],
+                'role' => $user['role'],
+                'isfirstlogin' => $user['firstlogin']
+            ]);
             // if ($user['role'] === 'customer') {
-                $_SESSION['user'] = [
-                    'id' => $user['user_id'],
-                    'name' => $user['name'],
-                    'role' => $user['role'],
-                    'is_first_login' => $user['firstlogin']
-                ];
-                return true;
+            // return $user;
             // }
             // Lưu thông tin người dùng vào session
         }

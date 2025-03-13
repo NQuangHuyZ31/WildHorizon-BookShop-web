@@ -112,6 +112,7 @@
 <script src="<?php echo BASE_URL_NAME ?>/Public/js/app.js?v=<?php echo rand() ?>"></script>
 <script src="<?php echo BASE_URL_NAME ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
 <script src="<?php echo BASE_URL_NAME ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>
+<script src="<?php echo BASE_URL_NAME ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
 </body>
 
 </html>
