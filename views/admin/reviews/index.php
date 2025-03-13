@@ -1,14 +1,14 @@
-<!-- index.php -->
-<?php
-
-use Core\Session;
-
-$messge = Session::get('message') ?? [];
-// Session::delete('message');
-?>
-
 <?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
-<title>Admin Dashboard</title>
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+</head>
 
 <body class="font-sans bg-gray-100">
 
@@ -24,8 +24,8 @@ $messge = Session::get('message') ?? [];
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <!-- Form tìm kiếm -->
-                    <form action="<?= BASE_URL_NAME ?>/admin/products" method="GET" class="relative w-1/2 max-w-[400px]">
+                    <h2 class="text-2xl font-semibold text-gray-800">Quản lý Đánh giá</h2>
+                    <form action="<?= BASE_URL_NAME ?>/admin/reviews" method="GET" class="relative w-1/2 max-w-[400px]">
                         <!-- Icon search -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-500"></i>
@@ -45,68 +45,47 @@ $messge = Session::get('message') ?? [];
                             Tìm kiếm
                         </button>
                     </form>
-
-                    <!-- Nút thêm sản phẩm -->
-                    <a href="<?= BASE_URL_NAME ?>/admin/products/create" class="ml-4">
-                        <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            Thêm sản phẩm
-                        </button>
-                    </a>
                 </div>
-
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 25%;">Tên Sản phẩm</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Hình ảnh</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Danh mục</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Giá gốc</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 10%;">Giảm giá</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 5%;">Kho</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Hành động</th>
+                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 30%">Tên sản phẩm</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 25%">Hình ảnh</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 10%">Điểm</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 15%">Lượt đánh giá</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 20%">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($products as $product): ?>
+                        <?php foreach ($reviews as $review): ?>
                             <tr>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($product['product_name']) ?></td>
-                                <td class="py-2 px-4 border-b">
-                                    <img src="<?= '../Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-24 h-30 object-cover">
+                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['product_name']) ?></td>
+                                <td class="py-2 px-4 border-b text-center">
+                                    <img src="<?= BASE_URL ?>/Public/upload/products/<?= $review['product_image'] ?>" class="w-24 h-30 object-cover mx-auto" alt="<?= $review['product_name'] ?>">
                                 </td>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($product['catalog_name']) ?></td>
-                                <td class="py-2 px-4 border-b"><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
-                                <td class="py-2 px-4 border-b"><?= number_format($product['discount_price'], 0, ',', '.') ?> %</td>
-                                <td class="py-2 px-4 border-b"><?= $product['stock'] ?></td>
+                                <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars(number_format($review['average_rating'], 2)) ?></td>
+                                <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($review['total_reviews']) ?></td>
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
-                                        <?php $encryptedId = \Core\Encrypt::encryptId($product['id'], KEY); ?>
-                                        <a href="<?= BASE_URL_NAME ?>/admin/products/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-edit"></i>
-                                            <span>Edit</span>
+                                        <?php $encryptedId = \Core\Encrypt::encryptId($review['product_id'], KEY); ?>
+                                        <a href="<?= BASE_URL_NAME ?>/admin/reviews/product?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
+                                            <i class="fas fa-eye"></i>
+                                            <span>Xem đánh giá</span>
                                         </a>
-                                        <form action="<?= BASE_URL_NAME ?>/admin/products/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
-                                            <!-- Sử dụng mã hóa ID -->
-                                            <input type="hidden" name="id" value="<?= $encryptedId ?>">
-                                            <button type="button" onclick="confirmDelete()" class="text-red-500 hover:text-red-700">
-                                                <i class="fas fa-trash-alt"></i>
-                                                <span>Delete</span>
-                                            </button>
-                                        </form>
-
                                     </div>
                                 </td>
-
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                
                 <div class="mt-4 flex justify-center">
                     <nav aria-label="Pagination">
                         <ul class="flex space-x-2">
                             <!-- Nút "Trang trước" -->
                             <?php if ($currentPage > 1): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/products?page=<?= $currentPage - 1 ?>"
+                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $currentPage - 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Trước
                                     </a>
@@ -116,7 +95,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Hiển thị trang đầu tiên nếu không phải trang 1 -->
                             <?php if ($currentPage > 3): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/products?page=1"
+                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=1"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         1
                                     </a>
@@ -132,7 +111,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Hiển thị các trang xung quanh trang hiện tại -->
                             <?php for ($i = max(1, $currentPage - 2); $i <= min($totalPages, $currentPage + 2); $i++): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/products?page=<?= $i ?>"
+                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $i ?>"
                                         class="px-3 py-1 <?= $i == $currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700' ?> rounded hover:bg-gray-300">
                                         <?= $i ?>
                                     </a>
@@ -148,7 +127,7 @@ $messge = Session::get('message') ?? [];
                                     </li>
                                 <?php endif; ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/products?page=<?= $totalPages ?>"
+                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $totalPages ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         <?= $totalPages ?>
                                     </a>
@@ -158,7 +137,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Nút "Trang sau" -->
                             <?php if ($currentPage < $totalPages): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/products?page=<?= $currentPage + 1 ?>"
+                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $currentPage + 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Sau
                                     </a>
@@ -175,41 +154,6 @@ $messge = Session::get('message') ?? [];
 
     <?php include VIEW_PATH . 'admin/layout/footer.php'; ?>
 </body>
-<script>
-    var safeId = <?php echo json_encode($encryptedId); ?>;
 
-    function confirmDelete() {
-        // Sử dụng SweetAlert để hiển thị hộp thoại xác nhận
-        Swal.fire({
-            title: 'Bạn có chắc chắn muốn xóa sản phẩm này?',
-            text: "Hành động này không thể hoàn tác.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Có, xóa nó!',
-            cancelButtonText: 'Không, hủy bỏ!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Nếu người dùng nhấn "Có, xóa nó!"
-                document.getElementById('delete-form-' + safeId).submit();
-                var messge = <?php echo json_encode($messge); ?>;
-
-                if (messge.success) {
-                    toastr.success(messge.success);
-                }
-            }
-        });
-    }
-</script>
-<script>
-    var messge = <?php echo json_encode($messge); ?>;
-
-    if (messge.success) {
-        toastr.success(messge.success);
-    }
-</script>
-<?php
-Session::delete('message');
-?>
 
 </html>

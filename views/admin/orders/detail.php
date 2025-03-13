@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Chi tiết Đơn hàng - <?= htmlspecialchars($order['order_id']) ?></title>
+    <title>Chi tiết Đơn hàng - <?= htmlspecialchars($order['id']) ?></title>
 </head>
 
 <body class="font-sans bg-gray-100">
@@ -23,17 +23,16 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-semibold text-gray-800">Chi tiết Đơn hàng #<?= htmlspecialchars($order['order_id']) ?></h2>
+                    <h2 class="text-2xl font-semibold text-gray-800">Chi tiết Đơn hàng #<?= htmlspecialchars($order['id']) ?></h2>
                 </div>
 
                 <!-- Thông tin khách hàng -->
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold">Thông tin Khách hàng</h3>
                     <ul>
-                        <li><strong>Tên khách hàng:</strong> <?= htmlspecialchars($user['name']) ?></li>
-                        <li><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></li>
-                        <li><strong>Số điện thoại:</strong> <?= htmlspecialchars($user['phone']) ?></li>
-                        <li><strong>Địa chỉ:</strong> <?= htmlspecialchars($user['address']) ?></li>
+                        <li><strong>Tên khách hàng:</strong> <?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?></li>
+                        <li><strong>Số điện thoại:</strong> <?= htmlspecialchars($shippingAddress['phone']) ?></li>
+                        <li><strong>Địa chỉ nhận hàng:</strong> <?= htmlspecialchars($shippingAddress['address_line1'] . ', ' . $shippingAddress['ward'] . ', ' . $shippingAddress['district'] . ', ' . $shippingAddress['province']) ?></li>
                     </ul>
                 </div>
                 
@@ -43,7 +42,7 @@
                     // Các trạng thái đơn hàng theo thứ tự
                     $statuses = [
                         'Chờ xác nhận',
-                        'Đang chuẩn bị hàng',
+                        'Chuẩn bị hàng',
                         'Đang giao hàng',
                         'Đã giao hàng'
                     ];
@@ -100,12 +99,12 @@
                                 <tr class="hover:bg-gray-100">
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= $index + 1 ?></td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
-                                        <img src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($detail['image']) ?>" alt="<?= htmlspecialchars($detail['product_name']) ?>" class="w-12 h-12 object-cover mx-auto">
+                                        <img src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($detail['product_image']) ?>" alt="<?= htmlspecialchars($detail['product_name']) ?>" class="w-12 h-12 object-cover mx-auto">
                                         <p class="mt-2"><?= htmlspecialchars($detail['product_name']) ?></p>
                                     </td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= htmlspecialchars($detail['quantity']) ?></td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['product_price'], 0, ',', '.') ?> VND</td>
-                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['price'], 0, ',', '.') ?> VND</td>
+                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['total'], 0, ',', '.') ?> VND</td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -115,7 +114,7 @@
                 <!-- Tổng giá sản phẩm -->
                 <div class="flex justify-between items-center mb-2">
                     <h3 class="text-xl font-semibold">Tổng tiền:</h3>
-                    <p class="text-xl text-gray-800"><?= number_format($order['product_total'], 0, ',', '.') ?> VND</p>
+                    <p class="text-xl text-gray-800"><?= number_format($order['total_price'] - $order['shipping_fee'], 0, ',', '.') ?> VND</p>
                 </div>
 
                 <!-- Tiền ship -->
@@ -127,7 +126,7 @@
                 <!-- Tổng giá -->
                 <div class="flex justify-between items-center mb-2">
                     <h3 class="text-xl font-semibold">Tổng giá đơn hàng:</h3>
-                    <p class="text-xl text-gray-800"><?= number_format($order['total'], 0, ',', '.') ?> VND</p>
+                    <p class="text-xl text-gray-800"><?= number_format($order['total_price'], 0, ',', '.') ?> VND</p>
                 </div>
 
             </div>

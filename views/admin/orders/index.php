@@ -1,3 +1,11 @@
+<?php
+
+use Core\Session;
+
+$messge = Session::get('message') ?? [];
+// Session::delete('message');
+?>
+
 <?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
 
 <!DOCTYPE html>
@@ -23,7 +31,7 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-6">
-                <form action="<?= BASE_URL_NAME ?>/admin/orders" method="GET" class="relative w-1/2 max-w-[400px]">
+                    <form action="<?= BASE_URL_NAME ?>/admin/orders" method="GET" class="relative w-1/2 max-w-[400px]">
                         <!-- Icon search -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-500"></i>
@@ -34,8 +42,7 @@
                             name="search"
                             class="block w-full p-4 pl-10 pr-20 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none focus:border-blue-500"
                             placeholder="Tìm kiếm đơn hàng"
-                            value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
-                            />
+                            value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" />
                         <!-- Nút tìm kiếm -->
                         <button
                             type="submit"
@@ -57,55 +64,33 @@
                         </thead>
                         <tbody>
                             <?php foreach ($orders as $order): ?>
-                                <?php $encryptedId = \Core\Encrypt::encryptId($order['order_id'], KEY); ?>
+                                <?php $encryptedId = \Core\Encrypt::encryptId($order['id'], KEY); ?>
                                 <tr
                                     class="hover:bg-gray-100 cursor-pointer"
                                     onclick="window.location.href='<?= BASE_URL . '/admin/orders/detail?id=' . $encryptedId ?>';">
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
-                                        <?= htmlspecialchars($order['order_id']) ?>
+                                        <?= htmlspecialchars($order['id']) ?>
                                     </td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
                                         <?= htmlspecialchars($order['order_date']) ?>
                                     </td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
-                                        <?php
-                                        if (htmlspecialchars($order['payment_method']) === 'cash') {
-                                            echo 'Thanh toán khi nhận hàng';
-                                        } elseif (htmlspecialchars($order['payment_method']) === 'bank') {
-                                            echo 'Chuyển khoản ngân hàng';
-                                        } elseif (htmlspecialchars($order['payment_method']) === 'momo') {
-                                            echo 'Thanh toán qua ví điện tử MOMO';
-                                        } else {
-                                            echo 'Phương thức thanh toán không xác định';
-                                        }
-                                        ?>
+                                        <?= htmlspecialchars($order['payment_method']) ?>
                                     </td>
 
                                     <td class="py-3 px-4 border border-gray-200 text-center">
-                                        <?php
-                                        $statusClass = '';
-                                        switch ($order['status']) {
-                                            case 'Chờ xác nhận':
-                                                $statusClass = 'bg-gray-100 text-gray-700';
-                                                break;
-                                            case 'Đang chuẩn bị hàng':
-                                                $statusClass = 'bg-blue-100 text-blue-700';
-                                                break;
-                                            case 'Đang giao hàng':
-                                                $statusClass = 'bg-yellow-100 text-yellow-700';
-                                                break;
-                                            case 'Đã giao hàng':
-                                                $statusClass = 'bg-green-100 text-green-700';
-                                                break;
-                                            default:
-                                                $statusClass = 'bg-red-100 text-red-700'; // Trạng thái không xác định
-                                                break;
-                                        }
-                                        ?>
-                                        <span class="px-3 py-1 text-xs font-semibold rounded-full <?= $statusClass ?>">
-                                            <?= htmlspecialchars($order['status']) ?>
-                                        </span>
+                                        <form method="POST" action="<?= BASE_URL . '/admin/orders/update' ?>" id="order-form-<?= $encryptedId ?>">
+                                            <input type="hidden" name="order_id" value="<?= $encryptedId ?>">
+                                            <input type="hidden" name="page" value="<?= $_GET['page'] ?? 1 ?>">
+                                            <select name="status" class="px-3 py-1 text-xs font-semibold rounded-full" onchange="confirmUpdate('<?= $encryptedId ?>')" onclick="event.stopPropagation()">
+                                                <option value="Chờ xác nhận" <?= $order['status'] == 'Chờ xác nhận' ? 'selected' : '' ?>>Chờ xác nhận</option>
+                                                <option value="Chuẩn bị hàng" <?= $order['status'] == 'Chuẩn bị hàng' ? 'selected' : '' ?>>Chuẩn bị hàng</option>
+                                                <option value="Đang giao hàng" <?= $order['status'] == 'Đang giao hàng' ? 'selected' : '' ?>>Đang giao hàng</option>
+                                                <option value="Đã giao hàng" <?= $order['status'] == 'Đã giao hàng' ? 'selected' : '' ?>>Đã giao hàng</option>
+                                            </select>
+                                        </form>
                                     </td>
+
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -187,5 +172,33 @@
     <?php include VIEW_PATH . 'admin/layout/footer.php'; ?>
 </body>
 
+<script>
+    var safeId = <?php echo json_encode($encryptedId); ?>;
+    function confirmUpdate(safeId) {
+        Swal.fire({
+            title: 'Xác nhận thay đổi trạng thái?',
+            text: "Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này?",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Thay đổi',
+            cancelButtonText: 'Hủy bỏ',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('order-form-' + safeId).submit();
+            }
+        });
+    }
+</script>
 
+<script>
+    var messge = <?php echo json_encode($messge); ?>;
+
+    if (messge.success) {
+        toastr.success(messge.success);
+    }
+</script>
+<?php
+Session::delete('message');
+?>
 </html>

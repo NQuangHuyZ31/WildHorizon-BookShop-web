@@ -11,8 +11,12 @@ use App\Controllers\User\LoginController;
 // Admin Controller
 use App\Controllers\Admin\CatalogController;
 use App\Controllers\Admin\ProductController;
+use App\Controllers\Admin\ProductAttributeController;
 use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\OrderController;
+use App\Controllers\Admin\ReviewController;
+use App\Controllers\Admin\BrandController;
+
 use App\Controllers\User\CategoryController;
 use App\Controllers\User\ChiTietSanPhamController;
 use App\Controllers\User\DanhSachSanPhamController;
@@ -96,8 +100,30 @@ $router->post('/admin/catalogs/delete', [CatalogController::class, 'deleteCatalo
 $router->get('/admin/catalogs/edit', [CatalogController::class, 'editCatalog']);
 $router->post('/admin/catalogs/edit', [CatalogController::class, 'editCatalog']);
 
+// Route quản trị thương hiệu
+$router->get('/admin/brands', [BrandController::class, 'getAllBrands']);
+$router->get('/admin/brands/create', [BrandController::class, 'createBrand']);
+$router->post('/admin/brands/create', [BrandController::class, 'createBrand']);
+$router->post('/admin/brands/delete', [BrandController::class, 'deleteBrand']);
+$router->get('/admin/brands/edit', [BrandController::class, 'editBrand']);
+$router->post('/admin/brands/edit', [BrandController::class, 'editBrand']);
+
+// Route quản trị thuộc tính
+$router->get('/admin/product-attributes', [ProductAttributeController::class, 'getAllAttributes']);
+$router->get('/admin/product-attributes/create', [ProductAttributeController::class, 'createAttribute']);
+$router->post('/admin/product-attributes/create', [ProductAttributeController::class, 'createAttribute']);
+$router->post('/admin/product-attributes/delete', [ProductAttributeController::class, 'deleteAttribute']);
+// $router->get('/admin/product-attributes/edit', [ProductAttributeController::class, 'editAttribute']);
+$router->post('/admin/product-attributes/update', [ProductAttributeController::class, 'updateAttribute']);
+
 // Route quản trị đơn hàng
 $router->get('/admin/orders', [OrderController::class, 'getAllOrders']);
 $router->get('/admin/orders/detail', [OrderController::class, 'getOrderDetail']);
+$router->post('/admin/orders/update', [OrderController::class, 'updateOrderStatus']);
+
+// Route quản trị review
+$router->get('/admin/reviews', [ReviewController::class, 'getAllReviews']);
+$router->get('/admin/reviews/product', [ReviewController::class, 'getReviewsByProduct']);
+$router->post('/admin/reviews/change-status', [ReviewController::class, 'changeReviewStatus']);
 // Xử lý request
 $router->handleRequest();

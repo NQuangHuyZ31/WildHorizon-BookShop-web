@@ -32,38 +32,36 @@ $messge = Session::get('message')??[];
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-2xl font-semibold text-gray-800">Quản lý Danh mục</h2>
-                    <a href="<?=BASE_URL_NAME?>/admin/catalogs/create">
+                    <h2 class="text-2xl font-semibold text-gray-800">Quản lý Thương hiệu</h2>
+                    <a href="<?=BASE_URL_NAME?>/admin/brands/create">
                         <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                            Thêm danh mục
+                            Thêm thương hiệu
                         </button>
                     </a>
                 </div>
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" >Tên danh mục</th>
+                            <th class="py-2 px-4 border-b text-left text-gray-600" >Tên thương hiệu</th>
                             <th class="py-2 px-4 border-b text-left text-gray-600" >Mô tả</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" >Hình ảnh</th>
+                            <!-- <th class="py-2 px-4 border-b text-left text-gray-600" ></th> -->
                             <th class="py-2 px-4 border-b text-left text-gray-600" >Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($catalogs as $catalog): ?>
+                        <?php foreach ($brands as $brand): ?>
                             <tr>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($catalog['catalog_name']) ?></td>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($catalog['description']) ?></td>
+                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($brand['brand_name']) ?></td>
+                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($brand['description']) ?></td>
+
                                 <td class="py-2 px-4 border-b">
-                                    <img src="<?=BASE_URL?>/Public/upload/catalogs/<?=$catalog['catalog_image']?>" class="w-24 h-30 object-cover" alt="<?=$catalog['catalog_name']?>">
-                                </td>
-                                <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
-                                        <?php $encryptedId = \Core\Encrypt::encryptId($catalog['id'], KEY); ?>
-                                        <a href="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
+                                        <?php $encryptedId = \Core\Encrypt::encryptId($brand['id'], KEY); ?>
+                                        <a href="<?= BASE_URL_NAME ?>/admin/brands/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                             <span>Edit</span>
                                         </a>
-                                        <form action="<?= BASE_URL_NAME ?>/admin/catalogs/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
+                                        <form action="<?= BASE_URL_NAME ?>/admin/brands/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
                                             <input type="hidden" name="id" value="<?= $encryptedId ?>">
                                             <button type="button" onclick="confirmDelete()" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i>
@@ -91,7 +89,7 @@ $messge = Session::get('message')??[];
     function confirmDelete() {
         // Sử dụng SweetAlert để hiển thị hộp thoại xác nhận
         Swal.fire({
-            title: 'Bạn có chắc chắn muốn xóa danh mục này?',
+            title: 'Bạn có chắc chắn muốn xóa thương hiệu này?',
             text: "Hành động này không thể hoàn tác.",
             icon: 'warning',
             showCancelButton: true,

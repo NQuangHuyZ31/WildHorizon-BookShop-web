@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
 use Core\Encrypt;
+use Core\Session;
 
 class OrderController extends Controller
 {
@@ -17,7 +18,7 @@ class OrderController extends Controller
         $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
         // Đếm tổng số đơn hàng (có áp dụng tìm kiếm nếu có từ khóa)
-        $countQuery = "SELECT COUNT(*) AS sum FROM orders WHERE order_id LIKE :search";
+        $countQuery = "SELECT COUNT(*) AS sum FROM orders WHERE id LIKE :search";
         $stmt = $this->db->prepare($countQuery);
         $searchParam = '%' . $search . '%';
         $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
@@ -27,7 +28,7 @@ class OrderController extends Controller
         $totalPages = ceil($totalOrders / $perPage);
 
         // Lấy danh sách đơn hàng (có áp dụng tìm kiếm nếu có từ khóa)
-        $query = "SELECT * FROM orders WHERE order_id LIKE :search ORDER BY order_date DESC LIMIT :offset, :perPage";
+        $query = "SELECT * FROM orders WHERE id LIKE :search ORDER BY order_date DESC LIMIT :offset, :perPage";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
         $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
@@ -48,7 +49,7 @@ class OrderController extends Controller
 
         if ($order_id) {
             // Lấy thông tin đơn hàng
-            $orderQuery = "SELECT * FROM orders WHERE order_id = :order_id";
+            $orderQuery = "SELECT * FROM orders WHERE id = :order_id";
             $stmt = $this->db->prepare($orderQuery);
             $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
             $stmt->execute();
@@ -60,26 +61,69 @@ class OrderController extends Controller
             }
 
             // Lấy thông tin khách hàng
-            $userQuery = "SELECT * FROM users WHERE user_id = :user_id AND role = 'customer'";
+            $userQuery = "SELECT * FROM users WHERE id = :user_id AND role = 'customer'";
             $stmt = $this->db->prepare($userQuery);
             $stmt->bindParam(':user_id', $order['user_id'], \PDO::PARAM_INT);
             $stmt->execute();
             $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             // Lấy chi tiết đơn hàng (sản phẩm đã đặt)
-            $orderDetailsQuery = "SELECT od.order_detail_id, od.product_id, od.quantity, od.price, p.name AS product_name, p.image, p.price AS product_price
+            $orderDetailsQuery = "SELECT 
+                                    od.id AS order_detail_id,
+                                    od.product_id,
+                                    od.quantity,
+                                    od.price,
+                                    od.total,
+                                    p.product_name,
+                                    p.product_image,
+                                    p.price AS product_price,
+                                    p.discount_price
                                   FROM order_details od
-                                  JOIN products p ON od.product_id = p.product_id
+                                  JOIN products p ON od.product_id = p.id
                                   WHERE od.order_id = :order_id";
             $stmt = $this->db->prepare($orderDetailsQuery);
             $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
             $stmt->execute();
             $orderDetails = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
+            // Lấy thông tin địa chỉ giao hàng
+            $shippingQuery = "SELECT * FROM order_shipping_addresses WHERE order_id = :order_id";
+            $stmt = $this->db->prepare($shippingQuery);
+            $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
+            $stmt->execute();
+            $shippingAddress = $stmt->fetch(\PDO::FETCH_ASSOC);
+
             // Truyền dữ liệu cho view
             include_once VIEW_PATH . 'admin/orders/detail.php';
         } else {
             die("Không có mã đơn hàng.");
+        }
+    }
+
+    public function updateOrderStatus()
+    {
+        $encryptedId = $_POST['order_id'] ?? null;
+        $order_id = Encrypt::decryptId($encryptedId, KEY);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $status = $_POST['status'] ?? null;
+
+            $updateQuery = "UPDATE orders SET status = :status WHERE id = :order_id";
+            $stmt = $this->db->prepare($updateQuery);
+            $stmt->bindParam(':status', $status, \PDO::PARAM_STR);
+            $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                Session::set('message', [
+                    'success' => 'Cập nhật trạng thái đơn hàng thành công!'
+                ]);
+            } else {
+                echo "Đã xảy ra lỗi khi Cập nhật trạng thái đơn hàng.";
+            }
+
+            $page = $_POST['page'];
+            header("Location: " . BASE_URL_NAME . "/admin/orders?page=" . $page);
+            exit;
         }
     }
 }

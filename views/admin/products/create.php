@@ -26,10 +26,10 @@
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
-                            <label for="name" class="block text-gray-700 font-semibold mb-2">Tên Sản Phẩm</label>
-                            <input type="text" id="name" name="name" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tên sản phẩm">
-                            <?php if (isset($errors['name'])): ?>
-                                <p class="text-red-500 text-sm mt-2"><?= $errors['name'] ?></p>
+                            <label for="product_name" class="block text-gray-700 font-semibold mb-2">Tên Sản Phẩm</label>
+                            <input type="text" id="product_name" name="product_name" value="<?= isset($_POST['product_name']) ? htmlspecialchars($_POST['product_name']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['product_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tên sản phẩm">
+                            <?php if (isset($errors['product_name'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['product_name'] ?></p>
                             <?php endif; ?>
                         </div>
 
@@ -48,11 +48,47 @@
                             <select id="catalog_id" name="catalog_id" class="w-full px-4 py-2 border <?= isset($errors['catalog_id']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Chọn danh mục</option>
                                 <?php foreach ($catalogs as $catalog): ?>
-                                    <option value="<?= $catalog['catalog_id'] ?>" <?= isset($_POST['catalog_id']) && $_POST['catalog_id'] == $catalog['catalog_id'] ? 'selected' : '' ?>><?= htmlspecialchars($catalog['name']) ?></option>
+                                    <option value="<?= $catalog['id'] ?>" <?= isset($_POST['catalog_id']) && $_POST['catalog_id'] == $catalog['id'] ? 'selected' : '' ?>><?= htmlspecialchars($catalog['catalog_name']) ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <?php if (isset($errors['catalog_id'])): ?>
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['catalog_id'] ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Price Field -->
+                        <div>
+                            <label for="price" class="block text-gray-700 font-semibold mb-2">Giá</label>
+                            <input type="number" id="price" name="price" step="0.01" value="<?= isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['price']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập giá sản phẩm">
+                            <?php if (isset($errors['price'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['price'] ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Discount Field -->
+                        <div>
+                            <label for="discount_price" class="block text-gray-700 font-semibold mb-2">Giảm Giá (%)</label>
+                            <input type="number" id="discount_price" name="discount_price" step="0.01" value="<?= isset($_POST['discount_price']) ? htmlspecialchars($_POST['discount_price']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['discount_price']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập % giảm giá">
+                            <?php if (isset($errors['discount_price'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['discount_price'] ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Stock Field -->
+                        <div>
+                            <label for="stock" class="block text-gray-700 font-semibold mb-2">Số Lượng</label>
+                            <input type="number" id="stock" name="stock" value="<?= isset($_POST['stock']) ? htmlspecialchars($_POST['stock']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['stock']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập số lượng">
+                            <?php if (isset($errors['stock'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['stock'] ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Image Field -->
+                        <div>
+                            <label for="product_image" class="block text-gray-700 font-semibold mb-2">Ảnh Sản Phẩm</label>
+                            <input type="file" id="product_image" name="product_image" class="w-full px-4 py-2 border <?= isset($errors['product_image']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <?php if (isset($errors['product_image'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['product_image'] ?></p>
                             <?php endif; ?>
                         </div>
 
@@ -67,55 +103,74 @@
 
                         <!-- Publish Year Field -->
                         <div>
-                            <label for="publish_year" class="block text-gray-700 font-semibold mb-2">Năm Xuất Bản</label>
-                            <select id="publish_year" name="publish_year" 
-                                    class="w-full px-4 py-2 border <?= isset($errors['publish_year']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Chọn năm xuất bản</option>
+                            <label for="publication_year" class="block text-gray-700 font-semibold mb-2">Năm Sản Xuất Hoặc Năm Xuất Bản</label>
+                            <select id="publication_year" name="publication_year"
+                                class="w-full px-4 py-2 border <?= isset($errors['publication_year']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Chọn năm xuất bản hoặc năm sản xuất</option>
                                 <?php
                                 $currentYear = date('Y');
                                 for ($year = $currentYear; $year >= 2010; $year--): ?>
-                                    <option value="<?= $year ?>" <?= (isset($_POST['publish_year']) && $_POST['publish_year'] == $year) ? 'selected' : '' ?>><?= $year ?></option>
+                                    <option value="<?= $year ?>" <?= (isset($_POST['publication_year']) && $_POST['publication_year'] == $year) ? 'selected' : '' ?>><?= $year ?></option>
                                 <?php endfor; ?>
                             </select>
-                            <?php if (isset($errors['publish_year'])): ?>
-                                <p class="text-red-500 text-sm mt-2"><?= $errors['publish_year'] ?></p>
+                            <?php if (isset($errors['publication_year'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['publication_year'] ?></p>
                             <?php endif; ?>
                         </div>
 
-                        <!-- Color Field -->
+                        <!-- Supplier Field -->
                         <div>
-                            <label for="color" class="block text-gray-700 font-semibold mb-2">Màu Sắc</label>
-                            <input type="text" id="color" name="color" value="<?= isset($_POST['color']) ? htmlspecialchars($_POST['color']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['color']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập màu sắc">
-                            <?php if (isset($errors['color'])): ?>
-                                <p class="text-red-500 text-sm mt-2"><?= $errors['color'] ?></p>
+                            <label for="supplier_id" class="block text-gray-700 font-semibold mb-2">Nhà Cung Cấp</label>
+                            <select id="supplier_id" name="supplier_id" class="w-full px-4 py-2 border <?= isset($errors['supplier_id']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Chọn nhà cung cấp</option>
+                                <?php foreach ($suppliers as $supplier): ?>
+                                    <option value="<?= $supplier['id'] ?>" <?= isset($_POST['supplier_id']) && $_POST['supplier_id'] == $supplier['id'] ? 'selected' : '' ?>><?= htmlspecialchars($supplier['supplier_name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php if (isset($errors['supplier_id'])): ?>
+                                <p class="text-red-500 text-sm mt-2"><?= $errors['supplier_id'] ?></p>
                             <?php endif; ?>
                         </div>
 
-                        <!-- Price Field -->
+
+                        <!-- Brand Field -->
                         <div>
-                            <label for="price" class="block text-gray-700 font-semibold mb-2">Giá</label>
-                            <input type="number" id="price" name="price" step="0.01" value="<?= isset($_POST['price']) ? htmlspecialchars($_POST['price']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['price']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập giá sản phẩm">
-                            <?php if (isset($errors['price'])): ?>
-                                <p class="text-red-500 text-sm mt-2"><?= $errors['price'] ?></p>
-                            <?php endif; ?>
+                            <label for="brand_id" class="block text-gray-700 font-semibold mb-2">Thương Hiệu</label>
+                            <select id="brand_id" name="brand_id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Chọn thương hiệu</option>
+                                <?php foreach ($brands as $brand): ?>
+                                    <option value="<?= $brand['id'] ?>" <?= isset($_POST['brand_id']) && $_POST['brand_id'] == $brand['id'] ? 'selected' : '' ?>><?= htmlspecialchars($brand['brand_name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
 
-                        <!-- Stock Field -->
+                        <!-- Color Field (Select) -->
                         <div>
-                            <label for="stock" class="block text-gray-700 font-semibold mb-2">Số Lượng</label>
-                            <input type="number" id="stock" name="stock" value="<?= isset($_POST['stock']) ? htmlspecialchars($_POST['stock']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['stock']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập số lượng">
-                            <?php if (isset($errors['stock'])): ?>
-                                <p class="text-red-500 text-sm mt-2"><?= $errors['stock'] ?></p>
-                            <?php endif; ?>
+                            <label for="color_id" class="block text-gray-700 font-semibold mb-2">Màu Sắc</label>
+                            <select id="color_id" name="color_id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Chọn màu sắc</option>
+                                <?php foreach ($colors as $color): ?>
+                                    <option value="<?= $color['id'] ?>" <?= isset($_POST['color_id']) && $_POST['color_id'] == $color['id'] ? 'selected' : '' ?>><?= htmlspecialchars($color['color_name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
-                        
-                        <!-- Image Field -->
+
+                        <!-- Publisher Field -->
                         <div>
-                            <label for="image" class="block text-gray-700 font-semibold mb-2">Ảnh Sản Phẩm</label>
-                            <input type="file" id="image" name="image" class="w-full px-4 py-2 border <?= isset($errors['image']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <?php if (isset($errors['image'])): ?>
-                                <p class="text-red-500 text-sm mt-2"><?= $errors['image'] ?></p>
-                            <?php endif; ?>
+                            <label for="publisher" class="block text-gray-700 font-semibold mb-2">Nhà Xuất Bản</label>
+                            <input type="text" id="publisher" name="publisher" value="<?= isset($_POST['publisher']) ? htmlspecialchars($_POST['publisher']) : '' ?>" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tên nhà xuất bản">
+                        </div>
+
+                        <!-- Origin Field -->
+                        <div>
+                            <label for="origin" class="block text-gray-700 font-semibold mb-2">Nơi Sản Xuất</label>
+                            <input type="text" id="origin" name="origin" value="<?= isset($_POST['origin']) ? htmlspecialchars($_POST['origin']) : '' ?>" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập xuất xứ">
+                        </div>
+
+                        <!-- Language Field -->
+                        <div>
+                            <label for="language" class="block text-gray-700 font-semibold mb-2">Ngôn Ngữ</label>
+                            <input type="text" id="language" name="language" value="<?= isset($_POST['language']) ? htmlspecialchars($_POST['language']) : '' ?>" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập ngôn ngữ">
                         </div>
 
                         <!-- Submit Button -->

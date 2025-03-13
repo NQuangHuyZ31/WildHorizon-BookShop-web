@@ -11,9 +11,9 @@
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                    <a href="<?= BASE_URL_NAME ?>/admin/brands" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-tags w-5 h-5"></i>
-                        <span>Giảm giá</span>
+                        <span>Thương hiệu</span>
                     </a>
                 </li>
                 <li class="mb-4">
@@ -29,15 +29,21 @@
                     </a>
                 </li>
                 <li class="mb-4">
+                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                        <i class="fas fa-bookmark w-5 h-5"></i>
+                        <span>Thuộc tính sản phẩm</span>
+                    </a>
+                </li>
+                <li class="mb-4">
                     <a href="<?= BASE_URL_NAME ?>/admin/orders" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-truck w-5 h-5"></i>
                         <span>Đơn hàng</span>
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="#" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
-                        <i class="fas fa-cogs w-5 h-5"></i>
-                        <span>Cài đặt</span>
+                    <a href="<?= BASE_URL_NAME ?>/admin/reviews" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                        <i class="fas fa-star w-5 h-5"></i>
+                        <span>Đánh giá</span>
                     </a>
                 </li>
             </ul>
