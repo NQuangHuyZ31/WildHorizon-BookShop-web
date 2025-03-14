@@ -41,7 +41,7 @@ $csrf_token = Core\CSRF::generateToken();
       </div>
     </div>
   <?php } ?>
-  <div class="container mx-auto relative">
+  <div class="w-full mx-auto relative">
     <div class="container-fuild mx-auto">
       <ul class="flex justify-around py-1" style="font-size: 12px;margin-left: 200px;">
         <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">feedback</a></li>

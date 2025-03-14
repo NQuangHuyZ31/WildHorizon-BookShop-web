@@ -11,7 +11,9 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
     <div class="whr-product-main flex-1">
       <div class="mt-3 ps-4 bg-white py-3 rounded-sm">
         <p class="text-lg uppercase font-bold text-orange-400"><?php echo isset($keyword) ? $keyword : 'Tất cả sản phẩm' ?></p>
-        <p class="text-gray-400 text-sm">Showing results for <?php echo count($products) ?> sản phẩm</p>
+        <p class="text-gray-400 text-sm">Showing results for
+          <span class="product-count"><?php echo count($products) ?></span> sản phẩm
+        </p>
       </div>
       <?php if (!empty($products)) { ?>
         <div class="grid grid-cols-4 mt-4 whr-product">

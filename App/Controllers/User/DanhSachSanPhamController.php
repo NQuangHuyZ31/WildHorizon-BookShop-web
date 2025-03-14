@@ -6,7 +6,7 @@ use App\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Products;
 use App\Models\Categories;
-use App\Models\Color;
+use App\Models\ProductDetail;
 use App\Models\Supplier;
 
 class DanhSachSanPhamController extends Controller
@@ -17,6 +17,7 @@ class DanhSachSanPhamController extends Controller
   protected $brands;
   protected $colors;
   protected $suppliers;
+  protected $productDetail;
 
   public function __construct()
   {
@@ -25,8 +26,8 @@ class DanhSachSanPhamController extends Controller
     $this->product = new Products();
     $this->categories = new Categories();
     $this->brands = new Brand();
-    $this->colors = new Color();
     $this->suppliers = new Supplier();
+    $this->productDetail = new ProductDetail();
   }
 
   public function index()
@@ -37,9 +38,9 @@ class DanhSachSanPhamController extends Controller
 
     $brands = $this->brands->getAll();
 
-    $colors = $this->colors->getAll();
-
     $suppliers = $this->suppliers->getAll();
+
+    $colors = $this->productDetail->getColunm('color');
 
     if (isset($_GET['search']) && $_GET['search'] != '') {
 
@@ -54,40 +55,55 @@ class DanhSachSanPhamController extends Controller
     require VIEW_PATH . 'user/products/danhsachsanpham.php';
   }
 
-
-  // Categories
-  public function categoryProduct($slug, $id)
+  // Tìm sản phẩm theo filter
+  public function searchFilter()
   {
+    $success = true;
 
-    $slug = $slug;
-    $categoryID = $id;
-
-    if (isset($_GET['search']) && $_GET['search'] != '') {
-
-      $keyword = $_GET['search'];
-
-      $query = "select p.product_id, name, price, image,  COALESCE(f.discount_price, 0) AS discount_price,  COALESCE(f.quantity, 0) AS quantity 
-              from products p LEFT JOIN flashsales f on p.product_id = f.product_id where catalog_id = :id and name like :keyword limit 10";
-      $stmt = $this->db->prepare($query);
-
-      $stmt->bindValue(':id', $categoryID);
-
-      $stmt->bindValue(':keyword', '%' . $keyword . '%');
-    } else {
-      $query = "select p.product_id, name, price, image,  COALESCE(f.discount_price, 0) AS discount_price,  COALESCE(f.quantity, 0) AS quantity 
-              from products p LEFT JOIN flashsales f on p.product_id = f.product_id where catalog_id = :id limit 10";
-
-      $stmt = $this->db->prepare($query);
-
-      $stmt->bindValue(':id', $categoryID);
+    $data = $_GET;
+    if ($data['search'] == '' && $data['price']['from'] == '' && $data['price']['to'] == '' && $data['supplier'] == '' && $data['brand'] == '' && $data['color'] == '') {
+      $success = false;
     }
 
-    $stmt->execute();
+    $products = $this->product->getProductFilter($data);
 
-    $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-    require VIEW_PATH . 'user/products/danhsachsanpham.php';
+    echo json_encode(['success' => $success == false ? 0 : 1, 'products' => $products, 'params' => $data, 'product_count' => count($products)]);
+    // echo json_encode(['query' => $products]);
   }
+
+  // Categories
+  // public function categoryProduct($slug, $id)
+  // {
+
+  //   $slug = $slug;
+  //   $categoryID = $id;
+
+  //   if (isset($_GET['search']) && $_GET['search'] != '') {
+
+  //     $keyword = $_GET['search'];
+
+  //     $query = "select p.product_id, name, price, image,  COALESCE(f.discount_price, 0) AS discount_price,  COALESCE(f.quantity, 0) AS quantity 
+  //             from products p LEFT JOIN flashsales f on p.product_id = f.product_id where catalog_id = :id and name like :keyword limit 10";
+  //     $stmt = $this->db->prepare($query);
+
+  //     $stmt->bindValue(':id', $categoryID);
+
+  //     $stmt->bindValue(':keyword', '%' . $keyword . '%');
+  //   } else {
+  //     $query = "select p.product_id, name, price, image,  COALESCE(f.discount_price, 0) AS discount_price,  COALESCE(f.quantity, 0) AS quantity 
+  //             from products p LEFT JOIN flashsales f on p.product_id = f.product_id where catalog_id = :id limit 10";
+
+  //     $stmt = $this->db->prepare($query);
+
+  //     $stmt->bindValue(':id', $categoryID);
+  //   }
+
+  //   $stmt->execute();
+
+  //   $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+  //   require VIEW_PATH . 'user/products/danhsachsanpham.php';
+  // }
 
   public function loadMore()
   {

@@ -172,7 +172,7 @@ class CheckoutController extends Controller
           // Commit transaction
           $this->db->commit();
 
-          Session::set('success', 'Đặt hàng thành công');
+          Session::set('msg', ['success', 'Đặt hàng thành công']);
           header('location: ' . BASE_URL_NAME . '/');
           exit();
         }

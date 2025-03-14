@@ -195,7 +195,7 @@ h6 {
 }
 .whr-register{
   min-height: 648px;
-  width: 444px !important;
+  width: 480px !important;
 }
 
 .whr-show-hidden-pw-icon {
@@ -306,11 +306,11 @@ h6 {
 }
 
 /* Sản phẩm */
-.price-unchecked{
+.price-unchecked, .supplier-unchecked, .brand-unchecked, .color-unchecked{
   background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_uncheck.png') 0 50% no-repeat;
 }
 
-.price-checked{
+.price-checked,.supplier-checked, .brand-checked, .color-checked{
   background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_checked.png') 0 50% no-repeat;
 }
 

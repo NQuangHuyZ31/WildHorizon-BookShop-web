@@ -90,7 +90,7 @@
         <img src="<?php echo BASE_URL_NAME ?>/Public//images/banners/O1CN01wysPrK1R8jRG6tesj_!!6000000002067-2-tps-96-70.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
       </div>
     </div>
-    <div class="float-left" style="width: 25%;">
+    <!-- <div class="float-left" style="width: 25%;">
       <h1 class="text-lg px-2 py-2 font-bold">Verified by</h1>
       <div class="flex flex-wrap">
         <img src="<?php echo BASE_URL_NAME ?>/Public//images/banners/TB1cULQc5qAXuNjy1XdXXaYcVXa-373-140.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 126px;">
@@ -99,7 +99,7 @@
         <img src="<?php echo BASE_URL_NAME ?>/Public//images/banners/TB1Jnytq7L0gK0jSZFAXXcA9pXa-160-84.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 126px;">
         <img src="<?php echo BASE_URL_NAME ?>/Public//images/banners/TB1jyJMv.H1gK0jSZSyXXXtlpXa-184-120.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 126px;">
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -113,6 +113,7 @@
 <script src="<?php echo BASE_URL_NAME ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
 <script src="<?php echo BASE_URL_NAME ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>
 <script src="<?php echo BASE_URL_NAME ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
+<script src="<?php echo BASE_URL_NAME ?>/Public/js/product.js?v=<?php echo rand() ?>"></script>
 </body>
 
 </html>

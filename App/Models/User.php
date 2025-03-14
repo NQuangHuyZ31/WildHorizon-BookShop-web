@@ -29,10 +29,6 @@ class User extends Model
     $stmt->bindValue(1, $email);
     $stmt->execute();
 
-    if ($stmt) {
-
-      return 1;
-    }
-    return 0;
+    return $stmt->fetch() ? 1 : 0;
   }
 }

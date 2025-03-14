@@ -102,7 +102,7 @@ $(document).ready(function () {
     console.log(event);
     $.ajax({
       type: "GET",
-      url: "/WildHorizon-BookShop/loadmore",
+      url: "/WildHorizon-BookShop/product/loadmore",
       data: {
         offset: offset,
         event: event,

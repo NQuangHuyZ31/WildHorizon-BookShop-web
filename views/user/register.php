@@ -2,9 +2,9 @@
 
 use Core\Session;
 
-if(Session::has('user') && Session::get('user')['role'] == 'customer'){
+if (Session::has('user') && Session::get('user')['role'] == 'customer') {
 
-  header('location: '.Session::get('current_url').'');
+  header('location: ' . Session::get('current_url') . '');
 }
 
 if (!empty($_SESSION['error'])) {
@@ -50,8 +50,8 @@ $csrf_token = Core\CSRF::generateToken();
       <div class="px-9">
         <form action="<?php echo BASE_URL . '/dang-ky' ?>" method="post">
           <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
-          <div class="py-1 mb-3 flex">
-            <label class="block mr-2">
+          <div class="py-1 mb-3 flex justify-between">
+            <label class="block">
               <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
                 Họ đệm
               </span>

@@ -11,7 +11,11 @@ use App\Controllers\User\CartController;
 use App\Controllers\User\HomeController;
 use App\Controllers\User\FlashSaleController;
 use App\Controllers\User\LoginController;
-
+use App\Controllers\User\CategoryController;
+use App\Controllers\User\CheckoutController;
+use App\Controllers\User\ChiTietSanPhamController;
+use App\Controllers\User\DanhSachSanPhamController;
+use App\Controllers\User\FeedbackController;
 
 // Admin Controller
 use App\Controllers\Admin\CatalogController;
@@ -22,11 +26,6 @@ use App\Controllers\Admin\OrderController;
 use App\Controllers\Admin\ReviewController;
 use App\Controllers\Admin\BrandController;
 
-use App\Controllers\User\CategoryController;
-use App\Controllers\User\CheckoutController;
-use App\Controllers\User\ChiTietSanPhamController;
-use App\Controllers\User\DanhSachSanPhamController;
-use App\Controllers\User\FeedbackController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
 use App\Models\Cart;
@@ -63,9 +62,11 @@ $router->post('/gio-hang/delete', [CartController::class, 'deleteProduct']);
 $router->post('/addtocart', [CartController::class, 'addToCart']);
 $router->post('/updatepricecart', [CartController::class, 'updatePriceCart']);
 $router->post('/checkquantitycart', [CartController::class, 'checkQuantityCart']);
+
 // Route trang danh sách sản phẩm
 $router->get('/product', [DanhSachSanPhamController::class, 'index']);
-$router->get('/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
+$router->get('/product/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
+$router->get('/product/search-filter', [DanhSachSanPhamController::class, 'searchFilter']);
 
 // Route đến danh mục sản phẩm
 $router->get('/category/{slug}-{id}', [CategoryController::class, 'index']);
@@ -141,4 +142,3 @@ $router->post('/admin/reviews/change-status', [ReviewController::class, 'changeR
 
 // Xử lý request
 $router->handleRequest();
- 

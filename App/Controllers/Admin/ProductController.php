@@ -40,7 +40,6 @@ class ProductController extends Controller
 
         // Truy vấn lấy sản phẩm có áp dụng tìm kiếm và phân trang (bỏ discount)
         $query = "
-<<<<<<< HEAD
             SELECT 
                 p.*, 
                 c.catalog_name AS catalog_name
@@ -51,21 +50,6 @@ class ProductController extends Controller
             WHERE p.product_name LIKE :search OR c.catalog_name LIKE :search
             LIMIT :perPage OFFSET :offset
         ";
-=======
-        SELECT 
-            p.*, 
-            c.name AS catalog_name,
-            fs.discount_price AS discount
-        FROM 
-            products AS p
-        LEFT JOIN 
-            catalogs AS c ON p.catalog_id = c.catalog_id
-        LEFT JOIN 
-            flashsales AS fs ON fs.product_id = p.product_id
-        WHERE p.name LIKE :search OR c.name LIKE :search
-        LIMIT :perPage OFFSET :offset
-    ";
->>>>>>> 9b572b89a5c72fe405b7deee317ba9ef36d9830f
 
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
