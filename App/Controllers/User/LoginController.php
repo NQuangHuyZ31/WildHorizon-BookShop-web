@@ -7,10 +7,19 @@ use App\Requests\RegisterValidate;
 use App\Requests\LoginValidate;
 use Core\CSRF;
 use Core\Session;
+use App\Models\User;
 
 class LoginController extends Controller
 {
 
+  protected $user;
+  public function __construct()
+  {
+    parent::__construct();
+    $this->user = new User();
+  }
+
+  // Đăng nhập
   public function index()
   {
 
@@ -40,19 +49,11 @@ class LoginController extends Controller
 
             if (Session::get('user')['role'] == 'customer') {
 
-              if (Session::get('user')['isfirstlogin'] === 0) {
-
-                Session::set('success', 'Đăng nhập thành công');
-                $stmt = $this->db->prepare("update users set firstlogin = 1 where id=?");
-                $stmt->bindParam(1, Session::get('user')['id'], \PDO::PARAM_INT);
-                $stmt->execute();
-              }
-
               header('location: ' . Session::get('current_url') . '');
             } else {
               Session::delete('user');
 
-              Session::set('failLogin', 'email hoặc password không đúng');
+              Session::set('error', 'email hoặc password không đúng');
 
               header('location:' . BASE_URL . '/dang-nhap');
             }
@@ -67,6 +68,7 @@ class LoginController extends Controller
     }
   }
 
+  // Đăng ký tài khoản
   public function register()
   {
 
@@ -84,7 +86,6 @@ class LoginController extends Controller
         $data = $_POST;
 
         $_SESSION['data'] = [
-          'hodem' => $data['hodem'],
           'username' => $data['username'],
           'email' => $data['email'],
         ];
@@ -104,19 +105,19 @@ class LoginController extends Controller
           exit;
         } else {
           Session::delete('data');
-          $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
 
-          $stmt = $this->db->prepare('INSERT INTO users(firstname, lastname, email, password, role) 
-                            VALUES(:firstname, :lastname, :email, :password, "customer")');
-
-          $stmt->bindParam(':firstname', $data['hodem']);
-          $stmt->bindParam(':lastname', $data['username']);
-          $stmt->bindParam(':email', $data['email']);
-          $stmt->bindParam(':password', $hashedPassword);
-          $stmt->execute();
+          $resgisterData = [
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' =>  password_hash($data['password'], PASSWORD_DEFAULT)
+          ];
+          $this->user->insert($resgisterData);
+          // echo $resgisterData['username'];
           header('location:' . BASE_URL . '/dang-nhap');
         }
       }
+    } else {
+      echo "Lỗi CSRF";
     }
   }
 

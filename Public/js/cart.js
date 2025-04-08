@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+  let URL_UPDATE_PRICE_CART = '/WildHorizon-BookShop/updatepricecart';
+  let URL_CHECK_QUANTITY_CART = '/WildHorizon-BookShop/checkquantitycart';
+  let URL_DELETE_ITEM_CART = '/WildHorizon-BookShop/gio-hang/delete';
+
   // check từng sản phẩm
   $('.cart-item-checkbox').on('click', function (e) {
 
@@ -19,34 +23,6 @@ $(document).ready(function () {
 
     updatePrice()
   });
-
-  function updatePrice() {
-    var data = [];
-    $('.cart-input-checkbox:checked').each(function () {
-      quantity = parseInt($(this).closest('.cart-product-item').find('.cart-product-quantity').val())
-      productID = parseInt($(this).closest('.cart-product-item').find('.cart-product-quantity').data('productid'))
-
-      data.push({ productID, quantity });
-    })
-
-    $.ajax({
-      type: "post",
-      url: "/WildHorizon-BookShop/updatepricecart",
-      data:
-        { data: data },
-      dataType: "json",
-      success: function (response) {
-        $('#cart-subtotal').text(response.totalprice);
-        $('#cart-saved').text(response.saveprice);
-        $('#cart-total').text(response.total);
-        if (response.success == 0) {
-          $('#cart-checkout').removeClass('bg-orange-500').addClass('bg-gray-300 pointer-event-none');
-        } else {
-          $('#cart-checkout').addClass('bg-orange-500').removeClass('bg-gray-300 pointer-event-none');
-        }
-      }
-    });
-  }
 
   // Xử lí tăng giảm quantity
   $('.cart-product-item').each(function () {
@@ -76,7 +52,7 @@ $(document).ready(function () {
 
       const newValue = currentValue - 1;
       quantityInput.val(newValue);
-      updatePrice();
+
       checkQuantityCart(newValue, productID, $(this))
       // Vô hiệu hóa nút giảm nếu giá trị giảm về 1
       if (newValue === 1) {
@@ -103,29 +79,63 @@ $(document).ready(function () {
 
     // Check quantity cart
     checkQuantityCart(newValue, productID, $(this))
-    updatePrice();
     // Kích hoạt lại nút giảm nếu giá trị vượt 1
     if (newValue > 1) {
       decButton.removeClass('pointer-events-none');
     }
   });
 
+
+  // Update giá trên giỏ hàng
+  function updatePrice() {
+    var data = [];
+    $('.cart-input-checkbox:checked').each(function () {
+      quantity = parseInt($(this).closest('.cart-product-item').find('.cart-product-quantity').val())
+      productID = parseInt($(this).closest('.cart-product-item').find('.cart-product-quantity').data('productid'))
+
+      data.push({ productID, quantity });
+    })
+
+    $.ajax({
+      type: "post",
+      url: URL_UPDATE_PRICE_CART,
+      data:
+        { data: data },
+      dataType: "json",
+      success: function (response) {
+        $('#cart-subtotal').text(response.data.totalprice);
+        $('#cart-saved').text(response.data.saveprice);
+        $('#cart-total').text(response.data.total);
+        if (response.data.total == 0) {
+          $('#cart-checkout').removeClass('bg-orange-500').addClass('bg-gray-300');
+          $('#btn-checkout').addClass('pointer-event-none')
+        } else {
+          $('#cart-checkout').addClass('bg-orange-500').removeClass('bg-gray-300');
+          $('#btn-checkout').removeClass('pointer-event-none')
+        }
+      }
+    });
+  }
+
+
   // check quantity cart
   function checkQuantityCart(quantity, productID, btn) {
     $.ajax({
       type: "post",
-      url: "/WildHorizon-BookShop/checkquantitycart",
+      url: URL_CHECK_QUANTITY_CART,
       data: {
         quantity: quantity,
         productID: productID
       },
       dataType: "json",
       success: function (response) {
-        if (response.success == 1) {
-          toastr.error(response.message);
+        if (response.error) {
+          toastr.error(response.error.message);
           btn.addClass('pointer-events-none');
           btn.closest('.cart-product-item').find('.cart-product-quantity').val(response.quantity);
           console.log(btn.closest('.cart-product-item').find('.cart-product-quantity').val())
+        } else if (response.success) {
+          updatePrice();
         }
       }
     });
@@ -133,13 +143,12 @@ $(document).ready(function () {
 
   // Submit form delete  product
   $('.cart-delete-product').on("click", function (e) {
+
     e.preventDefault(); // Ngăn chặn hành vi mặc định của form nếu có
-
     var productID = $(this).data('id');
-
     $.ajax({
       type: "POST",
-      url: "/WildHorizon-BookShop/gio-hang/delete",
+      url: URL_DELETE_ITEM_CART,
       data: { productID: productID }, // Định dạng đúng của dữ liệu
       dataType: "json",
       success: function (response) {
@@ -158,6 +167,10 @@ $(document).ready(function () {
   // Submit form checkout
   $('#cart-checkout').click((e) => {
     e.preventDefault()
+
+    if ($('#btn-checkout').hasClass('pointer-event-none')) {
+      return;
+    }
 
     $('#form-checkout').submit();
   })

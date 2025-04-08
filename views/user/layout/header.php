@@ -42,7 +42,7 @@ $csrf_token = Core\CSRF::generateToken();
     </div>
   <?php } ?>
   <div class="w-full mx-auto relative">
-    <div class="container-fuild mx-auto">
+    <div class="container-fuild m-auto">
       <ul class="flex justify-around py-1" style="font-size: 12px;margin-left: 200px;">
         <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">feedback</a></li>
         <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">SAVE MORE ON APP</a></li>
@@ -57,7 +57,7 @@ $csrf_token = Core\CSRF::generateToken();
                 <div class="whr-meu-user-content top-content">
                   <ul class="mt-2 text-nowrap">
                     <li class="px-2 mt-1 my-3">
-                      <a href="" class="flex items-center">
+                      <a href="<?php echo BASE_URL_NAME . '/customer/account' ?>" class="flex items-center">
                         <span class="text-2xl text-gray-400"><i class="fa-regular fa-face-smile"></i></span>
                         <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Manage My Account</p>
                       </a>

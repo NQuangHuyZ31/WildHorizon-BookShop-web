@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  let URL_GET_PRODUCT_FILTER = '/WildHorizon-BookShop/product/search-filter';
+  
   if (window.location.pathname === "/WildHorizon-BookShop/product" || window.location.pathname.includes("/WildHorizon-BookShop/category/")) {
 
     innitProductFilter();
@@ -117,7 +119,7 @@ $(document).ready(function () {
     function fetchProductFilter(data) {
       $.ajax({
         type: "GET",
-        url: "/WildHorizon-BookShop/product/search-filter",
+        url: URL_GET_PRODUCT_FILTER,
         data: data,
         dataType: "json",
         success: function (response) {

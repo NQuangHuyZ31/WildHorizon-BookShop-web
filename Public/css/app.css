@@ -190,11 +190,19 @@ h6 {
 
 /* LOGIN */
 .whr-login{
-  max-height: 648px;
   width: 444px !important;
 }
+
+.login-content, .register-content{
+  min-height: 100vh;
+  background-image: url(https://cdn.dribbble.com/userupload/6508149/file/original-c4197a5bf25a4356aa2bac6f82073eb2.jpg?resize=752x&vertical=center);
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 .whr-register{
-  min-height: 648px;
+  min-height: 610px;
   width: 480px !important;
 }
 
@@ -365,4 +373,16 @@ h6 {
 
 .checkout-quantity,.checkout-price  {
   width: 100px;
+}
+
+/* CUSTOMER PAGE */
+/* customer account */
+.customer-icon{
+  text-align: center;
+  width: 80px;
+  height: 80px;
+}
+
+.border-s-6 {
+  border-inline-start-width: 6px;
 }

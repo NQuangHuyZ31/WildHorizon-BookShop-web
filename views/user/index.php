@@ -1,12 +1,11 @@
 <?php
-// Header
-// printf($_SESSION['csrf_token']);
+
 use Core\Session;
-use Core\CreateSlug;
+use Helpers\CreateSlug;
 
 $csrf_token = Core\CSRF::generateToken();
 
-include_once('layout/header.php');
+include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <!-- Content -->
 <div class="container-fuild mx-auto mb-2">
@@ -107,7 +106,7 @@ include_once('layout/header.php');
             </div>
             <div class="grid grid-cols-6">
                 <?php foreach ($flassale_products as $fproduct) { ?>
-                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
+                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
                         <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
                                 <img class="w-full h-full" src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
@@ -150,7 +149,7 @@ include_once('layout/header.php');
         <div class="flex flex-col ">
             <div class="mt-3 grid grid-cols-6 whr-product">
                 <?php foreach ($products as $product) { ?>
-                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
                                 <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
@@ -183,10 +182,10 @@ include_once('layout/header.php');
     <!-- MODAL NOTIFICATION -->
     <!-- Open the modal using ID.showModal() method -->
     <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
-    <dialog id="my_modal_1" class="modal <?php if (Session::has('success')) {
-                                                echo 'modal-open';
-                                                Session::delete('success');
-                                            } ?>">
+    <!-- <dialog id="my_modal_1" class="modal <?php if (Session::has('success')) {
+                                                    echo 'modal-open';
+                                                    Session::delete('success');
+                                                } ?>">
         <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" id="btn-close-modal">✕</button>
@@ -205,9 +204,9 @@ include_once('layout/header.php');
                 </div>
             </div>
         </div>
-    </dialog>
+    </dialog> -->
 </div>
 <?php
 // Footer
-include_once('layout/footer.php');
+include_once VIEW_PATH_USER_LAYOUT . 'footer.php'
 ?>

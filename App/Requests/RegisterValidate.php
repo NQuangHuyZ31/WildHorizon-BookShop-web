@@ -15,10 +15,6 @@ class RegisterValidate
     $errors = [];
 
     // Kiểm tra username
-    if (empty($data['hodem'])) {
-      $errors['hodem'] = 'Không được để trống';
-    }
-
     if (empty($data['username'])) {
       $errors['username'] = 'Không được để trống';
     }

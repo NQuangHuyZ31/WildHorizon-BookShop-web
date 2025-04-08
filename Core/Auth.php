@@ -37,14 +37,16 @@ class Auth
 
             Session::set('user', [
                 'id' => $user['id'],
-                'name' => $user['firstname'] . ' ' . $user['lastname'],
+                'name' => $user['username'],
+                'email' => $user['email'],
                 'role' => $user['role'],
-                'isfirstlogin' => $user['firstlogin']
             ]);
+
             // if ($user['role'] === 'customer') {
             // return $user;
             // }
             // Lưu thông tin người dùng vào session
+            return true;
         }
 
         return false;

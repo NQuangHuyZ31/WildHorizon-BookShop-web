@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+  let URL_SAVE_TEMP_ADDRESS = '/WildHorizon-BookShop/savetempaddress';
+  let URL_CHECK_QUANTITY_PRODUCT_DT = '/WildHorizon-BookShop/checkquantity';
+  let URL_ADD_TO_CART = '/WildHorizon-BookShop/addtocart';
+  let URL_CART = 'http://localhost/WildHorizon-BookShop/gio-hang';
+
   // ========================TEMP ADDRESS PRODUCT DETAIL=====================================
   $('#change-temp-address').click(() => {
     fetch('https://esgoo.net/api-tinhthanh/1/0.htm')
@@ -79,9 +84,10 @@ $(document).ready(function () {
     const ward = $('#temp-address-ward').val();
 
     $('#temp_address').text(ward + ', ' + district + ', ' + province);
+    
     $.ajax({
       type: "post",
-      url: "/WildHorizon-BookShop/savetempaddress",
+      url: URL_SAVE_TEMP_ADDRESS,
       data: {
         province: province,
         district: district,
@@ -131,10 +137,11 @@ $(document).ready(function () {
     }
   })
 
+  // Kiểm tra số lượng khi tăng giảm
   function checkQuantity(quantity, productID) {
     $.ajax({
       type: "post",
-      url: "/WildHorizon-BookShop/checkquantity",
+      url: URL_CHECK_QUANTITY_PRODUCT_DT,
       data: {
         quantity: quantity,
         productID: productID
@@ -142,13 +149,10 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
 
-        if (response.success == 1) {
+        if (response.error) {
 
           $('.inc-quantity-product-detail').addClass('pointer-events-none opacity-75');
-          toastr.error(response.message)
-        } else {
-
-          console.log(response.message)
+          toastr.error(response.error.message)
         }
       },
       error: function (xhr, status, error) {
@@ -166,7 +170,7 @@ $(document).ready(function () {
 
     $.ajax({
       type: "post",
-      url: "/WildHorizon-BookShop/addtocart",
+      url: URL_ADD_TO_CART,
       data: {
         event: event,
         productID: productID,
@@ -174,15 +178,15 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        if (response.event == 0) {
-          if (response.success == 0) {
-            toastr.error(response.message)
-          } else {
-            toastr.success(response.message)
+        if (response.data.event == 0) {
+          if (response.error) {
+            toastr.error(response.error.message)
+          } else if (response.success) {
+            toastr.success(response.success.message)
           }
         } else {
           setTimeout(function () {
-            window.location.href = "http://localhost/WildHorizon-BookShop/gio-hang";
+            window.location.href = URL_CART;
           }, 200);
         }
       }

@@ -6,6 +6,16 @@ use Core\Router;
 use App\Controllers\Api\LoginController as ApiLoginController;
 use App\Controllers\Api\ProductController as ApiProductController;
 
+// Admin Controller
+use App\Controllers\Admin\CatalogController;
+use App\Controllers\Admin\ProductController;
+use App\Controllers\Admin\ProductAttributeController;
+use App\Controllers\Admin\DashboardController;
+use App\Controllers\Admin\OrderController;
+use App\Controllers\Admin\ReviewController;
+use App\Controllers\Admin\BrandController;
+
+
 // Use Controller
 use App\Controllers\User\CartController;
 use App\Controllers\User\HomeController;
@@ -16,19 +26,12 @@ use App\Controllers\User\CheckoutController;
 use App\Controllers\User\ChiTietSanPhamController;
 use App\Controllers\User\DanhSachSanPhamController;
 use App\Controllers\User\FeedbackController;
-
-// Admin Controller
-use App\Controllers\Admin\CatalogController;
-use App\Controllers\Admin\ProductController;
-use App\Controllers\Admin\ProductAttributeController;
-use App\Controllers\Admin\DashboardController;
-use App\Controllers\Admin\OrderController;
-use App\Controllers\Admin\ReviewController;
-use App\Controllers\Admin\BrandController;
-
+use App\Controllers\User\Customer_Account\AccountController;
+use App\Controllers\User\Customer_Account\CustomerAddressController;
+use App\Controllers\User\Customer_Account\CustomerChangePasswordController;
+use App\Controllers\User\Customer_Account\CustomerSpecialOfferController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
-use App\Models\Cart;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
@@ -79,6 +82,12 @@ $router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity
 // Route đến trang checkout
 $router->post('/checkout', [CheckoutController::class, 'index']);
 $router->post('/saveorder', [CheckoutController::class, 'checkout']);
+
+// Route đến trang customer
+$router->get('/customer/account', [AccountController::class, 'index']);
+$router->get('/customer/address', [CustomerAddressController::class, 'index']);
+$router->get('/customer/changepassword', [CustomerChangePasswordController::class, 'index']);
+$router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index']);
 
 // ===========================================================ROUTER ADMIN==============================================================
 // Route đến trang đăng nhập admin

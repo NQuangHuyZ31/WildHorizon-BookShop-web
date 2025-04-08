@@ -6,7 +6,7 @@
       <ul class="ms-3 px-2 py-1 text-slate-500" style="font-size: 14px;">
         <?php foreach ($categories as $category) { ?>
           <li class="leading-5 mb-2 hover:text-orange-400">
-            <a href="<?php echo BASE_URL . '/category/' . \Core\CreateSlug::createSlug($category['catalog_name']) . '-' . $category['id'] . '' ?>">
+            <a href="<?php echo BASE_URL . '/category/' . \Helpers\CreateSlug::createSlug($category['catalog_name']) . '-' . $category['id'] . '' ?>">
               <?php echo $category['catalog_name'] ?>
             </a>
           </li>

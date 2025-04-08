@@ -19,22 +19,27 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 });
 
+// Hàm main hanle logic
 $(document).ready(function () {
+
+  let URL_GETMORE_PRODUCT_HOMEPAGE = '/WildHorizon-BookShop/product/loadmore';
+  let URL_GETMORE_FS_PRODUCT_HOMEPAGE ='/WildHorizon-BookShop/loadmorefs';
+
+
   // Ẩn banner top
   $('#banner-top-ee').click(function () {
 
     $('.banner-top').addClass('hidden');
-    // console.log('aaa')
-
   })
 
-  // SLIDE SHOW 
+  // Setup slideshow 
   $('.single-item').slick({
     arrows: true,
     autoplay: true,
     autoplaySpeed: 5000,
     // fade: true,
   });
+
   // ------------------------------------------------------------LOGIN------------------------------------------------------
   // ------------------------------------------------SHOW, HIDE PASSWORD
   $('.whr-show-pw-icon').click(function (e) {
@@ -51,7 +56,7 @@ $(document).ready(function () {
     $('.whr-show-pw-icon').removeClass('hidden');
   });
 
-  // --------------------------------------------SHOW< HIDE CONFIRM PASSWORD
+  // --------------------------------------------SHOW HIDE CONFIRM PASSWORD
   $('.whr-show-cfpw-icon').click(function (e) {
     e.preventDefault();
     $('#whr-login-cfpassword').attr('type', 'text');
@@ -67,9 +72,9 @@ $(document).ready(function () {
   });
 
   // -------------------------------------------------------CLOSE MODAL HOME PAGE
-  $('#btn-close-modal').click(function () {
-    $('#my_modal_1').removeClass('modal-open');
-  })
+  // $('#btn-close-modal').click(function () {
+  //   $('#my_modal_1').removeClass('modal-open');
+  // })
 
   // ------------------------------------------------------CHANGE BORDER FEEDBACK TEXTAREA
   $('.whr-feedback-textarea-content').focus(function () {
@@ -102,7 +107,7 @@ $(document).ready(function () {
     console.log(event);
     $.ajax({
       type: "GET",
-      url: "/WildHorizon-BookShop/product/loadmore",
+      url: URL_GETMORE_PRODUCT_HOMEPAGE,
       data: {
         offset: offset,
         event: event,
@@ -122,11 +127,11 @@ $(document).ready(function () {
                   <p class="product-title text-sm">${product.product_name}</p>
                   <div class="product-price-sale">
                     <p class="text-orange-500">
-                      ${product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_pice/100)):new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price/100))}
+                      ${product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_pice / 100)) : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price / 100))}
                       <u class="text-orange-500 ms-1">đ</u>
                     </p>
                     <div class="flex justify-between items-center">
-                      <p class="flash-sale-product-price-sale ${product.discount_price > 0 || product.f_discount_pice > 0 ?'':'hidden'} "><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
+                      <p class="flash-sale-product-price-sale ${product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'} "><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
                         <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.f_discount_pice) : new Intl.NumberFormat('vi').format(product.discount_price)}%</span>
                       </p>
                       <img src="${response.url}/Public/images/icon/label-flashsale.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'}">
@@ -155,7 +160,7 @@ $(document).ready(function () {
     var offset = $('#loadmore-product-fs').data('offset');
     $.ajax({
       type: "GET",
-      url: "/WildHorizon-BookShop/loadmorefs",
+      url: URL_GETMORE_FS_PRODUCT_HOMEPAGE,
       data: {
         offset: offset,
       },
@@ -173,7 +178,7 @@ $(document).ready(function () {
               <div class="flash-sale-product mt-1 mx-2">
                 <p class="text-sm flash-sale-product-title">${product.product_name}</p>
                 <div class="product-price-sale">
-                  <p class="text-orange-500">${new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price/100))}<u class="text-orange-500 ms-1">đ</u></p>
+                  <p class="text-orange-500">${new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price / 100))}<u class="text-orange-500 ms-1">đ</u></p>
                   <p class="flash-sale-product-price-sale"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
                   <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${new Intl.NumberFormat('vi').format(product.discount_price)}%</span></p>
                 </div>
@@ -192,11 +197,6 @@ $(document).ready(function () {
         $('#loadmore-product-fs').data('offset', newOfset);
       }
     });
-  })
-  // CART
-  // checkall 
-  $('#cart-checkall').click(function () {
-    console.log('aaa')
   })
 
   // ------------CREATE SLUG-----------------------------------

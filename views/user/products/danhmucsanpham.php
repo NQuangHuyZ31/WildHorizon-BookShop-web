@@ -1,6 +1,7 @@
 <?php
 
-use Core\Format;
+use Helpers\CreateSlug;
+use Helpers\Format;
 
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 <div class="container-fuild mx-auto">
@@ -14,7 +15,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
       <?php if (!empty($products)) { ?>
         <div class="grid grid-cols-4 mt-4 whr-product">
           <?php foreach ($products as $product) { ?>
-            <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+            <a href="<?php echo  '/WildHorizon-BookShop/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
               <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                 <div class="whr-product-img py-2">
                   <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">

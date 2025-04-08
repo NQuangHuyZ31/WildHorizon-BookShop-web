@@ -1,9 +1,11 @@
 <?php
 
-namespace Core;
+namespace Helpers;
 
-class CreateSlug{
-  public static function createSlug($slug){
+class CreateSlug
+{
+  public static function createSlug($slug)
+  {
 
     $slug = strtolower($slug);
 
@@ -32,6 +34,5 @@ class CreateSlug{
     $slug = trim($slug, '-');
 
     return $slug;
-
   }
 }
