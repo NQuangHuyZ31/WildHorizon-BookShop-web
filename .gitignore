@@ -3,3 +3,7 @@ node_modules/
 vendor/
 composer.json
 composer.lock
+.$design-database.drawio.bkp
+design-database.drawio
+ghichu.txt
+data.log
