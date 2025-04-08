@@ -1,5 +1,5 @@
 <?php
-require_once 'config/config.php';
+require_once 'Config/config.php';
 // Autoloader để tự động tải class
 
 spl_autoload_register(function ($class) {
