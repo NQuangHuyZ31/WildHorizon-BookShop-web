@@ -1,9 +1,9 @@
 $(document).ready(function () {
-
-  let URL_SAVE_TEMP_ADDRESS = '/WildHorizon-BookShop/savetempaddress';
-  let URL_CHECK_QUANTITY_PRODUCT_DT = '/WildHorizon-BookShop/checkquantity';
-  let URL_ADD_TO_CART = '/WildHorizon-BookShop/addtocart';
-  let URL_CART = 'http://localhost/WildHorizon-BookShop/gio-hang';
+  const baseURL = window.location.origin + '/WildHorizon-BookShop';
+  let URL_SAVE_TEMP_ADDRESS = baseURL+'/savetempaddress';
+  let URL_CHECK_QUANTITY_PRODUCT_DT = baseURL+'/checkquantity';
+  let URL_ADD_TO_CART = baseURL+'/addtocart';
+  let URL_CART = baseURL+'/gio-hang';
 
   // ========================TEMP ADDRESS PRODUCT DETAIL=====================================
   $('#change-temp-address').click(() => {

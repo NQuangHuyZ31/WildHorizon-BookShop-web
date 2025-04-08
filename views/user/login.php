@@ -25,17 +25,17 @@ Session::delete('failLogin');
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="<?php echo BASE_URL_NAME ?>/Public/css/app.css?v=<?php echo rand() ?>">
+  <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/app.css?v=<?php echo rand() ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="icon" type="jpg" href="<?php echo BASE_URL_NAME ?>/Public//images//icon.jpg">
+  <link rel="icon" type="jpg" href="<?php echo BASE_URL ?>/Public//images//icon.jpg">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo BASE_URL_NAME ?>/Public/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/fontawesome/css/fontawesome.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
-  <link href="<?php echo BASE_URL_NAME ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
+  <link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
   <title>Login</title>
 </head>
 
@@ -121,17 +121,17 @@ Session::delete('failLogin');
       </div>
     </div>
   </div>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/fontawesome/js/all.min.js"></script>
+  <script src="<?php echo BASE_URL ?>/Public/fontawesome/js/all.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/js/app.js?v=<?php echo rand() ?>"></script>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
-  <script src="<?php echo BASE_URL_NAME ?>/Public/js/product.js?v=<?php echo rand() ?>"></script>
+  <script src="<?php echo BASE_URL ?>/Public/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo BASE_URL ?>/Public/js/app.js?v=<?php echo rand() ?>"></script>
+  <script src="<?php echo BASE_URL ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
+  <script src="<?php echo BASE_URL ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>
+  <script src="<?php echo BASE_URL ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
+  <script src="<?php echo BASE_URL ?>/Public/js/product.js?v=<?php echo rand() ?>"></script>
 </body>
 
 </html>

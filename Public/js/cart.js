@@ -1,8 +1,8 @@
 $(document).ready(function () {
-
-  let URL_UPDATE_PRICE_CART = '/WildHorizon-BookShop/updatepricecart';
-  let URL_CHECK_QUANTITY_CART = '/WildHorizon-BookShop/checkquantitycart';
-  let URL_DELETE_ITEM_CART = '/WildHorizon-BookShop/gio-hang/delete';
+  const baseURL = window.location.origin + '/WildHorizon-BookShop';
+  let URL_UPDATE_PRICE_CART = baseURL+'/updatepricecart';
+  let URL_CHECK_QUANTITY_CART = baseURL+'/checkquantitycart';
+  let URL_DELETE_ITEM_CART = baseURL+'/gio-hang/delete';
 
   // check từng sản phẩm
   $('.cart-item-checkbox').on('click', function (e) {

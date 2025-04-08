@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
-  let URL_GET_PRODUCT_FILTER = '/WildHorizon-BookShop/product/search-filter';
-  
+  const baseURL = window.location.origin + '/WildHorizon-BookShop';
+  let URL_GET_PRODUCT_FILTER = baseURL + '/product/search-filter';
+
   if (window.location.pathname === "/WildHorizon-BookShop/product" || window.location.pathname.includes("/WildHorizon-BookShop/category/")) {
 
     innitProductFilter();
@@ -129,7 +130,7 @@ $(document).ready(function () {
               $('.whr-product').removeClass('grid-cols-1').addClass('grid-cols-4')
               response.products.forEach(product => {
                 $('.whr-product').append(`
-                  <a href="/WildHorizon-BookShop/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
+                  <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
                     <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                       <div class="whr-product-img py-2">
                         <img src="/WildHorizon-BookShop/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
@@ -173,7 +174,11 @@ $(document).ready(function () {
                   </div>
               `);
             }
-            $('.product-count').text(response.products.length + " sản phẩm")
+
+            $('html, body').animate({
+              scrollTop: $('.whr-product').offset().top - 100 // căn lề đẹp hơn
+            }, 400);
+            $('.product-count').text(response.products.length)
             $('#loadMore-product').addClass('hidden')
           } else {
             console.log('Đang ở trang chính')

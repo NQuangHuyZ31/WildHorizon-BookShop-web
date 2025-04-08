@@ -15,18 +15,18 @@ $csrf_token = Core\CSRF::generateToken();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csrf-token" content="<?php echo $csrf_token ?>">
-  <link rel="stylesheet" href="<?php echo BASE_URL_NAME ?>/Public/css/app.css?v=<?php echo rand() ?>">
+  <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/app.css?v=<?php echo rand() ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="icon" type="jpg" href="<?php echo BASE_URL_NAME ?>/Public//images//icon.jpg">
+  <link rel="icon" type="jpg" href="<?php echo BASE_URL ?>/Public//images//icon.jpg">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo BASE_URL_NAME ?>/Public/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/fontawesome/css/fontawesome.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
   <!-- <link rel="stylesheet" href="./Public/css/bootstrap.min.css"> -->
-  <link href="<?php echo BASE_URL_NAME ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
+  <link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
   <title>WildHorizon BookShop</title>
 </head>
 
@@ -34,7 +34,7 @@ $csrf_token = Core\CSRF::generateToken();
   <?php if (isset($homePage)) { ?>
     <div class=" banner-top w-screen bg-banner-top py-2" style="height: 80px;">
       <div class="flex align-middle relative h-full">
-        <img class="mx-auto" src="<?php echo BASE_URL_NAME ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top">
+        <img class="mx-auto" src="<?php echo BASE_URL ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top">
       </div>
       <div class="absolute z-50 cursor-pointer hover:opacity-60" style="top: 15px;right: 10%" id="banner-top-ee">
         <i class="fa-solid fa-xmark text-lg text-white"></i>
@@ -57,7 +57,7 @@ $csrf_token = Core\CSRF::generateToken();
                 <div class="whr-meu-user-content top-content">
                   <ul class="mt-2 text-nowrap">
                     <li class="px-2 mt-1 my-3">
-                      <a href="<?php echo BASE_URL_NAME . '/customer/account' ?>" class="flex items-center">
+                      <a href="<?php echo BASE_URL . '/customer/account' ?>" class="flex items-center">
                         <span class="text-2xl text-gray-400"><i class="fa-regular fa-face-smile"></i></span>
                         <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Manage My Account</p>
                       </a>
@@ -104,7 +104,7 @@ $csrf_token = Core\CSRF::generateToken();
     <div class="w-full pt-2 bg-white header-content">
       <div class="container-fuild mx-auto flex justify-start items-center">
         <div class="header-logo">
-          <a href="<?php echo BASE_URL . '/' ?>"><img src="<?php echo BASE_URL_NAME ?>/Public/images/logo.jpg" alt="" height="75" width="180"></a>
+          <a href="<?php echo BASE_URL . '/' ?>"><img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" height="75" width="180"></a>
         </div>
         <div class="flex-1 <?php if (isset($nosearch)) {
                               echo 'pointer-events-none';
@@ -122,7 +122,7 @@ $csrf_token = Core\CSRF::generateToken();
           <a href="<?php echo BASE_URL . '/gio-hang' ?>"><i class="fa-solid fa-cart-shopping cursor-pointer" style="height: 26px;"></i></a>
         </div>
         <div class="ms-6" style="height: 45px;">
-          <a href="#"><img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/O1CN01yOpioK1Qz7NKPWfkw_!!6000000002046-2-tps-376-90.avif" alt="" width="188" height="45"></a>
+          <a href="#"><img src="<?php echo BASE_URL ?>/Public/images/banners/O1CN01yOpioK1Qz7NKPWfkw_!!6000000002046-2-tps-376-90.avif" alt="" width="188" height="45"></a>
         </div>
       </div>
     </div>

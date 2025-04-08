@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Hàm main hanle logic
 $(document).ready(function () {
-
-  let URL_GETMORE_PRODUCT_HOMEPAGE = '/WildHorizon-BookShop/product/loadmore';
-  let URL_GETMORE_FS_PRODUCT_HOMEPAGE ='/WildHorizon-BookShop/loadmorefs';
+  const baseURL = window.location.origin + '/WildHorizon-BookShop';
+  let URL_GETMORE_PRODUCT_HOMEPAGE = baseURL+'/product/loadmore';
+  let URL_GETMORE_FS_PRODUCT_HOMEPAGE =baseURL+'/loadmorefs';
 
 
   // Ẩn banner top
@@ -115,8 +115,8 @@ $(document).ready(function () {
       },
       dataType: "json",
       success: function (response) {
-        if (response.products.length > 0) {
-          response.products.forEach(product => {
+        if (response.data.length > 0) {
+          response.data.forEach(product => {
             $('.whr-product').append(`
              <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
               <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
@@ -167,10 +167,10 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         // console.log(response);
-        if (response.products.length > 0) {
-          response.products.forEach(product => {
+        if (response.data.length > 0) {
+          response.data.forEach(product => {
             $('.whr-product-flash-sale').append(`
-              <a href="/WildHorizon-BookShop/product/${createSlug(product.product_name)}-${product.product_id}" class="mr-2 bg-white mb-3">
+              <a href="${response.url}/product/${createSlug(product.product_name)}-${product.product_id}" class="mr-2 bg-white mb-3">
             <div class="flex flex-col ">
               <div class="whr-product-img py-2">
                 <img src="./Public/upload/products/${product.product_image}" class="w-full h-full" alt="sanpham">

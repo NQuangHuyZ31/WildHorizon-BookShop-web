@@ -121,7 +121,7 @@ class Products extends Model
     }
 
     // Nếu không có điều kiện nào, đặt WHERE 1=1 để lấy tất cả sản phẩm
-    $whereClause = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "WHERE 1=0";
+    $whereClause = !empty($conditions) ? "WHERE " . implode(" AND ", $conditions) : "WHERE 1=1";
 
     $query = "SELECT p.id, product_name, price, product_image, p.discount_price as discount_price, 
     COALESCE(f.discount_price, 0) AS f_discount_price, COALESCE(f.quantity, 0) AS f_quantity 
