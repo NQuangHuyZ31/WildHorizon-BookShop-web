@@ -61,11 +61,12 @@ Session::delete('failLogin');
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-500 ms-2">
                     Email
                   </span>
-                  <input type="email" name="email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Please enter your email" />
+                  <input
+                    type="email"
+                    name="email"
+                    class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                    placeholder="Ví dụ: nguyenvana@gmail.com" />
                 </label>
-                <?php if (!empty($errorPassword)) {
-                  echo "<span class='text-sm text-red-700 ps-4 mt-1'>$errorPassword</span>";
-                } ?>
               </div>
               <div>
                 <label class="block">
@@ -73,7 +74,12 @@ Session::delete('failLogin');
                     Password
                   </span>
                   <div class="relative">
-                    <input type="password" id="whr-login-password" name="password" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Please enter your password" />
+                    <input
+                      type="password"
+                      id="whr-login-password"
+                      name="password"
+                      class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                      placeholder="Ví dụ: NQH@123" />
                     <div class="whr-show-hidden-pw-icon flex z-50 absolute right-3 top-1/2 transform -translate-y-1/2">
                       <div class="cursor-pointer flex items-center justify-center" style="width: 24px;height: 24px;" id="togglePassword">
                         <div class="whr-show-pw-icon">
@@ -85,12 +91,6 @@ Session::delete('failLogin');
                       </div>
                     </div>
                   </div>
-                  <?php if (!empty($errorEmail)) {
-                    echo "<span class='text-sm text-red-700 ps-4 mt-1'>$errorEmail</span>";
-                  } ?>
-                  <?php if (!empty($failLogin)) {
-                    echo "<span class='text-sm text-red-700 ps-4 mt-1'>$failLogin</span>";
-                  } ?>
                 </label>
                 <div class="flex justify-end my-1 pb-4">
                   <span class="text-sm text-gray-300"><a href="#">Forgot password?</a></span>
@@ -132,6 +132,41 @@ Session::delete('failLogin');
   <script src="<?php echo BASE_URL ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/product.js?v=<?php echo rand() ?>"></script>
+
+  <!--  -->
+  <?php
+  $success = Session::get('success');
+  $status = is_array($success) && isset($success['status']) ? $success['status'] : '';
+  $msg = is_array($success) && isset($success['msg']) ? $success['msg'] : '';
+  Session::delete('success'); // Xóa flash sau khi dùng
+  ?>
+
+  <!-- Config notify -->
+  <script>
+    const status = "<?= addslashes($status) ?>";
+    const msg = "<?= addslashes($msg) ?>";
+    console.log(status, msg)
+    toastr.options = {
+      "closeButton": true,
+      "positionClass": "toast-bottom-right",
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "500",
+      "timeOut": "1000",
+      // "extendedTimeOut": "1000000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+    if (status != "" && status == 1) {
+      toastr["success"](msg)
+    }
+
+    if (status != "" && status == 0) {
+      toastr["error"](msg)
+    }
+  </script>
 </body>
 
 </html>

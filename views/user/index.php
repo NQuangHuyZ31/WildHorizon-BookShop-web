@@ -179,32 +179,6 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
         </div>
     </div>
-    <!-- MODAL NOTIFICATION -->
-    <!-- Open the modal using ID.showModal() method -->
-    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
-    <!-- <dialog id="my_modal_1" class="modal <?php if (Session::has('success')) {
-                                                    echo 'modal-open';
-                                                    Session::delete('success');
-                                                } ?>">
-        <div class="modal-box">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" id="btn-close-modal">✕</button>
-            </form>
-            <h3 class="text-lg font-bold border-b-2 border-gray-300 pb-2">Wildhorizon BookShop thông báo!</h3>
-            <div class="flex justify-start items-start mt-3">
-                <div class="p-2 flex items-center ">
-                    <i class="fa-solid fa-circle-exclamation text-orange-400" style="font-size: 32px;"></i>
-                </div>
-                <div class="px-2 pt-3">
-                    <p class="">Đề xuất cập nhật thông tin cá nhân!</p>
-                    <div class="mt-3 px-3 flex items-center">
-                        <p class="text-sm text-gray-400 align-middle flex items-center">Đi đến cập nhật thông tin<i class="fa-regular fa-hand-point-right ms-2" style="font-size: 25px;"></i></p>
-                        <button type="button" class="py-2 px-3 bg-blue-500 rounded-md text-white ms-4"><a class="w-full h-full" href="<?php echo BASE_URL . '/profile/cap-nhat' ?>">Đi đến</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </dialog> -->
 </div>
 <?php
 // Footer

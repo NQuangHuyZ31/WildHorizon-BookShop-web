@@ -25,7 +25,7 @@ class User extends Model
   public function find($userID)
   {
 
-    $query = "SELECT id, username, email, phone FROM $this->table WHERE id = ?  and role = 'customer'";
+    $query = "SELECT id, username, gender, birthday, email, phone FROM $this->table WHERE id = ?  and role = 'customer'";
 
     $stmt = $this->db->prepare($query);
 
@@ -42,7 +42,20 @@ class User extends Model
     $stmt = $this->db->prepare($query);
     $stmt->bindValue(1, $email);
     $stmt->execute();
-
     return $stmt->fetch() ? 1 : 0;
+  }
+
+  public function updateInfoUser($data, $userID)
+  {
+    $query = "UPDATE $this->table SET username = ?, gender = ?, birthday = ?, phone = ?, updated_at = ? WHERE id = ?";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $data['username'], \PDO::PARAM_STR);
+    $stmt->bindValue(2, $data['gender'], \PDO::PARAM_INT);
+    $stmt->bindValue(3, $data['birthday'], \PDO::PARAM_STR);
+    $stmt->bindValue(4, $data['phone'], \PDO::PARAM_STR);
+    $stmt->bindValue(5, date('Y-m-d'));
+    $stmt->bindValue(6, $userID, \PDO::PARAM_INT);
+    return $stmt->execute();
   }
 }

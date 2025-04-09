@@ -64,8 +64,10 @@ class DanhSachSanPhamController extends Controller
 
     $products = $this->product->getProductFilter($data);
 
+
     echo json_encode([
-      'success' => 1,
+      'status' => http_response_code(),
+      'success' => empty($products) ? 0 : 1,
       'products' => $products,
       'params' => $data,
       'product_count' => count($products),

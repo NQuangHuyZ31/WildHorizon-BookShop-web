@@ -2,35 +2,26 @@
 
 use Core\Session;
 
-
 if (Session::has('user') && Session::get('user')['role'] == 'customer') {
 
   header('location: ' . Session::get('current_url') . '');
 }
 
-if (!empty($_SESSION['error'])) {
-  $errors = $_SESSION['error'] ?? [];
-}
-
-if (!empty($_SESSION['data'])) {
-  $data = $_SESSION['data'] ?? [];
+if (!empty(Session::get('data'))) {
+  $data = Session::get('data') ?? [];
 }
 
 // lấy dữ liệu form
 $username = $data['username'] ?? '';
 $email = $data['email'] ?? '';
-// Lấy lỗi 
-$usernameError = $errors['username'] ?? '';
-$emailError = $errors['email'] ?? '';
-$passwordError = $errors['password'] ?? '';
-$cfpasswordError = $errors['cfpassword'] ?? '';
-// Xóa session
-Core\Session::delete('error');
-Core\Session::delete('data');
-// Tạo token
 
+// Xóa session
+Core\Session::delete('data');
+
+// Tạo token
 $csrf_token = Core\CSRF::generateToken();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,10 +67,10 @@ $csrf_token = Core\CSRF::generateToken();
                   <input type="text" name="username"
                     class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     value="<?php echo htmlspecialchars($username);  ?>"
-                    placeholder="Please enter your name" />
-                  <?php if (!empty($usernameError)) { ?>
+                    placeholder="Ví dụ: Nguyễn Quang Huy" />
+                  <!-- <?php if (!empty($usernameError)) { ?>
                     <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($usernameError) ?></span>
-                  <?php } ?>
+                  <?php } ?> -->
                 </label>
               </div>
               <div class="py-1 mb-1">
@@ -90,10 +81,10 @@ $csrf_token = Core\CSRF::generateToken();
                   <input type="email" name="email"
                     class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     value="<?php echo htmlspecialchars($email); ?>"
-                    placeholder="Please enter your email" />
-                  <?php if (!empty($emailError)) { ?>
+                    placeholder="ví dụ: nguyenvana@gmail.com" />
+                  <!-- <?php if (!empty($emailError)) { ?>
                     <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($emailError) ?></span>
-                  <?php } ?>
+                  <?php } ?> -->
                 </label>
               </div>
               <div class="py-1 mb-1">
@@ -102,8 +93,11 @@ $csrf_token = Core\CSRF::generateToken();
                     Password
                   </span>
                   <div class="relative">
-                    <input type="password" id="whr-login-password" name="password" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Please enter your password" />
-
+                    <input type="password"
+                      id="whr-login-password"
+                      name="password"
+                      class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
+                      placeholder="Ví dụ: NQH@!123" />
                     <div class="whr-show-hidden-pw-icon flex z-50">
                       <div class="cursor-pointer flex items-center justify-center" style="width: 24px;height: 24px;" id="togglePassword">
                         <div class="whr-show-pw-icon">
@@ -115,9 +109,9 @@ $csrf_token = Core\CSRF::generateToken();
                       </div>
                     </div>
                   </div>
-                  <?php if (!empty($passwordError)) { ?>
+                  <!-- <?php if (!empty($passwordError)) { ?>
                     <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($passwordError) ?></span>
-                  <?php } ?>
+                  <?php } ?> -->
                 </label>
               </div>
               <div class="py-1 mb-1">
@@ -139,9 +133,9 @@ $csrf_token = Core\CSRF::generateToken();
                       </div>
                     </div>
                   </div>
-                  <?php if (!empty($cfpasswordError)) { ?>
+                  <!-- <?php if (!empty($cfpasswordError)) { ?>
                     <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($cfpasswordError) ?></span>
-                  <?php } ?>
+                  <?php } ?> -->
                 </label>
               </div>
               <div class="flex justify-start my-1 pb-4">
@@ -186,6 +180,41 @@ $csrf_token = Core\CSRF::generateToken();
   <script src="<?php echo BASE_URL ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/product.js?v=<?php echo rand() ?>"></script>
+
+  <!--  -->
+  <?php
+  $success = Session::get('success');
+  $status = is_array($success) && isset($success['status']) ? $success['status'] : '';
+  $msg = is_array($success) && isset($success['msg']) ? $success['msg'] : '';
+  Session::delete('success'); // Xóa flash sau khi dùng
+  ?>
+
+  <!-- Config notify -->
+  <script>
+    const status = "<?= addslashes($status) ?>";
+    const msg = "<?= addslashes($msg) ?>";
+    console.log(status, msg)
+    toastr.options = {
+      "closeButton": true,
+      "positionClass": "toast-bottom-right",
+      "onclick": null,
+      "showDuration": "500",
+      "hideDuration": "500",
+      "timeOut": "1000",
+      // "extendedTimeOut": "1000000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+    if (status != "" && status == 1) {
+      toastr["success"](msg)
+    }
+
+    if (status != "" && status == 0) {
+      toastr["error"](msg)
+    }
+  </script>
 </body>
 
 </html>

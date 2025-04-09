@@ -386,3 +386,15 @@ h6 {
 .border-s-6 {
   border-inline-start-width: 6px;
 }
+
+.img-account-content{
+  height: 185px;
+}
+
+.profile-label{
+  width: 150px;
+}
+
+#toast-container>div{
+  opacity: 1 !important;
+}

@@ -25,4 +25,28 @@ class Order extends Model
       return false; // Trả về false nếu có lỗi
     }
   }
+
+  public function getCountOrder($userID)
+  {
+
+    $query = "SELECT count(id) as countorder FROM orders WHERE user_id = ? and year(order_date) = year(CURRENT_DATE)";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
+
+  public function getSumTotalOrder($userID)
+  {
+
+    $query = "SELECT sum(total_price) as totalprice FROM orders WHERE user_id = ? and year(order_date) = year(CURRENT_DATE) and status = 'Đã giao hàng'";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
 }

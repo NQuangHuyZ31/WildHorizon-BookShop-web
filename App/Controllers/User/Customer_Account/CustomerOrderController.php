@@ -2,7 +2,7 @@
 
 namespace App\Controllers\User\Customer_Account;
 
-class CustomerAddressController extends CustomerController
+class CustomerOrderController extends CustomerController
 {
   protected $user;
 
@@ -10,6 +10,6 @@ class CustomerAddressController extends CustomerController
   {
 
     $customer = $this->customer;
-    require_once VIEW_PATH . 'user/accounts/customer-address.php';
+    require_once VIEW_PATH . 'user/accounts/customer-order.php';
   }
 }

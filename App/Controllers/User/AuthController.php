@@ -9,7 +9,7 @@ use Core\CSRF;
 use Core\Session;
 use App\Models\User;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
 
   protected $user;
@@ -30,18 +30,15 @@ class LoginController extends Controller
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      $data = $_POST;
-
-      $errors = LoginValidate::validate($data);
-
       if (CSRF::verifyToken($_POST['csrf_token'])) {
 
         CSRF::destroyToken();
+        $data = $_POST;
+        $error = LoginValidate::validate($data);
 
-        if (!empty($errors)) {
+        if (!empty($error)) {
 
-          Session::set('message', ['error' => $errors]);
-
+          Session::set('success', ['status' => 0, 'msg' => $error]);
           header('location:' . BASE_URL . '/dang-nhap');
         } else {
 
@@ -51,16 +48,14 @@ class LoginController extends Controller
 
               header('location: ' . Session::get('current_url') . '');
             } else {
+
               Session::delete('user');
-
-              Session::set('error', 'email hoặc password không đúng');
-
+              Session::set('success', ['status' => 0, 'msg' => "Email hoặc password không đúng"]);
               header('location:' . BASE_URL . '/dang-nhap');
             }
           } else {
 
-            Session::set('failLogin', 'email hoặc password không đúng');
-
+            Session::set('success', ['status' => 0, 'msg' => "Email hoặc password không đúng"]);
             header('location:' . BASE_URL . '/dang-nhap');
           }
         }
@@ -82,42 +77,42 @@ class LoginController extends Controller
 
       if (CSRF::verifyToken($_POST['csrf_token'])) {
 
-        // Lưu dữ liệu form
-        $data = $_POST;
-
-        $_SESSION['data'] = [
-          'username' => $data['username'],
-          'email' => $data['email'],
-        ];
-
-        // Validate Form
-        $errors = RegisterValidate::registerValidate($data);
-
         CSRF::destroyToken();
 
-        // Kiểm tra lỗi
-        if (!empty($errors)) {
+        // Lưu dữ liệu form
+        $data = $_POST;
+        Session::set('data', [
+          'username' => $data['username'],
+          'email' => $data['email'],
+        ]);
 
-          Session::set('error', $errors);
+        // Validate Form
+        $error = RegisterValidate::registerValidate($data);
+
+        // Kiểm tra lỗi
+        if (!empty($error)) {
+
+          Session::set('success', ['status' => 0, 'msg' => $error]);
 
           header('location:' . BASE_URL . '/dang-ky');
-
           exit;
         } else {
-          Session::delete('data');
 
+          Session::delete('data');
           $resgisterData = [
             'username' => $data['username'],
             'email' => $data['email'],
             'password' =>  password_hash($data['password'], PASSWORD_DEFAULT)
           ];
+
           $this->user->insert($resgisterData);
-          // echo $resgisterData['username'];
+          Session::set('success', ['status' => 1, 'msg' => 'Đăng kí thành công']);
           header('location:' . BASE_URL . '/dang-nhap');
         }
       }
     } else {
-      echo "Lỗi CSRF";
+
+      Session::set('success', ['status' => 0, 'msg' => 'Phương thức không hỗ trợ']);
     }
   }
 

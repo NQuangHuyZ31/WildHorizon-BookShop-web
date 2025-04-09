@@ -5,7 +5,7 @@ use Core\Session;
 $user = Session::has('user') ? Session::get('user') : [];
 Session::set('current_url', $_SERVER['REQUEST_URI']);
 $csrf_token = Core\CSRF::generateToken();
-// var_dump($_SESSION);
+
 ?>
 
 <!DOCTYPE html>

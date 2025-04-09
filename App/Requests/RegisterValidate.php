@@ -12,36 +12,44 @@ class RegisterValidate
 
     $user = new User();
 
-    $errors = [];
+    $error = '';
 
     // Kiểm tra username
-    if (empty($data['username'])) {
-      $errors['username'] = 'Không được để trống';
+    if (empty($data['username']) || empty($data['email']) || empty($data['password']) || empty($data['cfpassword'])) {
+
+      $error = 'Không được để trống';
     }
 
-    // Kiểm tra email
-    if (empty($data['email'])) {
-      $errors['email'] = 'Không được để trống';
+    // Kiểm tra hợp lệ username
+    else if (!preg_match('/^[a-zA-ZÀ-Ỵà-ỵ\s]+$/u', $data['username'])) {
+      $error = 'Tên người dùng không đúng định dạng';
     }
 
-    if ($user->checkEmail($data['email'])) {
-      $errors['email'] = "email đã tồn tại";
-    }
-    // Kiểm tra password
-    if (empty($data['password'])) {
-      $errors['password'] = 'Không được để trống';
+    // Kiểm tra email đúng dạng
+    else if (!preg_match('/^[\w\.-]+@[\w\.-]+\.com$/', $data['email'])) {
+      $error = 'Email không hợp lệ';
     }
 
-    // Kiểm tra confirm password
-    if (empty($data['cfpassword'])) {
-      $errors['cfpassword'] = 'Không được để trống';
+    // Kiểm tra tồn tại email
+    else if ($user->checkEmail($data['email'])) {
+      $error = "email đã tồn tại";
+    }
+
+    // Kiểm tra độ dài mật khẩu
+    else if (strlen($data['password']) < 6) {
+      $error = 'Mật khẩu phải có ít nhất 6 kí tự';
+    }
+
+    // Kiểm tra password đúng định dạng
+    else if (!preg_match('/^(?=.*[A-Z])(?=.*[\W_]).{6,}$/', $data['password'])) {
+      $error = 'Mật khẩu không đúng định dạng';
     }
 
     // Kiểm tra password và confirm password có trùng khớp không
-    if (!empty($data['password']) && !empty($data['cfpassword']) && $data['password'] !== $data['cfpassword']) {
-      $errors['cfpassword'] = 'Password không trùng khớp';
+    else if (!empty($data['password']) && !empty($data['cfpassword']) && $data['password'] !== $data['cfpassword']) {
+      $error = 'Password không trùng khớp';
     }
 
-    return $errors;
+    return $error;
   }
 }

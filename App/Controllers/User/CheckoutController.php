@@ -130,51 +130,54 @@ class CheckoutController extends Controller
         $this->ordershippingaddress->insert($data, $orderID);
 
         if ($orderID) {
-
           foreach ($productIds as $index => $product_id) {
             $quantity = isset($quantities[$index]) ? intval($quantities[$index]) : 1;
 
             $product = $this->product->find($product_id);
 
-            // Tính giá sản phẩm
-            $price = $product['f_quantity'] > 0
-              ? ($product['price'] - ($product['price'] * $product['f_discount_price'] / 100))
-              : ($product['price'] - ($product['price'] * $product['discount_price'] / 100));
+            if (!$product || $quantity <= 0) continue;
 
-            // Dự liệu thêm vào chi tiết hóa đơn
+            // Kiểm tra tồn kho
+            if ($product['stock'] < $quantity) {
+              Session::set('success', ['status' => 0, 'msg' => 'Sản phẩm "' . $product['name'] . '" không đủ hàng']);
+              header('location: ' . BASE_URL_NAME . '/gio-hang');
+              exit;
+            }
+
+            // Tính giá
+            $discount = ($product['f_quantity'] > 0)
+              ? $product['f_discount_price']
+              : $product['discount_price'];
+
+            $price = $product['price'] - ($product['price'] * $discount / 100);
+            $total = $price * $quantity;
+
+            // Lưu chi tiết đơn hàng
             $orderDetailData = [
               'order_id' => $orderID,
               'product_id' => $product_id,
               'quantity' => $quantity,
               'price' => $price,
-              'total' => $price * $quantity,
+              'total' => $total,
             ];
-
-            // Thêm chi tiết đơn hàng
             $this->orderDetail->insert($orderDetailData);
 
-            // Xóa sản phẩm trong giỏ hàng khi đã thêm chi tiết
-            $this->cart->delete($user_id, $product_id);
+            // Cập nhật kho
+            $this->product->updateStock($product_id, $quantity);
 
-            // Cập nhật sl flashsale nếu có fs
-            if ($product['f_discount_price'] > 0 && $product['f_quantity'] > 0) {
+            // Cập nhật số lượng FlashSale nếu có
+            if ($product['f_quantity'] > 0 && $product['f_discount_price'] > 0) {
               $this->flashsale->updateQuantityFS($product, $quantity);
             }
 
-            // Cập nhật lại số lượng sản phẩm tồn kho
-            if ($product['stock'] > 0) {
-              $this->product->updateStock($product_id, $quantity);
-            } else {
-              header('location: ' . BASE_URL_NAME . '/gio-hang');
-            }
+            // Xoá khỏi giỏ hàng
+            $this->cart->delete($user_id, $product_id);
           }
 
-          // Commit transaction
           $this->db->commit();
-
-          Session::set('msg', ['success', 'Đặt hàng thành công']);
-          header('location: ' . BASE_URL_NAME . '/');
-          exit();
+          Session::set('success', ['status' => 1, 'msg' => 'Đặt hàng thành công']);
+          header('location: ' . BASE_URL);
+          exit;
         }
       } catch (Exception $e) {
         // Rollback nếu có lỗi

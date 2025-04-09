@@ -3,7 +3,7 @@ $(document).ready(function () {
   const baseURL = window.location.origin + '/WildHorizon-BookShop';
   let URL_GET_PRODUCT_FILTER = baseURL + '/product/search-filter';
 
-  if (window.location.pathname === "/WildHorizon-BookShop/product" || window.location.pathname.includes("/WildHorizon-BookShop/category/")) {
+  if (window.location.search) {
 
     innitProductFilter();
   }
@@ -133,7 +133,7 @@ $(document).ready(function () {
                   <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
                     <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                       <div class="whr-product-img py-2">
-                        <img src="/WildHorizon-BookShop/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
+                        <img src="${response.url}/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
                       </div>
                       <div class="px-2 mt-2">
                         <p class="product-title text-sm">${product.product_name}</p>
