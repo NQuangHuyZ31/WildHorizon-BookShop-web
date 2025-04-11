@@ -145,7 +145,6 @@ Session::delete('failLogin');
   <script>
     const status = "<?= addslashes($status) ?>";
     const msg = "<?= addslashes($msg) ?>";
-    console.log(status, msg)
     toastr.options = {
       "closeButton": true,
       "positionClass": "toast-bottom-right",

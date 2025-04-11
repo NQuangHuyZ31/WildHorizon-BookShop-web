@@ -38,6 +38,7 @@ h6 {
   font-family: "Noto Sans", serif;
 }
 
+/* Customer css */
 .container-fuild{
   max-width: 1188px !important;
 }
@@ -68,6 +69,10 @@ h6 {
   color: var(--color-yellow) !important;
 }
 
+.text-m{
+  font-size: 12px;
+  line-height: 18px;
+}
 /*  */
 .bg-banner-top{
   background-color: var(--bg-banner-top);
@@ -377,6 +382,10 @@ h6 {
 
 /* CUSTOMER PAGE */
 /* customer account */
+.c-sidebar{
+  max-height: 570px;
+}
+
 .customer-icon{
   text-align: center;
   width: 80px;
@@ -397,4 +406,8 @@ h6 {
 
 #toast-container>div{
   opacity: 1 !important;
+}
+
+.customer-address-content{
+  min-height: 400px;
 }

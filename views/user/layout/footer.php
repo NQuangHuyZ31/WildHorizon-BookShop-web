@@ -121,7 +121,6 @@ Session::delete('success'); // Xóa flash sau khi dùng
 <script>
   const status = "<?= addslashes($status) ?>";
   const msg = "<?= addslashes($msg) ?>";
-  console.log(status, msg)
   toastr.options = {
     "closeButton": true,
     "positionClass": "toast-bottom-right",

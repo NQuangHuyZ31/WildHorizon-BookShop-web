@@ -91,7 +91,14 @@ $router->post('/saveorder', [CheckoutController::class, 'checkout']);
 // Route đến trang customer
 $router->get('/customer/account', [AccountController::class, 'index']);
 $router->post('/customer/account', [AccountController::class, 'updateInfo']);
+
 $router->get('/customer/address', [CustomerAddressController::class, 'index']);
+$router->get('/customer/address/add', [CustomerAddressController::class, 'showPageAddNew']);
+$router->post('/customer/address/add', [CustomerAddressController::class, 'addNewAddress']);
+$router->post('/customer/address/delete', [CustomerAddressController::class, 'deleteAddress']);
+$router->get('/customer/address/edit/{id}', [CustomerAddressController::class, 'showPageEditAddress']);
+$router->post('/customer/address/edit', [CustomerAddressController::class, 'updateAddress']);
+
 $router->get('/customer/changepassword', [CustomerChangePasswordController::class, 'index']);
 $router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index']);
 $router->get('/customer/order', [CustomerOrderController::class, 'index']);
