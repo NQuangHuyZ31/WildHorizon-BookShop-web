@@ -24,7 +24,7 @@ $message = Session::get('message') ?? [];
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
                     <!-- Form tìm kiếm -->
-                    <form action="<?= BASE_URL_NAME ?>/admin/product-attributes" method="GET" class="relative w-1/2 max-w-[400px]">
+                    <form action="<?= BASE_URL ?>/admin/product-attributes" method="GET" class="relative w-1/2 max-w-[400px]">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-500"></i>
                         </div>
@@ -39,7 +39,7 @@ $message = Session::get('message') ?? [];
                     </form>
 
                     <!-- Nút thêm thuộc tính -->
-                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes/create" class="ml-4">
+                    <a href="<?= BASE_URL ?>/admin/product-attributes/create" class="ml-4">
                         <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             Thêm Thuộc Tính
                         </button>
@@ -82,7 +82,7 @@ $message = Session::get('message') ?? [];
                                             <span>Edit</span>
                                         </a>
 
-                                        <form action="<?= BASE_URL_NAME ?>/admin/product-attributes/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
+                                        <form action="<?= BASE_URL ?>/admin/product-attributes/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
                                             <input type="hidden" name="id" value="<?= $encryptedId ?>">
                                             <button type="button" onclick="confirmDelete('<?= $encryptedId ?>')" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i>
@@ -102,7 +102,7 @@ $message = Session::get('message') ?? [];
                             <!-- Nút "Trang trước" -->
                             <?php if ($currentPage > 1): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes?page=<?= $currentPage - 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/product-attributes?page=<?= $currentPage - 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Trước
                                     </a>
@@ -112,7 +112,7 @@ $message = Session::get('message') ?? [];
                             <!-- Hiển thị trang đầu tiên nếu không phải trang 1 -->
                             <?php if ($currentPage > 3): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes?page=1"
+                                    <a href="<?= BASE_URL ?>/admin/product-attributes?page=1"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         1
                                     </a>
@@ -128,7 +128,7 @@ $message = Session::get('message') ?? [];
                             <!-- Hiển thị các trang xung quanh trang hiện tại -->
                             <?php for ($i = max(1, $currentPage - 2); $i <= min($totalPages, $currentPage + 2); $i++): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes?page=<?= $i ?>"
+                                    <a href="<?= BASE_URL ?>/admin/product-attributes?page=<?= $i ?>"
                                         class="px-3 py-1 <?= $i == $currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700' ?> rounded hover:bg-gray-300">
                                         <?= $i ?>
                                     </a>
@@ -144,7 +144,7 @@ $message = Session::get('message') ?? [];
                                     </li>
                                 <?php endif; ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes?page=<?= $totalPages ?>"
+                                    <a href="<?= BASE_URL ?>/admin/product-attributes?page=<?= $totalPages ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         <?= $totalPages ?>
                                     </a>
@@ -154,7 +154,7 @@ $message = Session::get('message') ?? [];
                             <!-- Nút "Trang sau" -->
                             <?php if ($currentPage < $totalPages): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes?page=<?= $currentPage + 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/product-attributes?page=<?= $currentPage + 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Sau
                                     </a>
@@ -168,33 +168,33 @@ $message = Session::get('message') ?? [];
         </div>
     </div>
 
-<!-- Modal Edit -->
-<div id="edit-modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-xl font-bold mb-4">Chỉnh sửa thuộc tính</h2>
-        
-        <form id="edit-form" action="<?= BASE_URL_NAME ?>/admin/product-attributes/update?page=<?= $_GET['page'] ?? 1 ?>" method="POST">
-            <input type="hidden" name="id" id="edit_id">
-            
-            <div class="mb-4">
-                <label for="edit-name" class="block text-gray-700 font-semibold mb-2">Tên Thuộc Tính</label>
-                <input type="text" id="edit_name" name="edit_name"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-            </div>
+    <!-- Modal Edit -->
+    <div id="edit-modal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Chỉnh sửa thuộc tính</h2>
 
-            <div class="mb-4">
-                <label for="edit-value" class="block text-gray-700 font-semibold mb-2">Giá Trị</label>
-                <input type="text" id="edit_value" name="edit_value"
-                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-            </div>
+            <form id="edit-form" action="<?= BASE_URL ?>/admin/product-attributes/update?page=<?= $_GET['page'] ?? 1 ?>" method="POST">
+                <input type="hidden" name="id" id="edit_id">
 
-            <div class="flex justify-end space-x-4">
-                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-400 text-white rounded-lg">Hủy</button>
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Cập Nhật</button>
-            </div>
-        </form>
+                <div class="mb-4">
+                    <label for="edit-name" class="block text-gray-700 font-semibold mb-2">Tên Thuộc Tính</label>
+                    <input type="text" id="edit_name" name="edit_name"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-4">
+                    <label for="edit-value" class="block text-gray-700 font-semibold mb-2">Giá Trị</label>
+                    <input type="text" id="edit_value" name="edit_value"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-400 text-white rounded-lg">Hủy</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg">Cập Nhật</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
     <?php include VIEW_PATH . 'admin/layout/footer.php'; ?>
 </body>
@@ -219,20 +219,19 @@ $message = Session::get('message') ?? [];
 </script>
 
 <script>
-// Hàm mở modal chỉnh sửa
-function openEditModal(id, name, value) {
-    document.getElementById('edit_id').value = id;
-    document.getElementById('edit_name').value = name;
-    document.getElementById('edit_value').value = value;
-    
-    document.getElementById('edit-modal').classList.remove('hidden');
-}
+    // Hàm mở modal chỉnh sửa
+    function openEditModal(id, name, value) {
+        document.getElementById('edit_id').value = id;
+        document.getElementById('edit_name').value = name;
+        document.getElementById('edit_value').value = value;
 
-// Hàm đóng modal chỉnh sửa
-function closeModal() {
-    document.getElementById('edit-modal').classList.add('hidden');
-}
+        document.getElementById('edit-modal').classList.remove('hidden');
+    }
 
+    // Hàm đóng modal chỉnh sửa
+    function closeModal() {
+        document.getElementById('edit-modal').classList.add('hidden');
+    }
 </script>
 
 
@@ -240,8 +239,7 @@ function closeModal() {
     var message = <?php echo json_encode($message); ?>;
     if (message.success) {
         toastr.success(message.success);
-    }
-    else if(message.error) {
+    } else if (message.error) {
         toastr.error(message.error);
     }
 </script>

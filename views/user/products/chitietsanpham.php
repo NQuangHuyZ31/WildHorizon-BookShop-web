@@ -1,6 +1,8 @@
 <?php
 
-use Core\Format;
+use Core\Session;
+use Helpers\CreateSlug;
+use Helpers\Format;
 
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
@@ -11,23 +13,23 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <div class="product-detail-content shadow-sm">
         <div class="bg-white flex flex-col p-4 rounded-md" style="position: sticky;top:16px;">
           <div class="product-detail-image mb-2 mx-auto">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="w-full h-full" alt="product-image">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="w-full h-full" alt="product-image">
           </div>
           <div class="flex justify-around shadow-sm">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
           </div>
           <div class="flex py-5 justify-between">
-            <a <?php echo !\Core\Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo \Core\Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
+            <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
               <button type="button" class="flex product-box-btn items-center border-2 justify-center rounded-md border-red-700 mr-2">
                 <i class="fa-solid fa-cart-shopping mr-3 text-red-600"></i>
                 <p class="text-red-600 text-sm font-bold">Thêm vào giỏ hàng</p>
               </button>
             </a>
-            <a <?php echo !\Core\Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo \Core\Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['id'] ?>">
+            <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['id'] ?>">
               <button type="button" class="flex product-box-btn items-center justify-center rounded-md bg-red-700">
                 <p class="text-white text-sm font-bold">Mua ngay</p>
               </button>
@@ -81,7 +83,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           <?php } ?>
           <?php if ($product['f_quantity'] > 0) { ?>
             <div class="mt-3 flex">
-              <img src="<?php echo BASE_URL_NAME . '/Public/images/icon/label-flashsale.svg' ?>" alt="icon_fs">
+              <img src="<?php echo BASE_URL . '/Public/images/icon/label-flashsale.svg' ?>" alt="icon_fs">
               <p class="text-lg font-bold ms-5">Còn lại: <span class="text-orange-500"><?php echo $product['f_quantity'] ?></span></p>
             </div>
           <?php } ?>
@@ -186,7 +188,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <?php if (count($reviews) > 0) { ?>
           <?php foreach ($reviews as $review) { ?>
             <div class="mt-3 ps-2 py-1" style="font-size: 12px;">
-              <p class="mb-1 pt-1 mr-2"><?php echo $review['firstname'] . ' ' . $review['lastname'] ?></p>
+              <p class="mb-1 pt-1 mr-2"><?php echo $review['username'] ?></p>
               <div class="flex px-1 items-center">
                 <?php for ($i = 1; $i <= 5; $i++) { ?>
                   <?php if ($i <= $review['rating_id']) { ?>
@@ -215,10 +217,10 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <div class="more-product-detail">
           <div class="grid grid-cols-5 py-2 more-product-detail">
             <?php foreach ($moreProducts as $product) { ?>
-              <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+              <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                 <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                   <div class="whr-product-img py-2">
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                    <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                   </div>
                   <div class="px-2 mt-2 pb-3">
                     <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
@@ -247,10 +249,10 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <div class="flex py-1" style="height: 70px;"></div>
       <div class="grid grid-cols-5 mt-7">
         <?php foreach ($suggest_products as $product) { ?>
-          <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+          <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
             <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
               <div class="whr-product-img py-2">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
               </div>
               <div class="px-2 mt-2 pb-3">
                 <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>

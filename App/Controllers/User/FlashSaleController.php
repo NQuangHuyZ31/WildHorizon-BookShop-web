@@ -27,7 +27,7 @@ class FlashSaleController extends Controller
       $fs_products = $this->fs->searchKeyword($keyword);
     } else {
 
-      $fs_products = $this->fs->getLimit(10,0);
+      $fs_products = $this->fs->getLimit(10, 0);
     }
     require VIEW_PATH . 'user/products/flash-sale.php';
   }
@@ -41,6 +41,6 @@ class FlashSaleController extends Controller
 
     $products = $this->fs->getLimit($limit, $offset);
 
-    echo json_encode(['products' => $products]);
+    echo json_encode(['status' => 200, 'data' => $products, 'url' => BASE_URL]);
   }
 }

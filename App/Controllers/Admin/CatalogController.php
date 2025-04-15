@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Controllers\Admin;
+
 use App\Controllers\Controller;
 use Core\Session;
 use Core\Encrypt;
+
 class CatalogController extends Controller
 {
     public function getAllCatalogs()
@@ -282,7 +285,7 @@ class CatalogController extends Controller
             // Nếu không có lỗi, cập nhật danh mục
             if (empty($errors)) {
                 $this->updateCatalog($id, $catalog_name, $description, $catalog_image);
-                header('Location: ' . BASE_URL_NAME . '/admin/catalogs');
+                header('Location: ' . BASE_URL . '/admin/catalogs');
                 exit();
             }
         }
@@ -332,10 +335,10 @@ class CatalogController extends Controller
         $stmt->bindParam(':description', $description, \PDO::PARAM_STR);
         $stmt->bindParam(':catalog_image', $imagePath, \PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-    
+
         if ($stmt->execute()) {
             Session::set('message', [
-                'success'=>'Cập nhật danh mục thành công!'
+                'success' => 'Cập nhật danh mục thành công!'
             ]);
             header('Location: ' . BASE_URL . '/admin/catalogs');
             exit();
@@ -344,5 +347,3 @@ class CatalogController extends Controller
         }
     }
 }
-
-?>

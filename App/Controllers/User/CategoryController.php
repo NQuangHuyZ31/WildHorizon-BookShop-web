@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Products;
 use App\Models\Categories;
 use App\Models\Color;
+use App\Models\ProductDetail;
 use App\Models\Supplier;
 
 class CategoryController extends Controller
@@ -15,9 +16,8 @@ class CategoryController extends Controller
   protected $product;
   protected $categories;
   protected $brands;
-  protected $colors;
   protected $suppliers;
-
+  protected $productDetail;
   public function __construct()
   {
     parent::__construct();
@@ -25,8 +25,8 @@ class CategoryController extends Controller
     $this->product = new Products();
     $this->categories = new Categories();
     $this->brands = new Brand();
-    $this->colors = new Color();
     $this->suppliers = new Supplier();
+    $this->productDetail = new ProductDetail();
   }
 
   public function index($slug, $id)
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
     $brands = $this->brands->getAll();
 
-    $colors = $this->colors->getAll();
+    $colors = $this->productDetail->getColunm('color');
 
     $suppliers = $this->suppliers->getAll();
 

@@ -38,6 +38,7 @@ h6 {
   font-family: "Noto Sans", serif;
 }
 
+/* Customer css */
 .container-fuild{
   max-width: 1188px !important;
 }
@@ -68,6 +69,10 @@ h6 {
   color: var(--color-yellow) !important;
 }
 
+.text-m{
+  font-size: 12px;
+  line-height: 18px;
+}
 /*  */
 .bg-banner-top{
   background-color: var(--bg-banner-top);
@@ -190,12 +195,20 @@ h6 {
 
 /* LOGIN */
 .whr-login{
-  max-height: 648px;
   width: 444px !important;
 }
+
+.login-content, .register-content{
+  min-height: 100vh;
+  background-image: url(https://cdn.dribbble.com/userupload/6508149/file/original-c4197a5bf25a4356aa2bac6f82073eb2.jpg?resize=752x&vertical=center);
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 .whr-register{
-  min-height: 648px;
-  width: 444px !important;
+  min-height: 610px;
+  width: 480px !important;
 }
 
 .whr-show-hidden-pw-icon {
@@ -306,11 +319,11 @@ h6 {
 }
 
 /* Sản phẩm */
-.price-unchecked{
+.price-unchecked, .supplier-unchecked, .brand-unchecked, .color-unchecked{
   background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_uncheck.png') 0 50% no-repeat;
 }
 
-.price-checked{
+.price-checked,.supplier-checked, .brand-checked, .color-checked{
   background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_checked.png') 0 50% no-repeat;
 }
 
@@ -365,4 +378,36 @@ h6 {
 
 .checkout-quantity,.checkout-price  {
   width: 100px;
+}
+
+/* CUSTOMER PAGE */
+/* customer account */
+.c-sidebar{
+  max-height: 570px;
+}
+
+.customer-icon{
+  text-align: center;
+  width: 80px;
+  height: 80px;
+}
+
+.border-s-6 {
+  border-inline-start-width: 6px;
+}
+
+.img-account-content{
+  height: 185px;
+}
+
+.profile-label{
+  width: 150px;
+}
+
+#toast-container>div{
+  opacity: 1 !important;
+}
+
+.customer-address-content{
+  min-height: 400px;
 }

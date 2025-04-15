@@ -24,7 +24,7 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <?php $encryptedId = \Core\Encrypt::encryptId($catalog['id'], KEY); ?>
-                <form action="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
@@ -75,6 +75,7 @@
                                     <p class="text-gray-600 text-sm mb-2">Ảnh hiện tại:</p>
                                     <img id="current-image" src="<?= BASE_URL_NAME . '/Public/upload/catalogs/' . htmlspecialchars($catalog['catalog_image']) ?>" alt="Hình danh mục" class="w-24 h-30 object-cover">
                                 </div>
+
                             <?php endif; ?>
                         </div>
                         <!-- Submit Button -->
@@ -117,5 +118,6 @@
         }
     }
 </script>
+
 
 </html>

@@ -7,10 +7,19 @@ use App\Requests\RegisterValidate;
 use App\Requests\LoginValidate;
 use Core\CSRF;
 use Core\Session;
+use App\Models\User;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
 
+  protected $user;
+  public function __construct()
+  {
+    parent::__construct();
+    $this->user = new User();
+  }
+
+  // Đăng nhập
   public function index()
   {
 
@@ -21,18 +30,15 @@ class LoginController extends Controller
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      $data = $_POST;
-
-      $errors = LoginValidate::validate($data);
-
       if (CSRF::verifyToken($_POST['csrf_token'])) {
 
         CSRF::destroyToken();
+        $data = $_POST;
+        $error = LoginValidate::validate($data);
 
-        if (!empty($errors)) {
+        if (!empty($error)) {
 
-          Session::set('message', ['error' => $errors]);
-
+          Session::set('success', ['status' => 0, 'msg' => $error]);
           header('location:' . BASE_URL . '/dang-nhap');
         } else {
 
@@ -40,26 +46,16 @@ class LoginController extends Controller
 
             if (Session::get('user')['role'] == 'customer') {
 
-              if (Session::get('user')['isfirstlogin'] === 0) {
-
-                Session::set('success', 'Đăng nhập thành công');
-                $stmt = $this->db->prepare("update users set firstlogin = 1 where id=?");
-                $stmt->bindParam(1, Session::get('user')['id'], \PDO::PARAM_INT);
-                $stmt->execute();
-              }
-
               header('location: ' . Session::get('current_url') . '');
             } else {
+
               Session::delete('user');
-
-              Session::set('failLogin', 'email hoặc password không đúng');
-
+              Session::set('success', ['status' => 0, 'msg' => "Email hoặc password không đúng"]);
               header('location:' . BASE_URL . '/dang-nhap');
             }
           } else {
 
-            Session::set('failLogin', 'email hoặc password không đúng');
-
+            Session::set('success', ['status' => 0, 'msg' => "Email hoặc password không đúng"]);
             header('location:' . BASE_URL . '/dang-nhap');
           }
         }
@@ -67,6 +63,7 @@ class LoginController extends Controller
     }
   }
 
+  // Đăng ký tài khoản
   public function register()
   {
 
@@ -80,43 +77,42 @@ class LoginController extends Controller
 
       if (CSRF::verifyToken($_POST['csrf_token'])) {
 
-        // Lưu dữ liệu form
-        $data = $_POST;
-
-        $_SESSION['data'] = [
-          'hodem' => $data['hodem'],
-          'username' => $data['username'],
-          'email' => $data['email'],
-        ];
-
-        // Validate Form
-        $errors = RegisterValidate::registerValidate($data);
-
         CSRF::destroyToken();
 
-        // Kiểm tra lỗi
-        if (!empty($errors)) {
+        // Lưu dữ liệu form
+        $data = $_POST;
+        Session::set('data', [
+          'username' => $data['username'],
+          'email' => $data['email'],
+        ]);
 
-          Session::set('error', $errors);
+        // Validate Form
+        $error = RegisterValidate::registerValidate($data);
+
+        // Kiểm tra lỗi
+        if (!empty($error)) {
+
+          Session::set('success', ['status' => 0, 'msg' => $error]);
 
           header('location:' . BASE_URL . '/dang-ky');
-
           exit;
         } else {
+
           Session::delete('data');
-          $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT);
+          $resgisterData = [
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' =>  password_hash($data['password'], PASSWORD_DEFAULT)
+          ];
 
-          $stmt = $this->db->prepare('INSERT INTO users(firstname, lastname, email, password, role) 
-                            VALUES(:firstname, :lastname, :email, :password, "customer")');
-
-          $stmt->bindParam(':firstname', $data['hodem']);
-          $stmt->bindParam(':lastname', $data['username']);
-          $stmt->bindParam(':email', $data['email']);
-          $stmt->bindParam(':password', $hashedPassword);
-          $stmt->execute();
+          $this->user->insert($resgisterData);
+          Session::set('success', ['status' => 1, 'msg' => 'Đăng kí thành công']);
           header('location:' . BASE_URL . '/dang-nhap');
         }
       }
+    } else {
+
+      Session::set('success', ['status' => 0, 'msg' => 'Phương thức không hỗ trợ']);
     }
   }
 

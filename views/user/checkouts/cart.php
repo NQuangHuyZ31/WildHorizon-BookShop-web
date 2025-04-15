@@ -1,7 +1,8 @@
 <?php
 
-use Core\Format;
+use Helpers\Format;
 use Core\Session;
+use Helpers\CreateSlug;
 
 Session::delete('error');
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'
@@ -19,7 +20,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                 <p class=" text-gray-500 uppercase text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> item)</p>
               </div>
             </div>
-            <form id="form-checkout" action="<?php echo BASE_URL_NAME . '/checkout' ?>" method="post">
+            <form id="form-checkout" action="<?php echo BASE_URL . '/checkout' ?>" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
               <div class="w-full mt-3 flex flex-col">
                 <?php foreach ($products as $product) { ?>
@@ -29,8 +30,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                       <input type="checkbox" class="hidden cart-input-checkbox" name="cart-product-id[]" value="<?php echo $product['id'] ?>" checked>
                     </div>
                     <div class="ms-3 align-middle">
-                      <a href="<?php echo BASE_URL_NAME . '/product/' . Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
-                        <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
+                      <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
+                        <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
                       </a>
                     </div>
                     <div class="flex items-start ms-3 text-sm" style="width: 328px;">
@@ -125,10 +126,10 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     <p class=" text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
     <div class="grid grid-cols-5 mt-7">
       <?php foreach ($suggestproduct as $product) { ?>
-        <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+        <a href="<?php echo  '/WildHorizon-BookShop/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
           <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
             <div class="whr-product-img py-2">
-              <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+              <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
             </div>
             <div class="px-2 mt-2 pb-3">
               <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>

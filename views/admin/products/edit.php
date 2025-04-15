@@ -24,7 +24,7 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <?php $encryptedId = \Core\Encrypt::encryptId($product['id'], KEY); ?>
-                <form action="<?= BASE_URL_NAME ?>/admin/products/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/admin/products/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
@@ -121,6 +121,7 @@
                                     <p class="text-gray-600 text-sm mb-2">Ảnh hiện tại:</p>
                                     <img id="current-image" src="<?= BASE_URL_NAME . '/Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="Hình sản phẩm" class="w-24 h-30 object-cover">
                                 </div>
+
                             <?php endif; ?>
                         </div>
 
@@ -215,7 +216,6 @@
     function previewImage(event) {
         const file = event.target.files[0];
         const reader = new FileReader();
-
         reader.onload = function() {
             const imgElement = document.getElementById("preview-image");
             const placeholder = document.getElementById("upload-placeholder");

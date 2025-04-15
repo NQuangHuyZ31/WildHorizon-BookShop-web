@@ -1,5 +1,6 @@
 <!-- header.php -->
 <?php
+
 use Core\Session;
 
 $admin = Session::get('admin');
@@ -12,7 +13,9 @@ $admin = Session::get('admin');
             <img src="<?= BASE_URL_NAME ?>/Public/images/admin/alibaba.jpg" alt="User Avatar" class="w-10 h-10 rounded-full">
             <span class="text-gray-700">Xin chào <?php echo $admin['username'] ?></span>
         </div>
+
     </div>
+</div>
 
 <script>
     var $admin = <?php echo json_encode($admin); ?>;

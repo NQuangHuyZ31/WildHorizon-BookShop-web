@@ -1,23 +1,22 @@
 <?php
 
-use Core\Format;
-use Core\Session;
+use Helpers\Format;
 
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
 ?>
-<form action="<?php echo BASE_URL_NAME . '/saveorder' ?>" method="post">
+<form action="<?php echo BASE_URL . '/saveorder' ?>" method="post">
   <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
   <div class="container-fuild mx-auto pb-5">
     <div class="bg-white w-full px-4 py-2 mt-3">
       <p class="text-lg uppercase font-bold py-2 border-b">Địa chỉ giao hàng</p>
       <div class="mt-2 flex items-center">
         <label class="text-sm text-slate-500 text-nowrap checkout-label">Họ và tên người nhận</label>
-        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="fullname" value="<?php echo $customer['firstname'] . ' ' . $customer['lastname'] ?>" required>
+        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="fullname" value="<?php echo $customer['username'] ?>" required>
       </div>
       <div class="mt-2 flex items-center">
         <label class="text-sm text-slate-500 text-nowrap checkout-label">Số điện thoại</label>
-        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="phone" value="<?php echo $customer['phone'] ?>" required>
+        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="phone" value="" required placeholder="Số điện thoại">
       </div>
       <div class="mt-2 flex items-center">
         <label class="text-sm text-slate-500 text-nowrap checkout-label">Tỉnh/thành phố</label>
@@ -76,7 +75,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <?php foreach ($cartItems as $item) { ?>
         <div class="mt-3 flex">
           <div class="checkout-product-image p-1">
-            <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $item['product_image'] ?>" alt="" class="h-full mx-auto" width="80">
+            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $item['product_image'] ?>" alt="" class="h-full mx-auto" width="80">
           </div>
           <div class="checkout-product-title ms-4 pt-2 text-sm">
             <p><?php echo $item['product_name'] ?></p>

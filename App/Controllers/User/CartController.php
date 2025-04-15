@@ -5,7 +5,7 @@ namespace App\Controllers\User;
 use App\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Products;
-use Core\Format;
+use Helpers\Format;
 use Core\Session;
 use Exception;
 
@@ -69,59 +69,20 @@ class CartController extends Controller
 
     if ($this->cart->checkCart($userID, $productID) == 1) {
 
-      echo json_encode(['success' => 0, 'event' => $event, 'message' => 'sản phẩm đã có trong giỏ hàng']);
+      echo json_encode([
+        'error' => ['message' => 'Sản phẩm đã có trong giỏ hàng'],
+        'data' => [
+          'event' => $event
+        ]
+      ]);
     } else {
       $this->cart->add($userID, $productID, $quantity);
 
-      echo json_encode(['success' => 1, 'event' => $event, 'message' => 'Thêm sản phẩm vào giỏ hàng thành công']);
-    }
-  }
-
-  // Update giá qua ajax
-  public function updatePriceCart()
-  {
-    $totalPrice = 0;
-
-    $saveprice = 0;
-
-    if (!isset($_POST['data'])) {
-
       echo json_encode([
-
-        'success' => 0,
-
-        'totalprice' => Format::forMatPrice($totalPrice),
-
-        'saveprice' => Format::forMatPrice($saveprice),
-
-        'total' => Format::forMatPrice($totalPrice - $saveprice)
-
-      ]);
-    } else {
-
-      $data = $_POST['data'];
-
-      $userID = Session::get('user')['id'];
-
-      foreach ($data as $item) {
-
-        $product = $this->cart->find($userID, $item['productID']);
-
-        $totalPrice += $product['price'] * $item['quantity'];
-
-        $saveprice += ($product['f_discount_price'] != null ? $product['f_discount_price'] / 100 * $product['price'] : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
-      }
-
-      echo json_encode([
-
-        'success' => 1,
-
-        'totalprice' => Format::forMatPrice($totalPrice),
-
-        'saveprice' => Format::forMatPrice($saveprice),
-
-        'total' => Format::forMatPrice($totalPrice - $saveprice + 23000)
-
+        'success' => ['message' => 'Thêm vào giỏ hàng thành công'],
+        'data' => [
+          'event' => $event
+        ]
       ]);
     }
   }
@@ -132,7 +93,7 @@ class CartController extends Controller
     $userID = Session::get('user')['id'];
 
     if (!isset($_POST['quantity'], $_POST['productID'])) {
-      echo json_encode(['success' => 0, 'message' => 'Dữ liệu không hợp lệ']);
+      echo json_encode(['error' => ['message' => 'Dữ liệu không hợp lệ']]);
       exit();
     }
 
@@ -145,7 +106,7 @@ class CartController extends Controller
       $product = $this->product->find($productID);
 
       if (!$product) {
-        echo json_encode(['success' => 0, 'message' => 'Sản phẩm không tồn tại']);
+        echo json_encode(['error' => ['message' => 'Dữ liệu không hợp lệ']]);
         $this->db->rollBack();
         exit();
       }
@@ -168,8 +129,7 @@ class CartController extends Controller
       $this->db->commit(); // Xác nhận transaction
 
       echo json_encode([
-        'success' => isset($message) ? 1 : 0,
-        'message' => isset($message) ? $message : 'thành công',
+        isset($message) ? 'error' : 'success' => ['message' => isset($message) ? $message : "Đủ số lượng"],
         'quantity' => $quantity
       ]);
     } catch (Exception $e) {
@@ -177,5 +137,63 @@ class CartController extends Controller
       echo json_encode(['success' => 0, 'message' => 'Lỗi hệ thống: ' . $e->getMessage()]);
     }
     exit();
+  }
+
+  // Update giá qua ajax
+  public function updatePriceCart()
+  {
+    $totalPrice = 0;
+    $savePrice = 0;
+
+    if ($_SERVER['REQUEST_METHOD'] === "POST") {
+
+      if (!isset($_POST['data'])) {
+        echo json_encode([
+          'success' => ['message' => 'Cập nhật thành công'],
+
+          'data' => [
+            'totalprice' => Format::forMatPrice($totalPrice),
+            'saveprice' => Format::forMatPrice($savePrice),
+            'total' => Format::forMatPrice($totalPrice - $savePrice)
+          ]
+        ]);
+
+        exit();
+      }
+
+      $data = $_POST['data'];
+      $userID = Session::get('user')['id'];
+
+      foreach ($data as $item) {
+
+        $productID = $item['productID'];
+        $quantity = $item['quantity'];
+
+        $product = $this->cart->find($userID, $productID);
+
+        $totalPrice += $product['price'] * $quantity;
+
+        $savePrice += ($product['f_discount_price'] != null ? $product['f_discount_price'] / 100 * $product['price']
+          : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
+      }
+
+      echo json_encode([
+
+        'success' => ['message' => 'Cập nhật thành công'],
+
+        'data' => [
+          'totalprice' => Format::forMatPrice($totalPrice),
+
+          'saveprice' => Format::forMatPrice($savePrice),
+
+          'total' => Format::forMatPrice($totalPrice - $savePrice + 23000)
+        ],
+
+        'product' => [
+          'id' => $productID,
+          'quantity' => $quantity
+        ]
+      ]);
+    }
   }
 }

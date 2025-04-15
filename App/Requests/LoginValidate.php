@@ -1,19 +1,34 @@
 <?php
+
 namespace App\Requests;
-class LoginValidate{
 
-  public static function validate($data){
+class LoginValidate
+{
 
-    $errors = [];
+  public static function validate($data)
+  {
 
-    if(empty($data['email'])){
-      $errors['email'] = 'Không được để trống';
+    $error = '';
+
+    if (empty($data['email']) || empty($data['password'])) {
+      $error = 'Không được để trống';
     }
 
-    if(empty($data['password'])){
-      $errors['password'] = 'Không được để trống';
+    // Kiểm tra hợp lệ email
+    else if (!preg_match('/^[\w\.-]+@[\w\.-]+\.com$/', $data['email'])) {
+      $error = 'Email không hợp lệ';
     }
 
-    return $errors;
+    // Kiểm tra hợp lệ password có 6 kí tự
+    // else if (strlen($data['password']) < 6) {
+    //   $error = 'Mật khẩu phải có ít nhất 6 kí tự';
+    // }
+
+    // Kiểm tra hợp lệ password
+    // else if (!preg_match('/^(?=.*[A-Z])(?=.*[\W_]).{6,}$/', $data['password'])) {
+    //   $error = 'Mật khẩu không đúng định dạng';
+    // }
+
+    return $error;
   }
 }

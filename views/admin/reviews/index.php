@@ -25,7 +25,7 @@
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-semibold text-gray-800">Quản lý Đánh giá</h2>
-                    <form action="<?= BASE_URL_NAME ?>/admin/reviews" method="GET" class="relative w-1/2 max-w-[400px]">
+                    <form action="<?= BASE_URL ?>/admin/reviews" method="GET" class="relative w-1/2 max-w-[400px]">
                         <!-- Icon search -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-500"></i>
@@ -38,6 +38,7 @@
                             placeholder="Tìm kiếm sản phẩm"
                             value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
                             />
+
                         <!-- Nút tìm kiếm -->
                         <button
                             type="submit"
@@ -68,7 +69,7 @@
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
                                         <?php $encryptedId = \Core\Encrypt::encryptId($review['product_id'], KEY); ?>
-                                        <a href="<?= BASE_URL_NAME ?>/admin/reviews/product?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
+                                        <a href="<?= BASE_URL ?>/admin/reviews/product?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-eye"></i>
                                             <span>Xem đánh giá</span>
                                         </a>
@@ -78,14 +79,14 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                
+
                 <div class="mt-4 flex justify-center">
                     <nav aria-label="Pagination">
                         <ul class="flex space-x-2">
                             <!-- Nút "Trang trước" -->
                             <?php if ($currentPage > 1): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $currentPage - 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/reviews?page=<?= $currentPage - 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Trước
                                     </a>
@@ -95,7 +96,7 @@
                             <!-- Hiển thị trang đầu tiên nếu không phải trang 1 -->
                             <?php if ($currentPage > 3): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=1"
+                                    <a href="<?= BASE_URL ?>/admin/reviews?page=1"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         1
                                     </a>
@@ -111,7 +112,7 @@
                             <!-- Hiển thị các trang xung quanh trang hiện tại -->
                             <?php for ($i = max(1, $currentPage - 2); $i <= min($totalPages, $currentPage + 2); $i++): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $i ?>"
+                                    <a href="<?= BASE_URL ?>/admin/reviews?page=<?= $i ?>"
                                         class="px-3 py-1 <?= $i == $currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700' ?> rounded hover:bg-gray-300">
                                         <?= $i ?>
                                     </a>
@@ -127,7 +128,7 @@
                                     </li>
                                 <?php endif; ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $totalPages ?>"
+                                    <a href="<?= BASE_URL ?>/admin/reviews?page=<?= $totalPages ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         <?= $totalPages ?>
                                     </a>
@@ -137,7 +138,7 @@
                             <!-- Nút "Trang sau" -->
                             <?php if ($currentPage < $totalPages): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/reviews?page=<?= $currentPage + 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/reviews?page=<?= $currentPage + 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Sau
                                     </a>

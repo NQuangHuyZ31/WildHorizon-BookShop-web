@@ -1,16 +1,15 @@
-
 <!-- footer.php -->
 <div class="bg-gray-800 text-white text-center py-4 mt-auto">
     <p>&copy; 2025 Admin Panel. All Rights Reserved.</p>
 </div>
 
-<script src="<?= BASE_URL_NAME ?>/Public/js/jquery-3.7.1.min.js"></script>
+<script src="<?= BASE_URL ?>/Public/js/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <script>
     toastr.options = {
-        "closeButton": true,  
+        "closeButton": true,
         "debug": false,
         "newestOnTop": false,
         "progressBar": false,

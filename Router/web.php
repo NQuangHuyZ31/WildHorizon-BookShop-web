@@ -6,13 +6,6 @@ use Core\Router;
 use App\Controllers\Api\LoginController as ApiLoginController;
 use App\Controllers\Api\ProductController as ApiProductController;
 
-// Use Controller
-use App\Controllers\User\CartController;
-use App\Controllers\User\HomeController;
-use App\Controllers\User\FlashSaleController;
-use App\Controllers\User\LoginController;
-
-
 // Admin Controller
 use App\Controllers\Admin\CatalogController;
 use App\Controllers\Admin\ProductController;
@@ -24,16 +17,28 @@ use App\Controllers\Admin\BrandController;
 use App\Controllers\Admin\SupplierController;
 use App\Controllers\Admin\FlashSaleAdminController;
 
-// User Controller
+
+// Use Controller
+use App\Controllers\User\CartController;
+use App\Controllers\User\HomeController;
+use App\Controllers\User\FlashSaleController;
+use App\Controllers\User\Aut;
+use App\Controllers\User\AuthController;
 use App\Controllers\User\CategoryController;
 use App\Controllers\User\CheckoutController;
 use App\Controllers\User\ChiTietSanPhamController;
 use App\Controllers\User\DanhSachSanPhamController;
 use App\Controllers\User\FeedbackController;
+use App\Controllers\User\Customer_Account\AccountController;
+use App\Controllers\User\Customer_Account\CustomerAddressController;
+use App\Controllers\User\Customer_Account\CustomerChangePasswordController;
+use App\Controllers\User\Customer_Account\CustomerOrderController;
+use App\Controllers\User\Customer_Account\CustomerReviewController;
+use App\Controllers\User\Customer_Account\CustomerSpecialOfferController;
+use App\Controllers\User\Customer_Account\CustomerVoucherController;
+use App\Controllers\User\Customer_Account\CustomerWishListController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
-use App\Models\Cart;
-use App\Models\Supplier;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
@@ -43,15 +48,15 @@ $router = new Router();
 $router->get('/', [HomeController::class, 'index']);
 
 //Route Trang đăng nhập
-$router->get('/dang-nhap', [LoginController::class, 'index']);
-$router->post('/dang-nhap', [LoginController::class, 'handelLogin']);
+$router->get('/dang-nhap', [AuthController::class, 'index']);
+$router->post('/dang-nhap', [AuthController::class, 'handelLogin']);
 
 // Route đến trang đăng ký
-$router->get('/dang-ky', [LoginController::class, 'register']);
-$router->post('/dang-ky', [LoginController::class, 'handleRegister']);
+$router->get('/dang-ky', [AuthController::class, 'register']);
+$router->post('/dang-ky', [AuthController::class, 'handleRegister']);
 
 // Route Trang đăng xuất
-$router->post('/dang-xuat', [LoginController::class, 'logout']);
+$router->post('/dang-xuat', [AuthController::class, 'logout']);
 
 // Route Trang feedback 
 $router->get('/feedback', [FeedbackController::class, 'feedback'], [AuthMiddleware::class]);
@@ -67,9 +72,11 @@ $router->post('/gio-hang/delete', [CartController::class, 'deleteProduct']);
 $router->post('/addtocart', [CartController::class, 'addToCart']);
 $router->post('/updatepricecart', [CartController::class, 'updatePriceCart']);
 $router->post('/checkquantitycart', [CartController::class, 'checkQuantityCart']);
+
 // Route trang danh sách sản phẩm
 $router->get('/product', [DanhSachSanPhamController::class, 'index']);
-$router->get('/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
+$router->get('/product/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
+$router->get('/product/search-filter', [DanhSachSanPhamController::class, 'searchFilter']);
 
 // Route đến danh mục sản phẩm
 $router->get('/category/{slug}-{id}', [CategoryController::class, 'index']);
@@ -82,6 +89,28 @@ $router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity
 // Route đến trang checkout
 $router->post('/checkout', [CheckoutController::class, 'index']);
 $router->post('/saveorder', [CheckoutController::class, 'checkout']);
+
+// Route đến trang customer
+$router->get('/customer/account', [AccountController::class, 'index']);
+$router->post('/customer/account', [AccountController::class, 'updateInfo']);
+
+$router->get('/customer/address', [CustomerAddressController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/address/add', [CustomerAddressController::class, 'showPageAddNew'], [AuthMiddleware::class]);
+$router->post('/customer/address/add', [CustomerAddressController::class, 'addNewAddress'], [AuthMiddleware::class]);
+$router->post('/customer/address/delete', [CustomerAddressController::class, 'deleteAddress'], [AuthMiddleware::class]);
+$router->get('/customer/address/edit/{id}', [CustomerAddressController::class, 'showPageEditAddress'], [AuthMiddleware::class]);
+$router->post('/customer/address/edit', [CustomerAddressController::class, 'updateAddress'], [AuthMiddleware::class]);
+
+$router->get('/customer/changepassword', [CustomerChangePasswordController::class, 'index'], [AuthMiddleware::class]);
+$router->post('/customer/changepassword/sendmailverify', [CustomerChangePasswordController::class, 'sendCodeVerifyChangePW'], [AuthMiddleware::class]);
+$router->get('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'showChangePWVerifyPage'], [AuthMiddleware::class]);
+$router->post('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'verifyChangePassword'], [AuthMiddleware::class]);
+
+$router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/order', [CustomerOrderController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/voucher', [CustomerVoucherController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/wishlist', [CustomerWishListController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/review', [CustomerReviewController::class, 'index'], [AuthMiddleware::class]);
 
 // ===========================================================ROUTER ADMIN==============================================================
 // Route đến trang đăng nhập admin
@@ -157,7 +186,7 @@ $router->post('/admin/flash-sales/edit', [FlashSaleAdminController::class, 'edit
 // $router->post('/v1/api/login', [ApiLoginController::class, 'handleLogin']);
 // $router->get('/v1/api/product', [ApiProductController::class, 'getAll']);
 
-
+// Route test
+// $router->get('/testmail', [TestMailController::class, 'testMail']);
 // Xử lý request
 $router->handleRequest();
- 

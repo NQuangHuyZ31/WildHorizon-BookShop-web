@@ -28,7 +28,7 @@ class Auth
     public function login($email, $password)
     {
         // Truy vấn người dùng theo email
-        $stmt = $this->db->prepare("select * from users where email=?");
+        $stmt = $this->db->prepare("select * from users where email = ? and status = 'active'");
         $stmt->execute([$email]);
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
@@ -37,14 +37,16 @@ class Auth
 
             Session::set('user', [
                 'id' => $user['id'],
-                'name' => $user['firstname'] . ' ' . $user['lastname'],
+                'username' => $user['username'],
+                'email' => $user['email'],
                 'role' => $user['role'],
-                'isfirstlogin' => $user['firstlogin']
             ]);
+
             // if ($user['role'] === 'customer') {
             // return $user;
             // }
             // Lưu thông tin người dùng vào session
+            return true;
         }
 
         return false;

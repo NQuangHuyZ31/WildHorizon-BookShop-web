@@ -33,7 +33,6 @@ class ChiTietSanPhamController extends Controller
     $this->reviews = new Reviews();
 
     $this->product_attrs = new ProductAttribute();
-
   }
 
   public function index($slug, $id)
@@ -82,7 +81,7 @@ class ChiTietSanPhamController extends Controller
   {
     // Kiểm tra dữ liệu đầu vào
     if (!isset($_POST['quantity'], $_POST['productID'])) {
-      echo json_encode(['success' => 0, 'message' => 'Dữ liệu không hợp lệ']);
+      echo json_encode(['error' =>  ['message' => 'Dữ liệu không hợp lệ']]);
       exit();
     }
 
@@ -93,26 +92,26 @@ class ChiTietSanPhamController extends Controller
     $product = $this->product->find($productID);
 
     if (!$product) {
-      echo json_encode(['success' => 0, 'message' => 'Sản phẩm không tồn tại']);
+      echo json_encode(['error' => ['message' => 'Sản phẩm không tồn tại']]);
       exit();
     }
 
     // Kiểm tra số lượng flash sale
     if ($product['f_quantity'] > 0) {
       if ($quantity >= $product['f_quantity']) {
-        echo json_encode(['success' => 1, 'message' => 'Số lượng flash sale đạt giới hạn']);
+        echo json_encode(['error' => ['message' => 'Số lượng flash sale đạt giới hạn']]);
         exit();
       }
     }
 
     // Kiểm tra số lượng kho
     if ($quantity >= $product['stock']) {
-      echo json_encode(['success' => 1, 'message' => 'Số lượng sản phẩm đạt giới hạn']);
+      echo json_encode(['error' =>  ['message' => 'Số lượng sản phẩm đạt giới hạn']]);
       exit();
     }
 
     // Nếu không có lỗi, trả về thành công
-    echo json_encode(['success' => 0]);
+    echo json_encode(['success' => ['message' => "Đủ số lượng"]]);
     exit();
   }
 }

@@ -1,21 +1,27 @@
-<?php include_once VIEW_PATH_USER_LAYOUT . 'header.php' ?>
+<?php
+
+use Helpers\CreateSlug;
+use Helpers\Format;
+
+include_once VIEW_PATH_USER_LAYOUT . 'header.php'
+?>
 
 <div class="container-fuild mx-auto">
   <div class="whr-flash-sale">
     <?php if (!empty($fs_products)) { ?>
       <div class="grid grid-cols-6 mt-4 whr-product-flash-sale">
         <?php foreach ($fs_products as $fs_product) { ?>
-          <a href="<?php echo BASE_URL . '/product/' . \Core\CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white mb-3">
+          <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white mb-3">
             <div class="flex flex-col ">
               <div class="whr-product-img py-2">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
+                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
               </div>
               <div class="flash-sale-product mt-1 mx-2">
                 <p class="text-sm flash-sale-product-title"><?php echo $fs_product['product_name'] ?></p>
                 <div class="flash-sale-product-price">
-                  <p class="text-orange-500"><?php echo \Core\Format::forMatPrice($fs_product['price'] - ($fs_product['price'] * $fs_product['discount_price']/100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
-                  <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo \Core\Format::forMatPrice($fs_product['price'], 0, '.', ',') ?></s>
-                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo \Core\Format::formatNumber($fs_product['discount_price']) . '%' ?></span>
+                  <p class="text-orange-500"><?php echo Format::forMatPrice($fs_product['price'] - ($fs_product['price'] * $fs_product['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
+                  <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fs_product['price'], 0, '.', ',') ?></s>
+                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fs_product['discount_price']) . '%' ?></span>
                   </p>
                 </div>
               </div>

@@ -58,7 +58,8 @@ $(document).ready(function () {
 
     $('#checkout-ward').removeAttr('disabled')
   })
-  // Change 
+
+  // Change fee shipping
   $('.shipping-fee').change(()=>{
     var shipCost = parseInt($('input[name="shipping-fee"]:checked').val())
     var totalPrice = parseInt($('.total-price').data('total'))

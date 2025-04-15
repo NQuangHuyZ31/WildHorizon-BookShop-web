@@ -1,28 +1,27 @@
 <?php
-// Header
-// printf($_SESSION['csrf_token']);
+
 use Core\Session;
-use Core\CreateSlug;
+use Helpers\CreateSlug;
 
 $csrf_token = Core\CSRF::generateToken();
 
-include_once('layout/header.php');
+include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <!-- Content -->
 <div class="container-fuild mx-auto mb-2">
     <div class="flex w-100 justify-between">
         <div class="single-item shadow-lg">
             <div class="single-item">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/d24973d8-8df9-4de1-8c8d-58d338c3cac3_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/a127309c-7b2b-412f-981a-6533901d5bc6_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/b4ff1157-8492-4483-9a62-acbcc7c3a9b5_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/ac103e8c-7045-4f75-a36a-38b490b3fe9f_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL ?>/Public/images/banners/d24973d8-8df9-4de1-8c8d-58d338c3cac3_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL ?>/Public/images/banners/a127309c-7b2b-412f-981a-6533901d5bc6_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL ?>/Public/images/banners/b4ff1157-8492-4483-9a62-acbcc7c3a9b5_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <img src="<?php echo BASE_URL ?>/Public/images/banners/ac103e8c-7045-4f75-a36a-38b490b3fe9f_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
             </div>
         </div>
         <div class="flex px-1 flex-col ms-2">
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
+                    <img src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
                     <p class="uppercase ms-2 text-nowrap font-bold" style="font-size: 14px; color: #6c1d00;;">try wildhorizon app</p>
                 </div>
                 <div class="download-app-content">
@@ -35,18 +34,18 @@ include_once('layout/header.php');
                     </div>
                     <div class="flex justify-around items-center flex-col ms-5 px-4">
                         <div class="flex justify-start items-center">
-                            <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
+                            <img src="<?php echo BASE_URL ?>/Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">free shipping</p>
                         </div>
                         <div class="flex justify-start items-center">
-                            <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
+                            <img src="<?php echo BASE_URL ?>/Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">EXCLUSIVE VOUCHERS</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center">
                     <div class="download-app-qr">
-                        <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web">
+                        <img src="<?php echo BASE_URL ?>/Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web">
                     </div>
                     <div class="flex flex-col ms-2">
                         <a href="#" class="download-app-appstore mb-5"></a>
@@ -67,7 +66,7 @@ include_once('layout/header.php');
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
                 </div>
             </div>
         </a>
@@ -78,7 +77,7 @@ include_once('layout/header.php');
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
                 </div>
             </div>
         </a>
@@ -89,7 +88,7 @@ include_once('layout/header.php');
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
                 </div>
             </div>
         </a>
@@ -107,10 +106,10 @@ include_once('layout/header.php');
             </div>
             <div class="grid grid-cols-6">
                 <?php foreach ($flassale_products as $fproduct) { ?>
-                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
+                    <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
                         <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img class="w-full h-full" src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
+                                <img class="w-full h-full" src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
                                 <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
@@ -134,7 +133,7 @@ include_once('layout/header.php');
                     <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
                         <div class="w-full">
                             <div class="whr-category py-1">
-                                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full">
+                                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full">
                             </div>
                             <div class="whr-category-title mb-2">
                                 <p class="text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
@@ -150,10 +149,10 @@ include_once('layout/header.php');
         <div class="flex flex-col ">
             <div class="mt-3 grid grid-cols-6 whr-product">
                 <?php foreach ($products as $product) { ?>
-                    <a href="<?php echo  '/WildHorizon-BookShop/product/' . \Core\CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+                    <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                             </div>
                             <div class="px-2 mt-2 pb-3">
                                 <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
@@ -180,34 +179,8 @@ include_once('layout/header.php');
             </div>
         </div>
     </div>
-    <!-- MODAL NOTIFICATION -->
-    <!-- Open the modal using ID.showModal() method -->
-    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
-    <dialog id="my_modal_1" class="modal <?php if (Session::has('success')) {
-                                                echo 'modal-open';
-                                                Session::delete('success');
-                                            } ?>">
-        <div class="modal-box">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" id="btn-close-modal">✕</button>
-            </form>
-            <h3 class="text-lg font-bold border-b-2 border-gray-300 pb-2">Wildhorizon BookShop thông báo!</h3>
-            <div class="flex justify-start items-start mt-3">
-                <div class="p-2 flex items-center ">
-                    <i class="fa-solid fa-circle-exclamation text-orange-400" style="font-size: 32px;"></i>
-                </div>
-                <div class="px-2 pt-3">
-                    <p class="">Đề xuất cập nhật thông tin cá nhân!</p>
-                    <div class="mt-3 px-3 flex items-center">
-                        <p class="text-sm text-gray-400 align-middle flex items-center">Đi đến cập nhật thông tin<i class="fa-regular fa-hand-point-right ms-2" style="font-size: 25px;"></i></p>
-                        <button type="button" class="py-2 px-3 bg-blue-500 rounded-md text-white ms-4"><a class="w-full h-full" href="<?php echo BASE_URL . '/profile/cap-nhat' ?>">Đi đến</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </dialog>
 </div>
 <?php
 // Footer
-include_once('layout/footer.php');
+include_once VIEW_PATH_USER_LAYOUT . 'footer.php'
 ?>

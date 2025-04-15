@@ -122,7 +122,7 @@ class OrderController extends Controller
             }
 
             $page = $_POST['page'];
-            header("Location: " . BASE_URL_NAME . "/admin/orders?page=" . $page);
+            header("Location: " . BASE_URL . "/admin/orders?page=" . $page);
             exit;
         }
     }

@@ -1,9 +1,8 @@
-
 <?php
 
 use Core\Session;
 
-$messge = Session::get('message')??[];
+$messge = Session::get('message') ?? [];
 // Session::delete('message');
 ?>
 <?php include VIEW_PATH . 'admin/layout/layout.php'; ?>
@@ -15,7 +14,7 @@ $messge = Session::get('message')??[];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    
+
 </head>
 
 <body class="font-sans bg-gray-100">
@@ -54,6 +53,7 @@ $messge = Session::get('message')??[];
                         </button>
                     </form>
                     <a href="<?=BASE_URL_NAME?>/admin/catalogs/create">
+
                         <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             Thêm danh mục
                         </button>
@@ -75,15 +75,16 @@ $messge = Session::get('message')??[];
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($catalog['description']) ?></td>
                                 <td class="py-2 px-4 border-b">
                                     <img src="<?=BASE_URL?>/Public/upload/catalogs/<?=$catalog['catalog_image']?>" class="w-12 h-15 object-cover" alt="<?=$catalog['catalog_name']?>">
+
                                 </td>
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
                                         <?php $encryptedId = \Core\Encrypt::encryptId($catalog['id'], KEY); ?>
-                                        <a href="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
+                                        <a href="<?= BASE_URL ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                             <span>Edit</span>
                                         </a>
-                                        <form action="<?= BASE_URL_NAME ?>/admin/catalogs/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
+                                        <form action="<?= BASE_URL ?>/admin/catalogs/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
                                             <input type="hidden" name="id" value="<?= $encryptedId ?>">
                                             <button type="button" onclick="confirmDelete('<?= $encryptedId ?>')" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i>
@@ -168,7 +169,7 @@ $messge = Session::get('message')??[];
 
         </div>
     </div>
-    
+
     <?php include VIEW_PATH . 'admin/layout/footer.php'; ?>
 </body>
 
@@ -189,8 +190,8 @@ $messge = Session::get('message')??[];
                 // Nếu người dùng nhấn "Có, xóa nó!"
                 document.getElementById('delete-form-' + encryptedId).submit();
                 var messge = <?php echo json_encode($messge); ?>;
-    
-                if(messge.success){
+
+                if (messge.success) {
                     toastr.success(messge.success);
                 }
             }
@@ -199,12 +200,13 @@ $messge = Session::get('message')??[];
 </script>
 <script>
     var messge = <?php echo json_encode($messge); ?>;
-    
-    if(messge.success){
+
+    if (messge.success) {
         toastr.success(messge.success);
     }
 </script>
 <?php
-    Session::delete('message');
+Session::delete('message');
 ?>
+
 </html>

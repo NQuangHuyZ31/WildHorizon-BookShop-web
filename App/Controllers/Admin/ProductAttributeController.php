@@ -215,7 +215,7 @@ class ProductAttributeController extends Controller
 
             if (!$id || empty($name) || empty($value)) {
                 Session::set('message', ['error' => 'Vui lòng điền đầy đủ thông tin.']);
-                header("Location: " . BASE_URL_NAME . "/admin/product-attributes");
+                header("Location: " . BASE_URL . "/admin/product-attributes");
                 exit;
             }
 
@@ -236,7 +236,7 @@ class ProductAttributeController extends Controller
 
             // Chuyển hướng về trang danh sách thuộc tính
             $page = $_GET['page'] ?? 1;
-            header("Location: " . BASE_URL_NAME . "/admin/product-attributes?page=" . $page);
+            header("Location: " . BASE_URL . "/admin/product-attributes?page=" . $page);
             exit;
         }
     }
