@@ -35,7 +35,7 @@
                             type="search"
                             name="search"
                             class="block w-full p-4 pl-10 pr-20 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none focus:border-blue-500"
-                            placeholder="Tìm kiếm sản phẩm hoặc danh mục..."
+                            placeholder="Tìm kiếm sản phẩm"
                             value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
                             />
                         <!-- Nút tìm kiếm -->
@@ -61,7 +61,7 @@
                             <tr>
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['product_name']) ?></td>
                                 <td class="py-2 px-4 border-b text-center">
-                                    <img src="<?= BASE_URL ?>/Public/upload/products/<?= $review['product_image'] ?>" class="w-24 h-30 object-cover mx-auto" alt="<?= $review['product_name'] ?>">
+                                    <img src="<?= BASE_URL ?>/Public/upload/products/<?= $review['product_image'] ?>" class="w-12 h-15 object-cover mx-auto" alt="<?= $review['product_name'] ?>">
                                 </td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars(number_format($review['average_rating'], 2)) ?></td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($review['total_reviews']) ?></td>

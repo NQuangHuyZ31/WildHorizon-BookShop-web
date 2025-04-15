@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Chi tiết Đơn hàng - <?= htmlspecialchars($order['id']) ?></title>
 </head>
 
@@ -30,12 +30,12 @@
                 <div class="mb-6">
                     <h3 class="text-xl font-semibold">Thông tin Khách hàng</h3>
                     <ul>
-                        <li><strong>Tên khách hàng:</strong> <?= htmlspecialchars($user['firstname'] . ' ' . $user['lastname']) ?></li>
+                        <li><strong>Tên khách hàng:</strong> <?= htmlspecialchars($user['username']) ?></li>
                         <li><strong>Số điện thoại:</strong> <?= htmlspecialchars($shippingAddress['phone']) ?></li>
                         <li><strong>Địa chỉ nhận hàng:</strong> <?= htmlspecialchars($shippingAddress['address_line1'] . ', ' . $shippingAddress['ward'] . ', ' . $shippingAddress['district'] . ', ' . $shippingAddress['province']) ?></li>
                     </ul>
                 </div>
-                
+
                 <div class="mt-6">
 
                     <?php
@@ -85,11 +85,11 @@
                     <table class="min-w-full table-auto border-collapse border border-gray-200 rounded-lg">
                         <thead>
                             <tr class="bg-gray-50">
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide">Thứ tự</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide">Tên sản phẩm</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide">Số lượng</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide">Đơn giá</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide">Tổng tiền</th>
+                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 10%;">Thứ tự</th>
+                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 50%;">Sản phẩm</th>
+                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 10%;">Số lượng</th>
+                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 15%;">Đơn giá</th>
+                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 15%;">Tổng tiền</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -98,10 +98,13 @@
                             ?>
                                 <tr class="hover:bg-gray-100">
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= $index + 1 ?></td>
-                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
-                                        <img src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($detail['product_image']) ?>" alt="<?= htmlspecialchars($detail['product_name']) ?>" class="w-12 h-12 object-cover mx-auto">
-                                        <p class="mt-2"><?= htmlspecialchars($detail['product_name']) ?></p>
+                                    <td class="py-3 px-4 border border-gray-200 text-gray-700">
+                                        <div class="flex items-center justify-start gap-3">
+                                            <img src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($detail['product_image']) ?>" alt="<?= htmlspecialchars($detail['product_name']) ?>" class="w-12 h-15 object-cover">
+                                            <p class="text-left"><?= htmlspecialchars($detail['product_name']) ?></p>
+                                        </div>
                                     </td>
+
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= htmlspecialchars($detail['quantity']) ?></td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['product_price'], 0, ',', '.') ?> VND</td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['total'], 0, ',', '.') ?> VND</td>

@@ -21,7 +21,10 @@ use App\Controllers\Admin\DashboardController;
 use App\Controllers\Admin\OrderController;
 use App\Controllers\Admin\ReviewController;
 use App\Controllers\Admin\BrandController;
+use App\Controllers\Admin\SupplierController;
+use App\Controllers\Admin\FlashSaleAdminController;
 
+// User Controller
 use App\Controllers\User\CategoryController;
 use App\Controllers\User\CheckoutController;
 use App\Controllers\User\ChiTietSanPhamController;
@@ -30,6 +33,7 @@ use App\Controllers\User\FeedbackController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
 use App\Models\Cart;
+use App\Models\Supplier;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
@@ -114,6 +118,14 @@ $router->post('/admin/brands/delete', [BrandController::class, 'deleteBrand']);
 $router->get('/admin/brands/edit', [BrandController::class, 'editBrand']);
 $router->post('/admin/brands/edit', [BrandController::class, 'editBrand']);
 
+// Route quản trị nhà cung cấp
+$router->get('/admin/suppliers', [SupplierController::class, 'getAllSuppliers']);
+$router->get('/admin/suppliers/create', [SupplierController::class, 'createSupplier']);
+$router->post('/admin/suppliers/create', [SupplierController::class, 'createSupplier']);
+$router->post('/admin/suppliers/delete', [SupplierController::class, 'deleteSupplier']);
+$router->get('/admin/suppliers/edit', [SupplierController::class, 'editSupplier']);
+$router->post('/admin/suppliers/edit', [SupplierController::class, 'editSupplier']);
+
 // Route quản trị thuộc tính
 $router->get('/admin/product-attributes', [ProductAttributeController::class, 'getAllAttributes']);
 $router->get('/admin/product-attributes/create', [ProductAttributeController::class, 'createAttribute']);
@@ -133,6 +145,13 @@ $router->get('/admin/reviews', [ReviewController::class, 'getAllReviews']);
 $router->get('/admin/reviews/product', [ReviewController::class, 'getReviewsByProduct']);
 $router->post('/admin/reviews/change-status', [ReviewController::class, 'changeReviewStatus']);
 
+// Route quản trị flash sale
+$router->get('/admin/flash-sales', [FlashSaleAdminController::class, 'getAllFlashSales']);
+$router->get('/admin/flash-sales/create', [FlashSaleAdminController::class, 'createFlashSale']);
+$router->post('/admin/flash-sales/create', [FlashSaleAdminController::class, 'createFlashSale']);
+$router->post('/admin/flash-sales/delete', [FlashSaleAdminController::class, 'deleteFlashSale']);
+$router->get('/admin/flash-sales/edit', [FlashSaleAdminController::class, 'editFlashSale']);
+$router->post('/admin/flash-sales/edit', [FlashSaleAdminController::class, 'editFlashSale']);
 
 // ===========================================API ROUTE=========================================================================
 // $router->post('/v1/api/login', [ApiLoginController::class, 'handleLogin']);

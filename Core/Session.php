@@ -41,5 +41,12 @@ class Session {
         session_unset();
         session_destroy();
     }
+
+    public static function debug() {
+        self::start();
+        echo '<pre>';
+        print_r($_SESSION);
+        echo '</pre>';
+    }
 }
 ?>

@@ -48,7 +48,7 @@ $messge = Session::get('message') ?? [];
                         <?php foreach ($reviews as $key => $review) : ?>
                             <tr>
                                 <td class="py-2 px-4 border-b text-center"><?= $key + 1 ?></td>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['firstname'] . ' ' . $review['lastname']) ?></td>
+                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['username']) ?></td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($review['created_at']) ?></td>
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['comment']) ?></td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($review['score']) ?></td>

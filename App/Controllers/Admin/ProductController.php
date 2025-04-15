@@ -40,7 +40,6 @@ class ProductController extends Controller
 
         // Truy vấn lấy sản phẩm có áp dụng tìm kiếm và phân trang (bỏ discount)
         $query = "
-<<<<<<< HEAD
             SELECT 
                 p.*, 
                 c.catalog_name AS catalog_name
@@ -49,23 +48,10 @@ class ProductController extends Controller
             LEFT JOIN 
                 catalogs AS c ON p.catalog_id = c.id
             WHERE p.product_name LIKE :search OR c.catalog_name LIKE :search
+            ORDER BY p.product_name ASC
             LIMIT :perPage OFFSET :offset
         ";
-=======
-        SELECT 
-            p.*, 
-            c.name AS catalog_name,
-            fs.discount_price AS discount
-        FROM 
-            products AS p
-        LEFT JOIN 
-            catalogs AS c ON p.catalog_id = c.catalog_id
-        LEFT JOIN 
-            flashsales AS fs ON fs.product_id = p.product_id
-        WHERE p.name LIKE :search OR c.name LIKE :search
-        LIMIT :perPage OFFSET :offset
-    ";
->>>>>>> 9b572b89a5c72fe405b7deee317ba9ef36d9830f
+        
 
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
@@ -210,25 +196,24 @@ class ProductController extends Controller
         $catalogs = $this->getAllCatalogs();
         $suppliers = $this->getAllSuppliers();
         $brands = $this->getAllBrands();
-        $colors = $this->getAllColors();
 
         // Kiểm tra nếu là phương thức POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $product_name = $_POST['product_name'] ?? '';
-            $description = $_POST['description'] ?? null; // Có thể null
+            $description = $_POST['description'] ?? null; 
             $catalog_id = $_POST['catalog_id'] ?? null;
             $price = $_POST['price'] ?? '';
             $discount_price = $_POST['discount_price'] ?? '';
             $stock = $_POST['stock'] ?? '';
             $product_image = $_FILES['product_image'] ?? null; // File upload
 
-            $author = $_POST['author'] ?? null; // Có thể null
-            $publication_year = $_POST['publication_year'] ?? null; // Có thể null
             $brand_id = !empty($_POST['brand_id']) ? $_POST['brand_id'] : null;
             $supplier_id = !empty($_POST['supplier_id']) ? $_POST['supplier_id'] : null;
-            $color_id = !empty($_POST['color_id']) ? $_POST['color_id'] : null;
 
+            $color = $_POST['color'] ?? null;
+            $author = $_POST['author'] ?? null; 
+            $publication_year = $_POST['publication_year'] ?? null; 
             $publisher = $_POST['publisher'] ?? null;
             $origin = $_POST['origin'] ?? null;
             $language = $_POST['language'] ?? null;
@@ -238,7 +223,7 @@ class ProductController extends Controller
 
             // Nếu không có lỗi, lưu sản phẩm
             if (empty($errors)) {
-                $this->saveProduct($product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color_id, $publication_year, $author, $publisher, $origin, $language);
+                $this->saveProduct($product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color, $publication_year, $author, $publisher, $origin, $language);
                 return; // Dừng lại sau khi lưu xong và chuyển hướng
             }
         }
@@ -247,7 +232,7 @@ class ProductController extends Controller
         include_once VIEW_PATH . 'admin/products/create.php';
     }
 
-    private function saveProduct($product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color_id, $publication_year, $author, $publisher, $origin, $language)
+    private function saveProduct($product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color, $publication_year, $author, $publisher, $origin, $language)
     {
         // Xử lý upload ảnh nếu có
         $imagePath = null;
@@ -284,8 +269,8 @@ class ProductController extends Controller
 
             // Chèn vào bảng `product_details`
             $detailQuery = "
-                INSERT INTO product_details (product_id, supplier_id, brand_id, color_id, publication_year, author, publisher, origin, language)
-                VALUES (:product_id, :supplier_id, :brand_id, :color_id, :publication_year, :author, :publisher, :origin, :language)
+                INSERT INTO product_details (product_id, supplier_id, brand_id, color, publication_year, author, publisher, origin, language)
+                VALUES (:product_id, :supplier_id, :brand_id, :color, :publication_year, :author, :publisher, :origin, :language)
             ";
             $detailStmt = $this->db->prepare($detailQuery);
 
@@ -293,7 +278,7 @@ class ProductController extends Controller
             $detailStmt->bindParam(':product_id', $product_id, \PDO::PARAM_INT);
             $detailStmt->bindValue(':supplier_id', $supplier_id, \PDO::PARAM_INT);
             $detailStmt->bindValue(':brand_id', !empty($brand_id) ? $brand_id : null, $brand_id !== null ? \PDO::PARAM_INT : \PDO::PARAM_NULL);
-            $detailStmt->bindValue(':color_id', !empty($color_id) ? $color_id : null, $color_id !== null ? \PDO::PARAM_INT : \PDO::PARAM_NULL);
+            $detailStmt->bindValue(':color', !empty($color) ? $color : null, $color !== null ? \PDO::PARAM_STR : \PDO::PARAM_NULL);
             $detailStmt->bindParam(':publication_year', $publication_year, \PDO::PARAM_STR);
             $detailStmt->bindParam(':author', $author, \PDO::PARAM_STR);
             $detailStmt->bindParam(':publisher', $publisher, \PDO::PARAM_STR);
@@ -363,7 +348,7 @@ class ProductController extends Controller
                 p.*, 
                 pd.supplier_id, 
                 pd.brand_id, 
-                pd.color_id, 
+                pd.color, 
                 pd.publication_year, 
                 pd.author, 
                 pd.publisher, 
@@ -446,7 +431,6 @@ class ProductController extends Controller
         $catalogs = $this->getAllCatalogs();
         $suppliers = $this->getAllSuppliers();
         $brands = $this->getAllBrands();
-        $colors = $this->getAllColors();
         $encryptedId = $_GET['id'] ?? null;
 
         // Nếu không có ID, dừng xử lý
@@ -469,19 +453,19 @@ class ProductController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $product_name = $_POST['product_name'] ?? '';
-            $description = $_POST['description'] ?? null; // Có thể null
+            $description = $_POST['description'] ?? null; 
             $catalog_id = $_POST['catalog_id'] ?? null;
             $price = $_POST['price'] ?? '';
             $discount_price = $_POST['discount_price'] ?? '';
             $stock = $_POST['stock'] ?? '';
             $product_image = $_FILES['product_image'] ?? null; // File upload
 
-            $author = $_POST['author'] ?? null; // Có thể null
-            $publication_year = $_POST['publication_year'] ?? null; // Có thể null
             $brand_id = !empty($_POST['brand_id']) ? $_POST['brand_id'] : null;
             $supplier_id = !empty($_POST['supplier_id']) ? $_POST['supplier_id'] : null;
-            $color_id = !empty($_POST['color_id']) ? $_POST['color_id'] : null;
-
+            
+            $color = $_POST['color'] ?? null;
+            $author = $_POST['author'] ?? null; 
+            $publication_year = $_POST['publication_year'] ?? null; 
             $publisher = $_POST['publisher'] ?? null;
             $origin = $_POST['origin'] ?? null;
             $language = $_POST['language'] ?? null;
@@ -491,7 +475,7 @@ class ProductController extends Controller
 
             // Nếu không có lỗi, xử lý cập nhật sản phẩm
             if (empty($errors)) {
-                $this->updateProduct($id, $product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color_id, $publication_year, $author, $publisher, $origin, $language);
+                $this->updateProduct($id, $product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color, $publication_year, $author, $publisher, $origin, $language);
                 header('Location: ' . BASE_URL_NAME . '/admin/products');
                 exit();
             }
@@ -502,7 +486,7 @@ class ProductController extends Controller
         include_once VIEW_PATH . 'admin/products/edit.php';
     }
 
-    public function updateProduct($id, $product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color_id, $publication_year, $author, $publisher, $origin, $language)
+    public function updateProduct($id, $product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color, $publication_year, $author, $publisher, $origin, $language)
     {
         $uploadDir = UPLOAD_DIR . 'products/';
         $imagePath = null;
@@ -559,7 +543,7 @@ class ProductController extends Controller
             // Cập nhật bảng `product_details`
             $detailQuery = "
             UPDATE product_details 
-            SET supplier_id = :supplier_id, brand_id = :brand_id, color_id = :color_id, 
+            SET supplier_id = :supplier_id, brand_id = :brand_id, color = :color, 
                 publication_year = :publication_year, author = :author, publisher = :publisher, 
                 origin = :origin, language = :language
             WHERE product_id = :id
@@ -569,7 +553,7 @@ class ProductController extends Controller
             $detailStmt->bindParam(':id', $id, \PDO::PARAM_INT);
             $detailStmt->bindValue(':supplier_id', $supplier_id, \PDO::PARAM_INT);
             $detailStmt->bindValue(':brand_id', !empty($brand_id) ? $brand_id : null, $brand_id !== null ? \PDO::PARAM_INT : \PDO::PARAM_NULL);
-            $detailStmt->bindValue(':color_id', !empty($color_id) ? $color_id : null, $color_id !== null ? \PDO::PARAM_INT : \PDO::PARAM_NULL);
+            $detailStmt->bindValue(':color', !empty($color) ? $color : null, $color !== null ? \PDO::PARAM_STR : \PDO::PARAM_NULL);
             $detailStmt->bindParam(':publication_year', $publication_year, \PDO::PARAM_STR);
             $detailStmt->bindParam(':author', $author, \PDO::PARAM_STR);
             $detailStmt->bindParam(':publisher', $publisher, \PDO::PARAM_STR);

@@ -17,6 +17,12 @@
                     </a>
                 </li>
                 <li class="mb-4">
+                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                        <i class="fas fa-warehouse w-5 h-5"></i>
+                        <span>Nhà cung cấp</span>
+                    </a>
+                </li>
+                <li class="mb-4">
                     <a href="<?= BASE_URL_NAME ?>/admin/catalogs" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-list w-5 h-5"></i>
                         <span>Danh mục</span>
@@ -26,6 +32,12 @@
                     <a href="<?= BASE_URL_NAME ?>/admin/products" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-boxes w-5 h-5"></i>
                         <span>Sản phẩm</span>
+                    </a>
+                </li>
+                <li class="mb-4">
+                    <a href="<?= BASE_URL_NAME ?>/admin/flash-sales" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                        <i class="fas fa-bolt w-5 h-5"></i>
+                        <span>Flash sales</span>
                     </a>
                 </li>
                 <li class="mb-4">

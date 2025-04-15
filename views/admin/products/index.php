@@ -36,8 +36,7 @@ $messge = Session::get('message') ?? [];
                             name="search"
                             class="block w-full p-4 pl-10 pr-20 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:outline-none focus:border-blue-500"
                             placeholder="Tìm kiếm sản phẩm hoặc danh mục..."
-                            value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
-                            />
+                            value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" />
                         <!-- Nút tìm kiếm -->
                         <button
                             type="submit"
@@ -57,26 +56,27 @@ $messge = Session::get('message') ?? [];
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 25%;">Tên Sản phẩm</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Hình ảnh</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Danh mục</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Giá gốc</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 10%;">Giảm giá</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 5%;">Kho</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 15%;">Hành động</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 40%;">Sản phẩm</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 15%;">Danh mục</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 15%;">Giá gốc</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 10%;">Giảm giá</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 5%;">Kho</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 15%;">Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($products as $product): ?>
                             <tr>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($product['product_name']) ?></td>
                                 <td class="py-2 px-4 border-b">
-                                    <img src="<?= '../Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-24 h-30 object-cover">
+                                    <div class="flex items-center gap-3">
+                                        <img src="<?= '../Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-12 h-15 object-cover">
+                                        <span class="text-gray-800"><?= htmlspecialchars($product['product_name']) ?></span>
+                                    </div>
                                 </td>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($product['catalog_name']) ?></td>
-                                <td class="py-2 px-4 border-b"><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
-                                <td class="py-2 px-4 border-b"><?= number_format($product['discount_price'], 0, ',', '.') ?> %</td>
-                                <td class="py-2 px-4 border-b"><?= $product['stock'] ?></td>
+                                <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($product['catalog_name']) ?></td>
+                                <td class="py-2 px-4 border-b text-center"><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
+                                <td class="py-2 px-4 border-b text-center"><?= number_format($product['discount_price'], 0, ',', '.') ?> %</td>
+                                <td class="py-2 px-4 border-b text-center"><?= $product['stock'] ?></td>
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
                                         <?php $encryptedId = \Core\Encrypt::encryptId($product['id'], KEY); ?>
@@ -87,7 +87,7 @@ $messge = Session::get('message') ?? [];
                                         <form action="<?= BASE_URL_NAME ?>/admin/products/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
                                             <!-- Sử dụng mã hóa ID -->
                                             <input type="hidden" name="id" value="<?= $encryptedId ?>">
-                                            <button type="button" onclick="confirmDelete()" class="text-red-500 hover:text-red-700">
+                                            <button type="button" onclick="confirmDelete('<?= $encryptedId ?>')" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i>
                                                 <span>Delete</span>
                                             </button>
@@ -176,9 +176,7 @@ $messge = Session::get('message') ?? [];
     <?php include VIEW_PATH . 'admin/layout/footer.php'; ?>
 </body>
 <script>
-    var safeId = <?php echo json_encode($encryptedId); ?>;
-
-    function confirmDelete() {
+    function confirmDelete(encryptedId) {
         // Sử dụng SweetAlert để hiển thị hộp thoại xác nhận
         Swal.fire({
             title: 'Bạn có chắc chắn muốn xóa sản phẩm này?',
@@ -191,7 +189,7 @@ $messge = Session::get('message') ?? [];
         }).then((result) => {
             if (result.isConfirmed) {
                 // Nếu người dùng nhấn "Có, xóa nó!"
-                document.getElementById('delete-form-' + safeId).submit();
+                document.getElementById('delete-form-' + encryptedId).submit();
                 var messge = <?php echo json_encode($messge); ?>;
 
                 if (messge.success) {
