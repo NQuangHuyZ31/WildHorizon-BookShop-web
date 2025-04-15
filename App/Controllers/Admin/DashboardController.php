@@ -60,7 +60,7 @@ class DashboardController extends Controller
                     // Đăng nhập thành công, lưu thông tin người dùng vào session
                     Session::set('admin', [
                         'id' => $user['id'],
-                        'name' => $user['name'],
+                        'username' => $user['username'],
                         'email' => $user['email'],
                         'role' => $user['role']
                     ]);

@@ -28,7 +28,7 @@
                         <div>
                             <label for="product_name" class="block text-gray-700 font-semibold mb-2">Sản Phẩm</label>
                             <input list="product-list" id="product_name" name="product_name"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Nhập tên sản phẩm..."
                                 value="<?= isset($_POST['product_name']) ? htmlspecialchars($_POST['product_name']) : '' ?>">
 
@@ -44,8 +44,6 @@
 
                             <input type="hidden" id="product_id" name="product_id" value="<?= isset($_POST['product_id']) ? htmlspecialchars($_POST['product_id']) : '' ?>">
                         </div>
-
-
 
                         <!-- Dynamic Attributes -->
                         <div>

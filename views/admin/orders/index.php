@@ -72,7 +72,7 @@ $messge = Session::get('message') ?? [];
                                         <?= htmlspecialchars($order['id']) ?>
                                     </td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
-                                        <?= htmlspecialchars($order['order_date']) ?>
+                                        <?= date('d-m-Y', strtotime($order['order_date'])) ?? date('d-m-Y') ?>
                                     </td>
                                     <td class="py-3 px-4 border border-gray-200 text-center text-gray-700">
                                         <?= htmlspecialchars($order['payment_method']) ?>

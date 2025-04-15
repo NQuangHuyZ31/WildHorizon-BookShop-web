@@ -9,7 +9,35 @@ class BrandController extends Controller
 {
     public function getAllBrands()
     {
-        $stmt = $this->db->prepare("SELECT * FROM brands");
+        // Lấy trang hiện tại từ URL, mặc định là 1
+        $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+
+        // Số brand mỗi trang
+        $perPage = 7;
+
+        // Tính toán offset
+        $offset = ($currentPage - 1) * $perPage;
+
+        // Lấy từ khóa tìm kiếm (nếu có)
+        $search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
+        // Truy vấn để lấy tổng số sản phẩm (có áp dụng tìm kiếm)
+        $countQuery = "SELECT COUNT(*) AS total FROM brands WHERE brand_name LIKE :search";
+        $stmt = $this->db->prepare($countQuery);
+        $searchParam = '%' . $search . '%';
+        $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
+        $stmt->execute();
+        $totalBrands = $stmt->fetch(\PDO::FETCH_ASSOC)['total'];
+
+        // Tính tổng số trang
+        $totalPages = ceil($totalBrands / $perPage);
+
+        // Truy vấn sử dụng phân trang
+        $stmt = $this->db->prepare("SELECT * FROM brands WHERE brand_name LIKE :search ORDER BY brand_name ASC LIMIT :offset, :perPage");
+        $searchParam = '%' . $search . '%';
+        $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
+        $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->bindParam(':perPage', $perPage, \PDO::PARAM_INT);
         $stmt->execute();
         $brands = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

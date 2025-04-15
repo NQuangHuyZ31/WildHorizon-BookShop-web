@@ -86,7 +86,22 @@
                         <!-- Image Field -->
                         <div>
                             <label for="product_image" class="block text-gray-700 font-semibold mb-2">Ảnh Sản Phẩm</label>
-                            <input type="file" id="product_image" name="product_image" class="w-full px-4 py-2 border <?= isset($errors['product_image']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                            <div class="flex items-center justify-center w-full">
+                                <label for="product_image" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-100 relative">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-placeholder">
+                                        <svg class="w-10 h-10 mb-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                        </svg>
+                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click để tải lên</span></p>
+                                        <p class="text-xs text-gray-500">Định dạng: SVG, PNG, JPG, GIF (Tối đa 800x400px)</p>
+                                    </div>
+                                    <img id="preview-image" src="" alt="Xem trước ảnh" class="hidden absolute inset-0 w-24 h-30 object-cover">
+                                    <input id="product_image" name="product_image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)">
+                                </label>
+                            </div>
+
+                            <!-- Hiển thị lỗi -->
                             <?php if (isset($errors['product_image'])): ?>
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['product_image'] ?></p>
                             <?php endif; ?>
@@ -144,15 +159,10 @@
                             </select>
                         </div>
 
-                        <!-- Color Field (Select) -->
+                        <!-- Color Field -->
                         <div>
-                            <label for="color_id" class="block text-gray-700 font-semibold mb-2">Màu Sắc</label>
-                            <select id="color_id" name="color_id" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Chọn màu sắc</option>
-                                <?php foreach ($colors as $color): ?>
-                                    <option value="<?= $color['id'] ?>" <?= isset($_POST['color_id']) && $_POST['color_id'] == $color['id'] ? 'selected' : '' ?>><?= htmlspecialchars($color['color_name']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <label for="color" class="block text-gray-700 font-semibold mb-2">Màu Sắc</label>
+                            <input type="text" id="color" name="color" value="<?= isset($_POST['color']) ? htmlspecialchars($_POST['color']) : '' ?>" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập màu sắc">
                         </div>
 
                         <!-- Publisher Field -->
@@ -187,5 +197,24 @@
 
     <?php include VIEW_PATH . 'admin/layout/footer.php'; ?>
 </body>
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            const imgElement = document.getElementById("preview-image");
+            const placeholder = document.getElementById("upload-placeholder");
+
+            imgElement.src = reader.result;
+            imgElement.classList.remove("hidden");
+            placeholder.classList.add("hidden");
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
 
 </html>
