@@ -17,13 +17,13 @@
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                    <a href="<?= BASE_URL ?>/admin/suppliers" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-warehouse w-5 h-5"></i>
                         <span>Nhà cung cấp</span>
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="<?= BASE_URL_NAME ?>/admin/catalogs" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                    <a href="<?= BASE_URL ?>/admin/catalogs" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
 
                         <i class="fas fa-list w-5 h-5"></i>
                         <span>Danh mục</span>
@@ -36,13 +36,13 @@
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="<?= BASE_URL_NAME ?>/admin/flash-sales" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                    <a href="<?= BASE_URL ?>/admin/flash-sales" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-bolt w-5 h-5"></i>
                         <span>Flash sales</span>
                     </a>
                 </li>
                 <li class="mb-4">
-                    <a href="<?= BASE_URL_NAME ?>/admin/product-attributes" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
+                    <a href="<?= BASE_URL ?>/admin/product-attributes" class="flex items-center space-x-3 hover:bg-gray-700 p-2 rounded-lg">
                         <i class="fas fa-bookmark w-5 h-5"></i>
                         <span>Thuộc tính sản phẩm</span>
                     </a>

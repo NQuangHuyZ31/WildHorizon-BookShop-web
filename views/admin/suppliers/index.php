@@ -30,7 +30,7 @@ $messge = Session::get('message') ?? [];
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
                     <!-- Form tìm kiếm -->
-                    <form action="<?= BASE_URL_NAME ?>/admin/suppliers" method="GET" class="relative w-1/2 max-w-[400px]">
+                    <form action="<?= BASE_URL ?>/admin/suppliers" method="GET" class="relative w-1/2 max-w-[400px]">
                         <!-- Icon search -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-500"></i>
@@ -50,7 +50,7 @@ $messge = Session::get('message') ?? [];
                             Tìm kiếm
                         </button>
                     </form>
-                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers/create">
+                    <a href="<?= BASE_URL ?>/admin/suppliers/create">
                         <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             Thêm Nhà Cung Cấp
                         </button>
@@ -76,11 +76,11 @@ $messge = Session::get('message') ?? [];
                                 <td class="py-2 px-4 border-b">
                                     <div class="flex justify-center space-x-4">
                                         <?php $encryptedId = \Core\Encrypt::encryptId($supplier['id'], KEY); ?>
-                                        <a href="<?= BASE_URL_NAME ?>/admin/suppliers/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
+                                        <a href="<?= BASE_URL ?>/admin/suppliers/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i>
                                             <span>Edit</span>
                                         </a>
-                                        <form action="<?= BASE_URL_NAME ?>/admin/suppliers/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
+                                        <form action="<?= BASE_URL ?>/admin/suppliers/delete" method="POST" id="delete-form-<?= $encryptedId ?>" style="display: inline;">
                                             <input type="hidden" name="id" value="<?= $encryptedId ?>">
                                             <button type="button" onclick="confirmDelete('<?= $encryptedId ?>')" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i>
@@ -99,7 +99,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Nút "Trang trước" -->
                             <?php if ($currentPage > 1): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers?page=<?= $currentPage - 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/suppliers?page=<?= $currentPage - 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Trước
                                     </a>
@@ -109,7 +109,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Hiển thị trang đầu tiên nếu không phải trang 1 -->
                             <?php if ($currentPage > 3): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers?page=1"
+                                    <a href="<?= BASE_URL ?>/admin/suppliers?page=1"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         1
                                     </a>
@@ -125,7 +125,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Hiển thị các trang xung quanh trang hiện tại -->
                             <?php for ($i = max(1, $currentPage - 2); $i <= min($totalPages, $currentPage + 2); $i++): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers?page=<?= $i ?>"
+                                    <a href="<?= BASE_URL ?>/admin/suppliers?page=<?= $i ?>"
                                         class="px-3 py-1 <?= $i == $currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700' ?> rounded hover:bg-gray-300">
                                         <?= $i ?>
                                     </a>
@@ -141,7 +141,7 @@ $messge = Session::get('message') ?? [];
                                     </li>
                                 <?php endif; ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers?page=<?= $totalPages ?>"
+                                    <a href="<?= BASE_URL ?>/admin/suppliers?page=<?= $totalPages ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         <?= $totalPages ?>
                                     </a>
@@ -151,7 +151,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Nút "Trang sau" -->
                             <?php if ($currentPage < $totalPages): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/suppliers?page=<?= $currentPage + 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/suppliers?page=<?= $currentPage + 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Sau
                                     </a>

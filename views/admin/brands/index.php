@@ -33,7 +33,7 @@ $messge = Session::get('message') ?? [];
                 <div class="flex justify-between items-center mb-4">
 
                     <!-- Form tìm kiếm -->
-                    <form action="<?= BASE_URL_NAME ?>/admin/brands" method="GET" class="relative w-1/2 max-w-[400px]">
+                    <form action="<?= BASE_URL ?>/admin/brands" method="GET" class="relative w-1/2 max-w-[400px]">
                         <!-- Icon search -->
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <i class="fas fa-search text-gray-500"></i>
@@ -54,7 +54,7 @@ $messge = Session::get('message') ?? [];
                         </button>
                     </form>
 
-                    <a href="<?=BASE_URL_NAME?>/admin/brands/create">
+                    <a href="<?=BASE_URL?>/admin/brands/create">
 
                         <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
                             Thêm thương hiệu
@@ -103,7 +103,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Nút "Trang trước" -->
                             <?php if ($currentPage > 1): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/brands?page=<?= $currentPage - 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/brands?page=<?= $currentPage - 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Trước
                                     </a>
@@ -113,7 +113,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Hiển thị trang đầu tiên nếu không phải trang 1 -->
                             <?php if ($currentPage > 3): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/brands?page=1"
+                                    <a href="<?= BASE_URL ?>/admin/brands?page=1"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         1
                                     </a>
@@ -129,7 +129,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Hiển thị các trang xung quanh trang hiện tại -->
                             <?php for ($i = max(1, $currentPage - 2); $i <= min($totalPages, $currentPage + 2); $i++): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/brands?page=<?= $i ?>"
+                                    <a href="<?= BASE_URL ?>/admin/brands?page=<?= $i ?>"
                                         class="px-3 py-1 <?= $i == $currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700' ?> rounded hover:bg-gray-300">
                                         <?= $i ?>
                                     </a>
@@ -145,7 +145,7 @@ $messge = Session::get('message') ?? [];
                                     </li>
                                 <?php endif; ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/brands?page=<?= $totalPages ?>"
+                                    <a href="<?= BASE_URL ?>/admin/brands?page=<?= $totalPages ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         <?= $totalPages ?>
                                     </a>
@@ -155,7 +155,7 @@ $messge = Session::get('message') ?? [];
                             <!-- Nút "Trang sau" -->
                             <?php if ($currentPage < $totalPages): ?>
                                 <li>
-                                    <a href="<?= BASE_URL_NAME ?>/admin/brands?page=<?= $currentPage + 1 ?>"
+                                    <a href="<?= BASE_URL ?>/admin/brands?page=<?= $currentPage + 1 ?>"
                                         class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
                                         Sau
                                     </a>

@@ -1,7 +1,9 @@
 <?php
 require_once 'Config/config.php';
 // Autoloader để tự động tải class
-
+ini_set('error_reporting', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 spl_autoload_register(function ($class) {
     $classPath = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($classPath)) {

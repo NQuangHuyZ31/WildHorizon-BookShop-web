@@ -45,7 +45,7 @@ $messge = Session::get('message') ?? [];
                         </button>
                     </form>
 
-                    <a href="<?= BASE_URL_NAME ?>/admin/flash-sales/create">
+                    <a href="<?= BASE_URL ?>/admin/flash-sales/create">
                         <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">Thêm Flash Sale</button>
                     </a>
                 </div>
@@ -83,10 +83,10 @@ $messge = Session::get('message') ?? [];
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">
                                         <?php $encryptedId = \Core\Encrypt::encryptId($fs['id'], KEY); ?>
-                                        <a href="<?= BASE_URL_NAME ?>/admin/flash-sales/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
+                                        <a href="<?= BASE_URL ?>/admin/flash-sales/edit?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <form action="<?= BASE_URL_NAME ?>/admin/flash-sales/delete" method="POST" id="delete-form-<?= $fs['id'] ?>">
+                                        <form action="<?= BASE_URL ?>/admin/flash-sales/delete" method="POST" id="delete-form-<?= $fs['id'] ?>">
                                             <input type="hidden" name="id" value="<?= $encryptedId ?>">
                                             <button type="button" onclick="confirmDelete(<?= $encryptedId ?>)" class="text-red-500 hover:text-red-700">
                                                 <i class="fas fa-trash-alt"></i> Delete

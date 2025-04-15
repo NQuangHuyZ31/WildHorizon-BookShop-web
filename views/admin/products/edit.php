@@ -119,7 +119,7 @@
                             <?php if (!empty($product['product_image'])): ?>
                                 <div class="mt-4">
                                     <p class="text-gray-600 text-sm mb-2">Ảnh hiện tại:</p>
-                                    <img id="current-image" src="<?= BASE_URL_NAME . '/Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="Hình sản phẩm" class="w-24 h-30 object-cover">
+                                    <img id="current-image" src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="Hình sản phẩm" class="w-24 h-30 object-cover">
                                 </div>
 
                             <?php endif; ?>

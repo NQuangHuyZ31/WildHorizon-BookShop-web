@@ -22,7 +22,7 @@
 
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <form action="<?= BASE_URL_NAME ?>/admin/suppliers/create" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/admin/suppliers/create" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Supplier Name -->
                         <div>

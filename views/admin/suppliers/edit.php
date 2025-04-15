@@ -23,7 +23,7 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <?php $encryptedId = \Core\Encrypt::encryptId($supplier['id'], KEY); ?>
-                <form action="<?= BASE_URL_NAME ?>/admin/suppliers/edit?id=<?= $encryptedId ?>" method="POST">
+                <form action="<?= BASE_URL ?>/admin/suppliers/edit?id=<?= $encryptedId ?>" method="POST">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Supplier Name -->
                         <div>

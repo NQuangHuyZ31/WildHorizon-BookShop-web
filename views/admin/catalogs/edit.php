@@ -73,7 +73,7 @@
                             <?php if (!empty($catalog['catalog_image'])): ?>
                                 <div class="mt-4">
                                     <p class="text-gray-600 text-sm mb-2">Ảnh hiện tại:</p>
-                                    <img id="current-image" src="<?= BASE_URL_NAME . '/Public/upload/catalogs/' . htmlspecialchars($catalog['catalog_image']) ?>" alt="Hình danh mục" class="w-24 h-30 object-cover">
+                                    <img id="current-image" src="<?= BASE_URL . '/Public/upload/catalogs/' . htmlspecialchars($catalog['catalog_image']) ?>" alt="Hình danh mục" class="w-24 h-30 object-cover">
                                 </div>
 
                             <?php endif; ?>
