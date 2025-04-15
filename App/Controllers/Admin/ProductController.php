@@ -287,7 +287,7 @@ class ProductController extends Controller
             // Thực thi SQL
             if ($detailStmt->execute()) {
                 Session::set('message', ['success' => 'Thêm sản phẩm thành công!']);
-                header('Location: ' . BASE_URL_NAME . '/admin/products');
+                header('Location: ' . BASE_URL . '/admin/products');
                 exit();
             } else {
                 echo "Lỗi khi thêm chi tiết sản phẩm.";
@@ -333,7 +333,7 @@ class ProductController extends Controller
             Session::set('message', [
                 'success' => 'Xóa sản phẩm thành công!'
             ]);
-            header('Location: ' . BASE_URL_NAME . '/admin/products');
+            header('Location: ' . BASE_URL . '/admin/products');
             exit();
         } else {
             echo "Đã xảy ra lỗi khi xóa sản phẩm.";
@@ -476,7 +476,7 @@ class ProductController extends Controller
             // Nếu không có lỗi, xử lý cập nhật sản phẩm
             if (empty($errors)) {
                 $this->updateProduct($id, $product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color_id, $publication_year, $author, $publisher, $origin, $language);
-                header('Location: ' . BASE_URL_NAME . '/admin/products');
+                header('Location: ' . BASE_URL . '/admin/products');
                 exit();
             }
         }
@@ -566,7 +566,7 @@ class ProductController extends Controller
 
             // Chuyển hướng và thông báo
             Session::set('message', ['success' => 'Cập nhật sản phẩm thành công!']);
-            header('Location: ' . BASE_URL_NAME . '/admin/products');
+            header('Location: ' . BASE_URL . '/admin/products');
             exit();
         } catch (\Exception $e) {
             // Rollback nếu có lỗi

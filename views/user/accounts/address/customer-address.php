@@ -43,7 +43,7 @@
             <?php } ?>
           <?php } else { ?>
             <div class="p-4">
-              <?php require_once VIEW_PATH . 'user/accounts/customer-address-new.php' ?>
+              <?php require_once VIEW_PATH . 'user/accounts/address/customer-address-new.php' ?>
               <div class="mt-2">
                 <div class="flex items-center">
                   <input type="checkbox" value="1" name="default_address">

@@ -22,7 +22,7 @@
 
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <form action="<?= BASE_URL_NAME ?>/admin/product-attributes/create" method="POST">
+                <form action="<?= BASE_URL ?>/admin/product-attributes/create" method="POST">
                     <div class="grid grid-cols-1 gap-6">
 
                         <div>

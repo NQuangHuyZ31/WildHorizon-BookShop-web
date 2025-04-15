@@ -58,4 +58,15 @@ class User extends Model
     $stmt->bindValue(6, $userID, \PDO::PARAM_INT);
     return $stmt->execute();
   }
+
+  // Lấy passord người dùng
+  public function getColumn($column, $userID)
+  {
+    $query = "SELECT $column FROM $this->table WHERE id = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
 }

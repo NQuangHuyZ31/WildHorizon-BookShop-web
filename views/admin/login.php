@@ -12,10 +12,10 @@ use Core\Session;
     <!-- Container for the login form -->
     <div class="bg-white p-8 rounded-xl shadow-xl w-96 max-w-md">
         <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Admin Login</h2>
-        
+
         <!-- Form for login -->
-        <form id="loginForm" method="POST" action="<?= BASE_URL_NAME ?>/admin/login" class="space-y-6">
-            
+        <form id="loginForm" method="POST" action="<?= BASE_URL ?>/admin/login" class="space-y-6">
+
             <!-- Email input -->
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
@@ -39,18 +39,17 @@ use Core\Session;
 
     </div>
 
-    <script src="<?= BASE_URL_NAME ?>/Public/js/jquery-3.7.1.min.js"></script>
+    <script src="<?= BASE_URL ?>/Public/js/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
         var messge = <?php echo json_encode(Session::get('message')); ?>;
         console.log(messge);
-        if(messge.error){
+        if (messge.error) {
             toastr.error(messge.error);
         }
     </script>
 
     <?php Session::delete('message'); ?>
 </div>
-

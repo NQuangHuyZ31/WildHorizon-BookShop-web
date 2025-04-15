@@ -30,7 +30,7 @@ $messge = Session::get('message') ?? [];
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-semibold text-gray-800">Đánh giá của sản phẩm #<?= htmlspecialchars($product['product_name']) ?></h2>
-                    <img src="<?php echo BASE_URL_NAME ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-24 h-30 object-cover">
+                    <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-24 h-30 object-cover">
                 </div>
 
                 <table class="min-w-full bg-white">
@@ -53,7 +53,7 @@ $messge = Session::get('message') ?? [];
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['comment']) ?></td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($review['score']) ?></td>
                                 <td class="py-2 px-4 border-b text-center">
-                                    <form action="<?= BASE_URL_NAME ?>/admin/reviews/change-status" method="POST">
+                                    <form action="<?= BASE_URL ?>/admin/reviews/change-status" method="POST">
                                         <input type="hidden" name="review_id" value="<?= $review['review_id'] ?>">
                                         <input type="hidden" name="status" value="<?= $review['status'] == 1 ? 0 : 1 ?>">
                                         <button type="submit" class="text-xl text-gray-600 hover:text-blue-500">

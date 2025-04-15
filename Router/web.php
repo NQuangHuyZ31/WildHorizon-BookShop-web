@@ -15,7 +15,6 @@ use App\Controllers\Admin\OrderController;
 use App\Controllers\Admin\ReviewController;
 use App\Controllers\Admin\BrandController;
 
-
 // Use Controller
 use App\Controllers\User\CartController;
 use App\Controllers\User\HomeController;
@@ -92,19 +91,23 @@ $router->post('/saveorder', [CheckoutController::class, 'checkout']);
 $router->get('/customer/account', [AccountController::class, 'index']);
 $router->post('/customer/account', [AccountController::class, 'updateInfo']);
 
-$router->get('/customer/address', [CustomerAddressController::class, 'index']);
-$router->get('/customer/address/add', [CustomerAddressController::class, 'showPageAddNew']);
-$router->post('/customer/address/add', [CustomerAddressController::class, 'addNewAddress']);
-$router->post('/customer/address/delete', [CustomerAddressController::class, 'deleteAddress']);
-$router->get('/customer/address/edit/{id}', [CustomerAddressController::class, 'showPageEditAddress']);
-$router->post('/customer/address/edit', [CustomerAddressController::class, 'updateAddress']);
+$router->get('/customer/address', [CustomerAddressController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/address/add', [CustomerAddressController::class, 'showPageAddNew'], [AuthMiddleware::class]);
+$router->post('/customer/address/add', [CustomerAddressController::class, 'addNewAddress'], [AuthMiddleware::class]);
+$router->post('/customer/address/delete', [CustomerAddressController::class, 'deleteAddress'], [AuthMiddleware::class]);
+$router->get('/customer/address/edit/{id}', [CustomerAddressController::class, 'showPageEditAddress'], [AuthMiddleware::class]);
+$router->post('/customer/address/edit', [CustomerAddressController::class, 'updateAddress'], [AuthMiddleware::class]);
 
-$router->get('/customer/changepassword', [CustomerChangePasswordController::class, 'index']);
-$router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index']);
-$router->get('/customer/order', [CustomerOrderController::class, 'index']);
-$router->get('/customer/voucher', [CustomerVoucherController::class, 'index']);
-$router->get('/customer/wishlist', [CustomerWishListController::class, 'index']);
-$router->get('/customer/review', [CustomerReviewController::class, 'index']);
+$router->get('/customer/changepassword', [CustomerChangePasswordController::class, 'index'], [AuthMiddleware::class]);
+$router->post('/customer/changepassword/sendmailverify', [CustomerChangePasswordController::class, 'sendCodeVerifyChangePW'], [AuthMiddleware::class]);
+$router->get('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'showChangePWVerifyPage'], [AuthMiddleware::class]);
+$router->post('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'verifyChangePassword'], [AuthMiddleware::class]);
+
+$router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/order', [CustomerOrderController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/voucher', [CustomerVoucherController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/wishlist', [CustomerWishListController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/review', [CustomerReviewController::class, 'index'], [AuthMiddleware::class]);
 
 // ===========================================================ROUTER ADMIN==============================================================
 // Route đến trang đăng nhập admin
@@ -165,6 +168,7 @@ $router->post('/admin/reviews/change-status', [ReviewController::class, 'changeR
 // $router->post('/v1/api/login', [ApiLoginController::class, 'handleLogin']);
 // $router->get('/v1/api/product', [ApiProductController::class, 'getAll']);
 
-
+// Route test
+// $router->get('/testmail', [TestMailController::class, 'testMail']);
 // Xử lý request
 $router->handleRequest();

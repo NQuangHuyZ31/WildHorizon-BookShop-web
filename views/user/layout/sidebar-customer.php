@@ -10,8 +10,9 @@
   <div class="mt-2">
     <div class="py-2">
       <li class="list-none border-s-6  flex items-center 
-      <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
-        || strpos($_SERVER['REQUEST_URI'], '/address') !== false ? 'border-red-700' : 'border-white' ?>">
+        <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
+          || strpos($_SERVER['REQUEST_URI'], '/address') !== false
+          || strpos($_SERVER['REQUEST_URI'], '/changepassword') !== false ? 'border-red-700' : 'border-white' ?>">
         <div class="flex items-center">
           <div class="mx-2 text-center text-lg text-gray-500" style="height: 24px;width: 24px;">
             <i class="fa-solid fa-user"></i>
@@ -19,7 +20,8 @@
           <a href="<?php echo BASE_URL ?>/customer/account">
             <p class="text-sm pt-1 mx-2 hover:text-orange-400 
             <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
-              || strpos($_SERVER['REQUEST_URI'], '/address') !== false ? 'text-red-700 font-bold' : '' ?>">Thông tin tài khoản</p>
+              || strpos($_SERVER['REQUEST_URI'], '/address')
+              || strpos($_SERVER['REQUEST_URI'], '/changepassword') !== false ? 'text-red-700 font-bold' : '' ?>">Thông tin tài khoản</p>
           </a>
           <i class="fa-solid fa-chevron-down pt-1 text-gray-500"></i>
         </div>
@@ -27,7 +29,8 @@
     </div>
     <div class="
     <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
-      || strpos($_SERVER['REQUEST_URI'], '/address') !== false  ? 'block' : 'hidden' ?>">
+      || strpos($_SERVER['REQUEST_URI'], '/address') !== false
+      || strpos($_SERVER['REQUEST_URI'], '/changepassword') ? 'block' : 'hidden' ?>">
       <div class="py-2">
         <li class="list-none border-s-6 border-white flex items-center ">
           <div class="flex items-center">

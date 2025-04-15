@@ -24,13 +24,13 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <?php $encryptedId = \Core\Encrypt::encryptId($product['id'], KEY); ?>
-                <form action="<?= BASE_URL_NAME ?>/admin/products/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/admin/products/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
                             <label for="product_name" class="block text-gray-700 font-semibold mb-2">Tên Sản Phẩm</label>
                             <input type="text" id="product_name" name="product_name" value="<?= isset($product['product_name']) ? htmlspecialchars($product['product_name']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['product_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tên sản phẩm">
-                            
+
                             <?php if (isset($errors['product_name'])): ?>
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['product_name'] ?></p>
                             <?php endif; ?>
@@ -40,7 +40,7 @@
                         <div>
                             <label for="description" class="block text-gray-700 font-semibold mb-2">Mô Tả</label>
                             <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border <?= isset($errors['description']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập mô tả về sản phẩm"><?= isset($product['description']) ? htmlspecialchars($product['description']) : '' ?></textarea>
-                            
+
                             <?php if (isset($errors['description'])): ?>
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['description'] ?></p>
                             <?php endif; ?>
@@ -62,7 +62,7 @@
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['catalog_id'] ?></p>
                             <?php endif; ?>
                         </div>
-                        
+
                         <!-- Price Field -->
                         <div>
                             <label for="price" class="block text-gray-700 font-semibold mb-2">Giá</label>
@@ -91,7 +91,7 @@
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['stock'] ?></p>
                             <?php endif; ?>
                         </div>
-                        
+
                         <!-- Image Field -->
                         <div>
                             <label for="product_image" class="block text-gray-700 font-semibold mb-2">Hình Ảnh</label>
@@ -103,7 +103,7 @@
 
                             <!-- Hiển thị ảnh hiện tại -->
                             <?php if (!empty($product['product_image'])): ?>
-                                <img src="<?= BASE_URL_NAME . '/Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="Hình sản phẩm" class="mt-4 w-32 h-32 object-cover rounded-lg">
+                                <img src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="Hình sản phẩm" class="mt-4 w-32 h-32 object-cover rounded-lg">
                             <?php endif; ?>
                         </div>
 
@@ -116,8 +116,8 @@
                         <!--Publish Year -->
                         <div>
                             <label for="publication_year" class="block text-gray-700 font-semibold mb-2">Năm xuất bản</label>
-                            <select id="publication_year" name="publication_year" 
-                                    class="w-full px-4 py-2 border <?= isset($errors['publication_year']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <select id="publication_year" name="publication_year"
+                                class="w-full px-4 py-2 border <?= isset($errors['publication_year']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Chọn năm xuất bản</option>
                                 <?php
                                 $currentYear = date('Y');

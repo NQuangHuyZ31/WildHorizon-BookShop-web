@@ -5,7 +5,7 @@ use Core\Session;
 $user = Session::has('user') ? Session::get('user') : [];
 Session::set('current_url', $_SERVER['REQUEST_URI']);
 $csrf_token = Core\CSRF::generateToken();
-
+// var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +51,7 @@ $csrf_token = Core\CSRF::generateToken();
         <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">Track my order</a></li>
         <?php if (!empty($user)) { ?>
           <li class="whr-menu-user-popup text-gray-400 uppercase cursor-pointer relative" id="whr-menu-user">
-            <p><?php echo htmlspecialchars($user['name']); ?></p>
+            <p><?php echo htmlspecialchars($user['username']); ?></p>
             <div class="pt-2 absolute whr-menu-user">
               <div class="relative bg-white border border-gray-300 z-50 shadow-sm px-6 pt-3 pb-2">
                 <div class="whr-meu-user-content top-content">
@@ -63,19 +63,19 @@ $csrf_token = Core\CSRF::generateToken();
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
-                      <a href="" class="flex items-center">
+                      <a href="<?php echo BASE_URL ?>/customer/order" class="flex items-center">
                         <span class="text-2xl text-gray-400"><i class="fa-regular fa-gem"></i></span>
                         <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">My Order</p>
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
-                      <a href="" class="flex items-center">
+                      <a href="<?php echo BASE_URL ?>/customer/wishlist" class="flex items-center">
                         <span class="text-2xl text-gray-400"><i class="fa-regular fa-heart"></i></i></span>
                         <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">My Wishlist & Followed Stores</p>
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
-                      <a href="" class="flex items-center">
+                      <a href="<?php echo BASE_URL ?>/customer/review" class="flex items-center">
                         <span class="text-2xl text-gray-400"><i class="fa-regular fa-star"></i></span>
                         <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">My Reviews</p>
                       </a>

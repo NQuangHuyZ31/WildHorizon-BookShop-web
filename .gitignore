@@ -2,9 +2,6 @@
 node_modules/
 vendor/
 Config/
-js/product.js
-composer.json
-composer.lock
 .$design-database.drawio.bkp
 design-database.drawio
 ghichu.txt

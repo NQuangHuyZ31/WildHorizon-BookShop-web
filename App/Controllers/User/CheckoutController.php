@@ -83,7 +83,7 @@ class CheckoutController extends Controller
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
       if (!isset($_POST['csrf_token']) || !CSRF::verifyToken($_POST['csrf_token'])) {
         Session::set('error', 'Lỗi CSRF, vui lòng thử lại');
-        header('location: ' . BASE_URL_NAME . '/gio-hang');
+        header('location: ' . BASE_URL . '/gio-hang');
         exit();
       }
 
@@ -104,7 +104,7 @@ class CheckoutController extends Controller
 
       if (empty($productIds) || empty($quantities) || $total_price <= 0) {
         Session::set('error', 'Thông tin đơn hàng không hợp lệ');
-        header('location: ' . BASE_URL_NAME . '/gio-hang');
+        header('location: ' . BASE_URL . '/gio-hang');
         exit();
       }
       $this->db->beginTransaction();
@@ -140,7 +140,7 @@ class CheckoutController extends Controller
             // Kiểm tra tồn kho
             if ($product['stock'] < $quantity) {
               Session::set('success', ['status' => 0, 'msg' => 'Sản phẩm "' . $product['name'] . '" không đủ hàng']);
-              header('location: ' . BASE_URL_NAME . '/gio-hang');
+              header('location: ' . BASE_URL . '/gio-hang');
               exit;
             }
 
@@ -183,7 +183,7 @@ class CheckoutController extends Controller
         // Rollback nếu có lỗi
         $this->db->rollBack();
         Session::set('error', $e->getMessage());
-        header('location: ' . BASE_URL_NAME . '/gio-hang');
+        header('location: ' . BASE_URL . '/gio-hang');
         exit();
       }
     }

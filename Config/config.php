@@ -13,3 +13,5 @@ define("DB_NAME", 'whr_bookshop');
 define('UPLOAD_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WildHorizon-BookShop/Public/upload/');
 
 define('KEY', 'wildhorizonbookshopwiburomax');
+
+define('OTP_HASH_KEY', 'wildhorizon@@');

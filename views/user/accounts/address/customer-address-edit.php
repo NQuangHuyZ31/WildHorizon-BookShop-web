@@ -61,7 +61,7 @@
             </div>
             <div class="mt-2">
               <div class="flex items-center">
-                <input type="checkbox" value="1" name="default_address" <?php echo $address['default_address'] == 1 ? 'checked' : '' ?>>
+                <input type="checkbox" value="1" name="default_address" <?php echo $address['default_address'] == 1 ? 'checked disabled' : '' ?>>
                 <div class="ms-2 text-sm text-gray-400">Đặt làm địa chỉ mặt định</div>
               </div>
               <div class="flex justify-end mt-3 text-center">

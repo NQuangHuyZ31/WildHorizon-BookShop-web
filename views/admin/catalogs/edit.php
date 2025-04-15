@@ -24,13 +24,13 @@
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <?php $encryptedId = \Core\Encrypt::encryptId($catalog['id'], KEY); ?>
-                <form action="<?= BASE_URL_NAME ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/admin/catalogs/edit?id=<?= $encryptedId ?>" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
                             <label for="catalog_name" class="block text-gray-700 font-semibold mb-2">Tên Danh Mục</label>
                             <input type="text" id="catalog_name" name="catalog_name" value="<?= isset($catalog['catalog_name']) ? htmlspecialchars($catalog['catalog_name']) : '' ?>" class="w-full px-4 py-2 border <?= isset($errors['catalog_name']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập tên danh mục">
-                            
+
                             <?php if (isset($errors['catalog_name'])): ?>
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['catalog_name'] ?></p>
                             <?php endif; ?>
@@ -40,12 +40,12 @@
                         <div>
                             <label for="description" class="block text-gray-700 font-semibold mb-2">Mô Tả</label>
                             <textarea id="description" name="description" rows="4" class="w-full px-4 py-2 border <?= isset($errors['description']) ? 'border-red-500' : 'border-gray-300' ?> rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Nhập mô tả về danh mục"><?= isset($catalog['description']) ? htmlspecialchars($catalog['description']) : '' ?></textarea>
-                            
+
                             <?php if (isset($errors['description'])): ?>
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['description'] ?></p>
                             <?php endif; ?>
                         </div>
-                        
+
                         <!-- Image Field -->
                         <div>
                             <label for="catalog_image" class="block text-gray-700 font-semibold mb-2">Hình Ảnh</label>
@@ -57,7 +57,7 @@
 
                             <!-- Hiển thị ảnh hiện tại -->
                             <?php if (!empty($catalog['catalog_image'])): ?>
-                                <img src="<?= BASE_URL_NAME . '/Public/upload/catalogs/' . htmlspecialchars($catalog['catalog_image']) ?>" alt="Hình danh mục" class="mt-4 w-32 h-32 object-cover rounded-lg">
+                                <img src="<?= BASE_URL . '/Public/upload/catalogs/' . htmlspecialchars($catalog['catalog_image']) ?>" alt="Hình danh mục" class="mt-4 w-32 h-32 object-cover rounded-lg">
                             <?php endif; ?>
                         </div>
                         <!-- Submit Button -->

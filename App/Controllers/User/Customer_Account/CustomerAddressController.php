@@ -25,7 +25,7 @@ class CustomerAddressController extends CustomerController
     $customer = $this->customer;
     $customer_address = $this->customer_address->getAddress(Session::get('user')['id']);
 
-    require_once VIEW_PATH . 'user/accounts/customer-address.php';
+    require_once VIEW_PATH . 'user/accounts/address/customer-address.php';
   }
 
   // Thêm địa chỉ
@@ -33,7 +33,7 @@ class CustomerAddressController extends CustomerController
   {
 
     $customer = $this->customer;
-    require_once VIEW_PATH . 'user/accounts/customer-address-add-new.php';
+    require_once VIEW_PATH . 'user/accounts/address/customer-address-add-new.php';
   }
 
   // Xử lí thêm địa chỉ
@@ -137,7 +137,7 @@ class CustomerAddressController extends CustomerController
     $customer = $this->customer;
     $address = $this->customer_address->getAddressByID($id);
 
-    require_once VIEW_PATH . 'user/accounts/customer-address-edit.php';
+    require_once VIEW_PATH . 'user/accounts/address/customer-address-edit.php';
   }
 
   // Cập nhật địa chỉ

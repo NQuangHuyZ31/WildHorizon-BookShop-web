@@ -31,6 +31,7 @@ class AccountController extends CustomerController
     require_once VIEW_PATH . 'user/accounts/account.php';
   }
 
+  // Cập nhật thông tin
   public function updateInfo()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,6 +64,9 @@ class AccountController extends CustomerController
           ];
 
           if ($this->user->updateInfoUser($customerData, Session::get('user')['id'])) {
+            $userSession = Session::get('user');
+            $userSession['username'] = $data['username']; // tên mới
+            Session::set('user', $userSession);
             echo json_encode([
               'success' => [
                 'status' => 1,

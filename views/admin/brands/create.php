@@ -23,7 +23,7 @@
 
             <!-- Content -->
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                <form action="<?= BASE_URL_NAME ?>/admin/brands/create" method="POST" enctype="multipart/form-data">
+                <form action="<?= BASE_URL ?>/admin/brands/create" method="POST" enctype="multipart/form-data">
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Name Field -->
                         <div>
@@ -44,7 +44,7 @@
                                 <p class="text-red-500 text-sm mt-2"><?= $errors['description'] ?></p>
                             <?php endif; ?>
                         </div>
-                        
+
                         <!-- Submit Button -->
                         <div class="flex justify-end">
                             <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
