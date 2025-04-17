@@ -65,8 +65,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               <div class="mt-2">
                 <p class="p-1 text-[12px] text-gray-400">Mã xác minh được gửi về email bạn đăng ký tài khoản. Vui lòng kiểm tra.</p>
                 <p class="p-1 text-[12px] text-gray-400">Bạn chưa nhận được mã?
-                  <span class="text-sm text-blue-700 font-semibold cursor-pointer">
-                    <a href="<?php echo BASE_URL ?>/customer/changepassword/verify/resend">Gửi lại</a>
+                  <span class="text-sm text-blue-700 font-semibold cursor-pointer" id="btn-otp-resend">
+                    Gửi lại
                   </span>
                 </p>
               </div>
@@ -85,7 +85,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 <?php include_once VIEW_PATH_USER_LAYOUT . 'footer.php'; ?>
 
 
-<div class="container-fuild mx-auto">
+<!-- <div class="container-fuild mx-auto">
   <div class="flex-1 ms-3">
     <div class="flex justify-center">
       <div class="max-w-md mx-auto text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">
@@ -122,4 +122,4 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
       </div>
     </div>
   </div>
-</div>
+</div> -->

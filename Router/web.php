@@ -16,8 +16,7 @@ use App\Controllers\Admin\ReviewController;
 use App\Controllers\Admin\BrandController;
 use App\Controllers\Admin\SupplierController;
 use App\Controllers\Admin\FlashSaleAdminController;
-
-
+use App\Controllers\TestController;
 // Use Controller
 use App\Controllers\User\CartController;
 use App\Controllers\User\HomeController;
@@ -105,6 +104,7 @@ $router->get('/customer/changepassword', [CustomerChangePasswordController::clas
 $router->post('/customer/changepassword/sendmailverify', [CustomerChangePasswordController::class, 'sendCodeVerifyChangePW'], [AuthMiddleware::class]);
 $router->get('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'showChangePWVerifyPage'], [AuthMiddleware::class]);
 $router->post('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'verifyChangePassword'], [AuthMiddleware::class]);
+$router->post('/customer/changepassword/verify/resend', [CustomerChangePasswordController::class, 'reSendOTP'], [AuthMiddleware::class]);
 
 $router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/order', [CustomerOrderController::class, 'index'], [AuthMiddleware::class]);
@@ -187,6 +187,6 @@ $router->post('/admin/flash-sales/edit', [FlashSaleAdminController::class, 'edit
 // $router->get('/v1/api/product', [ApiProductController::class, 'getAll']);
 
 // Route test
-// $router->get('/testmail', [TestMailController::class, 'testMail']);
+$router->get('/test', [TestController::class, 'index']);
 // Xử lý request
 $router->handleRequest();

@@ -69,4 +69,16 @@ class User extends Model
 
     return $stmt->fetch(\PDO::FETCH_ASSOC);
   }
+
+  // Change Password
+  public function updatePassword($userID, $userPassword)
+  {
+    $query = "UPDATE $this->table set password = ?, updated_at = ? WHERE id = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $userPassword, \PDO::PARAM_STR);
+    $stmt->bindValue(2, date('Y-m-d H:i:s'));
+    $stmt->bindValue(3, $userID, \PDO::PARAM_INT);
+
+    return $stmt->execute();
+  }
 }

@@ -6,6 +6,7 @@ $(document).ready(function () {
     let URL_UPDATE_ADDRESS = '/WildHorizon-BookShop/customer/address/edit';
     let URL_SEND_MAIL_VERIFY = '/WildHorizon-BookShop/customer/changepassword/sendmailverify';
     let URL_VERIFY_CHANGEPW_PAGE = '/WildHorizon-BookShop/customer/changepassword/verify';
+    let URL_RESEND_OTP = '/WildHorizon-BookShop/customer/changepassword/verify/resend';
 
     let PROVINCE = '#province';
     let DISTRICT = '#district';
@@ -115,23 +116,22 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 try {
-                    if (response.success.status == 1) {
+                    if (response) {
                         toastr['success'](response.success.msg);
+                        $('input[name="csrf_token"]').val(response.token);
                         setTimeout(() => {
                             window.location.href = URL_CUSTOMER_ADDRESS;
                         }, 500);
                     }
-
-                    $('input[name="csrf_token"]').val(response.token);
                 } catch (error) {
                     console.log(error);
                 }
             },
             error: function (response) {
-                if (response.status >= 400) {
-                    toastr['error'](response.responseJSON.msg);
+                if (response) {
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
                 }
-                $('input[name="csrf_token"]').val(response.responseJSON.token);
             },
         });
     }
@@ -139,6 +139,33 @@ $(document).ready(function () {
     // Gửi yêu cầu thêm địa chỉ
     $('#btn-save-address').click(() => {
         addNewAddress();
+    });
+
+    // Xóa địa chỉ
+    $('.icon-delete-address').click(function () {
+        const addressID = $(this).data('id');
+        const csrf_token = $('input[name="csrf_token"]').val();
+        console.log(addressID, csrf_token);
+        $.ajax({
+            type: 'POST',
+            url: URL_DELETE_ADDRESS,
+            data: {
+                addressID,
+                csrf_token,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.status == 200) {
+                    $('input[name="csrf_token"]').val(response.token);
+                }
+                setTimeout(() => {
+                    location.href = location.href;
+                }, 200);
+            },
+            error: function (response) {
+                $('input[name="csrf_token"]').val(response.responseJSON.token);
+            },
+        });
     });
 
     // Gửi yêu cầu cập nhật địa chỉ
@@ -170,9 +197,8 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (response) {
-                console.log(response);
-                if (response.status == 200) {
-                    toastr['success'](response.msg);
+                if (response) {
+                    toastr['success'](response.success.msg);
                     setTimeout(() => {
                         location.href = URL_CUSTOMER_ADDRESS;
                     }, 600);
@@ -180,8 +206,10 @@ $(document).ready(function () {
                 }
             },
             error: function (response) {
-                console.log(response.responseJSON.msg);
-                $('input[name="csrf_token"]').val(response.responseJSON.token);
+                if (response) {
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                    toastr['error'](response.responseJSON.error.msg);
+                }
             },
         });
     });
@@ -211,43 +239,19 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (response) {
-                if (response.success.status == 1) {
+                if (response) {
                     toastr['success'](response.success.msg);
                     setTimeout(() => {
                         location.reload();
                     }, 1000);
-                } else {
-                    toastr['error'](response.success.msg);
-                }
-                $('input[name="csrf_token"]').val(response.token);
-            },
-        });
-    });
-
-    // Xóa địa chỉ
-    $('.icon-delete-address').click(function () {
-        const addressID = $(this).data('id');
-        const csrf_token = $('input[name="csrf_token"]').val();
-        console.log(addressID, csrf_token);
-        $.ajax({
-            type: 'POST',
-            url: URL_DELETE_ADDRESS,
-            data: {
-                addressID,
-                csrf_token,
-            },
-            dataType: 'json',
-            success: function (response) {
-                if (response.status == 200) {
                     $('input[name="csrf_token"]').val(response.token);
                 }
-                setTimeout(() => {
-                    location.href = location.href;
-                }, 200);
             },
             error: function (response) {
-                console.log(response.responseJSON.msg);
-                $('input[name="csrf_token"]').val(response.responseJSON.token);
+                if (response) {
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                }
             },
         });
     });
@@ -272,7 +276,7 @@ $(document).ready(function () {
     // Change password
     $('#btn-changepw').click(function (e) {
         e.preventDefault();
-
+        JsLoadingOverlay.show();
         const old_password = $('input[name="old_password"]').val();
         const new_password = $('input[name="new_password"]').val();
         const confirm_new_password = $('input[name="confirm_new_password"]').val();
@@ -288,18 +292,51 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (response) {
-                console.log(response);
-                if (response.status == 200) {
+                // console.log(response);
+                if (response) {
+                    JsLoadingOverlay.hide();
+
                     $('input[name="csrf_token"]').val(response.token);
-                    toastr['success'](response.msg);
-                    // setTimeout(() => {
-                    //     window.location.href = response.url + '/customer/changepassword/verify';
-                    // }, 1000);
+                    toastr['success'](response.success.msg);
+                    setTimeout(() => {
+                        window.location.href = response.url + '/customer/changepassword/verify';
+                    }, 500);
                 }
             },
             error: function (response) {
-                if (response.status >= 400) {
-                    toastr['error'](response.responseJSON.msg);
+                if (response) {
+                    JsLoadingOverlay.hide();
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                }
+            },
+        });
+    });
+
+    // Resend OTP
+    $('#btn-otp-resend').click(function (e) {
+        e.preventDefault();
+        JsLoadingOverlay.show();
+
+        const csrf_token = $('input[name="csrf_token"]').val();
+        $.ajax({
+            type: 'POST',
+            url: URL_RESEND_OTP,
+            data: {
+                csrf_token,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    JsLoadingOverlay.hide();
+                    toastr['success'](response.success.msg);
+                    $('input[name="csrf_token"]').val(response.token);
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    JsLoadingOverlay.hide();
+                    toastr['error'](response.responseJSON.error.msg);
                     $('input[name="csrf_token"]').val(response.responseJSON.token);
                 }
             },

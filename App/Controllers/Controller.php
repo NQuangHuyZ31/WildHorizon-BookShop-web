@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use Core\Database;
 use Core\Auth;
+use Core\CSRF;
+use Core\Response;
 
 class Controller
 {
@@ -20,5 +22,26 @@ class Controller
     }
 
     $this->auth = new Auth();
+  }
+
+  public function checkMethod($csrf_token)
+  {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+      Response::json([
+        'error' => [
+          'msg' => 'Phương thức không hỗ trợ'
+        ],
+        'token' => $csrf_token
+      ], 405);
+    }
+
+    if (!CSRF::verifyToken($csrf_token)) {
+      Response::json([
+        'error' => [
+          'msg' => 'Lỗi xác thực CSRF'
+        ],
+        'token' => $csrf_token
+      ], 405);
+    }
   }
 }
