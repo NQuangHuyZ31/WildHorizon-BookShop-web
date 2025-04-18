@@ -2,6 +2,7 @@
 
 use Core\Session;
 use Helpers\CreateSlug;
+use Helpers\Format;
 
 $csrf_token = Core\CSRF::generateToken();
 
@@ -109,13 +110,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
                         <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img class="w-full h-full" src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
+                                <img class="w-full h-full lazyload" data-src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
                                 <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
                                 <div class="flash-sale-product-price">
-                                    <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo number_format($fproduct['price'], 0, '.', ','); ?></p>
-                                    <p style="font-size: 13px;"><s class="opacity-50"><?php echo 'đ' . number_format($fproduct['price'] * (1 + $fproduct['discount_price'] / 100), 0, '.', ','); ?></s><span class="text-black ms-2"><?php echo '-' . number_format($fproduct['discount_price'], 0) . '%'; ?></span></p>
+                                    <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo Format::forMatPrice($fproduct['price']) ?></p>
+                                    <p style="font-size: 13px;">
+                                        <s class="opacity-50"><?php echo 'đ' . Format::forMatPrice($fproduct['price'] * (1 + $fproduct['discount_price'] / 100)) ?></s>
+                                        <span class="text-black ms-2"><?php echo '-' . Format::forMatPrice($fproduct['discount_price']) . '%'; ?></span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

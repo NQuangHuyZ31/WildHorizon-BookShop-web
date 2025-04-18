@@ -133,8 +133,8 @@ $(document).ready(function () {
                     response.data.forEach((product) => {
                         $('.whr-product').append(`
              <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
-              <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                <div class="whr-product-img py-2">
+              <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content ${response.offset == 30 ? 'main-product-content' : ''}">
+                <div class="whr-product-img py-2 ${response.offset == 30 ? 'main-img-product' : ''}">
                   <img src="${response.url}/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
                 </div>
                 <div class="px-2 mt-2">

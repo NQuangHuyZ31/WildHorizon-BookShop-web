@@ -110,7 +110,7 @@
 <script src="<?php echo BASE_URL ?>/Public/js/checkout.js?v=<?php echo rand() ?>"></script>
 <script src="<?php echo BASE_URL ?>/Public/js/product.js?v=<?php echo rand() ?>"></script>
 <script src="<?php echo BASE_URL ?>/Public/js/account.js?v=<?php echo rand() ?>"></script>
-
+<script src="<?php echo BASE_URL ?>/Public/js/lazysizes.min.js?v=<?php echo rand() ?>" async=""></script>
 <?php
 $success = Session::get('success');
 $status = is_array($success) && isset($success['status']) ? $success['status'] : '';

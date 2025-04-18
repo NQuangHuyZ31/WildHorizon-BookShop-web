@@ -2,7 +2,7 @@
 
 namespace App\Controllers\User\Customer_Account;
 
-class CustomerSpecialOfferController extends CustomerController
+class CustomerSpecialEventController extends CustomerController
 {
   protected $user;
 

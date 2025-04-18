@@ -18,4 +18,14 @@ class OrderDetail extends Model
     $stmt->bindValue(5, $data['total'], \PDO::PARAM_INT);
     $stmt->execute();
   }
+
+  public function getOrderDetailByOrderID($orderID)
+  {
+    $query = "SELECT od.order_id, od.quantity, od.price as order_detail_price, p.product_name, p.price as product_price, p.product_image
+     FROM $this->table od JOIN products p on od.product_id = p.id WHERE od.order_id = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $orderID, \PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
 }

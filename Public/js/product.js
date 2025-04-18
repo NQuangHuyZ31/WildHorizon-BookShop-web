@@ -5,6 +5,7 @@ $(document).ready(function () {
     if (window.location.pathname == '/WildHorizon-BookShop/product' || window.location.pathname.includes('/WildHorizon-BookShop/category/')) {
         innitProductFilter();
     }
+    console.log(window.location.pathname);
 
     function innitProductFilter() {
         //
@@ -34,6 +35,11 @@ $(document).ready(function () {
             color: color,
             category: category ? category : 0,
         };
+        // Gọi ajax lấy sản phẩm (chỉ khi có tham số filter)
+        if (search != '' || from != '' || to != '' || supplier != '' || brand != '' || color != '') {
+            fetchProductFilter(selectedFilters);
+        }
+        console.log(selectedFilters);
 
         // Xử lí check khi reload lại trang
         if (from && to) {
@@ -52,11 +58,7 @@ $(document).ready(function () {
             $(`a[data-value="${selectedFilters.color}"]`).removeClass('color-unchecked').addClass('color-checked');
         }
 
-        // Gọi ajax lấy sản phẩm
-        fetchProductFilter(selectedFilters);
-
-        console.log(selectedFilters);
-
+        // Click vào filter
         $('.filter').click(function () {
             var $this = $(this);
             var filterType = '';
@@ -86,8 +88,6 @@ $(document).ready(function () {
             selectedFilters.brand = $('.brand-checked').data('id') || '';
             selectedFilters.color = $('.color-checked').data('value') || '';
 
-            console.log('new filter', selectedFilters);
-            fetchProductFilter(selectedFilters);
             // Cập nhật url
             if (selectedFilters.price.from || selectedFilters.price.to) {
                 urlParams.set('price', selectedFilters.price.from + '-' + selectedFilters.price.to);
@@ -114,6 +114,11 @@ $(document).ready(function () {
             }
 
             window.history.pushState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+
+            // Gọi ajax lấy sản phẩm (chỉ khi có tham số filter)
+            if (search != '' || from != '' || to != '' || supplier != '' || brand != '' || color != '') {
+                fetchProductFilter(selectedFilters);
+            }
             console.log(selectedFilters);
         });
 
@@ -133,8 +138,8 @@ $(document).ready(function () {
                             response.products.forEach((product) => {
                                 $('.whr-product').append(`
                                 <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
-                                  <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                                    <div class="whr-product-img py-2">
+                                  <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content main-product-content">
+                                    <div class="whr-product-img py-2 main-img-product">
                                       <img src="${response.url}/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
                                     </div>
                                     <div class="px-2 mt-2">

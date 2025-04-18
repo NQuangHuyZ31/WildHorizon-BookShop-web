@@ -33,7 +33,7 @@ use App\Controllers\User\Customer_Account\CustomerAddressController;
 use App\Controllers\User\Customer_Account\CustomerChangePasswordController;
 use App\Controllers\User\Customer_Account\CustomerOrderController;
 use App\Controllers\User\Customer_Account\CustomerReviewController;
-use App\Controllers\User\Customer_Account\CustomerSpecialOfferController;
+use App\Controllers\User\Customer_Account\CustomerSpecialEventController;
 use App\Controllers\User\Customer_Account\CustomerVoucherController;
 use App\Controllers\User\Customer_Account\CustomerWishListController;
 // User Middleware
@@ -106,8 +106,12 @@ $router->get('/customer/changepassword/verify', [CustomerChangePasswordControlle
 $router->post('/customer/changepassword/verify', [CustomerChangePasswordController::class, 'verifyChangePassword'], [AuthMiddleware::class]);
 $router->post('/customer/changepassword/verify/resend', [CustomerChangePasswordController::class, 'reSendOTP'], [AuthMiddleware::class]);
 
-$router->get('/customer/specialoffer', [CustomerSpecialOfferController::class, 'index'], [AuthMiddleware::class]);
+// $router->get('/customer/specialevent', [CustomerSpecialEventController::class, 'index'], [AuthMiddleware::class]);
+// $router->get('/customer/specialevent/{slug}', [CustomerSpecialEventController::class, 'showEventDeTailPage'], [AuthMiddleware::class]);
+
 $router->get('/customer/order', [CustomerOrderController::class, 'index'], [AuthMiddleware::class]);
+$router->get('/customer/order/detail/{id}', [CustomerOrderController::class, 'showOrderDetailPage'], [AuthMiddleware::class]);
+
 $router->get('/customer/voucher', [CustomerVoucherController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/wishlist', [CustomerWishListController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/review', [CustomerReviewController::class, 'index'], [AuthMiddleware::class]);

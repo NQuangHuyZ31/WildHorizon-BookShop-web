@@ -16,8 +16,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
         <div class="grid grid-cols-4 mt-4 whr-product">
           <?php foreach ($products as $product) { ?>
             <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
-              <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                <div class="whr-product-img py-2">
+              <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content main-product-content">
+                <div class="whr-product-img py-2 main-img-product">
                   <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                 </div>
                 <div class="px-2 mt-2">

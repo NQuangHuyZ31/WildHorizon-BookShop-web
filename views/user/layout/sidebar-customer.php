@@ -10,7 +10,7 @@
   <div class="mt-2">
     <div class="py-2">
       <li class="list-none border-s-6  flex items-center 
-        <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
+        <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialevent'])
           || strpos($_SERVER['REQUEST_URI'], '/address') !== false
           || strpos($_SERVER['REQUEST_URI'], '/changepassword') !== false ? 'border-red-700' : 'border-white' ?>">
         <div class="flex items-center">
@@ -19,7 +19,7 @@
           </div>
           <a href="<?php echo BASE_URL ?>/customer/account">
             <p class="text-sm pt-1 mx-2 hover:text-orange-400 
-            <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
+            <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialevent'])
               || strpos($_SERVER['REQUEST_URI'], '/address')
               || strpos($_SERVER['REQUEST_URI'], '/changepassword') !== false ? 'text-red-700 font-bold' : '' ?>">Thông tin tài khoản</p>
           </a>
@@ -28,7 +28,7 @@
       </li>
     </div>
     <div class="
-    <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialoffer'])
+    <?php echo in_array(basename($_SERVER['REQUEST_URI']), ['account', 'changepassword', 'specialevent'])
       || strpos($_SERVER['REQUEST_URI'], '/address') !== false
       || strpos($_SERVER['REQUEST_URI'], '/changepassword') ? 'block' : 'hidden' ?>">
       <div class="py-2">
@@ -66,18 +66,18 @@
           </div>
         </li>
       </div>
-      <div class="py-2">
+      <!-- <div class="py-2">
         <li class="list-none border-s-6 border-white flex items-center ">
           <div class="flex items-center">
             <div class="mx-2 text-center text-lg text-gray-500" style="height: 24px;width: 24px;">
             </div>
-            <a href="<?php echo BASE_URL ?>/customer/specialoffer">
+            <a href="<?php echo BASE_URL ?>/customer/specialevent">
               <p class="text-sm pt-1 mx-2 hover:text-orange-400 
-              <?php echo strpos($_SERVER['REQUEST_URI'], '/specialoffer') !== false ? 'text-red-700' : 'text-gray-600' ?>">Ưu đãi</p>
+              <?php echo strpos($_SERVER['REQUEST_URI'], '/specialevent') !== false ? 'text-red-700' : 'text-gray-600' ?>">Sự kiện</p>
             </a>
           </div>
         </li>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="py-2">

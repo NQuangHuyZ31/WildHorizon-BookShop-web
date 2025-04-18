@@ -26,6 +26,38 @@ class Order extends Model
     }
   }
 
+  // Lấy order theo order id
+  public function getOrderByID($orderID, $userID)
+  {
+    $query = "SELECT *FROM $this->table WHERE id = ? and user_id = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $orderID, \PDO::PARAM_INT);
+    $stmt->bindValue(2, $userID, \PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+  }
+
+  // Tìm đơn hàng theo user
+  public function getOderByUser($userID)
+  {
+    $query = "SELECT *FROM $this->table WHERE user_id = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  // Tìm đơn hàng theo trạng thái
+  public function getOderByStatus($userID, $status)
+  {
+    $query = "SELECT *FROM $this->table WHERE user_id = ? and status = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->bindValue(2, $status, \PDO::PARAM_STR);
+    $stmt->execute();
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
   public function getCountOrder($userID)
   {
 

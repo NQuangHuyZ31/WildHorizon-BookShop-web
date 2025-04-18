@@ -16,27 +16,27 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
             <form action="<?php echo BASE_URL ?>/customer/changepassword/verify" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
               <div class="w-full flex items-center py-3">
-                <div class="profile-label text-[12px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1">Mật khẩu mới</div>
+                <div class="profile-label text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Mật khẩu mới</div>
                 <input
                   type="password"
                   name="new_password"
                   value="<?php echo Session::get('data')['new_password'] != null ? Session::get('data')['new_password'] : '' ?>"
-                  class="w-2/3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block rounded-md sm:text-[12px] focus:ring-1"
+                  class="w-2/3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block rounded-md sm:text-[13px] focus:ring-1"
                   placeholder="Mật khẩu mới"
                   readonly>
               </div>
               <div class="w-full flex items-center py-3">
-                <div class="profile-label text-[12px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1">Nhập lại mật khẩu mới</div>
+                <div class="profile-label text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Nhập lại mật khẩu mới</div>
                 <input
                   type="password"
                   name="confirm_new_password"
                   value="<?php echo Session::get('data')['cf_new_passowrd'] != null ? Session::get('data')['cf_new_passowrd'] : '' ?>"
-                  class="w-2/3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block rounded-md sm:text-[12px] focus:ring-1"
+                  class="w-2/3 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block rounded-md sm:text-[13px] focus:ring-1"
                   placeholder="Nhập lại mật khẩu mới"
                   readonly>
               </div>
               <div class="w-full flex items-center py-3">
-                <div class="profile-label text-[12px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1">Nhập mã xác nhận</div>
+                <div class="profile-label text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Nhập mã xác nhận</div>
                 <div class="p-1">
                   <div class="flex items-center gap-3">
                     <input
@@ -63,8 +63,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                 </div>
               </div>
               <div class="mt-2">
-                <p class="p-1 text-[12px] text-gray-400">Mã xác minh được gửi về email bạn đăng ký tài khoản. Vui lòng kiểm tra.</p>
-                <p class="p-1 text-[12px] text-gray-400">Bạn chưa nhận được mã?
+                <p class="p-1 text-[13px] text-gray-400">Mã xác minh được gửi về email bạn đăng ký tài khoản. Vui lòng kiểm tra.</p>
+                <p class="p-1 text-[13px] text-gray-400">Bạn chưa nhận được mã?
                   <span class="text-sm text-blue-700 font-semibold cursor-pointer" id="btn-otp-resend">
                     Gửi lại
                   </span>
