@@ -73,6 +73,10 @@ h6 {
     font-size: 12px;
     line-height: 18px;
 }
+
+.w-25-pt {
+    width: 25%;
+}
 /*  */
 .bg-banner-top {
     background-color: var(--bg-banner-top);
@@ -253,15 +257,16 @@ h6 {
 }
 
 .whr-product-content {
-    min-height: 300px;
+    min-height: 290px;
 }
 
 .main-product-content {
-    min-height: 340px !important;
+    min-height: 290px !important;
 }
 
 .whr-product-img {
     width: auto;
+    height: 180px;
     max-height: 200px;
     margin: 0 auto;
 }
@@ -358,8 +363,8 @@ h6 {
 }
 
 .product-detail-image {
-    width: 280px;
-    height: 360px;
+    width: 340px;
+    height: 340px;
 }
 
 .product-box-btn {
@@ -447,3 +452,23 @@ h6 {
 /* .order-content {
     min-height: 500px;
 } */
+
+/* ORDER DETAIL */
+.order-step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.order_detail_img {
+    width: 120px;
+    height: 120px;
+}
+
+/* REVIEW */
+.product-review-image {
+    width: 40px;
+    height: 40px;
+}
+
+/* Rating */

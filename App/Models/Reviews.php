@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Model;
+use PDO;
 
 class Reviews extends Model
 {
@@ -19,7 +20,22 @@ class Reviews extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  // insert
+  public function insert($data)
+  {
+    $query = "INSERT INTO $this->table(user_id, product_id, order_id, rating_id, comment, created_at) values(?,?,?,?,?,?)";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $data['user_id'], PDO::PARAM_INT);
+    $stmt->bindValue(2, $data['product_id'], PDO::PARAM_INT);
+    $stmt->bindValue(3, $data['order_id'], PDO::PARAM_INT);
+    $stmt->bindValue(4, $data['rating_id'], PDO::PARAM_INT);
+    $stmt->bindValue(5, $data['comment'], PDO::PARAM_STR);
+    $stmt->bindValue(6, $data['created_at']);
+
+    return $stmt->execute();
   }
 
   // Tìm kiếm theo id sản phẩm
@@ -36,7 +52,7 @@ class Reviews extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // lấy rating sản phẩm
@@ -50,13 +66,13 @@ class Reviews extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindValue(1, $productID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $productID, PDO::PARAM_INT);
 
-    $stmt->bindValue(2, $productID, \PDO::PARAM_INT);
+    $stmt->bindValue(2, $productID, PDO::PARAM_INT);
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // lấy rating trung bình sản phẩm
@@ -71,6 +87,17 @@ class Reviews extends Model
 
     $stmt->execute();
 
-    return $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+
+  // Lấy review sản phẩm theo order
+  public function getProductReviewByOrder($orderID)
+  {
+    $query = "SELECT pr.product_id, pr.rating_id, pr.comment, p.product_name, p.product_image FROM $this->table pr JOIN products p on pr.product_id = p. id WHERE order_id = ?";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $orderID, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }

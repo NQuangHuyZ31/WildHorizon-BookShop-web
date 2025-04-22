@@ -22,12 +22,12 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <div class="flex px-1 flex-col ms-2">
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
-                    <img src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
+                    <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
                     <p class="uppercase ms-2 text-nowrap font-bold" style="font-size: 14px; color: #6c1d00;;">try wildhorizon app</p>
                 </div>
                 <div class="download-app-content">
                     <div class="flex justify-start items-center py-1 px-2 text-white" style="font-size: 12px;">
-                        <img src="https://img.lazcdn.com/g/tps/imgextra/i4/O1CN01cAMOjU1zqQJZU8EbT_!!6000000006765-2-tps-19-18.png_80x80q80.jpg_.avif" alt="star" style="height: 13px;width: 13px;">
+                        <img class="lazyload" data-src="https://img.lazcdn.com/g/tps/imgextra/i4/O1CN01cAMOjU1zqQJZU8EbT_!!6000000006765-2-tps-19-18.png_80x80q80.jpg_.avif" alt="star" style="height: 13px;width: 13px;">
                         <p class="ms-2 font-bold">4.7 Rated</p>
                     </div>
                     <div class="flex justify-start items-center px-2 mt-1 ">
@@ -35,18 +35,18 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     </div>
                     <div class="flex justify-around items-center flex-col ms-5 px-4">
                         <div class="flex justify-start items-center">
-                            <img src="<?php echo BASE_URL ?>/Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
+                            <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">free shipping</p>
                         </div>
                         <div class="flex justify-start items-center">
-                            <img src="<?php echo BASE_URL ?>/Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
+                            <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">EXCLUSIVE VOUCHERS</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center">
                     <div class="download-app-qr">
-                        <img src="<?php echo BASE_URL ?>/Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web">
+                        <img data-src="<?php echo BASE_URL ?>/Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web" class="lazyload">
                     </div>
                     <div class="flex flex-col ms-2">
                         <a href="#" class="download-app-appstore mb-5"></a>
@@ -67,7 +67,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
@@ -78,7 +78,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
@@ -89,7 +89,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
@@ -137,7 +137,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
                         <div class="w-full">
                             <div class="whr-category py-1">
-                                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full">
+                                <img data-src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full lazyload">
                             </div>
                             <div class="whr-category-title mb-2">
                                 <p class="text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
@@ -156,7 +156,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                                <img data-src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full lazyload" alt="image">
                             </div>
                             <div class="px-2 mt-2 pb-3">
                                 <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>

@@ -38,6 +38,8 @@ use App\Controllers\User\Customer_Account\CustomerVoucherController;
 use App\Controllers\User\Customer_Account\CustomerWishListController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
+use App\Middleware\BlockMiddleware;
+use Core\Auth;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
@@ -59,7 +61,7 @@ $router->post('/dang-xuat', [AuthController::class, 'logout']);
 
 // Route Trang feedback 
 $router->get('/feedback', [FeedbackController::class, 'feedback'], [AuthMiddleware::class]);
-$router->post('/feedback', [FeedbackController::class, 'handleFeedback']);
+$router->post('/feedback', [FeedbackController::class, 'handleFeedback'], [AuthMiddleware::class]);
 
 // Route trang flash sale
 $router->get('/flash-sale', [FlashSaleController::class, 'index']);
@@ -86,8 +88,11 @@ $router->post('/savetempaddress', [ChiTietSanPhamController::class, 'savetempAdd
 $router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity']);
 
 // Route đến trang checkout
-$router->post('/checkout', [CheckoutController::class, 'index']);
+$router->post('/checkout/process', [CheckoutController::class, 'chekoutProcess'], [AuthMiddleware::class]);
+$router->get('/checkout', [CheckoutController::class, 'index']);
 $router->post('/saveorder', [CheckoutController::class, 'checkout']);
+$router->post('/checkout/vnpay/checkout_again/{id}', [CheckoutController::class, 'vnPayCheckoutAgain'], [AuthMiddleware::class]);
+$router->get('/checkout/vnpay/return', [CheckoutController::class, 'vnPayReturn'], [AuthMiddleware::class]);
 
 // Route đến trang customer
 $router->get('/customer/account', [AccountController::class, 'index']);
@@ -111,6 +116,9 @@ $router->post('/customer/changepassword/verify/resend', [CustomerChangePasswordC
 
 $router->get('/customer/order', [CustomerOrderController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/order/detail/{id}', [CustomerOrderController::class, 'showOrderDetailPage'], [AuthMiddleware::class]);
+$router->get('/customer/order/getorder', [CustomerOrderController::class, 'getOrderInfo', [AuthMiddleware::class]]);
+$router->post('/customer/order/savereview', [CustomerOrderController::class, 'saveReview'], [AuthMiddleware::class]);
+$router->get('/customer/order/getproductreview', [CustomerReviewController::class, 'getProductReview', [AuthMiddleware::class]]);
 
 $router->get('/customer/voucher', [CustomerVoucherController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/wishlist', [CustomerWishListController::class, 'index'], [AuthMiddleware::class]);

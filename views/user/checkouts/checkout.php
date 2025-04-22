@@ -2,6 +2,7 @@
 
 use Helpers\Format;
 
+// var_dump($_SESSION);
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
 ?>
@@ -16,7 +17,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </div>
       <div class="mt-2 flex items-center">
         <label class="text-sm text-slate-500 text-nowrap checkout-label">Số điện thoại</label>
-        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="phone" value="" required placeholder="Số điện thoại">
+        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="phone" value="<?php echo $customer['phone'] ? $customer['phone'] : '' ?>" required placeholder="Số điện thoại">
       </div>
       <div class="mt-2 flex items-center">
         <label class="text-sm text-slate-500 text-nowrap checkout-label">Tỉnh/thành phố</label>
@@ -44,30 +45,41 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
     <div class="bg-white w-full px-4 py-2 mt-3">
       <p class="text-lg uppercase font-bold py-2 border-b">Phương thức vận chuyển</p>
       <div class="flex items-center py-2">
-        <input type="radio" name="shipping-fee" class="mr-3 shipping-fee" value="23000" checked>
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Vận chuyển tiêu chuẩn (23.000 đ)</label>
+
+        <label class="text-sm text-slate-500 flex items-center cursor-pointer">
+          <input type="radio" name="shipping-fee" class="mr-3 shipping-fee" value="23000" checked>
+          <p>Vận chuyển tiêu chuẩn (23.000 đ)</p>
+        </label>
       </div>
       <div class="flex items-center py-2">
-        <input type="radio" name="shipping-fee" class="mr-3 shipping-fee" value="32000">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Vận chuyển nhanh (32.000 đ)</label>
+        <label class="text-sm text-slate-500 flex items-center cursor-pointer">
+          <input type="radio" name="shipping-fee" class="mr-3 shipping-fee" value="32000">
+          <p>Vận chuyển nhanh (32.000 đ)</p>
+        </label>
       </div>
     </div>
     <div class="bg-white w-full px-4 py-2 mt-3">
       <p class="text-lg uppercase font-bold py-2 border-b">Phương thức thanh toán</p>
       <div class="flex items-center">
-        <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="Tiền mặt" checked>
-        <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_cashondelivery.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
-        <label class="text-sm text-nowrap checkout-label">Thanh toán sau khi nhận hàng</label>
+        <label class="text-sm flex items-center cursor-pointer">
+          <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="Tiền mặt" checked>
+          <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_cashondelivery.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
+          <p>Thanh toán sau khi nhận hàng</p>
+        </label>
       </div>
       <div class="flex items-center">
-        <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="Chuyển khoản ngân hàng">
-        <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_zalopayatm.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
-        <label class="text-sm text-nowrap checkout-label">Thanh toán qua ngân hàng</label>
+        <label class="text-sm flex items-center cursor-pointer">
+          <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="VNPAY">
+          <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_zalopayatm.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
+          <p>Thanh toán qua VNPAY</p>
+        </label>
       </div>
       <div class="flex items-center">
-        <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="MoMo">
-        <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
-        <label class="text-sm text-nowrap checkout-label">Thanh toán qua ví momo</label>
+        <label class="text-sm flex items-center cursor-pointer">
+          <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="MoMo">
+          <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
+          <p>Thanh toán qua ví momo</p>
+        </label>
       </div>
     </div>
     <div class="bg-white w-full px-4 py-2 mt-3 ">

@@ -4,14 +4,14 @@ namespace Helpers;
 
 class Hash
 {
-  public static function encrypt($otp, $key)
+  public static function encrypt($value, $key)
   {
     $key = openssl_digest($key, 'SHA256', TRUE);
     $cipher = "AES-128-CBC";
     $ivlen = openssl_cipher_iv_length($cipher);
     $iv = openssl_random_pseudo_bytes($ivlen);
     // binary cipher
-    $ciphertext_raw = openssl_encrypt($otp, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+    $ciphertext_raw = openssl_encrypt($value, $cipher, $key, OPENSSL_RAW_DATA, $iv);
     // or increase security with hashed cipher; (hex or base64 printable eg. for transmission over internet)
     $hmac = hash_hmac('sha256', $ciphertext_raw, $key, true);
     return base64_encode($iv . $hmac . $ciphertext_raw);

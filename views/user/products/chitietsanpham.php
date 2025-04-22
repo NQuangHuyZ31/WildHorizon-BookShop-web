@@ -119,7 +119,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           </div>
           <div class="flex items-center mt-3">
             <p class="font-bold mr-3">Số lượng</p>
-            <div class="flex items-center">
+            <div class="flex items-center user-select-none">
               <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75" style="width: 32px;height: 32px;">
                 <span class="w-full "><i class="fa-solid fa-minus"></i></span>
               </div>
@@ -201,7 +201,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                   <span class="pt-1"><?php echo $review['created_at'] ?></span>
                 </div>
               </div>
-              <div class="mt-2">
+              <div class="mt-2 <?php echo $review['comment'] != null ? 'block' : 'hidden' ?>">
                 <p class="text-sm text-gray-600 ps-2"><?php echo $review['comment'] ?></p>
               </div>
             </div>

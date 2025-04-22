@@ -5,7 +5,6 @@ $(document).ready(function () {
     if (window.location.pathname == '/WildHorizon-BookShop/product' || window.location.pathname.includes('/WildHorizon-BookShop/category/')) {
         innitProductFilter();
     }
-    console.log(window.location.pathname);
 
     function innitProductFilter() {
         //
@@ -36,7 +35,7 @@ $(document).ready(function () {
             category: category ? category : 0,
         };
         // Gọi ajax lấy sản phẩm (chỉ khi có tham số filter)
-        if (search != '' || from != '' || to != '' || supplier != '' || brand != '' || color != '') {
+        if ((from && from !== '') || (to && to !== '') || (supplier && supplier !== '') || (brand && brand !== '') || (color && color !== '')) {
             fetchProductFilter(selectedFilters);
         }
         console.log(selectedFilters);

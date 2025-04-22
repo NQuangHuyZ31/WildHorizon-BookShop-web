@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use PDO;
+
 class ProductAttribute extends Model
 {
 
@@ -15,10 +17,10 @@ class ProductAttribute extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindValue(1,$productID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $productID, PDO::PARAM_INT);
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }
