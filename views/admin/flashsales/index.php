@@ -66,7 +66,7 @@ $messge = Session::get('message') ?? [];
                             <tr>
                                 <td class="py-2 px-4 border-b">
                                     <div class="flex items-center gap-3">
-                                        <img src="<?= BASE_URL ?>/Public/upload/products/<?= $fs['product_image'] ?>" class="w-12 h-15 object-cover">
+                                        <img src="<?= $fs['product_image'] ?>" class="w-16 h-20 object-cover">
                                         <span class="text-gray-800"><?= htmlspecialchars($fs['product_name']) ?></span>
                                     </div>
                                 </td>

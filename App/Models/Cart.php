@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Model;
+use PDO;
 
 class Cart extends Model
 {
@@ -17,11 +18,11 @@ class Cart extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $userID, PDO::PARAM_INT);
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Tìm theo sản phẩm cả flashsale
@@ -38,7 +39,7 @@ class Cart extends Model
 
     $stmt->execute();
 
-    return $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
   // update quantity
@@ -91,7 +92,7 @@ class Cart extends Model
   // {
   //   $query = "DELETE FROM $this->table where user_id = ?";
   //   $stmt = $this->db->prepare($query);
-  //   $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+  //   $stmt->bindValue(1, $userID, PDO::PARAM_INT);
   //   $stmt->execute();
   // }
 
@@ -111,7 +112,7 @@ class Cart extends Model
 
     $stmt->execute();
 
-    $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!empty($result)) {
 

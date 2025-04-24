@@ -1,12 +1,17 @@
 $(document).ready(function () {
-    let URL_CUSTOMER_ADDRESS = '/WildHorizon-BookShop/customer/address';
-    let URL_UPDATE_INFO_CUSTOMER = '/WildHorizon-BookShop/customer/account';
-    let URL_ADD_NEW_ADDRESS = '/WildHorizon-BookShop/customer/address/add';
-    let URL_DELETE_ADDRESS = '/WildHorizon-BookShop/customer/address/delete';
-    let URL_UPDATE_ADDRESS = '/WildHorizon-BookShop/customer/address/edit';
-    let URL_SEND_MAIL_VERIFY = '/WildHorizon-BookShop/customer/changepassword/sendmailverify';
-    let URL_VERIFY_CHANGEPW_PAGE = '/WildHorizon-BookShop/customer/changepassword/verify';
-    let URL_RESEND_OTP = '/WildHorizon-BookShop/customer/changepassword/verify/resend';
+    const baseUrl = '/WildHorizon-BookShop';
+
+    const URL_UPDATE_INFO_CUSTOMER = `${baseUrl}/customer/account`;
+    const URL_CUSTOMER_ADDRESS = `${baseUrl}/customer/address`;
+    const URL_ADD_NEW_ADDRESS = `${baseUrl}/customer/address/add`;
+    const URL_DELETE_ADDRESS = `${baseUrl}/customer/address/delete`;
+    const URL_UPDATE_ADDRESS = `${baseUrl}/customer/address/edit`;
+    const URL_SEND_MAIL_VERIFY = `${baseUrl}/customer/changepassword/sendmailverify`;
+    const URL_VERIFY_CHANGEPW_PAGE = `${baseUrl}/customer/changepassword/verify`;
+    const URL_RESEND_OTP = `${baseUrl}/customer/changepassword/verify/resend`;
+    const URL_GET_ORDER_INFO = `${baseUrl}/customer/order/getorder`;
+    const URL_SAVE_REVIEW = `${baseUrl}/customer/order/savereview`;
+    const URL_GET_PRODUCT_REVIEW = `${baseUrl}/customer/order/getproductreview`;
 
     let PROVINCE = '#province';
     let DISTRICT = '#district';
@@ -16,6 +21,48 @@ $(document).ready(function () {
     const district_value = '';
     const ward_value = '';
 
+    // UPDATE THÔNG TIN KHÁCH HÀNG
+    $('#btn-update-customer').click((e) => {
+        e.preventDefault();
+        const username = $('input[name="username"]').val();
+        const phone = $('input[name="phone"]').val();
+        const gender = $('input[name="gender"]:checked').val();
+        const day = $('input[name="day"]').val();
+        const mounth = $('input[name="mounth"]').val();
+        const year = $('input[name="year"]').val();
+        const csrf_token = $('input[name="csrf_token"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: URL_UPDATE_INFO_CUSTOMER,
+            data: {
+                username: username,
+                phone: phone,
+                gender: gender,
+                day: day,
+                mounth: mounth,
+                year: year,
+                csrf_token: csrf_token,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    toastr['success'](response.success.msg);
+                    setTimeout(() => {
+                        location.reload();
+                    }, 1000);
+                    $('input[name="csrf_token"]').val(response.token);
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                }
+            },
+        });
+    });
+    // CUSTOMER ADDRESS
     // Lấy tên tỉnh thành phố
     window.getProvince = function (province_value) {
         fetch('https://esgoo.net/api-tinhthanh/1/0.htm')
@@ -214,48 +261,6 @@ $(document).ready(function () {
         });
     });
 
-    // UPDATE THÔNG TIN KHÁCH HÀNG
-    $('#btn-update-customer').click((e) => {
-        e.preventDefault();
-        const username = $('input[name="username"]').val();
-        const phone = $('input[name="phone"]').val();
-        const gender = $('input[name="gender"]:checked').val();
-        const day = $('input[name="day"]').val();
-        const mounth = $('input[name="mounth"]').val();
-        const year = $('input[name="year"]').val();
-        const csrf_token = $('input[name="csrf_token"]').val();
-
-        $.ajax({
-            type: 'POST',
-            url: URL_UPDATE_INFO_CUSTOMER,
-            data: {
-                username: username,
-                phone: phone,
-                gender: gender,
-                day: day,
-                mounth: mounth,
-                year: year,
-                csrf_token: csrf_token,
-            },
-            dataType: 'json',
-            success: function (response) {
-                if (response) {
-                    toastr['success'](response.success.msg);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
-                    $('input[name="csrf_token"]').val(response.token);
-                }
-            },
-            error: function (response) {
-                if (response) {
-                    toastr['error'](response.responseJSON.error.msg);
-                    $('input[name="csrf_token"]').val(response.responseJSON.token);
-                }
-            },
-        });
-    });
-
     // Gọi hàm khi vào trang sửa địa chỉ
     if (window.location.pathname.includes('edit/')) {
         var province_set = $(PROVINCE).data('province');
@@ -273,6 +278,7 @@ $(document).ready(function () {
         }, 1200);
     }
 
+    // CUSTOMER CHANGE PASSWORD
     // Change password
     $('#btn-changepw').click(function (e) {
         e.preventDefault();
@@ -342,4 +348,176 @@ $(document).ready(function () {
             },
         });
     });
+
+    // CUSTOMER ORDER
+    // Show modal review order
+    $('.review-order').click(function () {
+        JsLoadingOverlay.show();
+
+        const orderID = $(this).data('id');
+        getOrderInfo(orderID);
+
+        setTimeout(() => {
+            JsLoadingOverlay.hide();
+            review_order_modal.showModal();
+        }, 500);
+    });
+
+    // Lấy dữ liệu đơn hàng
+    function getOrderInfo(orderID) {
+        $.ajax({
+            type: 'GET',
+            url: URL_GET_ORDER_INFO,
+            data: {
+                orderID,
+            },
+            dataType: 'json',
+            success: function (response) {
+                try {
+                    if (response) {
+                        $('#order_modal_id').text(response.success.order_id);
+                        $('#order_modal_id').attr('data-id', response.success.order_id);
+                        response.success.data.forEach((order_detail) => {
+                            $('.product-review-content').append(
+                                `<div class="product-review" data-product-id="${order_detail.product_id}">
+                                    <div class="text-[14px] text-gray-400 mt-2">
+                                        <div class="flex items-center ">
+                                            <img src="${response.url}/Public/upload/products/${order_detail.product_image}" alt="hình ảnh" class="product-review-image">
+                                            <p class="ms-3">${order_detail.product_name}</p>
+                                        </div>
+                                        <div class="mt-1 text-center">
+                                            <div class="rating">
+                                                <input type="radio" name="rating-product-${order_detail.product_id}" value="1" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="1 star" />
+                                                <input type="radio" name="rating-product-${order_detail.product_id}" value="2" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="2 star" />
+                                                <input type="radio" name="rating-product-${order_detail.product_id}" value="3" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="3 star" />
+                                                <input type="radio" name="rating-product-${order_detail.product_id}" value="4" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="4 star" />
+                                                <input type="radio" name="rating-product-${order_detail.product_id}" value="5" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="5 star" checked />
+                                            </div>
+                                        </div>
+                                        <textarea type="text" name="comment-product-${order_detail.product_id}" placeholder="Viết bình luận của bạn về sản phẩm" class="textarea textarea-info w-full mt-2"></textarea>
+                                    </div>
+                                </div>`
+                            );
+                        });
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+        });
+    }
+
+    // Lưu đánh giá
+    $('#btn-save-review').click(function (e) {
+        e.preventDefault();
+        let product_comment = [];
+        let product_rating = [];
+        let product_id = [];
+
+        // lấy rating và comment từng product
+        $('.product-review').each(function () {
+            const productID = $(this).data('product-id');
+            product_id.push(productID);
+
+            product_rating.push($(this).find(`input[name="rating-product-${productID}"]:checked`).val());
+
+            product_comment.push($(this).find(`textarea[name="comment-product-${productID}"]`).val());
+        });
+
+        const orderID = $('#order_modal_id').data('id');
+        const order_comment = $('textarea[name="comment-order"]').val();
+        const order_rating = $('input[name="rating-order"]:checked').val();
+        const csrf_token = $('input[name="csrf_token"]').val();
+        $.ajax({
+            type: 'POST',
+            url: URL_SAVE_REVIEW,
+            data: {
+                orderID,
+                order_rating,
+                order_comment,
+                product_id,
+                product_rating,
+                product_comment,
+                csrf_token,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    toastr['success'](response.success.msg);
+                    $('input[name="csrf_token"]').val(response.token);
+                    setTimeout(() => {
+                        review_order_modal.showModal();
+                        location.reload();
+                    }, 500);
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                }
+            },
+        });
+    });
+
+    // CUSTOMER REVIEW
+
+    // Xem lại product review
+    $('.review-product-reseen').click(function (e) {
+        e.preventDefault();
+        JsLoadingOverlay.show();
+        $('.review-product-content').html('');
+        const orderID = $(this).data('id');
+        getInfoProductReview(orderID);
+        setTimeout(() => {
+            JsLoadingOverlay.hide();
+            review_product_modal.showModal();
+        }, 500);
+    });
+
+    // Lấy thông tin product review
+    function getInfoProductReview(orderID) {
+        $.ajax({
+            type: 'GET',
+            url: URL_GET_PRODUCT_REVIEW,
+            data: {
+                orderID,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    response.success.data.forEach((review) => {
+                        let rating = '';
+                        for (let index = 1; index <= 5; index++) {
+                            rating += `<input type="radio" name="rating-product-${
+                                review.product_id
+                            }" value="${index}" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="${index} star" ${
+                                review.product_rating == index ? 'checked' : ''
+                            } disabled/>`;
+                        }
+
+                        $('.review-product-content').append(`
+                             <div class="text-[14px] text-gray-400 mt-2">
+                                <div class="flex items-center ">
+                                    <img src="${response.url}/Public/upload/products/${review.product_image}" alt="hình ảnh" class="product-review-image">
+                                    <p class="ms-3">${review.product_name}</p>
+                                </div>
+                                <div class="rating w-full">
+                                    <div class="mt-1 text-center w-full">
+                                         ${rating}
+                                    </div>
+                                </div>
+                                <textarea type="text" name="comment-product-${
+                                    review.product_id
+                                }" placeholder="Viết bình luận của bạn về sản phẩm" class="textarea textarea-info w-full mt-2" readonly>${
+                            review.product_comment != '' ? review.product_comment : 'Không có đánh giá cho sản phẩm này'
+                        }</textarea>
+                            </div>   
+                                    
+                        `);
+                    });
+                }
+            },
+        });
+    }
 });

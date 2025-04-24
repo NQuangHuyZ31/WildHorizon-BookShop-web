@@ -15,3 +15,7 @@ define('UPLOAD_DIR', $_SERVER['DOCUMENT_ROOT'] . '/WildHorizon-BookShop/Public/u
 define('KEY', 'wildhorizonbookshopwiburomax');
 
 define('OTP_HASH_KEY', 'wildhorizon@@');
+define('PAYMENT_KEY', 'wildhorizonpaymentVNPAY');
+
+define('SERECT_KEY_VNPAY', 'GDOM6F49SA65N5MHQELXEOKP6VQH61I4');
+define('SERECT_APP_VNPAY', 'YNFMLF2Q');

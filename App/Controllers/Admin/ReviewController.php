@@ -11,7 +11,7 @@ class ReviewController extends Controller
     public function getAllReviews()
     {
         $currentPage = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = 15;
+        $perPage = 5;
         $offset = ($currentPage - 1) * $perPage;
 
         // Lấy từ khóa tìm kiếm (nếu có)

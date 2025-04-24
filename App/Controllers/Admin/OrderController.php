@@ -28,7 +28,15 @@ class OrderController extends Controller
         $totalPages = ceil($totalOrders / $perPage);
 
         // Lấy danh sách đơn hàng (có áp dụng tìm kiếm nếu có từ khóa)
-        $query = "SELECT * FROM orders WHERE id LIKE :search ORDER BY order_date DESC LIMIT :offset, :perPage";
+        $query = "
+            SELECT orders.*, users.username AS username
+            FROM orders
+            JOIN users ON orders.user_id = users.id
+            WHERE orders.id LIKE :search
+            ORDER BY orders.order_date DESC
+            LIMIT :offset, :perPage
+        ";
+
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':search', $searchParam, \PDO::PARAM_STR);
         $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);

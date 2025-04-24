@@ -20,7 +20,7 @@ class Products extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Tìm sản phẩm theo id chi tiết sản phẩm
@@ -44,7 +44,7 @@ class Products extends Model
 
     $stmt->execute();
 
-    return $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
   // Tìm sản phẩm theo keywword
@@ -59,7 +59,7 @@ class Products extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Lấy sản phẩm theo filter
@@ -136,12 +136,12 @@ class Products extends Model
 
     foreach ($bindParam as $index => $value) {
 
-      $stmt->bindValue($index + 1, $value, is_numeric($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
+      $stmt->bindValue($index + 1, $value, is_numeric($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
     }
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     // return $query;
   }
 
@@ -150,8 +150,8 @@ class Products extends Model
   {
     $query = "UPDATE $this->table set stock = stock - ? WHERE id = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bindValue(1, $quantity, \PDO::PARAM_INT);
-    $stmt->bindValue(2, $productID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $quantity, PDO::PARAM_INT);
+    $stmt->bindValue(2, $productID, PDO::PARAM_INT);
     $stmt->execute();
   }
 
@@ -170,7 +170,7 @@ class Products extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Lấy sản phẩm gợi ý
@@ -182,11 +182,11 @@ class Products extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Lấy thêm sản phẩm trang chủ
@@ -204,13 +204,13 @@ class Products extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
 
-    $stmt->bindParam(':offset', $offset, \PDO::PARAM_INT);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Lấy sản phẩm theo category
@@ -225,7 +225,7 @@ class Products extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // lấy thêm sản phẩm

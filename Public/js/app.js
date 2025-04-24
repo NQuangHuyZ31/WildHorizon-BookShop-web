@@ -224,6 +224,36 @@ $(document).ready(function () {
         });
     });
 
+    // FEEDBACK
+    // show images feebback
+    $('#feedback-input').change(function (e) {
+        e.preventDefault();
+        $('#previewBox').empty(); // Xóa ảnh cũ nếu có
+
+        const files = this.files;
+        if (files.length > 0) {
+            $.each(files, function (index, file) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = $('<img>', {
+                            src: e.target.result,
+                            css: {
+                                width: '100px',
+                                height: '100px',
+                                objectFit: 'cover',
+                                border: '1px solid #ccc',
+                                borderRadius: '8px',
+                            },
+                        });
+                        $('#previewBox').append(img);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
     // ------------CREATE SLUG-----------------------------------
     function createSlug(title) {
         return title

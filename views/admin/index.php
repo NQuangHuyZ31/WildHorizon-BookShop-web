@@ -12,7 +12,7 @@
         <!-- Main Content -->
         <div class="flex-1 p-8 overflow-auto">
             <!-- Top Header -->
-            <?php include('layout/header.php'); ?>            
+            <?php include('layout/header.php'); ?>
 
             <!-- Statistics Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -58,47 +58,62 @@
             </div>
 
             <!-- Recent Activity Table -->
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-2xl font-semibold mb-4">Hoạt động gần đây</h3>
-                <div class="flex flex-col">
-                    <div class="-m-1.5 overflow-x-auto">
-                        <div class="p-1.5 min-w-full inline-block align-middle">
-                            <div class="overflow-hidden">
-                                <table class="min-w-full divide-y divide-gray-200">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Ngày</th>
-                                            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Mô tả</th>
-                                            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Trạng thái</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-gray-200">
-                                        <tr class="hover:bg-gray-100">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">01/01/2025</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Thêm sản phẩm mới</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">Hoàn thành</td>
-                                        </tr>
-                                        <tr class="hover:bg-gray-100">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">02/01/2025</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Đơn hàng đã được xử lý</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-500">Đang xử lý</td>
-                                        </tr>
-                                        <tr class="hover:bg-gray-100">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">03/01/2025</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Cập nhật cài đặt hệ thống</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-500">Chờ xử lý</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+            <div class="dashboard-stats">
+                <!-- <h2 class="text-xl font-semibold mb-4">Thống kê doanh thu</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold">Doanh thu hôm nay</h3>
+                        <p class="text-2xl"><?= number_format($dailyRevenue, 0, ',', '.') ?> VND</p>
                     </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold">Doanh thu tháng này</h3>
+                        <p class="text-2xl"><?= number_format($monthlyRevenue, 0, ',', '.') ?> VND</p>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold">Doanh thu năm nay</h3>
+                        <p class="text-2xl"><?= number_format($yearlyRevenue, 0, ',', '.') ?> VND</p>
+                    </div>
+                </div> -->
+
+                <!-- Biểu đồ doanh thu -->
+                <div class="p-6 mt-6 bg-white rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold mb-4">Biểu đồ doanh thu</h3>
+                    <canvas id="revenueChart"></canvas>
                 </div>
             </div>
+
+            
 
         </div>
     </div>
 
     <?php include('layout/footer.php'); ?>
 </body>
+<script>
+                var ctx = document.getElementById('revenueChart').getContext('2d');
+                var revenueChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Hôm nay', 'Tháng này', 'Năm nay'],
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: [<?= $dailyRevenue ?>, <?= $monthlyRevenue ?>, <?= $yearlyRevenue ?>],
+                            borderColor: 'rgb(75, 192, 192)',
+                            fill: false,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
 </html>

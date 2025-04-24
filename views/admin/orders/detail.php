@@ -6,133 +6,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Chi tiết Đơn hàng - <?= htmlspecialchars($order['id']) ?></title>
 </head>
 
-<body class="font-sans bg-gray-100">
+<body class="bg-gray-100 font-sans">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
         <?php include VIEW_PATH . 'admin/layout/sidebar.php'; ?>
 
         <!-- Main Content -->
-        <div class="flex-1 p-8 overflow-auto">
-            <!-- Top Header -->
+        <div class="flex-1 p-6 md:p-10 overflow-auto">
             <?php include VIEW_PATH . 'admin/layout/header.php'; ?>
 
-            <!-- Content -->
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-semibold text-gray-800">Chi tiết Đơn hàng #<?= htmlspecialchars($order['id']) ?></h2>
+            <section class="bg-white p-8 rounded-xl shadow-lg">
+                <!-- Header -->
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Chi tiết Đơn hàng #<?= htmlspecialchars($order['id']) ?></h2>
+
+                <!-- Grid: Order Info -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 border-y py-6">
+                    <div>
+                        <p class="text-gray-500 mb-1">Ngày đặt hàng</p>
+                        <p class="text-xl font-semibold text-black"><?= date('d/m/Y', strtotime($order['order_date'])) ?></p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 mb-1">Khách hàng</p>
+                        <p class="text-xl font-semibold text-black"><?= htmlspecialchars($user['username']) ?></p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 mb-1">Số điện thoại</p>
+                        <p class="text-xl font-semibold text-black"><?= htmlspecialchars($shippingAddress['phone']) ?></p>
+                    </div>
+                    <div>
+                        <p class="text-gray-500 mb-1">Phương thức thanh toán</p>
+                        <p class="text-xl font-semibold text-black"><?= htmlspecialchars($order['payment_method']) ?></p>
+                    </div>
+                    <div class="md:col-span-3">
+                        <p class="text-gray-500 mb-1">Địa chỉ nhận hàng</p>
+                        <p class="text-lg text-black">
+                            <?= htmlspecialchars($shippingAddress['address_line1'] . ', ' . $shippingAddress['ward'] . ', ' . $shippingAddress['district'] . ', ' . $shippingAddress['province']) ?>
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Thông tin khách hàng -->
-                <div class="mb-6">
-                    <h3 class="text-xl font-semibold">Thông tin Khách hàng</h3>
-                    <ul>
-                        <li><strong>Tên khách hàng:</strong> <?= htmlspecialchars($user['username']) ?></li>
-                        <li><strong>Số điện thoại:</strong> <?= htmlspecialchars($shippingAddress['phone']) ?></li>
-                        <li><strong>Địa chỉ nhận hàng:</strong> <?= htmlspecialchars($shippingAddress['address_line1'] . ', ' . $shippingAddress['ward'] . ', ' . $shippingAddress['district'] . ', ' . $shippingAddress['province']) ?></li>
-                    </ul>
+                <!-- Progress Bar -->
+                <?php
+                $statuses = ['Chờ xác nhận', 'Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng'];
+                $currentIndex = array_search($order['status'], $statuses);
+                ?>
+                <div class="relative h-2 bg-gray-300 rounded-lg overflow-hidden mb-4">
+                    <div class="absolute top-0 left-0 h-full bg-blue-600" style="width: <?= (($currentIndex + 1) / count($statuses)) * 100 ?>%;"></div>
+                </div>
+                <div class="flex justify-between text-sm font-medium mb-10">
+                    <?php foreach ($statuses as $index => $status): ?>
+                        <div class="text-center">
+                            <div class="w-6 h-6 rounded-full mx-auto mb-1 flex items-center justify-center text-white text-xs font-bold <?= $index <= $currentIndex ? 'bg-blue-600' : 'bg-gray-300' ?>">
+                                <?= $index + 1 ?>
+                            </div>
+                            <div class="<?= $index <= $currentIndex ? 'text-blue-600' : 'text-gray-500' ?>">
+                                <?= htmlspecialchars($status) ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
-                <div class="mt-6">
+                <!-- Order Details Items -->
+                <div class="space-y-6">
+                    <?php foreach ($orderDetails as $detail): ?>
+                        <div class="grid grid-cols-7 w-full border-b border-gray-100 pb-6">
+                            <div class="col-span-7 min-[500px]:col-span-2 md:col-span-1">
+                                <img src="<?= htmlspecialchars($detail['product_image']) ?>" alt="<?= htmlspecialchars($detail['product_name']) ?>" class="w-24 h-30 rounded-xl object-cover">
+                            </div>
+                            <div class="col-span-7 min-[500px]:col-span-5 md:col-span-6 max-sm:mt-5 flex flex-col justify-center">
+                                <div class="flex flex-col min-[500px]:flex-row min-[500px]:items-center justify-between">
+                                    <div>
+                                        <h5 class="font-manrope font-semibold text-2xl leading-9 text-black mb-6"><?= htmlspecialchars($detail['product_name']) ?></h5>
+                                        <p class="font-normal text-xl leading-8 text-gray-500">Số lượng: <span class="text-black font-semibold"><?= htmlspecialchars($detail['quantity']) ?></span></p>
+                                    </div>
+                                    <h5 class="font-semibold text-xl leading-8 text-gray-900 sm:text-right mt-3">
+                                        <?= number_format($detail['total'], 0, ',', '.') ?> VND
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
 
-                    <?php
-                    // Các trạng thái đơn hàng theo thứ tự
-                    $statuses = [
-                        'Chờ xác nhận',
-                        'Chuẩn bị hàng',
-                        'Đang giao hàng',
-                        'Đã giao hàng'
-                    ];
-
-                    // Lấy trạng thái hiện tại
-                    $currentStatus = $order['status'];
-
-                    // Tìm vị trí trạng thái hiện tại trong danh sách
-                    $currentIndex = array_search($currentStatus, $statuses);
-                    ?>
-
-                    <!-- Thanh tiến trình -->
-                    <div class="relative h-2 bg-gray-300 rounded-lg overflow-hidden">
-                        <div
-                            class="absolute top-0 left-0 h-full bg-blue-500 transition-all duration-300"
-                            style="width: <?= (($currentIndex + 1) / count($statuses)) * 100 ?>%;">
+                <!-- Order Summary -->
+                <div class="flex items-center justify-center sm:justify-end w-full my-6">
+                    <div class="w-full max-w-xl">
+                        <div class="flex items-center justify-between mb-6">
+                            <p class="font-normal text-xl leading-8 text-gray-500">Tổng tiền hàng</p>
+                            <p class="font-semibold text-xl leading-8 text-gray-900"><?= number_format($order['total_price'] - $order['shipping_fee'], 0, ',', '.') ?> VND</p>
+                        </div>
+                        <div class="flex items-center justify-between mb-6">
+                            <p class="font-normal text-xl leading-8 text-gray-500">Phí vận chuyển</p>
+                            <p class="font-semibold text-xl leading-8 text-gray-900"><?= number_format($order['shipping_fee'], 0, ',', '.') ?> VND</p>
+                        </div>
+                        <div class="flex items-center justify-between py-6 border-y border-gray-100">
+                            <p class="font-manrope font-semibold text-2xl leading-9 text-gray-900">Tổng cộng</p>
+                            <p class="font-manrope font-bold text-2xl leading-9 text-indigo-600"><?= number_format($order['total_price'], 0, ',', '.') ?> VND</p>
                         </div>
                     </div>
-
-                    <!-- Danh sách trạng thái -->
-                    <div class="flex justify-between mt-4 text-sm font-medium">
-                        <?php foreach ($statuses as $index => $status): ?>
-                            <div class="flex flex-col items-center">
-                                <!-- Vòng tròn trạng thái -->
-                                <div class="<?= $index <= $currentIndex ? 'bg-blue-500' : 'bg-gray-300' ?> 
-                                            w-6 h-6 flex items-center justify-center rounded-full text-white font-bold">
-                                    <?= $index + 1 ?>
-                                </div>
-                                <!-- Tên trạng thái -->
-                                <span
-                                    class="mt-2 <?= $index <= $currentIndex ? 'text-blue-600' : 'text-gray-500' ?>">
-                                    <?= htmlspecialchars($status) ?>
-                                </span>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                <!-- Chi tiết đơn hàng -->
-                <div class="mb-6 mt-6">
-                    <table class="min-w-full table-auto border-collapse border border-gray-200 rounded-lg">
-                        <thead>
-                            <tr class="bg-gray-50">
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 10%;">Thứ tự</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 50%;">Sản phẩm</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 10%;">Số lượng</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 15%;">Đơn giá</th>
-                                <th class="py-3 px-4 border border-gray-200 text-center text-sm font-medium text-gray-600 uppercase tracking-wide" style="width: 15%;">Tổng tiền</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($orderDetails as $index => $detail):
-                            ?>
-                                <tr class="hover:bg-gray-100">
-                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= $index + 1 ?></td>
-                                    <td class="py-3 px-4 border border-gray-200 text-gray-700">
-                                        <div class="flex items-center justify-start gap-3">
-                                            <img src="<?= BASE_URL . '/Public/upload/products/' . htmlspecialchars($detail['product_image']) ?>" alt="<?= htmlspecialchars($detail['product_name']) ?>" class="w-12 h-15 object-cover">
-                                            <p class="text-left"><?= htmlspecialchars($detail['product_name']) ?></p>
-                                        </div>
-                                    </td>
-
-                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= htmlspecialchars($detail['quantity']) ?></td>
-                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['product_price'], 0, ',', '.') ?> VND</td>
-                                    <td class="py-3 px-4 border border-gray-200 text-center text-gray-700"><?= number_format($detail['total'], 0, ',', '.') ?> VND</td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
                 </div>
 
-                <!-- Tổng giá sản phẩm -->
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="text-xl font-semibold">Tổng tiền:</h3>
-                    <p class="text-xl text-gray-800"><?= number_format($order['total_price'] - $order['shipping_fee'], 0, ',', '.') ?> VND</p>
-                </div>
-
-                <!-- Tiền ship -->
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="text-xl font-semibold">Tiền ship:</h3>
-                    <p class="text-xl text-gray-800"><?= number_format($order['shipping_fee'], 0, ',', '.') ?> VND</p>
-                </div>
-
-                <!-- Tổng giá -->
-                <div class="flex justify-between items-center mb-2">
-                    <h3 class="text-xl font-semibold">Tổng giá đơn hàng:</h3>
-                    <p class="text-xl text-gray-800"><?= number_format($order['total_price'], 0, ',', '.') ?> VND</p>
-                </div>
-
-            </div>
+            </section>
         </div>
     </div>
 

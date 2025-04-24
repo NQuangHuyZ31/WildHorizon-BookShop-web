@@ -30,18 +30,18 @@ $messge = Session::get('message') ?? [];
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-2xl font-semibold text-gray-800">Đánh giá của sản phẩm #<?= htmlspecialchars($product['product_name']) ?></h2>
-                    <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-24 h-30 object-cover">
+                    <img src="<?= $product['product_image'] ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-24 h-30 object-cover">
                 </div>
 
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-center text-gray-600">STT</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600">Tên</th>
-                            <th class="py-2 px-4 border-b text-center text-gray-600">Ngày</th>
-                            <th class="py-2 px-4 border-b text-left text-gray-600">Nội dung</th>
-                            <th class="py-2 px-4 border-b text-center text-gray-600">Điểm</th>
-                            <th class="py-2 px-4 border-b text-center text-gray-600">Ẩn/Hiện</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 5%;">STT</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 20%;">Khách hàng</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 10%;">Ngày</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 45%;">Nội dung</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 5%;">Điểm</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 5%;">Ẩn/Hiện</th>
                         </tr>
                     </thead>
                     <tbody>

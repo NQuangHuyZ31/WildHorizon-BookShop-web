@@ -8,6 +8,7 @@ use App\Models\Products;
 use App\Models\Categories;
 use App\Models\ProductDetail;
 use App\Models\Supplier;
+use Core\Response;
 
 class DanhSachSanPhamController extends Controller
 {
@@ -65,14 +66,14 @@ class DanhSachSanPhamController extends Controller
     $products = $this->product->getProductFilter($data);
 
 
-    echo json_encode([
+    Response::json([
       'status' => http_response_code(),
       'success' => empty($products) ? 0 : 1,
       'products' => $products,
       'params' => $data,
       'product_count' => count($products),
       'url' => BASE_URL
-    ]);
+    ], 200);
   }
 
   public function loadMore()
@@ -85,12 +86,12 @@ class DanhSachSanPhamController extends Controller
 
     $products = $this->product->loadMoreProduct($limit, $offset, $dataLoad);
 
-    echo json_encode([
+    Response::json([
       'status' => 200,
       'data' => $products,
       'offset' => $dataLoad == 0 ? 10 : 30,
       'url' => BASE_URL,
       'join_fs' => $dataLoad == 0 ? 0 : 1
-    ]);
+    ], 200);
   }
 }

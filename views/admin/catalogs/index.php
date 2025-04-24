@@ -74,8 +74,7 @@ $messge = Session::get('message') ?? [];
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($catalog['catalog_name']) ?></td>
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($catalog['description']) ?></td>
                                 <td class="py-2 px-4 border-b">
-                                    <img src="<?=BASE_URL?>/Public/upload/catalogs/<?=$catalog['catalog_image']?>" class="w-12 h-15 object-cover" alt="<?=$catalog['catalog_name']?>">
-
+                                    <img src="<?=$catalog['catalog_image']?>" class="w-16 h-20 object-cover" alt="<?=$catalog['catalog_name']?>">
                                 </td>
                                 <td class="py-2 px-4 border-b text-center">
                                     <div class="flex justify-center space-x-4">

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Model;
+use PDO;
 
 class FlashSales extends Model
 {
@@ -33,7 +34,7 @@ class FlashSales extends Model
 
     $stmt->execute();
 
-    return $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
   public function getLimit($limit, $offset)
@@ -46,7 +47,7 @@ class FlashSales extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function searchKeyword($keyword)
@@ -61,7 +62,7 @@ class FlashSales extends Model
 
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   // Update số lượng sản phẩm flashsales
@@ -69,8 +70,8 @@ class FlashSales extends Model
   {
     $query = "UPDATE $this->table set quantity = quantity - ? where product_id = ? ";
     $stmt = $this->db->prepare($query);
-    $stmt->bindValue(1, $quantity, \PDO::PARAM_INT);
-    $stmt->bindValue(2, $productID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $quantity, PDO::PARAM_INT);
+    $stmt->bindValue(2, $productID, PDO::PARAM_INT);
     $stmt->execute();
   }
 }

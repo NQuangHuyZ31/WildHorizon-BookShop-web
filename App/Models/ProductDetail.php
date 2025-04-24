@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use PDO;
+
 class ProductDetail extends Model
 {
   protected $table = 'product_details';
@@ -12,6 +14,6 @@ class ProductDetail extends Model
     $stmt = $this->db->prepare($query);
     $stmt->execute();
 
-    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }

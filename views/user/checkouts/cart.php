@@ -17,10 +17,10 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           <div style="width:788px">
             <div class="flex justify-between w-full bg-white px-3 py-2 rounded-sm">
               <div class="flex items-center">
-                <p class=" text-gray-500 uppercase text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> item)</p>
+                <p class=" text-gray-500 uppercase text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> sản phẩm)</p>
               </div>
             </div>
-            <form id="form-checkout" action="<?php echo BASE_URL . '/checkout' ?>" method="post">
+            <form id="form-checkout" action="<?php echo BASE_URL . '/checkout/process' ?>" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
               <div class="w-full mt-3 flex flex-col">
                 <?php foreach ($products as $product) { ?>
@@ -47,12 +47,12 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                         <i class="fa-regular fa-trash-can text-gray-400 text-md ps-1 pt-2"></i>
                       </button>
                     </div>
-                    <div class="flex items-center ms-10 p-3">
+                    <div class="flex items-center ms-10 p-3 user-select-none">
                       <div class="dec-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
                         <span class="w-full "><i class="fa-solid fa-minus"></i></span>
                       </div>
                       <div class="p-2" style="width: 44px;">
-                        <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>" checked>
+                        <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>">
                       </div>
                       <div
                         class="<?php echo $product['f_quantity'] > 0 ? ($product['f_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>
@@ -68,26 +68,26 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           </div>
           <div class="bg-white px-3 py-4 ms-2 flex-1 rounded-md" style="max-height: 250px;">
             <div class="mb-3">
-              <p class="text-lg">Order Summary</p>
+              <p class="text-lg">Tổng tiền đơn hàng</p>
             </div>
             <div class="flex justify-between text-gray-500 text-sm mb-4">
-              <p class="checkout-subtotal">Subtotal</p>
+              <p class="checkout-subtotal">Thành tiền</p>
               <p class="mr-2 checkout-subtotal-price text-sm"><span id="cart-subtotal"><?php echo Format::forMatPrice($totalPrice) ?></span> <u>đ</u></p>
             </div>
             <div class="flex justify-between text-gray-500 text-sm mb-4">
-              <p class="checkout-subtotal">Saved</p>
+              <p class="checkout-subtotal">Giảm giá</p>
               <p class="mr-2 checkout-subtotal-price text-red-400">- <span id="cart-saved"><?php echo Format::forMatPrice($saveprice) ?></span> <u>đ</u></p>
             </div>
             <div class="flex justify-between text-gray-500 text-sm mb-4">
-              <p class="checkout-subtotal">Fee shipping (tiêu chuẩn)</p>
+              <p class="checkout-subtotal">Phí vận chuyển (tiêu chuẩn)</p>
               <p class="mr-2 checkout-subtotal-price text-red-400"><span id="fee-shipping">23.000</span> <u>đ</u></p>
             </div>
             <div class="flex justify-between text-black text-sm">
-              <p class="checkout-subtotal">Total</p>
+              <p class="checkout-subtotal">Tổng tiền</p>
               <p class="mr-2 checkout-subtotal-price text-orange-500 text-lg"> <span id="cart-total"><?php echo Format::forMatPrice($totalPrice - $saveprice + 23000) ?></span><u>đ</u></p>
             </div>
             <div class="mt-2 text-center bg-orange-500 text-white py-2 rounded-md" id="cart-checkout">
-              <button type="button" class="cursor-pointer w-full" name="btn-checkout" id="btn-checkout">Checkout</button>
+              <button type="button" class="cursor-pointer w-full" name="btn-checkout" id="btn-checkout">Đặt hàng</button>
             </div>
           </div>
         </div>
@@ -156,4 +156,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     </div>
   </div>
 </div>
+<script>
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+</script>
 <?php include_once VIEW_PATH_USER_LAYOUT . 'footer.php' ?>

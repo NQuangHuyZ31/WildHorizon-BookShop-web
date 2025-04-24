@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use PDO;
+
 class User extends Model
 {
 
@@ -14,9 +16,9 @@ class User extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindValue(1, $data['username'], \PDO::PARAM_STR);
-    $stmt->bindValue(2, $data['email'], \PDO::PARAM_STR);
-    $stmt->bindValue(3, $data['password'], \PDO::PARAM_STR);
+    $stmt->bindValue(1, $data['username'], PDO::PARAM_STR);
+    $stmt->bindValue(2, $data['email'], PDO::PARAM_STR);
+    $stmt->bindValue(3, $data['password'], PDO::PARAM_STR);
     $stmt->bindValue(4, date('Y-m-d'));
 
     $stmt->execute();
@@ -29,11 +31,11 @@ class User extends Model
 
     $stmt = $this->db->prepare($query);
 
-    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $userID, PDO::PARAM_INT);
 
     $stmt->execute();
 
-    return $stmt->fetch(\PDO::FETCH_ASSOC) ?? null;
+    return $stmt->fetch(PDO::FETCH_ASSOC) ?? null;
   }
 
   public function checkEmail($email)
@@ -50,12 +52,12 @@ class User extends Model
     $query = "UPDATE $this->table SET username = ?, gender = ?, birthday = ?, phone = ?, updated_at = ? WHERE id = ?";
 
     $stmt = $this->db->prepare($query);
-    $stmt->bindValue(1, $data['username'], \PDO::PARAM_STR);
-    $stmt->bindValue(2, $data['gender'], \PDO::PARAM_INT);
-    $stmt->bindValue(3, $data['birthday'], \PDO::PARAM_STR);
-    $stmt->bindValue(4, $data['phone'], \PDO::PARAM_STR);
+    $stmt->bindValue(1, $data['username'], PDO::PARAM_STR);
+    $stmt->bindValue(2, $data['gender'], PDO::PARAM_INT);
+    $stmt->bindValue(3, $data['birthday'], PDO::PARAM_STR);
+    $stmt->bindValue(4, $data['phone'], PDO::PARAM_STR);
     $stmt->bindValue(5, date('Y-m-d'));
-    $stmt->bindValue(6, $userID, \PDO::PARAM_INT);
+    $stmt->bindValue(6, $userID, PDO::PARAM_INT);
     return $stmt->execute();
   }
 
@@ -64,10 +66,10 @@ class User extends Model
   {
     $query = "SELECT $column FROM $this->table WHERE id = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bindValue(1, $userID, \PDO::PARAM_INT);
+    $stmt->bindValue(1, $userID, PDO::PARAM_INT);
     $stmt->execute();
 
-    return $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
   // Change Password
@@ -75,9 +77,9 @@ class User extends Model
   {
     $query = "UPDATE $this->table set password = ?, updated_at = ? WHERE id = ?";
     $stmt = $this->db->prepare($query);
-    $stmt->bindValue(1, $userPassword, \PDO::PARAM_STR);
+    $stmt->bindValue(1, $userPassword, PDO::PARAM_STR);
     $stmt->bindValue(2, date('Y-m-d H:i:s'));
-    $stmt->bindValue(3, $userID, \PDO::PARAM_INT);
+    $stmt->bindValue(3, $userID, PDO::PARAM_INT);
 
     return $stmt->execute();
   }

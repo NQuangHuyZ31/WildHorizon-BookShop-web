@@ -5,6 +5,7 @@ namespace App\Controllers\User;
 use App\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Products;
+use Core\Response;
 use Helpers\Format;
 use Core\Session;
 use Exception;
@@ -53,7 +54,7 @@ class CartController extends Controller
 
     $this->cart->delete($userID, $productID);
 
-    echo json_encode(['success' => 1, 'message' => 'Thành công']);
+    Response::json(['success' => 1, 'message' => 'Thành công'], 200);
   }
 
   // Thêm sản phẩm vào giỏ hàng
@@ -69,21 +70,21 @@ class CartController extends Controller
 
     if ($this->cart->checkCart($userID, $productID) == 1) {
 
-      echo json_encode([
+      Response::json([
         'error' => ['message' => 'Sản phẩm đã có trong giỏ hàng'],
         'data' => [
           'event' => $event
         ]
-      ]);
+      ], 200);
     } else {
       $this->cart->add($userID, $productID, $quantity);
 
-      echo json_encode([
+      Response::json([
         'success' => ['message' => 'Thêm vào giỏ hàng thành công'],
         'data' => [
           'event' => $event
         ]
-      ]);
+      ], 200);
     }
   }
 

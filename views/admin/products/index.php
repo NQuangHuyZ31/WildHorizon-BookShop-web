@@ -69,7 +69,9 @@ $messge = Session::get('message') ?? [];
                             <tr>
                                 <td class="py-2 px-4 border-b">
                                     <div class="flex items-center gap-3">
-                                        <img src="<?= '../Public/upload/products/' . htmlspecialchars($product['product_image']) ?>" alt="<?= htmlspecialchars($product['product_name']) ?>" class="w-12 h-15 object-cover">
+                                        <img src="<?= htmlspecialchars($product['product_image']) ?>"
+                                            alt="<?= htmlspecialchars($product['product_name']) ?>"
+                                            class="w-16 h-20 object-cover">
                                         <span class="text-gray-800"><?= htmlspecialchars($product['product_name']) ?></span>
                                     </div>
                                 </td>
