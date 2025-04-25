@@ -59,7 +59,7 @@
                                         <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click để tải lên</span></p>
                                         <p class="text-xs text-gray-500">Định dạng: SVG, PNG, JPG, GIF (Tối đa 800x400px)</p>
                                     </div>
-                                    <img id="preview-image" src="" alt="Xem trước ảnh" class="hidden absolute inset-0 w-24 h-30 object-cover">
+                                    <img id="preview-image" src="" alt="Xem trước ảnh" class="hidden max-h-60 max-w-full object-contain mx-auto my-auto">
                                     <input id="catalog_image" name="catalog_image" type="file" class="hidden" accept="image/*" onchange="previewImage(event)">
                                 </label>
                             </div>
@@ -73,7 +73,7 @@
                             <?php if (!empty($catalog['catalog_image'])): ?>
                                 <div class="mt-4">
                                     <p class="text-gray-600 text-sm mb-2">Ảnh hiện tại:</p>
-                                    <img id="current-image" src="<?= BASE_URL . '/Public/upload/catalogs/' . htmlspecialchars($catalog['catalog_image']) ?>" alt="Hình danh mục" class="w-24 h-30 object-cover">
+                                    <img id="current-image" src="<?= htmlspecialchars($catalog['catalog_image']) ?>" alt="<?= htmlspecialchars($catalog['catalog_name']) ?>" class="w-24 h-30 object-cover">
                                 </div>
 
                             <?php endif; ?>

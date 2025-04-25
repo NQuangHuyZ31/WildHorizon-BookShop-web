@@ -50,8 +50,7 @@
                 <table class="min-w-full bg-white">
                     <thead>
                         <tr>
-                            <th class="py-2 px-4 border-b text-left text-gray-600" style="width: 30%">Tên sản phẩm</th>
-                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 25%">Hình ảnh</th>
+                            <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 55%">Sản phẩm</th>
                             <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 10%">Điểm</th>
                             <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 15%">Lượt đánh giá</th>
                             <th class="py-2 px-4 border-b text-center text-gray-600" style="width: 20%">Hành động</th>
@@ -60,9 +59,13 @@
                     <tbody>
                         <?php foreach ($reviews as $review): ?>
                             <tr>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($review['product_name']) ?></td>
-                                <td class="py-2 px-4 border-b text-center">
-                                    <img src="<?= BASE_URL ?>/Public/upload/products/<?= $review['product_image'] ?>" class="w-12 h-15 object-cover mx-auto" alt="<?= $review['product_name'] ?>">
+                                <td class="py-2 px-4 border-b">
+                                    <div class="flex items-center gap-3">
+                                        <img src="<?= htmlspecialchars($review['product_image']) ?>"
+                                            alt="<?= htmlspecialchars($review['product_name']) ?>"
+                                            class="w-16 h-20 object-cover">
+                                        <span class="text-gray-800"><?= htmlspecialchars($review['product_name']) ?></span>
+                                    </div>
                                 </td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars(number_format($review['average_rating'], 2)) ?></td>
                                 <td class="py-2 px-4 border-b text-center"><?= htmlspecialchars($review['total_reviews']) ?></td>
@@ -70,8 +73,8 @@
                                     <div class="flex justify-center space-x-4">
                                         <?php $encryptedId = \Core\Encrypt::encryptId($review['product_id'], KEY); ?>
                                         <a href="<?= BASE_URL ?>/admin/reviews/product?id=<?= $encryptedId ?>" class="text-blue-500 hover:text-blue-700">
-                                            <i class="fas fa-eye"></i>
-                                            <span>Xem đánh giá</span>
+                                            <i class="fas fa-file-alt"></i>
+                                            <span>Xem</span>
                                         </a>
                                     </div>
                                 </td>

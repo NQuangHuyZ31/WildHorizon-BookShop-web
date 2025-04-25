@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 
+use Helpers\UploadClound;
 use App\Controllers\Controller;
 use Core\Session;
 use Core\Encrypt;
@@ -132,14 +133,13 @@ class CatalogController extends Controller
     }
     public function saveCatalog($catalog_name, $description, $catalog_image)
     {
-        $imagePath = null;
+        $imageUrl = null;
+
+        // Xử lý upload ảnh nếu có
         if ($catalog_image && $catalog_image['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = UPLOAD_DIR . 'catalogs/';
-            $imageName = basename($catalog_image['name']);
-            $imagePath = $uploadDir . $imageName;
-            if (!move_uploaded_file($catalog_image['tmp_name'], $imagePath)) {
-                die('Lỗi khi tải lên ảnh.');
-            }
+            $file = $catalog_image;
+            $filePath = time() . '_' . hash('sha1', pathinfo($file['name'], PATHINFO_FILENAME));
+            $imageUrl = UploadClound::upload($file['tmp_name'], 'category_images', $filePath);
         }
 
         // Chuẩn bị câu lệnh SQL
@@ -148,7 +148,7 @@ class CatalogController extends Controller
         // Gán tham số vào câu lệnh SQL
         $stmt->bindParam(':catalog_name', $catalog_name, \PDO::PARAM_STR);
         $stmt->bindParam(':description', $description, \PDO::PARAM_STR);
-        $stmt->bindParam(':catalog_image', $imageName, \PDO::PARAM_STR);
+        $stmt->bindParam(':catalog_image', $imageUrl, \PDO::PARAM_STR);
 
         // Thực thi câu lệnh SQL và kiểm tra kết quả
         if ($stmt->execute()) {
@@ -183,11 +183,14 @@ class CatalogController extends Controller
         $catalog = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($catalog && !empty($catalog['catalog_image'])) {
-            $imagePath = UPLOAD_DIR . 'catalogs/' . $catalog['catalog_image'];
+            $imageUrl = $catalog['catalog_image'];
 
-            // Kiểm tra và xóa file ảnh nếu tồn tại
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+            // Nếu ảnh là từ Cloudinary, xóa nó
+            if (strpos($imageUrl, 'res.cloudinary.com') !== false) {
+                $publicId = UploadClound::getPublicIdFromUrl($imageUrl);
+                if ($publicId) {
+                    UploadClound::delete($publicId);
+                }
             }
         }
 
@@ -298,7 +301,6 @@ class CatalogController extends Controller
 
     public function updateCatalog($id, $catalog_name, $description, $catalog_image)
     {
-        $uploadDir = UPLOAD_DIR . 'catalogs/';
         $imagePath = null;
 
         // Lấy thông tin sản phẩm hiện tại để kiểm tra ảnh cũ
@@ -308,22 +310,19 @@ class CatalogController extends Controller
         }
         $currentImagePath = $catalog['catalog_image'] ?? null;
 
-        // Nếu có tải lên ảnh mới, xử lý lưu ảnh mới
+        // Xử lý upload ảnh mới (nếu có)
         if ($catalog_image && $catalog_image['error'] === UPLOAD_ERR_OK) {
-            $imageName = basename($catalog_image['name']); // Chỉ lấy tên ảnh (không có đường dẫn đầy đủ)
-            $imagePath = $imageName;
-
-            // Di chuyển ảnh mới vào thư mục
-            if (!move_uploaded_file($catalog_image['tmp_name'], $uploadDir . $imageName)) {
-                die('Lỗi khi tải lên ảnh.');
+            // Nếu là ảnh Cloudinary thì xóa
+            if (strpos($currentImagePath, 'res.cloudinary.com') !== false) {
+                $publicId = UploadClound::getPublicIdFromUrl($currentImagePath);
+                UploadClound::delete($publicId);
             }
 
-            // Xóa ảnh cũ nếu có
-            if ($currentImagePath && file_exists($uploadDir . $currentImagePath)) {
-                unlink($uploadDir . $currentImagePath);
-            }
+            // Upload ảnh mới
+            $filePath = time() . '_' . hash('sha1', pathinfo($catalog_image['name'], PATHINFO_FILENAME));
+            $secureUrl = UploadClound::upload($catalog_image['tmp_name'], 'category_images', $filePath);
+            $imagePath = $secureUrl;
         } else {
-            // Nếu không có ảnh mới, giữ nguyên ảnh cũ
             $imagePath = $currentImagePath;
         }
 

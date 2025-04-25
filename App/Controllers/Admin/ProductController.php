@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Admin;
 
+use Helpers\UploadClound;
 use Core\Session;
 use Core\Encrypt;
 use App\Controllers\Controller;
@@ -200,7 +201,7 @@ class ProductController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $product_name = $_POST['product_name'] ?? '';
-            $description = $_POST['description'] ?? null; 
+            $description = $_POST['description'] ?? null;
             $catalog_id = $_POST['catalog_id'] ?? null;
             $price = $_POST['price'] ?? '';
             $discount_price = $_POST['discount_price'] ?? '';
@@ -211,8 +212,8 @@ class ProductController extends Controller
             $supplier_id = !empty($_POST['supplier_id']) ? $_POST['supplier_id'] : null;
 
             $color = $_POST['color'] ?? null;
-            $author = $_POST['author'] ?? null; 
-            $publication_year = $_POST['publication_year'] ?? null; 
+            $author = $_POST['author'] ?? null;
+            $publication_year = $_POST['publication_year'] ?? null;
             $publisher = $_POST['publisher'] ?? null;
             $origin = $_POST['origin'] ?? null;
             $language = $_POST['language'] ?? null;
@@ -233,15 +234,13 @@ class ProductController extends Controller
 
     private function saveProduct($product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color, $publication_year, $author, $publisher, $origin, $language)
     {
+        $imageUrl = null;
+
         // Xử lý upload ảnh nếu có
-        $imagePath = null;
         if ($product_image && $product_image['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = UPLOAD_DIR . 'products/';
-            $imageName = basename($product_image['name']);
-            $imagePath = $uploadDir . $imageName;
-            if (!move_uploaded_file($product_image['tmp_name'], $imagePath)) {
-                die('Lỗi khi tải lên ảnh.');
-            }
+            $file = $product_image;
+            $filePath = time() . '_' . hash('sha1', pathinfo($file['name'], PATHINFO_FILENAME));
+            $imageUrl = UploadClound::upload($file['tmp_name'], 'product_images', $filePath);
         }
 
         // Chuẩn bị câu lệnh SQL
@@ -259,21 +258,19 @@ class ProductController extends Controller
         $stmt->bindParam(':price', $price, \PDO::PARAM_STR);
         $stmt->bindParam(':discount_price', $discount_price, \PDO::PARAM_INT);
         $stmt->bindParam(':stock', $stock, \PDO::PARAM_INT);
-        $stmt->bindParam(':product_image', $imageName, \PDO::PARAM_STR);
+        $stmt->bindParam(':product_image', $imageUrl, \PDO::PARAM_STR);
 
         // Thực thi SQL
         if ($stmt->execute()) {
-            // Lấy ID của sản phẩm vừa được chèn
             $product_id = $this->db->lastInsertId();
 
-            // Chèn vào bảng `product_details`
             $detailQuery = "
                 INSERT INTO product_details (product_id, supplier_id, brand_id, color, publication_year, author, publisher, origin, language)
                 VALUES (:product_id, :supplier_id, :brand_id, :color, :publication_year, :author, :publisher, :origin, :language)
             ";
+
             $detailStmt = $this->db->prepare($detailQuery);
 
-            // Liên kết tham số
             $detailStmt->bindParam(':product_id', $product_id, \PDO::PARAM_INT);
             $detailStmt->bindValue(':supplier_id', $supplier_id, \PDO::PARAM_INT);
             $detailStmt->bindValue(':brand_id', !empty($brand_id) ? $brand_id : null, $brand_id !== null ? \PDO::PARAM_INT : \PDO::PARAM_NULL);
@@ -284,7 +281,6 @@ class ProductController extends Controller
             $detailStmt->bindParam(':origin', $origin, \PDO::PARAM_STR);
             $detailStmt->bindParam(':language', $language, \PDO::PARAM_STR);
 
-            // Thực thi SQL
             if ($detailStmt->execute()) {
                 Session::set('message', ['success' => 'Thêm sản phẩm thành công!']);
                 header('Location: ' . BASE_URL . '/admin/products');
@@ -297,6 +293,7 @@ class ProductController extends Controller
         }
     }
 
+
     public function deleteProduct()
     {
         $encryptedId = $_POST['id'] ?? null;
@@ -307,7 +304,7 @@ class ProductController extends Controller
 
         $id = Encrypt::decryptId($encryptedId, KEY);
 
-        // Truy vấn tên ảnh từ cơ sở dữ liệu
+        // Lấy thông tin ảnh từ CSDL
         $query = "SELECT product_image FROM products WHERE id = :id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
@@ -316,15 +313,29 @@ class ProductController extends Controller
         $product = $stmt->fetch(\PDO::FETCH_ASSOC);
 
         if ($product && !empty($product['product_image'])) {
-            $imagePath = UPLOAD_DIR . 'products/' . $product['product_image'];
+            $imageUrl = $product['product_image'];
 
-            // Kiểm tra và xóa file ảnh nếu tồn tại
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+            // Nếu ảnh là từ Cloudinary, xóa nó
+            if (strpos($imageUrl, 'res.cloudinary.com') !== false) {
+                $publicId = UploadClound::getPublicIdFromUrl($imageUrl);
+                if ($publicId) {
+                    UploadClound::delete($publicId);
+                }
             }
         }
 
-        // Xóa bản ghi sản phẩm trong cơ sở dữ liệu
+        // Xóa các bản ghi liên quan
+        $deleteDetailsQuery = "DELETE FROM product_details WHERE product_id = :id";
+        $stmtDetails = $this->db->prepare($deleteDetailsQuery);
+        $stmtDetails->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmtDetails->execute();
+
+        $deleteAttributesQuery = "DELETE FROM product_attributes WHERE product_id = :id";
+        $stmtAttributes = $this->db->prepare($deleteAttributesQuery);
+        $stmtAttributes->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmtAttributes->execute();
+
+        // Xóa bản ghi sản phẩm
         $deleteQuery = "DELETE FROM products WHERE id = :id";
         $deleteStmt = $this->db->prepare($deleteQuery);
         $deleteStmt->bindParam(':id', $id, \PDO::PARAM_INT);
@@ -339,6 +350,8 @@ class ProductController extends Controller
             echo "Đã xảy ra lỗi khi xóa sản phẩm.";
         }
     }
+
+
 
     public function getProductById($id)
     {
@@ -452,7 +465,7 @@ class ProductController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $product_name = $_POST['product_name'] ?? '';
-            $description = $_POST['description'] ?? null; 
+            $description = $_POST['description'] ?? null;
             $catalog_id = $_POST['catalog_id'] ?? null;
             $price = $_POST['price'] ?? '';
             $discount_price = $_POST['discount_price'] ?? '';
@@ -461,10 +474,10 @@ class ProductController extends Controller
 
             $brand_id = !empty($_POST['brand_id']) ? $_POST['brand_id'] : null;
             $supplier_id = !empty($_POST['supplier_id']) ? $_POST['supplier_id'] : null;
-            
+
             $color = $_POST['color'] ?? null;
-            $author = $_POST['author'] ?? null; 
-            $publication_year = $_POST['publication_year'] ?? null; 
+            $author = $_POST['author'] ?? null;
+            $publication_year = $_POST['publication_year'] ?? null;
             $publisher = $_POST['publisher'] ?? null;
             $origin = $_POST['origin'] ?? null;
             $language = $_POST['language'] ?? null;
@@ -487,34 +500,30 @@ class ProductController extends Controller
 
     public function updateProduct($id, $product_name, $description, $catalog_id, $price, $discount_price, $stock, $product_image, $supplier_id, $brand_id, $color, $publication_year, $author, $publisher, $origin, $language)
     {
-        $uploadDir = UPLOAD_DIR . 'products/';
-        $imagePath = null;
-
         // Lấy thông tin sản phẩm hiện tại
         $product = $this->getProductById($id);
         if (!$product) {
             die('Không tìm thấy sản phẩm với ID: ' . $id);
         }
+
         $currentImagePath = $product['product_image'] ?? null;
 
         // Xử lý upload ảnh mới (nếu có)
         if ($product_image && $product_image['error'] === UPLOAD_ERR_OK) {
-            $imageName = basename($product_image['name']);
-            $imagePath = $imageName;
-
-            // Di chuyển ảnh mới vào thư mục
-            if (!move_uploaded_file($product_image['tmp_name'], $uploadDir . $imageName)) {
-                die('Lỗi khi tải lên ảnh.');
+            // Nếu là ảnh Cloudinary thì xóa
+            if (strpos($currentImagePath, 'res.cloudinary.com') !== false) {
+                $publicId = UploadClound::getPublicIdFromUrl($currentImagePath);
+                UploadClound::delete($publicId);
             }
 
-            // Xóa ảnh cũ nếu có
-            if ($currentImagePath && file_exists($uploadDir . $currentImagePath)) {
-                unlink($uploadDir . $currentImagePath);
-            }
+            // Upload ảnh mới
+            $filePath = time() . '_' . hash('sha1', pathinfo($product_image['name'], PATHINFO_FILENAME));
+            $secureUrl = UploadClound::upload($product_image['tmp_name'], 'product_images', $filePath);
+            $imagePath = $secureUrl;
         } else {
-            // Nếu không có ảnh mới, giữ nguyên ảnh cũ
             $imagePath = $currentImagePath;
         }
+
 
         try {
             // Bắt đầu transaction để đảm bảo cả hai bảng cập nhật thành công
@@ -522,11 +531,11 @@ class ProductController extends Controller
 
             // Cập nhật bảng `products`
             $query = "
-            UPDATE products 
-            SET product_name = :product_name, description = :description, catalog_id = :catalog_id, 
-                price = :price, discount_price = :discount_price, stock = :stock, product_image = :product_image 
-            WHERE id = :id
-        ";
+                UPDATE products 
+                SET product_name = :product_name, description = :description, catalog_id = :catalog_id, 
+                    price = :price, discount_price = :discount_price, stock = :stock, product_image = :product_image 
+                WHERE id = :id
+            ";
 
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':product_name', $product_name, \PDO::PARAM_STR);
@@ -541,12 +550,12 @@ class ProductController extends Controller
 
             // Cập nhật bảng `product_details`
             $detailQuery = "
-            UPDATE product_details 
-            SET supplier_id = :supplier_id, brand_id = :brand_id, color = :color, 
-                publication_year = :publication_year, author = :author, publisher = :publisher, 
-                origin = :origin, language = :language
-            WHERE product_id = :id
-        ";
+                UPDATE product_details 
+                SET supplier_id = :supplier_id, brand_id = :brand_id, color = :color, 
+                    publication_year = :publication_year, author = :author, publisher = :publisher, 
+                    origin = :origin, language = :language
+                WHERE product_id = :id
+            ";
 
             $detailStmt = $this->db->prepare($detailQuery);
             $detailStmt->bindParam(':id', $id, \PDO::PARAM_INT);
@@ -563,12 +572,10 @@ class ProductController extends Controller
             // Commit transaction
             $this->db->commit();
 
-            // Chuyển hướng và thông báo
             Session::set('message', ['success' => 'Cập nhật sản phẩm thành công!']);
             header('Location: ' . BASE_URL . '/admin/products');
             exit();
         } catch (\Exception $e) {
-            // Rollback nếu có lỗi
             $this->db->rollBack();
             die('Lỗi khi cập nhật sản phẩm: ' . $e->getMessage());
         }

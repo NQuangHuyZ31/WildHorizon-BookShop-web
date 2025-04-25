@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers\Admin;
+
 use Core\Session;
 use App\Controllers\Controller;
 
@@ -24,7 +26,6 @@ class DashboardController extends Controller
         $stmt->execute(['role' => 'customer']);
         $totalCustomers = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
 
-
         // Tổng số sản phẩm
         $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM products");
         $stmt->execute();
@@ -35,11 +36,45 @@ class DashboardController extends Controller
         $stmt->execute(['status' => 'Chờ xác nhận']);
         $pendingOrders = $stmt->fetch(\PDO::FETCH_ASSOC)['count'];
 
+        // Doanh thu theo ngày
+        $dailyRevenue = $this->getRevenueByDate(date('Y-m-d'));
+
+        // Doanh thu theo tháng
+        $monthlyRevenue = $this->getRevenueByMonth(date('Y-m'));
+
+        // Doanh thu theo năm
+        $yearlyRevenue = $this->getRevenueByYear(date('Y'));
+
         // Truyền dữ liệu vào view
         include_once VIEW_PATH . 'admin/index.php';
     }
 
-    
+    private function getRevenueByDate($date)
+    {
+        // Lấy doanh thu theo ngày
+        $stmt = $this->db->prepare("SELECT SUM(total_price) as revenue FROM orders WHERE DATE(order_date) = :date AND status = 'Đã giao hàng'");
+        $stmt->execute(['date' => $date]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC)['revenue'] ?? 0;
+    }
+
+    private function getRevenueByMonth($month)
+    {
+        // Lấy doanh thu theo tháng
+        $stmt = $this->db->prepare("SELECT SUM(total_price) as revenue FROM orders WHERE DATE_FORMAT(order_date, '%Y-%m') = :month AND status = 'Đã giao hàng'");
+        $stmt->execute(['month' => $month]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC)['revenue'] ?? 0;
+    }
+
+    private function getRevenueByYear($year)
+    {
+        // Lấy doanh thu theo năm
+        $stmt = $this->db->prepare("SELECT SUM(total_price) as revenue FROM orders WHERE DATE_FORMAT(order_date, '%Y') = :year AND status = 'Đã giao hàng'");
+        $stmt->execute(['year' => $year]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC)['revenue'] ?? 0;
+    }
+
+
+
     public function login()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
