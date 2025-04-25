@@ -31,7 +31,7 @@ class RegisterValidate
     }
 
     // Kiểm tra tồn tại email
-    else if ($user->checkEmail($data['email'])) {
+    else if ($user->checkEmail($data['email'], 'active')) {
       $error = "email đã tồn tại";
     }
 

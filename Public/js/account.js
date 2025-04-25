@@ -12,6 +12,7 @@ $(document).ready(function () {
     const URL_GET_ORDER_INFO = `${baseUrl}/customer/order/getorder`;
     const URL_SAVE_REVIEW = `${baseUrl}/customer/order/savereview`;
     const URL_GET_PRODUCT_REVIEW = `${baseUrl}/customer/order/getproductreview`;
+    let URL_FEEDBACK_ANSWER = baseUrl + '/feedback/answer';
 
     let PROVINCE = '#province';
     let DISTRICT = '#district';
@@ -382,7 +383,7 @@ $(document).ready(function () {
                                 `<div class="product-review" data-product-id="${order_detail.product_id}">
                                     <div class="text-[14px] text-gray-400 mt-2">
                                         <div class="flex items-center ">
-                                            <img src="${response.url}/Public/upload/products/${order_detail.product_image}" alt="hình ảnh" class="product-review-image">
+                                            <img src="${order_detail.product_image}" alt="hình ảnh" class="product-review-image">
                                             <p class="ms-3">${order_detail.product_name}</p>
                                         </div>
                                         <div class="mt-1 text-center">
@@ -499,7 +500,7 @@ $(document).ready(function () {
                         $('.review-product-content').append(`
                              <div class="text-[14px] text-gray-400 mt-2">
                                 <div class="flex items-center ">
-                                    <img src="${response.url}/Public/upload/products/${review.product_image}" alt="hình ảnh" class="product-review-image">
+                                    <img src="${review.product_image}" alt="hình ảnh" class="product-review-image">
                                     <p class="ms-3">${review.product_name}</p>
                                 </div>
                                 <div class="rating w-full">
@@ -520,4 +521,27 @@ $(document).ready(function () {
             },
         });
     }
+
+    //
+    $('.btn-feedback').click(function (e) {
+        JsLoadingOverlay.show();
+        const feedback = $(this).data('id');
+        $.ajax({
+            type: 'GET',
+            url: URL_FEEDBACK_ANSWER,
+            data: {
+                feedback,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    $('.textarea-feedback').val(response.answer);
+                }
+            },
+        });
+        setTimeout(() => {
+            JsLoadingOverlay.hide();
+            feedback_modal.showModal();
+        }, 500);
+    });
 });

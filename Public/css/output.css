@@ -2500,12 +2500,12 @@ html {
   height: 2px;
 }
 
-.h-full {
-  height: 100%;
-}
-
 .h-\[40px\] {
   height: 40px;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .max-h-full {
@@ -2580,16 +2580,16 @@ html {
   width: 100px;
 }
 
+.w-\[120px\] {
+  width: 120px;
+}
+
 .w-\[15px\] {
   width: 15px;
 }
 
 .w-\[17px\] {
   width: 17px;
-}
-
-.w-\[50\%\] {
-  width: 50%;
 }
 
 .w-\[75\%\] {
@@ -2604,8 +2604,8 @@ html {
   width: 100vw;
 }
 
-.w-\[120px\] {
-  width: 120px;
+.w-20 {
+  width: 5rem;
 }
 
 .min-w-full {
@@ -2620,12 +2620,12 @@ html {
   max-width: 400px;
 }
 
-.max-w-md {
-  max-width: 28rem;
-}
-
 .max-w-full {
   max-width: 100%;
+}
+
+.max-w-md {
+  max-width: 28rem;
 }
 
 .flex-1 {

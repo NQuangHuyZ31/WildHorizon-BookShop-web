@@ -1,7 +1,7 @@
 <div class="c-sidebar bg-white w-1/4 rounded-lg shadow-md py-3">
   <div class="text-center mt-3 border-b border-gray-200 p-3">
     <div class="w-full align-middle">
-      <img src="<?php echo BASE_URL ?>/Public/images/icon/user.png" alt="" class="customer-icon mx-auto opacity-75">
+      <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/okynapkvmccrm57mo7wf.png" alt="" class="customer-icon mx-auto opacity-75">
     </div>
     <div class="p-2 mt-2">
       <p class="font-bold tracking-wide text-lg"><?php echo $customer['username'] ?></p>
@@ -54,7 +54,7 @@
           </div>
         </li>
       </div>
-      <div class="py-2">
+      <div class="py-2 <?php echo $customer['fb_id'] != null ? 'hidden' : 'block' ?>">
         <li class="list-none border-s-6 border-white flex items-center ">
           <div class="flex items-center">
             <div class="mx-2 text-center text-lg text-gray-500" style="height: 24px;width: 24px;">

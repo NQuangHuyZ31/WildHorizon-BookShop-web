@@ -41,6 +41,8 @@ $(document).ready(function () {
     const baseURL = window.location.origin + '/WildHorizon-BookShop';
     let URL_GETMORE_PRODUCT_HOMEPAGE = baseURL + '/product/loadmore';
     let URL_GETMORE_FS_PRODUCT_HOMEPAGE = baseURL + '/loadmorefs';
+    let URL_FEEDBACK = baseURL + '/feedback';
+    let URL_RESEND_VERIFY_ACCOUNT = baseURL + '/dang-nhap/verify-account/resend';
 
     // Ẩn banner top
     $('#banner-top-ee').click(function () {
@@ -86,10 +88,68 @@ $(document).ready(function () {
         $('.whr-show-cfpw-icon').removeClass('hidden');
     });
 
-    // -------------------------------------------------------CLOSE MODAL HOME PAGE
-    // $('#btn-close-modal').click(function () {
-    //   $('#my_modal_1').removeClass('modal-open');
-    // })
+    // ===========================================================
+    $('#btn-signup').click(function () {
+        JsLoadingOverlay.show();
+
+        setTimeout(() => {
+            JsLoadingOverlay.hide();
+        }, 3000);
+
+        setTimeout(() => {
+            $('#form-signup').submit();
+        }, 500);
+    });
+
+    // ================================================
+    $('#btn-verify-account').click(function (e) {
+        e.preventDefault();
+        JsLoadingOverlay.show();
+        setTimeout(() => {
+            $('#form-verify-account').submit();
+        }, 500);
+    });
+
+    // Resend Verify account
+    $('#btn-resend-verify-account').click(function (e) {
+        e.preventDefault();
+
+        JsLoadingOverlay.show();
+        $(this).attr('disabled', true);
+
+        const csrf_token = $('input[name="csrf_token"]').val();
+
+        setTimeout(() => {
+            $.ajax({
+                type: 'POST',
+                url: URL_RESEND_VERIFY_ACCOUNT,
+                data: {
+                    csrf_token,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        JsLoadingOverlay.hide();
+                        toastr['success'](response.success.msg);
+                        $('input[name="csrf_token"]').val(response.token);
+                        setTimeout(() => {
+                            $(this).attr('disabled', false);
+                        }, 5000);
+                    }
+                },
+                error: function (response) {
+                    if (response) {
+                        JsLoadingOverlay.hide();
+                        toastr['error'](response.responseJson.error.msg);
+                        $('input[name="csrf_token"]').val(response.responseJson.token);
+                        setTimeout(() => {
+                            $(this).attr('disabled', false);
+                        }, 5000);
+                    }
+                },
+            });
+        }, 500);
+    });
 
     // ------------------------------------------------------CHANGE BORDER FEEDBACK TEXTAREA
     $('.whr-feedback-textarea-content').focus(function () {
@@ -135,7 +195,7 @@ $(document).ready(function () {
              <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
               <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content ${response.offset == 30 ? 'main-product-content' : ''}">
                 <div class="whr-product-img py-2 ${response.offset == 30 ? 'main-img-product' : ''}">
-                  <img src="${response.url}/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
+                  <img src="${product.product_image}" class="w-full h-full" alt="image">
                 </div>
                 <div class="px-2 mt-2">
                   <p class="product-title text-sm">${product.product_name}</p>
@@ -196,7 +256,7 @@ $(document).ready(function () {
                             <a href="${response.url}/product/${createSlug(product.product_name)}-${product.product_id}" class="mr-2 bg-white mb-3">
                             <div class="flex flex-col ">
                             <div class="whr-product-img py-2">
-                                <img src="./Public/upload/products/${product.product_image}" class="w-full h-full" alt="sanpham">
+                                <img src="${product.product_image}" class="w-full h-full" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
                                 <p class="text-sm flash-sale-product-title">${product.product_name}</p>
@@ -254,6 +314,10 @@ $(document).ready(function () {
         }
     });
 
+    // Upload
+    $('#btn-feedback').click(function (e) {
+        JsLoadingOverlay.show();
+    });
     // ------------CREATE SLUG-----------------------------------
     function createSlug(title) {
         return title

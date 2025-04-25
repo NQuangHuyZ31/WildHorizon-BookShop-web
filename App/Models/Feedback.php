@@ -25,7 +25,7 @@ class Feedback extends Model
 
   public function find($userID, $status)
   {
-    $query = "SELECT *FROM $this->table f join feedback_answers fw on f.id = fw.feedback_id WHERE user_id = ? and status = ?";
+    $query = "SELECT *FROM $this->table f JOIN feedback_answers fw on f.id = fw.feedback_id WHERE user_id = ? and status = ?";
     $stmt = $this->db->prepare($query);
     $stmt->bindValue(1, $userID, PDO::PARAM_INT);
     $stmt->bindValue(2, $status, PDO::PARAM_STR);

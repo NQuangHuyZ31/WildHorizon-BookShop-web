@@ -36,6 +36,7 @@ use App\Controllers\User\Customer_Account\CustomerReviewController;
 use App\Controllers\User\Customer_Account\CustomerSpecialEventController;
 use App\Controllers\User\Customer_Account\CustomerVoucherController;
 use App\Controllers\User\Customer_Account\CustomerWishListController;
+use App\Controllers\User\LoginFacebookController;
 // User Middleware
 use App\Middleware\AuthMiddleware;
 use App\Middleware\BlockMiddleware;
@@ -52,9 +53,16 @@ $router->get('/', [HomeController::class, 'index']);
 $router->get('/dang-nhap', [AuthController::class, 'index']);
 $router->post('/dang-nhap', [AuthController::class, 'handelLogin']);
 
+// Route đến Lofin Facebook
+$router->get('/dang-nhap/facebook', [LoginFacebookController::class, 'redirectToFacebook']);
+$router->get('/fb-callback', [LoginFacebookController::class, 'handleFacebookCallback']);
+
 // Route đến trang đăng ký
 $router->get('/dang-ky', [AuthController::class, 'register']);
 $router->post('/dang-ky', [AuthController::class, 'handleRegister']);
+$router->get('/dang-ky/verify-account', [AuthController::class, 'showVerifyAccount'], [BlockMiddleware::class]);
+$router->post('/dang-ky/verify-account', [AuthController::class, 'verifyAccount']);
+$router->post('/dang-nhap/verify-account/resend', [AuthController::class, 'resendOTP']);
 
 // Route Trang đăng xuất
 $router->post('/dang-xuat', [AuthController::class, 'logout']);
@@ -62,6 +70,7 @@ $router->post('/dang-xuat', [AuthController::class, 'logout']);
 // Route Trang feedback 
 $router->get('/feedback', [FeedbackController::class, 'feedback'], [AuthMiddleware::class]);
 $router->post('/feedback', [FeedbackController::class, 'handleFeedback'], [AuthMiddleware::class]);
+$router->get('/feedback/answer', [FeedbackController::class, 'feedbackAnswer'], [AuthMiddleware::class]);
 
 // Route trang flash sale
 $router->get('/flash-sale', [FlashSaleController::class, 'index']);

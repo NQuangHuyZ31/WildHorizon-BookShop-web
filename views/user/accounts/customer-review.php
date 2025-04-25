@@ -8,7 +8,7 @@
         <div class="w-full bg-white rounded-md shadow-md pb-4 px-4">
           <div class="p-4">
             <p class="text-lg font-bold text-slate-500">Nhận xét của tôi</p>
-            <div class="mt-3 ">
+            <div class="mt-3 border border-gray-200 rounded-md p-3">
               <p class="text-[14px] text-gray-400 font-semibold">Đánh giá đơn hàng</p>
               <?php if ($order_reviews != null) { ?>
                 <?php foreach ($order_reviews as $review) { ?>
@@ -66,8 +66,32 @@
               <?php } ?>
             </div>
             <?php if ($feedbacks != null) { ?>
-              <div class="mt-3">
-                <p class="text-[14px] text-gray-400 font-semibold">Đánh giá đơn hàng</p>
+              <div class="mt-3 border border-gray-200 rounded-md p-3">
+                <p class="text-[14px] text-gray-400 font-semibold">Các feedback đã được trả lời</p>
+                <?php foreach ($feedbacks as $feedback) { ?>
+                  <div class="border border-gray-200 rounded-md p-2 mt-3">
+                    <p class="text-[14px] text-orange-500"><?php echo date('d-m-Y', strtotime($feedback['created_at'])) ?></p>
+                    <div class="flex items-center text-[13px] p-2">
+                      <p class="text-[13px]">Type:</p><span class="ms-2"><?php echo $feedback['type'] ?></span>
+                    </div>
+                    <div class="flex items-center text-[13px] p-2">
+                      <p class="text-[13px]">Nội dung:</p><span class="ms-2"><?php echo $feedback['content'] ?></span>
+                    </div>
+                    <div class="text-[13px] p-2">
+                      <p class="mb-1">Hình ảnh kèm theo:</p>
+                      <?php if ($feedback['image'] != null) { ?>
+                        <img src="<?php echo $feedback['image'] ?>" data-lity alt=" hình ảnh feedback" class="w-[100px] h-[100px] cursor-pointer">
+                      <?php } else { ?>
+                        <p class="ms-2">Không có hình ảnh kèm theo</p>
+                      <?php } ?>
+                    </div>
+                    <div class="flex justify-end">
+                      <button class="btn-feedback px-3 py-1 border rounded-md text-sm text-gray-600 hover:bg-gray-100" data-id="<?php echo $feedback['feedback_id'] ?>">
+                        <i class="fa-solid fa-circle-check text-green-500 mr-2"></i> Đã phản hồi
+                      </button>
+                    </div>
+                  </div>
+                <?php } ?>
               </div>
             <?php } ?>
           </div>
@@ -86,6 +110,18 @@
       <div class="review-product-content text-[14px] text-gray-400 mt-2">
         <p class="text-center">Feekback đã gửi</p>
       </div>
+    </div>
+  </div>
+</dialog>
+<!-- Modal feedback answer -->
+<dialog id="feedback_modal" class="modal">
+  <div class="modal-box ">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <div class="feedback-content w-full">
+      <p>Phản hồi bởi Admin</p>
+      <textarea type="text" placeholder="Viết bình luận của bạn về sản phẩm" class="textarea textarea-info w-full mt-2 textarea-feedback" readonly></textarea>
     </div>
   </div>
 </dialog>

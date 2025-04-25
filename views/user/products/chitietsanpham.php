@@ -13,14 +13,14 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <div class="product-detail-content shadow-sm">
         <div class="bg-white flex flex-col p-4 rounded-md" style="position: sticky;top:16px;">
           <div class="product-detail-image mb-2 mx-auto">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="w-full h-full" alt="product-image">
+            <img src="<?php echo $product['product_image'] ?>" class="w-full h-full" alt="product-image">
           </div>
           <div class="flex justify-around shadow-sm">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
           </div>
           <div class="flex py-5 justify-between">
             <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
@@ -114,7 +114,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <p class="font-bold mr-3">Ưu dãi liên quan</p>
             <div class="text-blue-500 cursor-pointer flex text-sm">
               <p class="mr-3">Xem thêm</p>
-              <div style="width: 16px;height: 16px;background: url('https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_seemore_blue.svg');background-repeat: no-repeat;margin-top: 2px;"></div>
+              <div style="width: 16px;height: 16px;background: url('https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg');background-repeat: no-repeat;margin-top: 2px;"></div>
             </div>
           </div>
           <div class="flex items-center mt-3">
@@ -220,7 +220,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                 <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                   <div class="whr-product-img py-2">
-                    <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                    <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                   </div>
                   <div class="px-2 mt-2 pb-3">
                     <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
@@ -252,7 +252,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
             <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
               <div class="whr-product-img py-2">
-                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
               </div>
               <div class="px-2 mt-2 pb-3">
                 <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>

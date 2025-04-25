@@ -72,7 +72,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                   <div class="flex justify-between items-center mb-4">
                     <div class="flex items-center space-x-4">
                       <img
-                        src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $item['product_image'] ?>"
+                        src="<?php echo $item['product_image'] ?>"
                         class="w-16 h-16 object-cover rounded"
                         alt="product">
                       <div class="flex-1">

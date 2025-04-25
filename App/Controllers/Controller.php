@@ -41,7 +41,7 @@ class Controller
           'msg' => 'Lỗi xác thực CSRF'
         ],
         'token' => $csrf_token
-      ], 405);
+      ], 400);
     }
   }
 }

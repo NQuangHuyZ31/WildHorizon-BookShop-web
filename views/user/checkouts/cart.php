@@ -31,7 +31,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                     </div>
                     <div class="ms-3 align-middle">
                       <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
-                        <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
+                        <img src="<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
                       </a>
                     </div>
                     <div class="flex items-start ms-3 text-sm" style="width: 328px;">
@@ -94,7 +94,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
       <?php } else { ?>
         <div class="mt-4 bg-white flex flex-col justify-center p-5 items-center ">
           <div class="mb-3">
-            <img src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg" alt="no-product-image">
+            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="no-product-image">
           </div>
           <p class="mb-4 text-sm text-gray-400">Chưa có sản phẩm trong giỏ hàng của bạn</p>
           <div class="mb-3" style="width: 220px;height: 40px;">
@@ -129,7 +129,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
         <a href="<?php echo  '/WildHorizon-BookShop/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
           <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
             <div class="whr-product-img py-2">
-              <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+              <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
             </div>
             <div class="px-2 mt-2 pb-3">
               <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>

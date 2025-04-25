@@ -109,7 +109,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               <div class="border border-gray-300 rounded-md flex items-center justify-between p-3 mb-3">
                 <div class="flex items-center">
                   <div class="order_detail_img p-1 flex items-center justify-center w-[100px] h-[100px]">
-                    <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $order_detail['product_image'] ?>" alt="" class="max-h-full max-w-full object-contain">
+                    <img src="<?php echo $order_detail['product_image'] ?>" alt="" class="max-h-full max-w-full object-contain">
                   </div>
                   <div class="flex h-full flex-col text-sm text-gray-600 leading-3">
                     <p class="px-1 font-semibold w-[75%] leading-5"><?php echo $order_detail['product_name'] ?></p>

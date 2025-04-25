@@ -139,7 +139,7 @@ $(document).ready(function () {
                                 <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
                                   <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content main-product-content">
                                     <div class="whr-product-img py-2 main-img-product">
-                                      <img src="${response.url}/Public/upload/products/${product.product_image}" class="w-full h-full" alt="image">
+                                      <img src="${product.product_image}" class="w-full h-full" alt="image">
                                     </div>
                                     <div class="px-2 mt-2">
                                       <p class="product-title text-sm">${product.product_name}</p>
@@ -162,7 +162,7 @@ $(document).ready(function () {
                                                     : new Intl.NumberFormat('vi').format(product.discount_price)
                                             }%</span>
                                           </p>
-                                          <img src="/WildHorizon-BookShop/Public/images/icon/label-flashsale.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
+                                          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
                                               product.f_quantity > 0 ? '' : 'hidden'
                                           }">
                                         </div>

@@ -180,7 +180,7 @@ h6 {
     width: 230px !important;
 }
 .download-app-content {
-    background-image: url(https://img.lazcdn.com/g/tps/imgextra/i2/O1CN01tceZus1IewufOY1tZ_!!6000000000919-2-tps-364-316.png);
+    background-image: url(https://res.cloudinary.com/whr-clound/image/upload/v1745418405/bblpm8x0dipbf5ytvg0p.png);
     background-repeat: no-repeat;
     background-size: 100% auto;
     height: 143px;
@@ -195,14 +195,14 @@ h6 {
 }
 .download-app-appstore,
 .download-app-ggplay {
-    background-image: url(https://img.lazcdn.com/g/tps/imgextra/i4/O1CN01uAl8kB1wEv2DNjdhB_!!6000000006277-2-tps-125-36.png);
+    background-image: url(https://res.cloudinary.com/whr-clound/image/upload/v1745418461/f3cwjo8pxqsli3yuie1p.png);
     background-size: 100% auto;
     height: 24px;
     width: 83px;
 }
 
 .download-app-ggplay {
-    background-image: url(https://img.lazcdn.com/g/tps/imgextra/i1/O1CN01QJGFfc1S0mKngu4rQ_!!6000000002185-2-tps-125-36.png);
+    background-image: url(https://res.cloudinary.com/whr-clound/image/upload/v1745418457/lyl5wgqgrtxm55vchepf.png);
 }
 
 /* LOGIN */
@@ -213,7 +213,7 @@ h6 {
 .login-content,
 .register-content {
     min-height: 100vh;
-    background-image: url(https://cdn.dribbble.com/userupload/6508149/file/original-c4197a5bf25a4356aa2bac6f82073eb2.jpg?resize=752x&vertical=center);
+    background-image: url(https://res.cloudinary.com/whr-clound/image/upload/v1745418551/fle1ah8qy99bnsjrksxr.jpg);
     height: 100%;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -347,14 +347,14 @@ h6 {
 .supplier-unchecked,
 .brand-unchecked,
 .color-unchecked {
-    background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_uncheck.png') 0 50% no-repeat;
+    background: transparent url('https://res.cloudinary.com/whr-clound/image/upload/v1745418342/znvb4qua4sombvx1fqww.webp') 0 50% no-repeat;
 }
 
 .price-checked,
 .supplier-checked,
 .brand-checked,
 .color-checked {
-    background: transparent url('https://cdn0.fahasa.com/skin/frontend/base/default/images/manapro_filtercheckboxes/ico_checked.png') 0 50% no-repeat;
+    background: transparent url('https://res.cloudinary.com/whr-clound/image/upload/v1745418339/wdrfoh6n7vpdvewy2m5m.webp') 0 50% no-repeat;
 }
 
 /* Chi tiết sản phẩm */
@@ -377,7 +377,7 @@ h6 {
 }
 
 .product-suggest {
-    background: url('https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/banner_personalization.png');
+    background: url('https://res.cloudinary.com/whr-clound/image/upload/v1745418288/pl8v0ybml5jl2mhpetqn.webp');
     background-repeat: no-repeat;
     background-size: 100%;
     padding: 8px;

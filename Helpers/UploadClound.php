@@ -23,7 +23,7 @@ class UploadClound
     ]);
 
     $data = (new UploadApi())->upload($file, [
-      'public_id' => 'whr_images/' . $folder . '/' . $path . '',
+      'public_id' =>  $path,
       'folder' => 'whr_images/' . $folder . ''
     ]);
 

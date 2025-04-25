@@ -14,7 +14,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white mb-3">
             <div class="flex flex-col ">
               <div class="whr-product-img py-2">
-                <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
+                <img src="<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
               </div>
               <div class="flash-sale-product mt-1 mx-2">
                 <p class="text-sm flash-sale-product-title"><?php echo $fs_product['product_name'] ?></p>

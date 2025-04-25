@@ -1,5 +1,6 @@
 <?php
 
+use Core\CSRF;
 use Core\Session;
 
 if (Session::has('user') && Session::get('user')['role'] == 'customer') {
@@ -19,6 +20,7 @@ $email = $data['email'] ?? '';
 Core\Session::delete('data');
 
 // Tạo token
+CSRF::destroyToken();
 $csrf_token = Core\CSRF::generateToken();
 ?>
 
@@ -35,7 +37,6 @@ $csrf_token = Core\CSRF::generateToken();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/fontawesome/css/fontawesome.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
   <link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
@@ -57,7 +58,7 @@ $csrf_token = Core\CSRF::generateToken();
             </div>
           </div>
           <div class="px-9">
-            <form action="<?php echo BASE_URL . '/dang-ky' ?>" method="post">
+            <form id="form-signup" action="<?php echo BASE_URL . '/dang-ky' ?>" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
               <div class="py-1 mb-1">
                 <label class="block">
@@ -90,7 +91,7 @@ $csrf_token = Core\CSRF::generateToken();
               <div class="py-1 mb-1">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-500 ms-2">
-                    Password
+                    Mật khẩu
                   </span>
                   <div class="relative">
                     <input type="password"
@@ -117,10 +118,10 @@ $csrf_token = Core\CSRF::generateToken();
               <div class="py-1 mb-1">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-500 ms-2">
-                    Confirm Password
+                    Nhập lại mật khẩu
                   </span>
                   <div class="relative">
-                    <input type="password" id="whr-login-cfpassword" name="cfpassword" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Please enter your confirm password" />
+                    <input type="password" id="whr-login-cfpassword" name="cfpassword" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Nhập lại mật khẩu" />
 
                     <div class="whr-show-hidden-pw-icon flex z-50">
                       <div class="cursor-pointer flex items-center justify-center" style="width: 24px;height: 24px;" id="togglePassword">
@@ -141,27 +142,29 @@ $csrf_token = Core\CSRF::generateToken();
               <div class="flex justify-start my-1 pb-4">
                 <label for="example-checkbox" class="inline-flex items-center space-x-2">
                   <input type="checkbox" id="example-checkbox" class="form-checkbox h-3 w-3 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500" checked>
-                  <span class="text-gray-400 text-sm">I agree to the terms and conditions</span>
+                  <span class="text-gray-400 text-sm">Tôi đồng ý với các điều khoản và điều kiện</span>
                 </label>
               </div>
               <div class="bg-purple-500 p-2 text-center rounded-full">
-                <button type="submit" class="uppercase font-bold text-white w-full">register</button>
+                <button type="button" class="uppercase font-bold text-white w-full" id="btn-signup">Đăng ký</button>
               </div>
             </form>
           </div>
           <div class="flex justify-center mt-3">
-            <span class="text-sm text-gray-400">I have an account? <a href="<?php echo BASE_URL . '/dang-nhap' ?>" class="text-sky-500">Sign in</a></span>
+            <span class="text-sm text-gray-400">Bạn đã có tài khoản? <a href="<?php echo BASE_URL . '/dang-nhap' ?>" class="text-sky-500">Đăng nhập ngay</a></span>
           </div>
           <div class="flex flex-col items-center mt-3 pb-3">
-            <span class="text-gray-400 text-sm">Or, log in with</span>
+            <span class="text-gray-400 text-sm">Hoặc, đăng nhập với</span>
             <div class="flex justify-center mt-3">
               <div class="flex items-center text-sm text-gray-500 mr-4 cursor-pointer">
-                <img src="./Public/images/icon/google-logo-6278331_960_720.webp" alt="" style="width: 22px;height: 22px;">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/ax1vudmlwi60dp4wqjaf.webp" alt="" style="width: 22px;height: 22px;">
                 <span class="ms-2">Google</span>
               </div>
               <div class="flex items-center text-sm text-gray-500 cursor-pointer">
-                <img src="./Public/images/icon/2023_Facebook_icon.svg.png" alt="" style="width: 22px;height: 22px;">
-                <span class="ms-2">Facebook</span>
+                <a href="<?php echo BASE_URL ?>/dang-nhap/facebook" class="flex items-center">
+                  <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/js8t7yjmysggys22xrpg.png" alt="" style="width: 22px;height: 22px;">
+                  <span class="ms-2">Facebook</span>
+                </a>
               </div>
             </div>
           </div>
@@ -169,12 +172,12 @@ $csrf_token = Core\CSRF::generateToken();
       </div>
     </div>
   </div>
-  <script src="<?php echo BASE_URL ?>/Public/fontawesome/js/all.min.js"></script>
+  <script src="https://kit.fontawesome.com/3991b54e5c.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="<?php echo BASE_URL ?>/Public/js/bootstrap.bundle.min.js"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/app.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>

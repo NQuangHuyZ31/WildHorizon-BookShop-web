@@ -110,7 +110,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
                         <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img class="w-full h-full lazyload" data-src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $fproduct['product_image'] ?>" alt="sanpham">
+                                <img class="w-full h-full lazyload" data-src="<?php echo $fproduct['product_image'] ?>" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
                                 <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
@@ -137,7 +137,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
                         <div class="w-full">
                             <div class="whr-category py-1">
-                                <img data-src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full lazyload">
+                                <img data-src="<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full lazyload">
                             </div>
                             <div class="whr-category-title mb-2">
                                 <p class="text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
@@ -156,7 +156,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
-                                <img data-src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full lazyload" alt="image">
+                                <img data-src="<?php echo $product['product_image'] ?>" class="w-full h-full lazyload" alt="image">
                             </div>
                             <div class="px-2 mt-2 pb-3">
                                 <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>

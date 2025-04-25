@@ -63,21 +63,21 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <div class="flex items-center">
         <label class="text-sm flex items-center cursor-pointer">
           <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="Tiền mặt" checked>
-          <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_cashondelivery.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
+          <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417547/jtaerq0bcxjrnnp7fnwg.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán sau khi nhận hàng</p>
         </label>
       </div>
       <div class="flex items-center">
         <label class="text-sm flex items-center cursor-pointer">
           <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="VNPAY">
-          <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_zalopayatm.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
+          <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417656/wytvfotat2mk3kbqhfit.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán qua VNPAY</p>
         </label>
       </div>
       <div class="flex items-center">
         <label class="text-sm flex items-center cursor-pointer">
           <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="MoMo">
-          <p class="mr-2" style="background: url(https://cdn0.fahasa.com/skin/frontend/base/default/images/payment_icon/ico_momopay.svg?q=10884) no-repeat center center;width: 40px;height: 40px;"></p>
+          <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417655/mlicklrqbxcvguevagbq.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán qua ví momo</p>
         </label>
       </div>
@@ -87,7 +87,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <?php foreach ($cartItems as $item) { ?>
         <div class="mt-3 flex">
           <div class="checkout-product-image p-1">
-            <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $item['product_image'] ?>" alt="" class="h-full mx-auto" width="80">
+            <img src="<?php echo $item['product_image'] ?>" alt="" class="h-full mx-auto" width="80">
           </div>
           <div class="checkout-product-title ms-4 pt-2 text-sm">
             <p><?php echo $item['product_name'] ?></p>

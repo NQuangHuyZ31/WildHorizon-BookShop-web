@@ -1,9 +1,11 @@
 <?php
 
+use Core\CSRF;
 use Core\Session;
 
 $user = Session::has('user') ? Session::get('user') : [];
 Session::set('current_url', $_SERVER['REQUEST_URI']);
+CSRF::destroyToken();
 $csrf_token = Core\CSRF::generateToken();
 // var_dump($_SESSION);
 ?>
@@ -24,6 +26,7 @@ $csrf_token = Core\CSRF::generateToken();
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/lity.min.css?v=<?php echo rand() ?>">
   <!-- <link rel="stylesheet" href="./Public/css/bootstrap.min.css"> -->
   <link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
   <title>WildHorizon BookShop</title>
@@ -32,8 +35,8 @@ $csrf_token = Core\CSRF::generateToken();
 <body style="background-color: #f5f5f5;">
   <?php if (isset($homePage)) { ?>
     <div class=" banner-top w-screen bg-banner-top py-2" style="height: 80px;">
-      <div class="flex align-middle relative h-full">
-        <img class="mx-auto" src="<?php echo BASE_URL ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top">
+      <div class="flex align-middle relative h-full" style="background: url(<?php echo BASE_URL ?>/Public/images/DESK.gif); background-repeat: no-repeat;">
+        <!-- <img class="mx-auto" src="<?php echo BASE_URL ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top"> -->
       </div>
       <div class="absolute z-50 cursor-pointer hover:opacity-60" style="top: 15px;right: 10%" id="banner-top-ee">
         <i class="fa-solid fa-xmark text-lg text-white"></i>

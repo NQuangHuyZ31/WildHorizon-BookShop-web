@@ -1,6 +1,16 @@
 <?php
 require_once 'Config/config.php';
 // Autoloader để tự động tải class
+
+// ob_start(); // Bắt đầu output buffering
+
+// Ẩn các lỗi Deprecated, Notice, Warning
+// error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_WARNING);
+// ini_set('display_errors', 0); // Ngăn lỗi in ra màn hình
+
+// Nếu cần log lỗi, bật log riêng (tùy chọn)
+// ini_set('log_errors', 1);
+// ini_set('error_log', '' . BASE_URL . '/data.log'); // Thư mục log tùy bạn
 ini_set('error_reporting', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

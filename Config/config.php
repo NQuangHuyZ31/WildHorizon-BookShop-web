@@ -19,3 +19,8 @@ define('PAYMENT_KEY', 'wildhorizonpaymentVNPAY');
 
 define('SERECT_KEY_VNPAY', 'GDOM6F49SA65N5MHQELXEOKP6VQH61I4');
 define('SERECT_APP_VNPAY', 'YNFMLF2Q');
+
+// FB
+define('ID_APP_FB', '1610336829678789');
+define('SERECT_KEY_APP', '55cc4888004c9b92b4b28e33e250def5');
+define('PW_DEFAULT', 'NQH@@123@@zz456@@');

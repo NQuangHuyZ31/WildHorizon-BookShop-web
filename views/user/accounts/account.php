@@ -11,7 +11,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
       <div class="flex-1 ms-4">
         <div class="w-full bg-white rounded-md shadow-md pb-4">
           <div class="img-account-content">
-            <img src="<?php echo BASE_URL ?>/Public/images/banner-book.jpg" alt="" class="w-full h-full rounded-md">
+            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745418122/twahnebk6fnag8thhydz.png" alt="" class="w-full h-full rounded-md">
           </div>
           <div class="flex justify-between px-4 mt-2 w-full">
             <div class="bg-white rounded-md shadow-lg mx-2 w-1/2 p-4 border border-gray-100">

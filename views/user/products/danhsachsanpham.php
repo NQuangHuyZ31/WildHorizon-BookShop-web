@@ -22,7 +22,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
               <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content main-product-content">
                 <div class="whr-product-img py-2 main-img-product">
-                  <img src="<?php echo BASE_URL ?>/Public/upload/products/<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+                  <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                 </div>
                 <div class="px-2 mt-2">
                   <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
