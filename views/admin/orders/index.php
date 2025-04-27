@@ -145,6 +145,9 @@ $messge = Session::get('message') ?? [];
         if (messge.success) {
             toastr.success(messge.success);
         }
+        else if (messge.error) {
+            toastr.error(messge.error);
+        }
     </script>
     <?php
     Session::delete('message');
