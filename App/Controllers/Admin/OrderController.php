@@ -116,6 +116,24 @@ class OrderController extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = $_POST['status'] ?? null;
 
+            // Lấy trạng thái hiện tại của đơn hàng
+            $query = "SELECT status FROM orders WHERE id = :order_id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
+            $stmt->execute();
+            $currentStatus = $stmt->fetch(\PDO::FETCH_ASSOC)['status'];
+
+            // Nếu đơn đã "Đã giao hàng", thì không cho cập nhật nữa
+            if ($currentStatus === 'Đã giao hàng') {
+                Session::set('message', [
+                    'error' => 'Đơn hàng đã giao thành công, không thể thay đổi trạng thái!'
+                ]);
+                $page = $_POST['page'] ?? 1;
+                header("Location: " . BASE_URL . "/admin/orders?page=" . $page);
+                exit;
+            }
+
+            // Nếu chưa "Đã giao", cho phép cập nhật
             $updateQuery = "UPDATE orders SET status = :status WHERE id = :order_id";
             $stmt = $this->db->prepare($updateQuery);
             $stmt->bindParam(':status', $status, \PDO::PARAM_STR);
@@ -126,10 +144,10 @@ class OrderController extends Controller
                     'success' => 'Cập nhật trạng thái đơn hàng thành công!'
                 ]);
             } else {
-                echo "Đã xảy ra lỗi khi Cập nhật trạng thái đơn hàng.";
+                echo "Đã xảy ra lỗi khi cập nhật trạng thái đơn hàng.";
             }
 
-            $page = $_POST['page'];
+            $page = $_POST['page'] ?? 1;
             header("Location: " . BASE_URL . "/admin/orders?page=" . $page);
             exit;
         }

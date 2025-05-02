@@ -86,12 +86,18 @@ class SupplierController extends Controller
 
         if (empty($phone)) {
             $errors['phone'] = 'Số điện thoại không được để trống!';
+        } elseif (!preg_match('/^(0|\+84)[0-9]{9}$/', $phone)) {
+            $errors['phone'] = 'Số điện thoại không hợp lệ! Định dạng đúng: 0XXXXXXXXX hoặc +84XXXXXXXXX';
         }
-
-        if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        
+        if (empty($email)) {
+            $errors['email'] = 'Email không được để trống!';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Email không hợp lệ!';
+        } elseif (!preg_match('/^[\w\.-]+@[\w\.-]+\.[a-zA-Z]{2,6}$/', $email)) {
+            $errors['email'] = 'Email không đúng định dạng!';
         }
-
+    
         if (empty($address)) {
             $errors['address'] = 'Địa chỉ không được để trống!';
         }

@@ -61,7 +61,7 @@ class CatalogController extends Controller
             $catalog_image = $_FILES['catalog_image'] ?? null;
 
             // Kiểm tra lỗi trên các trường
-            $errors = $this->validateCatalogData($catalog_name, $description, $catalog_image);
+            $errors = $this->validateCatalogData($catalog_name, $catalog_image);
 
             // Nếu không có lỗi, lưu danh mục
             if (empty($errors)) {
@@ -76,7 +76,7 @@ class CatalogController extends Controller
     }
 
 
-    private function validateCatalogData($catalog_name, $description, $catalog_image, $currentImage = null)
+    private function validateCatalogData($catalog_name, $catalog_image, $currentImage = null)
     {
         $errors = [];
 
@@ -85,12 +85,8 @@ class CatalogController extends Controller
             $errors['catalog_name'] = 'Tên danh mục không được để trống.';
         }
 
-        // Kiểm tra mô tả
-        if (empty($description)) {
-            $errors['description'] = 'Mô tả không được để trống.';
-        }
         // Kiểm tra hình ảnh
-        if ($catalog_image && $catalog_image['error'] === UPLOAD_ERR_NO_FILE) {
+        if (!isset($catalog_image) || $catalog_image['error'] === UPLOAD_ERR_NO_FILE) {
             // Nếu không tải ảnh lên mới, thì không báo lỗi
             if (empty($currentImage)) {
                 $errors['catalog_image'] = 'Vui lòng tải lên hình ảnh.';
@@ -237,18 +233,13 @@ class CatalogController extends Controller
         return $stmt->fetch(\PDO::FETCH_ASSOC); // Trả về dữ liệu của danh mục dưới dạng mảng kết hợp
     }
 
-    public function validateUpdateCatalogData($catalog_name, $description, $catalog_image, $currentImage = null)
+    public function validateUpdateCatalogData($catalog_name, $catalog_image, $currentImage = null)
     {
         $errors = [];
 
         // Kiểm tra tên danh mục
         if (empty($catalog_name)) {
             $errors['catalog_name'] = 'Tên danh mục không được để trống.';
-        }
-
-        // Kiểm tra mô tả
-        if (empty($description)) {
-            $errors['description'] = 'Mô tả không được để trống.';
         }
 
         // Kiểm tra hình ảnh
@@ -283,7 +274,7 @@ class CatalogController extends Controller
             $catalog_name = $_POST['catalog_name'] ?? '';
             $description = $_POST['description'] ?? '';
             $catalog_image = $_FILES['catalog_image'] ?? null;
-            $errors = $this->validateUpdateCatalogData($catalog_name, $description, $catalog_image);
+            $errors = $this->validateUpdateCatalogData($catalog_name, $catalog_image);
 
             // Nếu không có lỗi, cập nhật danh mục
             if (empty($errors)) {

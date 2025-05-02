@@ -73,7 +73,7 @@
                                 <?php endif; ?>
                             </div>
                             <button type="button" id="add-attribute" class="bg-green-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-green-600">
-                                + Thêm thuộc tính
+                                + Thêm cặp thuộc tính
                             </button>
                         </div>
 
