@@ -5,18 +5,17 @@ use Helpers\CreateSlug;
 use Helpers\Format;
 
 $csrf_token = Core\CSRF::generateToken();
-
+// var_dump($_SESSION);
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <!-- Content -->
 <div class="container-fuild mx-auto mb-2">
     <div class="flex w-100 justify-between">
-        <div class="single-item shadow-lg">
+        <div class="single-item shadow-lg flex-1">
             <div class="single-item">
-                <img src="<?php echo BASE_URL ?>/Public/images/banners/d24973d8-8df9-4de1-8c8d-58d338c3cac3_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="<?php echo BASE_URL ?>/Public/images/banners/a127309c-7b2b-412f-981a-6533901d5bc6_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="<?php echo BASE_URL ?>/Public/images/banners/b4ff1157-8492-4483-9a62-acbcc7c3a9b5_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
-                <img src="<?php echo BASE_URL ?>/Public/images/banners/ac103e8c-7045-4f75-a36a-38b490b3fe9f_VN-1976-688.jpg_2200x2200q80.jpg" alt="">
+                <?php foreach ($banners as $banner) { ?>
+                    <img src="<?php echo $banner['image'] ?>" alt="banner_ads">
+                <?php } ?>
             </div>
         </div>
         <div class="flex px-1 flex-col ms-2">

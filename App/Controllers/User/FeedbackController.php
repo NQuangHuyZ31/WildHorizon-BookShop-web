@@ -12,6 +12,8 @@ use Helpers\UploadClound;
 
 class FeedbackController extends Controller
 {
+
+  protected $page = 'Góp ý';
   protected $feedback;
   protected $feedback_answer;
 
@@ -24,6 +26,7 @@ class FeedbackController extends Controller
 
   public function feedback()
   {
+    $pageName = $this->page;
 
     $nosearch = true;
 

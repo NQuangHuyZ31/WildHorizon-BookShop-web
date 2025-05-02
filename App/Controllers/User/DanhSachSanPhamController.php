@@ -13,6 +13,7 @@ use Core\Response;
 class DanhSachSanPhamController extends Controller
 {
 
+  protected $page = 'Sản phẩm';
   protected $product;
   protected $categories;
   protected $brands;
@@ -33,6 +34,9 @@ class DanhSachSanPhamController extends Controller
 
   public function index()
   {
+
+    $pageName = $this->page;
+
     $primaryProduct = true;
 
     $categories = $this->categories->getAll();

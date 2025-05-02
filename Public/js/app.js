@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
         positionClass: 'toast-bottom-right',
         preventDuplicates: false,
         onclick: null,
-        showDuration: '1500',
-        hideDuration: '1500',
-        timeOut: '1500',
-        extendedTimeOut: '1500',
+        showDuration: '2000',
+        hideDuration: '2000',
+        timeOut: '2000',
+        extendedTimeOut: '2000',
         showEasing: 'swing',
         hideEasing: 'linear',
         showMethod: 'fadeIn',
@@ -42,7 +42,7 @@ $(document).ready(function () {
     let URL_GETMORE_PRODUCT_HOMEPAGE = baseURL + '/product/loadmore';
     let URL_GETMORE_FS_PRODUCT_HOMEPAGE = baseURL + '/loadmorefs';
     let URL_FEEDBACK = baseURL + '/feedback';
-    let URL_RESEND_VERIFY_ACCOUNT = baseURL + '/dang-nhap/verify-account/resend';
+    let URL_RESEND_VERIFY_ACCOUNT = baseURL + '/dang-ky/verify-account/resend';
 
     // Ẩn banner top
     $('#banner-top-ee').click(function () {

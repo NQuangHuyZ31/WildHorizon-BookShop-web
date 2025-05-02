@@ -3,6 +3,7 @@
 namespace App\Controllers\User;
 
 use App\Controllers\Controller;
+use App\Models\BannerAdvertising;
 use App\Models\Categories;
 use App\Models\FlashSales;
 use App\Models\Products;
@@ -11,10 +12,10 @@ use Core\Log;
 
 class HomeController extends Controller
 {
-
-    public $fs;
-    public $categories;
-    public $product;
+    protected $fs;
+    protected $categories;
+    protected $product;
+    protected $banner_ads;
 
     public function __construct()
     {
@@ -23,17 +24,22 @@ class HomeController extends Controller
         $this->fs = new FlashSales();
         $this->product = new Products();
         $this->categories = new Categories();
+        $this->banner_ads = new BannerAdvertising();
     }
 
     public function index()
     {
         $homePage = true;
 
+        $pageName = 'WildHorizonBS - Nhà sách trực tuyến';
+
         $flassale_products = $this->fs->getLimit(6, 0);
 
         $categories = $this->categories->getAll();
 
         $products = $this->product->loadMoreProduct(10, 0, 0);
+
+        $banners = $this->banner_ads->getActive();
         // $url = "http://localhost/WildHorizon-BookShop/v1/api/login";
         // $data = ['username' => 'admin', 'password' => '12345'];
         // $user = FetchAPI::fetchAPI($url, 'POST', $data);

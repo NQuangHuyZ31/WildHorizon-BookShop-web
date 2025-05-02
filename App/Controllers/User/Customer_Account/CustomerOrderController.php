@@ -13,6 +13,8 @@ use Core\Session;
 
 class CustomerOrderController extends CustomerController
 {
+
+  protected $page = 'Đơn hàng của tôi';
   protected $user;
   protected $order;
   protected $order_detail;
@@ -32,7 +34,7 @@ class CustomerOrderController extends CustomerController
 
   public function index()
   {
-
+    $pageName = $this->page;
     $customer = $this->customer;
     // Lọc theo trạng thái
     if (isset($_GET['type']) && $_GET['type'] != 'all') {
@@ -73,8 +75,9 @@ class CustomerOrderController extends CustomerController
   // Hiển thị order detail
   public function showOrderDetailPage($orderID)
   {
-    $customer = $this->customer;
+    $pageName = $this->page;
 
+    $customer = $this->customer;
     $step_line = '';
 
     $order = $this->order->getOrderByID($orderID, $customer['id']);

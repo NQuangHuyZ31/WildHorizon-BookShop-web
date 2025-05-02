@@ -13,6 +13,7 @@ use App\Models\Supplier;
 class CategoryController extends Controller
 {
 
+  protected $page = 'Sản phẩm';
   protected $product;
   protected $categories;
   protected $brands;
@@ -31,6 +32,7 @@ class CategoryController extends Controller
 
   public function index($slug, $id)
   {
+    $pageName = $this->page;
 
     $slug = $slug;
 

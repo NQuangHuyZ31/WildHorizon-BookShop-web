@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\Admin\BannerAdvertistingController;
 use Core\Router;
 
 // API Controller
@@ -37,6 +38,7 @@ use App\Controllers\User\Customer_Account\CustomerSpecialEventController;
 use App\Controllers\User\Customer_Account\CustomerVoucherController;
 use App\Controllers\User\Customer_Account\CustomerWishListController;
 use App\Controllers\User\LoginFacebookController;
+use App\Middleware\AuthAdminMiddleware;
 // User Middleware
 use App\Middleware\AuthMiddleware;
 use App\Middleware\BlockMiddleware;
@@ -60,9 +62,9 @@ $router->get('/fb-callback', [LoginFacebookController::class, 'handleFacebookCal
 // Route đến trang đăng ký
 $router->get('/dang-ky', [AuthController::class, 'register']);
 $router->post('/dang-ky', [AuthController::class, 'handleRegister']);
-$router->get('/dang-ky/verify-account', [AuthController::class, 'showVerifyAccount'], [BlockMiddleware::class]);
+$router->get('/dang-ky/verify-account', [AuthController::class, 'showVerifyAccount']);
 $router->post('/dang-ky/verify-account', [AuthController::class, 'verifyAccount']);
-$router->post('/dang-nhap/verify-account/resend', [AuthController::class, 'resendOTP']);
+$router->post('/dang-ky/verify-account/resend', [AuthController::class, 'resendOTP']);
 
 // Route Trang đăng xuất
 $router->post('/dang-xuat', [AuthController::class, 'logout']);
@@ -99,6 +101,8 @@ $router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity
 // Route đến trang checkout
 $router->post('/checkout/process', [CheckoutController::class, 'chekoutProcess'], [AuthMiddleware::class]);
 $router->get('/checkout', [CheckoutController::class, 'index']);
+$router->post('/checkout/addnewaddress', [CheckoutController::class, 'addNewAddressCheckout']);
+$router->post('/checkout/getaddress', [CheckoutController::class, 'getAddressCheckout']);
 $router->post('/saveorder', [CheckoutController::class, 'checkout']);
 $router->post('/checkout/vnpay/checkout_again/{id}', [CheckoutController::class, 'vnPayCheckoutAgain'], [AuthMiddleware::class]);
 $router->get('/checkout/vnpay/return', [CheckoutController::class, 'vnPayReturn'], [AuthMiddleware::class]);
@@ -143,6 +147,15 @@ $router->get('/dashboard', [DashboardController::class, 'index']);
 
 // Route đăng xuất
 $router->get('/admin/logout', [DashboardController::class, 'logout']);
+
+// Route đến quản lí banner quảng cáo
+$router->get('/admin/banner', [BannerAdvertistingController::class, 'index'], [AuthAdminMiddleware::class]);
+$router->get('/admin/banner/create', [BannerAdvertistingController::class, 'showCreateBannerPage'], [AuthAdminMiddleware::class]);
+$router->post('/admin/banner/create', [BannerAdvertistingController::class, 'createBanner'], [AuthAdminMiddleware::class]);
+$router->get('/admin/banner/edit/{id}', [BannerAdvertistingController::class, 'showEditBannerPage'], [AuthAdminMiddleware::class]);
+$router->post('/admin/banner/edit', [BannerAdvertistingController::class, 'updateBanner'], [AuthAdminMiddleware::class]);
+$router->post('/admin/banner/changestatus', [BannerAdvertistingController::class, 'changeStatusBanner'], [AuthAdminMiddleware::class]);
+$router->post('/admin/banner/delete', [BannerAdvertistingController::class, 'deleteBanner'], [AuthAdminMiddleware::class]);
 
 // Route quản trị sản phẩm
 $router->get('/admin/products', [ProductController::class, 'getAllProducts']);

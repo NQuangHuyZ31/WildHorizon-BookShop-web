@@ -15,6 +15,8 @@ use Helpers\Redirect;
 
 class CustomerChangePasswordController extends CustomerController
 {
+
+  protected $page = 'Thay đổi mật khẩu';
   protected $user;
   protected $optVerify;
   public function __construct()
@@ -27,6 +29,7 @@ class CustomerChangePasswordController extends CustomerController
   public function index()
   {
 
+    $pageName = $this->page;
     $customer = $this->customer;
     Session::delete('data');
     require_once VIEW_PATH . 'user/accounts/changepassword/customer-changepw.php';
@@ -100,7 +103,7 @@ class CustomerChangePasswordController extends CustomerController
   // Hiển thị trang verify
   public function showChangePWVerifyPage()
   {
-
+    $pageName = $this->page;
     $customer = $this->customer;
     if (!Session::has('data')) {
       header('location: ' . BASE_URL . '/customer/changepassword');

@@ -4,6 +4,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/lity.min.css?v=<?php echo rand() ?>">
+<!-- <link rel="stylesheet" href="./Public/css/bootstrap.min.css"> -->
+<link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
 <style>
     body::-webkit-scrollbar {
         display: none;

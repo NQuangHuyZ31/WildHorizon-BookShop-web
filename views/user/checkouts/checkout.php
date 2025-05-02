@@ -11,36 +11,42 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
   <div class="container-fuild mx-auto pb-5">
     <div class="bg-white w-full px-4 py-2 mt-3">
       <p class="text-lg uppercase font-bold py-2 border-b">Địa chỉ giao hàng</p>
-      <div class="mt-2 flex items-center">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Họ và tên người nhận</label>
-        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="fullname" value="<?php echo $customer['username'] ?>" required>
-      </div>
-      <div class="mt-2 flex items-center">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Số điện thoại</label>
-        <input type="text" class="text-sm rounded-md checkout-input focus:border-sky-300 font-bold" name="phone" value="<?php echo $customer['phone'] ? $customer['phone'] : '' ?>" required placeholder="Số điện thoại">
-      </div>
-      <div class="mt-2 flex items-center">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Tỉnh/thành phố</label>
-        <select name="province" id="checkout-province" class="text-sm rounded-md checkout-input focus:border-sky-300" required>
-          <option value="">Chọn tỉnh/thành phố</option>
-        </select>
-      </div>
-      <div class="mt-2 flex items-center">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Quận/Huyện</label>
-        <select name="district" id="checkout-district" class="text-sm rounded-md checkout-input focus:border-sky-300" disabled required>
-          <option value="">Chọn quận/Huyện</option>
-        </select>
-      </div>
-      <div class="mt-2 flex items-center">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Phường/Xã</label>
-        <select name="ward" id="checkout-ward" class="text-sm rounded-md checkout-input focus:border-sky-300" disabled required>
-          <option value="">Chọn phường/xã</option>
-        </select>
-      </div>
-      <div class="mt-2 flex items-center">
-        <label class="text-sm text-slate-500 text-nowrap checkout-label">Địa chỉ nhận hàng</label>
-        <input type="text" name="address" id="checkout-address" class="text-sm rounded-md checkout-input focus:border-sky-300" placeholder="Nhập địa chỉ giao hàng...." required>
-      </div>
+      <?php if ($customerAddress != null) { ?>
+        <div class="mt-3" id="checkout-address">
+          <div class="checkout-address-content">
+            <?php foreach ($customerAddress as $address) { ?>
+              <div class="flex items-center justify-between mb-3">
+                <label class="flex items-center text-[14px] cursor-pointer">
+                  <input
+                    type="radio"
+                    name="checkout-address"
+                    value="<?php echo $address['id'] ?>"
+                    data-id="<?php echo $address['id'] ?>"
+                    class="radio radio-success mr-3"
+                    <?php echo $address['default_address'] == 1 ? 'checked="checked" ' : '' ?> />
+                  <!--  -->
+                  <?php echo $address['username'] ?>
+                  <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
+                  <?php echo $address['address'] ?>, <?php echo $address['ward'] ?>, <?php echo $address['district'] ?>, <?php echo $address['province'] ?>
+                  <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
+                  <?php echo $address['phone'] ?>
+                </label>
+                <div class="text-[14px] flex justify-start w-[100px] font-semibold text-blue-500">
+                  <?php if ($address['default_address'] == 0) {  ?>
+                    <button type="button" class="update-address-checkout">Xóa</button>
+                  <?php } ?>
+                </div>
+              </div>
+            <?php } ?>
+          </div>
+          <div class="cursor-pointer flex items-center add-orther-address">
+            <i class="fa-solid fa-circle-plus text-[18px] text-red-700 mr-3"></i>
+            <p class="text-[14px]">Giao hàng đến địa chỉ khác</p>
+          </div>
+        </div>
+      <?php } else { ?>
+        <?php require_once VIEW_PATH . 'user/checkouts/checkout-new-address.php' ?>
+      <?php } ?>
     </div>
     <div class="bg-white w-full px-4 py-2 mt-3">
       <p class="text-lg uppercase font-bold py-2 border-b">Phương thức vận chuyển</p>
@@ -141,10 +147,26 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <hr>
       <div class="w-full flex justify-end">
         <div class="mt-3 text-white font-bold" style="width: 200px;height: 60px;">
-          <button type="submit" class="p-4 bg-red-700 rounded-md">Xác nhận thanh toán</button>
+          <button type="submit" class="p-4 bg-red-700 rounded-md cursor-pointer user-select-none">Xác nhận thanh toán</button>
         </div>
       </div>
     </div>
   </div>
 </form>
+
+<!-- Modal thêm địa chỉ -->
+<dialog id="checkout_new_address_modal" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <div class="feedback-content w-full">
+      <p class="font-semibold">Thêm địa chỉ nhận hàng</p>
+      <?php require_once VIEW_PATH . 'user/checkouts/checkout-new-address.php' ?>
+      <div class="flex justify-end mt-3">
+        <button type="button" id="checkout-new-address" class="w-[100px] h-[40px] bg-red-700 text-white font-semibold text-[13px] rounded-md">Thêm địa chỉ</button>
+      </div>
+    </div>
+  </div>
+</dialog>
 <?php include_once VIEW_PATH_USER_LAYOUT . 'footer-no-content.php'; ?>

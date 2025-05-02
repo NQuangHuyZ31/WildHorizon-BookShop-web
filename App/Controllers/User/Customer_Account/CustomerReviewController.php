@@ -10,6 +10,8 @@ use Core\Session;
 
 class CustomerReviewController extends CustomerController
 {
+
+  protected $page = 'Nhận xét của tôi';
   protected $order_review;
   protected $product_review;
   protected $feedback;
@@ -24,6 +26,8 @@ class CustomerReviewController extends CustomerController
 
   public function index()
   {
+
+    $pageName = $this->page;
 
     $customer = $this->customer;
 

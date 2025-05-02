@@ -46,13 +46,14 @@ class Cart extends Model
   public function updateQuantity($userID, $productID, $quantity)
   {
 
-    $query = "UPDATE $this->table set quantity = ? where user_id = ? and product_id = ?";
+    $query = "UPDATE $this->table set quantity = ?, updated_at = ? where user_id = ? and product_id = ?";
 
     $stmt = $this->db->prepare($query);
-
+    $updatedAt = date('Y-m-d H:i:s');
     $stmt->bindParam(1, $quantity);
-    $stmt->bindParam(2, $userID);
-    $stmt->bindParam(3, $productID);
+    $stmt->bindParam(2, $updatedAt);
+    $stmt->bindParam(3, $userID);
+    $stmt->bindParam(4, $productID);
 
     $stmt->execute();
   }
@@ -74,7 +75,7 @@ class Cart extends Model
   public function add($userID, $productID, $quantity)
   {
 
-    $query = "INSERT INTO $this->table(user_id,product_id,quantity) values(?,?,?)";
+    $query = "INSERT INTO $this->table(user_id,product_id,quantity,created_at) values(?,?,?,?)";
 
     $stmt = $this->db->prepare($query);
 
@@ -84,17 +85,10 @@ class Cart extends Model
 
     $stmt->bindValue(3, $quantity);
 
+    $stmt->bindValue(4, date('Y-m-d H:i:s'));
+
     $stmt->execute();
   }
-
-  // // Xóa toàn bộ giỏ hàng khi đặt hàng
-  // public function deleteAll($userID)
-  // {
-  //   $query = "DELETE FROM $this->table where user_id = ?";
-  //   $stmt = $this->db->prepare($query);
-  //   $stmt->bindValue(1, $userID, PDO::PARAM_INT);
-  //   $stmt->execute();
-  // }
 
   // Tìm kiếm sản phẩm theo userID và ProductID
   public function checkProductCart($userID, $productID) {}

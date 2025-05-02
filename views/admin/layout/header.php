@@ -1,10 +1,12 @@
 <!-- header.php -->
 <?php
 
+use Core\CSRF;
 use Core\Session;
 
 $admin = Session::get('admin');
-
+CSRF::destroyToken();
+$csrf_token = CSRF::generateToken();
 ?>
 
 <div class="flex justify-between items-center mb-8">

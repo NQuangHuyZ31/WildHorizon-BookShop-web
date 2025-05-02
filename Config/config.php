@@ -17,7 +17,7 @@ define('KEY', 'wildhorizonbookshopwiburomax');
 define('OTP_HASH_KEY', 'wildhorizon@@');
 define('PAYMENT_KEY', 'wildhorizonpaymentVNPAY');
 
-define('SERECT_KEY_VNPAY', 'GDOM6F49SA65N5MHQELXEOKP6VQH61I4');
+define('SERECT_KEY_VNPAY', 'G3V3VIWHEWUICEDYKBEEBTR865QOP8RQ');
 define('SERECT_APP_VNPAY', 'YNFMLF2Q');
 
 // FB

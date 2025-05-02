@@ -86,12 +86,7 @@ class LoginFacebookController extends Controller
     if ($existingUser) {
       if ($existingUser['fb_id'] == $fbUser->getId() || empty($existingUser['fb_id'])) {
         $this->user->updateColumn('fb_id', $fbUser['id'], $existingUser['id']);
-        Session::set('user', [
-          'id' => $existingUser['id'],
-          'username' => $existingUser['username'],
-          'email' => $existingUser['email'],
-          'role' => $existingUser['role'],
-        ]);
+        $this->auth->login($email, PW_DEFAULT);
       }
     } else {
       $dataUser = [

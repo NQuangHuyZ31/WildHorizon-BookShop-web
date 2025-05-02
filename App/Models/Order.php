@@ -72,7 +72,7 @@ class Order extends Model
   public function getSumTotalOrder($userID)
   {
 
-    $query = "SELECT sum(total_price) as totalprice FROM orders WHERE user_id = ? and year(order_date) = year(CURRENT_DATE) and is_payment = 1";
+    $query = "SELECT sum(total_price + shipping_fee) as totalprice FROM orders WHERE user_id = ? and year(order_date) = year(CURRENT_DATE) and is_payment = 1";
 
     $stmt = $this->db->prepare($query);
     $stmt->bindValue(1, $userID, PDO::PARAM_INT);

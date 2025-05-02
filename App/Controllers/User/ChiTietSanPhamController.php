@@ -14,6 +14,7 @@ use App\Models\Reviews;
 class ChiTietSanPhamController extends Controller
 {
 
+  protected $page = '';
   protected $product;
   protected $fs;
   protected $catogory;
@@ -37,7 +38,6 @@ class ChiTietSanPhamController extends Controller
 
   public function index($slug, $id)
   {
-
     $product = $this->product->find($id);
 
     $product_attrs = $this->product_attrs->getProductAttr($id);
@@ -51,6 +51,8 @@ class ChiTietSanPhamController extends Controller
     $moreProducts = $this->product->getMoreProducts($product['catalog_id'], $id);
 
     $suggest_products = $this->product->getSuggestproduct(15);
+
+    $pageName = $this->page . $product['product_name'];
 
     require VIEW_PATH . 'user/products/chitietsanpham.php';
 

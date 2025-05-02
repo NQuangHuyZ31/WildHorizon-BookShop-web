@@ -14,8 +14,8 @@ class CartController extends Controller
 {
 
   protected $cart;
-
   protected $product;
+  protected $page = 'Giỏ hàng';
 
   public function __construct()
   {
@@ -28,33 +28,44 @@ class CartController extends Controller
 
   public function index()
   {
+    $pageName = $this->page;
+    // Xóa dữ liệu cart khi chuyển về trang giỏ hàng
+    if (Session::has('data-cart')) {
+      Session::delete('data-cart');
+    }
 
+    // Lấy id user
     $userID = Session::has('user') ? Session::get('user')['id'] : '';
-
     $products = $this->cart->getAll($userID);
-
     $suggestproduct = $this->product->getSuggestproduct(20);
-
     $totalPrice = 0;
     $saveprice = 0;
-
     foreach ($products as $product) {
       $totalPrice += $product['price'] * $product['cart_quantity'];
-
       $saveprice += ($product['f_discount_price'] > 0 ? $product['f_discount_price'] / 100 * $product['price'] : $product['discount_price'] / 100 * $product['price']) * $product['cart_quantity'];
     }
+
     require VIEW_PATH . 'user/checkouts/cart.php';
   }
 
   // Xóa sản phẩm trong giỏ hàng
   public function deleteProduct()
   {
+
     $productID = $_POST['productID'];
     $userID = Session::get('user')['id'];
+    $product = $this->cart->find($userID, $productID);
 
-    $this->cart->delete($userID, $productID);
+    if ($product) {
+      $this->cart->delete($userID, $productID);
+      Response::json(['success' => 1, 'message' => 'Thành công'], 200);
+    }
 
-    Response::json(['success' => 1, 'message' => 'Thành công'], 200);
+    Response::json([
+      'error' => [
+        'msg' => 'Không tìm thấy sản phẩm'
+      ]
+    ], 400);
   }
 
   // Thêm sản phẩm vào giỏ hàng
@@ -94,7 +105,7 @@ class CartController extends Controller
     $userID = Session::get('user')['id'];
 
     if (!isset($_POST['quantity'], $_POST['productID'])) {
-      echo json_encode(['error' => ['message' => 'Dữ liệu không hợp lệ']]);
+      Response::json(['error' => ['message' => 'Dữ liệu không hợp lệ']], 400);
       exit();
     }
 
@@ -107,7 +118,7 @@ class CartController extends Controller
       $product = $this->product->find($productID);
 
       if (!$product) {
-        echo json_encode(['error' => ['message' => 'Dữ liệu không hợp lệ']]);
+        Response::json(['error' => ['message' => 'Dữ liệu không hợp lệ']], 400);
         $this->db->rollBack();
         exit();
       }
@@ -129,13 +140,13 @@ class CartController extends Controller
 
       $this->db->commit(); // Xác nhận transaction
 
-      echo json_encode([
+      Response::json([
         isset($message) ? 'error' : 'success' => ['message' => isset($message) ? $message : "Đủ số lượng"],
         'quantity' => $quantity
-      ]);
+      ], 200);
     } catch (Exception $e) {
       $this->db->rollBack(); // Hoàn tác nếu có lỗi
-      echo json_encode(['success' => 0, 'message' => 'Lỗi hệ thống: ' . $e->getMessage()]);
+      Response::json(['error' => 0, 'message' => 'Có lỗi xảy ra'], 400);
     }
     exit();
   }
@@ -149,15 +160,14 @@ class CartController extends Controller
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
       if (!isset($_POST['data'])) {
-        echo json_encode([
+        Response::json([
           'success' => ['message' => 'Cập nhật thành công'],
-
           'data' => [
             'totalprice' => Format::forMatPrice($totalPrice),
             'saveprice' => Format::forMatPrice($savePrice),
             'total' => Format::forMatPrice($totalPrice - $savePrice)
           ]
-        ]);
+        ], 200);
 
         exit();
       }
@@ -178,7 +188,7 @@ class CartController extends Controller
           : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
       }
 
-      echo json_encode([
+      Response::json([
 
         'success' => ['message' => 'Cập nhật thành công'],
 
@@ -194,7 +204,7 @@ class CartController extends Controller
           'id' => $productID,
           'quantity' => $quantity
         ]
-      ]);
+      ], 200);
     }
   }
 }

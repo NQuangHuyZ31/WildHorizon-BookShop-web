@@ -29,14 +29,16 @@ $csrf_token = Core\CSRF::generateToken();
   <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/lity.min.css?v=<?php echo rand() ?>">
   <!-- <link rel="stylesheet" href="./Public/css/bootstrap.min.css"> -->
   <link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
-  <title>WildHorizon BookShop</title>
+  <title><?php echo $pageName ?> - wildhorizonBS.com</title>
 </head>
 
 <body style="background-color: #f5f5f5;">
   <?php if (isset($homePage)) { ?>
     <div class=" banner-top w-screen bg-banner-top py-2" style="height: 80px;">
-      <div class="flex align-middle relative h-full" style="background: url(<?php echo BASE_URL ?>/Public/images/DESK.gif); background-repeat: no-repeat;">
-        <!-- <img class="mx-auto" src="<?php echo BASE_URL ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top"> -->
+      <!-- <div class="flex align-middle relative h-full" style="background: url(<?php echo BASE_URL ?>/Public/images/DESK.gif); background-repeat: no-repeat;">
+      </div> -->
+      <div class="flex align-middle relative h-full">
+        <img class="mx-auto" src="<?php echo BASE_URL ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top">
       </div>
       <div class="absolute z-50 cursor-pointer hover:opacity-60" style="top: 15px;right: 10%" id="banner-top-ee">
         <i class="fa-solid fa-xmark text-lg text-white"></i>

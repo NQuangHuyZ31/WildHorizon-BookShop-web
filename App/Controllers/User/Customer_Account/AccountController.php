@@ -11,6 +11,8 @@ use Core\Session;
 
 class AccountController extends CustomerController
 {
+
+  protected $page = 'Tài khoản';
   protected $order;
 
   public function __construct()
@@ -21,6 +23,8 @@ class AccountController extends CustomerController
 
   public function index()
   {
+
+    $pageName = $this->page;
 
     $customer = $this->customer;
 

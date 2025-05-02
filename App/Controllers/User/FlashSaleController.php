@@ -7,6 +7,8 @@ use App\Models\FlashSales;
 
 class FlashSaleController extends Controller
 {
+
+  protected $page = 'Flashsales';
   protected $fs;
 
   public function __construct()
@@ -18,7 +20,7 @@ class FlashSaleController extends Controller
 
   public function index()
   {
-    $nosearch = true;
+    $pageName = $this->page;
 
     if (isset($_GET['search']) && $_GET['search'] != '') {
 

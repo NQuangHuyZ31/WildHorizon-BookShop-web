@@ -147,6 +147,11 @@ class AuthController extends Controller
   // Hiển thị trang verify
   public function showVerifyAccount()
   {
+    // Check 
+    if (!Session::has('pending_email') || !Session::has('pending_user_id') || !Session::has('pending_username')) {
+      header('location: ' . BASE_URL . '/');
+    }
+
     require_once VIEW_PATH . 'user/verify-account.php';
   }
 
@@ -232,24 +237,7 @@ class AuthController extends Controller
   {
 
     // Check Method
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-      Response::json([
-        'error' => [
-          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại.'
-        ],
-        'token' => $_POST['csrf_token']
-      ], 500);
-    }
-
-    // check CSRF
-    if (!CSRF::verifyToken($_POST['csrf_token'])) {
-      Response::json([
-        'error' => [
-          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại.'
-        ],
-        'token' => $_POST['csrf_token']
-      ], 400);
-    }
+    $this->checkMethod($_POST[['csrf_token']]);
 
     CSRF::destroyToken();
     $token = CSRF::generateToken();

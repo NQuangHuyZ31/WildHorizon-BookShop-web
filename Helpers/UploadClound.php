@@ -69,6 +69,14 @@ class UploadClound
   }
 
 
+  public static function extractPublicId($url)
+  {
+    $path = parse_url($url, PHP_URL_PATH); // Lấy phần đường dẫn
+    $parts = explode('/', $path);
+    $filename = end($parts); // Lấy tên file: zq7l7bhy1o6xruk5qfuu.webp
+    return pathinfo($filename, PATHINFO_FILENAME); // Trả về tên không có đuôi
+  }
+
   public static function delete($publicId)
   {
     // Cấu hình Cloudinary

@@ -11,6 +11,8 @@ use Exception;
 
 class CustomerAddressController extends CustomerController
 {
+
+  protected $page = 'Sổ địa chỉ';
   protected $user;
   protected $customer_address;
 
@@ -23,6 +25,7 @@ class CustomerAddressController extends CustomerController
   public function index()
   {
 
+    $pageName = $this->page;
     $customer = $this->customer;
     $customer_address = $this->customer_address->getAddress(Session::get('user')['id']);
 
@@ -32,7 +35,7 @@ class CustomerAddressController extends CustomerController
   // Thêm địa chỉ
   public function showPageAddNew()
   {
-
+    $pageName = $this->page;
     $customer = $this->customer;
     require_once VIEW_PATH . 'user/accounts/address/customer-address-add-new.php';
   }
@@ -120,7 +123,7 @@ class CustomerAddressController extends CustomerController
       //throw $th
       Response::json([
         'error' => [
-          'msg' => $th->getMessage(),
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại',
         ],
         'token' => $token
       ], 500);
@@ -130,6 +133,7 @@ class CustomerAddressController extends CustomerController
   // Sửa địa chỉ
   public function showPageEditAddress($id)
   {
+    $pageName = $this->page;
     $customer = $this->customer;
     $address = $this->customer_address->getAddressByID($id);
 

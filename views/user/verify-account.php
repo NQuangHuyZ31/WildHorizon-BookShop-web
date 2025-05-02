@@ -8,13 +8,6 @@ if (Session::has('user') && Session::get('user')['role'] == 'customer') {
   header('location: ' . Session::get('current_url') . '');
 }
 
-// Check 
-
-if (!Session::has('pending_email') || !Session::has('pending_user_id') || !Session::has('pending_username')) {
-  header('location: ' . BASE_URL . '/');
-}
-
-
 CSRF::destroyToken();
 $csrf_token = Core\CSRF::generateToken();
 ?>
@@ -82,7 +75,7 @@ $csrf_token = Core\CSRF::generateToken();
                 </div>
               </form>
               <div class="text-sm text-slate-500 mt-4">Bạn chưa nhận được code?
-                <button type="button" id="btn-resend-verify-account" class="font-medium text-indigo-500 hover:text-indigo-600">Gửi lại</button>
+                <button type="button" id="btn-resend-verify-account" class="font-medium text-indigo-500 hover:text-indigo-600 cursor-pointer">Gửi lại</button>
               </div>
             </div>
           </div>

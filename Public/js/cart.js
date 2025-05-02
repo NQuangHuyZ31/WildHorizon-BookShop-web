@@ -3,6 +3,8 @@ $(document).ready(function () {
     let URL_UPDATE_PRICE_CART = baseURL + '/updatepricecart';
     let URL_CHECK_QUANTITY_CART = baseURL + '/checkquantitycart';
     let URL_DELETE_ITEM_CART = baseURL + '/gio-hang/delete';
+    let URL_ADD_ADDRESS_CHECKOUT = baseURL + '/checkout/addnewaddress';
+    let URL_GET_ADDRESS_CHECKOUT = baseURL + '/checkout/getaddress';
 
     // check từng sản phẩm
     $('.cart-item-checkbox').on('click', function (e) {
@@ -156,6 +158,111 @@ $(document).ready(function () {
             },
         });
     });
+
+    // Checkout address
+    $('.add-orther-address').click(function (e) {
+        e.preventDefault();
+        JsLoadingOverlay.show();
+        setTimeout(() => {
+            JsLoadingOverlay.hide();
+            checkout_new_address_modal.showModal();
+        }, 500);
+    });
+
+    // Add new address checkout
+    $('#checkout-new-address').click(function (e) {
+        e.preventDefault();
+        $(this).prop('disabled', true);
+        const csrf_token = $('input[name="csrf_token"]').val();
+        const username = $('input[name="username"]').val();
+        const phone = $('input[name="phone"]').val();
+        const province = $('select[name="province"]').val();
+        const district = $('select[name="district"]').val();
+        const ward = $('select[name="ward"]').val();
+        const address = $('input[name="address"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: URL_ADD_ADDRESS_CHECKOUT,
+            data: {
+                csrf_token,
+                username,
+                phone,
+                province,
+                district,
+                ward,
+                address,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    checkout_new_address_modal.close();
+                    $('input[name="csrf_token"]').val(response.token);
+                    JsLoadingOverlay.show();
+                    getAddressCheckout();
+                    setTimeout(() => {
+                        JsLoadingOverlay.hide();
+                    }, 700);
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                    setTimeout(() => {
+                        $('#checkout-new-address').prop('disabled', false);
+                    }, 3000);
+                }
+            },
+        });
+    });
+
+    // Get address
+    function getAddressCheckout() {
+        const csrf_token = $('input[name="csrf_token"]').val();
+        $.ajax({
+            type: 'POST',
+            url: URL_GET_ADDRESS_CHECKOUT,
+            data: { csrf_token },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    $('input[name="csrf_token"]').val(response.token);
+                    $('.checkout-address-content').html('');
+                    response.success.data.forEach((address) => {
+                        $('.checkout-address-content').append(`
+                         <div class="flex items-center justify-between mb-3">
+                            <label class="flex items-center text-[14px] cursor-pointer">
+                            <input
+                                type="radio"
+                                name="checkout-address"
+                                value="${address.id}"
+                                data-id="${address.id}"
+                                class="radio radio-success mr-3"
+                                ${address.default_address == 1 ? 'checked="checked"' : ''} />
+                            <!--  -->
+                            ${address.username}
+                            <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
+                            ${address.address}, ${address.ward}, ${address.district}, ${address.province}
+                            <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
+                            ${address.phone}
+                            </label>
+                            <div class="text-[14px] flex justify-start w-[100px] font-semibold text-blue-500">
+                            ${address.default_address == 0 ? '<button type="button" class="update-address-checkout">Xóa</button>' : ''}
+                            </div>
+                        </div>
+                        `);
+                    });
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    toastr['error'](response.responseJSON.error.msg);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                }
+            },
+        });
+    }
 
     // Submit form checkout
     $('#cart-checkout').click((e) => {

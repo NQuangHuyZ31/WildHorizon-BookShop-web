@@ -75,3 +75,25 @@
   </div>
 </div>
 <?php include_once VIEW_PATH_USER_LAYOUT . 'footer.php'; ?>
+<script>
+  // Config Loading Overplay
+  JsLoadingOverlay.setOptions({
+    overlayBackgroundColor: '#FFFFFF',
+    overlayOpacity: '0.7',
+    spinnerIcon: 'ball-clip-rotate-multiple',
+    spinnerColor: '#DE812F',
+    spinnerSize: '1x',
+    overlayIDName: 'overlay',
+    spinnerIDName: 'spinner',
+    offsetX: 0,
+    offsetY: 0,
+    containerID: null,
+    lockScroll: false,
+    overlayZIndex: 9998,
+    spinnerZIndex: 9999,
+  });
+  JsLoadingOverlay.show();
+  setTimeout(() => {
+    JsLoadingOverlay.hide();
+  }, 1500);
+</script>

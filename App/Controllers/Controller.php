@@ -29,7 +29,7 @@ class Controller
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       Response::json([
         'error' => [
-          'msg' => 'Phương thức không hỗ trợ'
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
         ],
         'token' => $csrf_token
       ], 405);
@@ -38,7 +38,7 @@ class Controller
     if (!CSRF::verifyToken($csrf_token)) {
       Response::json([
         'error' => [
-          'msg' => 'Lỗi xác thực CSRF'
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
         ],
         'token' => $csrf_token
       ], 400);

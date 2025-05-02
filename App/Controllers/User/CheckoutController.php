@@ -4,6 +4,7 @@ namespace App\Controllers\User;
 
 use App\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\CustomerAddress;
 use App\Models\FlashSales;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -11,7 +12,9 @@ use App\Models\OrderShippingAddress;
 use App\Models\Products;
 use App\Models\User;
 use App\Models\Vnpay_payment;
+use App\Requests\CheckoutValidate;
 use Core\CSRF;
+use Core\Response;
 use Core\Session;
 use Exception;
 use Helpers\Hash;
@@ -20,10 +23,12 @@ use Helpers\Redirect;
 class CheckoutController extends Controller
 {
 
+  protected $page = 'Thanh toán đơn hàng';
   protected $product;
   protected $user;
   protected $cart;
   protected $user_id;
+  protected $customerAddress;
   protected $order;
   protected $orderDetail;
   protected $flashsale;
@@ -41,6 +46,8 @@ class CheckoutController extends Controller
     $this->cart = new Cart();
 
     $this->user_id = Session::get('user')['id'];
+
+    $this->customerAddress = new CustomerAddress();
 
     $this->order = new Order();
 
@@ -75,6 +82,9 @@ class CheckoutController extends Controller
   public function index()
   {
 
+    $pageName = $this->page;
+    $customerAddress = $this->customerAddress->getAddress($this->user_id);
+
     if (!Session::has('data-cart')) {
       header('location: ' . BASE_URL . '/gio-hang');
       exit;
@@ -98,6 +108,64 @@ class CheckoutController extends Controller
     require VIEW_PATH . 'user/checkouts/checkout.php';
   }
 
+  // Thêm địa chỉ checkout mới
+  public function addNewAddressCheckout()
+  {
+    $this->checkMethod($_POST['csrf_token']);
+
+    CSRF::destroyToken();
+
+    $token = CSRF::generateToken();
+
+    // Kiểm tra lỗi
+    $error = CheckoutValidate::validate($_POST);
+    if (!empty($error)) {
+      Response::json([
+        'error' => [
+          'msg' => $error
+        ],
+        'token' => $token
+      ], 400);
+    }
+
+    // Thêm địa chỉ
+    $dataNewAddress = [
+      'username' => $_POST['username'],
+      'phone' => $_POST['phone'],
+      'province' => $_POST['province'],
+      'district' => $_POST['district'],
+      'ward' => $_POST['ward'],
+      'address' => $_POST['address'],
+      'default_address' => 0,
+      'created_at' => date('Y-m-d H:i:s')
+    ];
+
+    $this->customerAddress->insertAddress($dataNewAddress, $this->user_id);
+    Response::json([
+      'success' => [
+        'msg' => 'Thành công'
+      ],
+      'token' => $token
+    ], 200);
+  }
+
+  // lấy địa chỉ 
+  public function getAddressCheckout()
+  {
+    $this->checkMethod($_POST['csrf_token']);
+
+    CSRF::destroyToken();
+    $token = CSRF::generateToken();
+
+    $addresses = $this->customerAddress->getAddress($this->user_id);
+    Response::json([
+      'success' => [
+        'data' => $addresses
+      ],
+      'token' => $token
+    ], 200);
+  }
+
   public function checkout()
   {
 
@@ -117,13 +185,32 @@ class CheckoutController extends Controller
     $total_price = isset($_POST['total']) ? floatval($_POST['total']) : 0;
     $shipping_fee = isset($_POST['shipping-fee']) ? floatval($_POST['shipping-fee']) : 0;
     $payment_method = $_POST['payment-method'] ?? '';
-    $fullname = $_POST['fullname'] ?? '';
+    $fullname = $_POST['username'] ?? '';
     $phone = $_POST['phone'] ?? '';
     $province = $_POST['province'] ?? '';
     $district = $_POST['district'] ?? '';
     $ward = $_POST['ward'] ?? '';
     $address = $_POST['address'] ?? '';
+    $checkout_address = $_POST['checkout-address'] ?? '';
 
+    // Kiểm tra lỗi 
+    if (!isset($checkout_address) || empty($checkout_address)) {
+      $error = CheckoutValidate::validate($_POST);
+      if (!empty($error)) {
+        Redirect::redirectWithError(400, $error, '/checkout');
+      }
+    } else {
+      $customer_checkout_address = $this->customerAddress->getAddressByID($checkout_address);
+      // Gán lại dữ liệu
+      $fullname = $customer_checkout_address['username'];
+      $phone = $customer_checkout_address['phone'];
+      $province = $customer_checkout_address['province'];
+      $district = $customer_checkout_address['district'];
+      $ward = $customer_checkout_address['ward'];
+      $address = $customer_checkout_address['address'];
+    }
+
+    // Kiểm tra xem có số lượng và sản phẩm không
     if (empty($productIds) || empty($quantities) || $total_price <= 0) {
       Redirect::redirectWithError(404, 'Thông tin không đúng', '/checkout');
     }
@@ -138,19 +225,24 @@ class CheckoutController extends Controller
         'payment_method' => $payment_method,
         'status' => 'Chờ xác nhận',
         'order_date' => date('Y-m-d'),
-        'fullname' => $fullname,
+        'username' => $fullname,
         'phone' => $phone,
         'province' => $province,
         'district' => $district,
         'ward' => $ward,
-        'address' => $address
+        'address' => $address,
+        'default_address' => 0
       ];
 
-      //   // Thêm đơn hàng
+      // Thêm đơn hàng
       $orderID = $this->order->insert($data);
 
-      //   // thêm địa chỉ nhận hàng
+      // thêm địa chỉ nhận hàng
       $this->ordershippingaddress->insert($data, $orderID);
+
+      if (!isset($checkout_address) || empty($checkout_address)) {
+        $this->customerAddress->insertAddress($data, $user_id);
+      }
 
       foreach ($productIds as $index => $product_id) {
         $quantity = $quantities[$index];
@@ -208,7 +300,7 @@ class CheckoutController extends Controller
     } catch (Exception $e) {
       // Rollback nếu có lỗi
       $this->db->rollBack();
-      Redirect::redirectWithError(500, 'Có lỗi trong quá  trình đặt hàng', '/checkout');
+      Redirect::redirectWithError(500, 'Có lỗi trong quá trình đặt hàng', '/checkout');
     }
   }
 
