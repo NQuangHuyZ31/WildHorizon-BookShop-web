@@ -26,6 +26,16 @@ class Controller
 
   public function checkMethod($csrf_token)
   {
+    if ($_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest') {
+      http_response_code(403);
+      exit('Forbidden');
+    }
+
+    // if (!isset($_SERVER['HTTP_REFERER']) || stripos($_SERVER['HTTP_REFERER'], 'yourdomain.com') === false) {
+    //   http_response_code(403);
+    //   exit('Forbidden');
+    // }
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       Response::json([
         'error' => [

@@ -281,8 +281,8 @@ class CheckoutController extends Controller
         $this->product->updateStock($product_id, $quantity);
 
         //     // Cập nhật số lượng FlashSale nếu có
-        if ($product['f_quantity'] > 0 && $product['f_discount_price'] > 0) {
-          $this->flashsale->updateQuantityFS($product, $quantity);
+        if ($product['f_quantity'] > 0) {
+          $this->flashsale->updateQuantityFS($product_id, $quantity);
         }
 
         //     // Xoá khỏi giỏ hàng

@@ -18,10 +18,15 @@ class BannerAdvertising extends Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getActive()
+  public function getActive($position, $limit)
   {
-    $query = "SELECT *FROM $this->table WHERE status = 'Active' and is_deleted = 0";
+    if ($limit == true) {
+      $query = "SELECT *FROM $this->table WHERE status = 'Active' and is_deleted = 0 and position = ? LIMIT 1";
+    } else {
+      $query = "SELECT *FROM $this->table WHERE status = 'Active' and is_deleted = 0 and position = ?";
+    }
     $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $position, PDO::PARAM_STR);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

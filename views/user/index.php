@@ -10,14 +10,25 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <!-- Content -->
 <div class="container-fuild mx-auto mb-2">
-    <div class="flex w-100 justify-between">
-        <div class="single-item shadow-lg flex-1">
-            <div class="single-item">
-                <?php foreach ($banners as $banner) { ?>
-                    <img src="<?php echo $banner['image'] ?>" alt="banner_ads">
-                <?php } ?>
+    <div class="flex w-full justify-between">
+        <?php if ($banner_headers != null) { ?>
+            <div class="single-item shadow-lg flex-1">
+                <div class="single-item">
+                    <?php foreach ($banner_headers as $banner) { ?>
+                        <img src="<?php echo $banner['image'] ?>" alt="banner_ads">
+                    <?php } ?>
+                </div>
             </div>
-        </div>
+        <?php } else { ?>
+            <div class="p-2 relative">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746261219/lbh72mmtznw6zcjmp9ao.png" alt="banner_image">
+                <div class="absolute top-[40%] left-[25%] w-[50%] user-select-none">
+                    <p class="text-white text-2xl p-1">Wildhorizon BookShop</p>
+                    <p class="text-white p-1 mb-1">Khám phá thế giới tri thức bất tận, nơi những cuốn sách hay dẫn lối bạn đến chân trời mới mỗi ngày.</p>
+                    <button class="btn btn-warning w-[160px]"><a href="<?php echo BASE_URL ?>/product">Khám phá ngay</a></button>
+                </div>
+            </div>
+        <?php } ?>
         <div class="flex px-1 flex-col ms-2">
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
@@ -26,7 +37,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 </div>
                 <div class="download-app-content">
                     <div class="flex justify-start items-center py-1 px-2 text-white" style="font-size: 12px;">
-                        <img class="lazyload" data-src="https://img.lazcdn.com/g/tps/imgextra/i4/O1CN01cAMOjU1zqQJZU8EbT_!!6000000006765-2-tps-19-18.png_80x80q80.jpg_.avif" alt="star" style="height: 13px;width: 13px;">
+                        <img class="lazyload" data-src="https://res.cloudinary.com/whr-clound/image/upload/v1746261861/spufdjpyukljijvrxgpd.avif" alt="star" style="height: 13px;width: 13px;">
                         <p class="ms-2 font-bold">4.7 Rated</p>
                     </div>
                     <div class="flex justify-start items-center px-2 mt-1 ">
@@ -34,18 +45,18 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     </div>
                     <div class="flex justify-around items-center flex-col ms-5 px-4">
                         <div class="flex justify-start items-center">
-                            <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/banners/feeship.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
+                            <img class="lazyload" data-src="https://res.cloudinary.com/whr-clound/image/upload/v1746262298/vy5zjlui8rlwmltdfd9x.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">free shipping</p>
                         </div>
                         <div class="flex justify-start items-center">
-                            <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/banners/vouchers.avif" alt="vouchers" style="width: 36px; height: 36px;">
+                            <img class="lazyload" data-src="https://res.cloudinary.com/whr-clound/image/upload/v1746262970/vwzulzjtwayjok5m1bjh.avif" alt="vouchers" style="width: 36px; height: 36px;">
                             <p class="text-white ms-4 uppercase font-bold">EXCLUSIVE VOUCHERS</p>
                         </div>
                     </div>
                 </div>
                 <div class="flex items-center">
                     <div class="download-app-qr">
-                        <img data-src="<?php echo BASE_URL ?>/Public/images/banners/qrcode_1736091045499.png" alt="qrcode-web" class="lazyload">
+                        <img data-src="https://res.cloudinary.com/whr-clound/image/upload/v1746261960/oi9rxapyk1ii6k9bii0f.png" alt="qrcode-web" class="lazyload">
                     </div>
                     <div class="flex flex-col ms-2">
                         <a href="#" class="download-app-appstore mb-5"></a>
@@ -66,7 +77,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img data-src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full lazyload">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
@@ -77,7 +88,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img data-src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full lazyload">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
@@ -88,7 +99,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
-                    <img data-src="<?php echo BASE_URL ?>/Public/images/banners/voucher_a.avif" alt="voucher collect" class="h-full lazyload">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>

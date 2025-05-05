@@ -39,7 +39,9 @@ class HomeController extends Controller
 
         $products = $this->product->loadMoreProduct(10, 0, 0);
 
-        $banners = $this->banner_ads->getActive();
+        $banner_headers = $this->banner_ads->getActive('homepage', $limit = false);
+        $banner_top_headers = $this->banner_ads->getActive('top_homepage', $limit = true);
+        $banner_footers = $this->banner_ads->getActive('footer', $limit = false);
         // $url = "http://localhost/WildHorizon-BookShop/v1/api/login";
         // $data = ['username' => 'admin', 'password' => '12345'];
         // $user = FetchAPI::fetchAPI($url, 'POST', $data);

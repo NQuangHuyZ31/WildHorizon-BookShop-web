@@ -16,7 +16,7 @@ class CreateBannerValidate
       $error['banner_image'] = "Hình ảnh không được để trống";
     }
 
-    if (!in_array(pathinfo($file['name'], PATHINFO_EXTENSION), ['png', 'jpg', 'jpeg', 'webp'])) {
+    if (!in_array(pathinfo($file['name'], PATHINFO_EXTENSION), ['png', 'jpg', 'jpeg', 'webp', 'gif'])) {
       $error['banner_image'] = "Hình ảnh không phù hợp";
     }
     // 

@@ -71,7 +71,8 @@ Session::delete('error-data');
               <option disabled selected>Chọn vị trí banner</option>
               <option value="homepage">HomePage</option>
               <option value="sidebar">Sidebar</option>
-              <option class="footer">Footer</option>
+              <option value="footer">Footer</option>
+              <option value="top_homepage">Top HomePage</option>
             </select>
             <?php if (isset($error_msg['banner_position'])) { ?>
               <p class="text-red-500 text-[13px] ps-4 mt-1"><?php echo htmlspecialchars($error_msg['banner_position']) ?></p>

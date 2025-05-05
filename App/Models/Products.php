@@ -13,7 +13,7 @@ class Products extends Model
   //  lấy tất cả sản phẩm
   public function getAll()
   {
-    $query = "SELECT p.id, product_name, price, product_image, p.discount_price, COALESCE(f.discount_price, 0) AS f_discount_price, COALESCE(f.quantity, 0) AS f_quantity  
+    $query = "SELECT p.id, product_name, price, product_image, p.discount_price, p.stock, COALESCE(f.discount_price, 0) AS f_discount_price, COALESCE(f.quantity, 0) AS f_quantity  
               from products p LEFT JOIN flashsales f on p.id = f.product_id limit 30";
 
     $stmt = $this->db->prepare($query);

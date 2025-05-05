@@ -17,6 +17,7 @@ use App\Controllers\Admin\ReviewController;
 use App\Controllers\Admin\BrandController;
 use App\Controllers\Admin\SupplierController;
 use App\Controllers\Admin\FlashSaleAdminController;
+use App\Controllers\Admin\UserFeedBackController;
 use App\Controllers\TestController;
 // Use Controller
 use App\Controllers\User\CartController;
@@ -207,6 +208,11 @@ $router->post('/admin/orders/update', [OrderController::class, 'updateOrderStatu
 $router->get('/admin/reviews', [ReviewController::class, 'getAllReviews']);
 $router->get('/admin/reviews/product', [ReviewController::class, 'getReviewsByProduct']);
 $router->post('/admin/reviews/change-status', [ReviewController::class, 'changeReviewStatus']);
+
+// Router trang manager user feedback
+$router->get('/admin/user_feedback', [UserFeedBackController::class, 'index'], [AuthAdminMiddleware::class]);
+$router->get('/admin/user_feedback/{id}', [UserFeedBackController::class, 'showUserFeedbackDetail'], [AuthAdminMiddleware::class]);
+$router->post('/admin/user_feedback/answer', [UserFeedBackController::class, 'saveAnswerFeedback'], [AuthAdminMiddleware::class]);
 
 // Route quản trị flash sale
 $router->get('/admin/flash-sales', [FlashSaleAdminController::class, 'getAllFlashSales']);

@@ -54,10 +54,10 @@ Session::delete('failLogin');
               </a>
             </div>
           </div>
-          <div class="px-9">
+          <div class="px-9 mt-3">
             <form action="<?php echo BASE_URL . '/dang-nhap' ?>" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-              <div class="py-1 mb-1">
+              <div class="py-1 mb-5">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-500 ms-2">
                     Email
@@ -66,7 +66,7 @@ Session::delete('failLogin');
                     type="email"
                     name="email"
                     class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-                    placeholder="Ví dụ: nguyenvana@gmail.com" />
+                    placeholder="nguyenvana@gmail.com" />
                 </label>
               </div>
               <div>
@@ -80,7 +80,7 @@ Session::delete('failLogin');
                       id="whr-login-password"
                       name="password"
                       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-                      placeholder="Ví dụ: NQH@123" />
+                      placeholder="NQH@123" />
                     <div class="whr-show-hidden-pw-icon flex z-50 absolute right-3 top-1/2 transform -translate-y-1/2">
                       <div class="cursor-pointer flex items-center justify-center" style="width: 24px;height: 24px;" id="togglePassword">
                         <div class="whr-show-pw-icon">
@@ -93,8 +93,8 @@ Session::delete('failLogin');
                     </div>
                   </div>
                 </label>
-                <div class="flex justify-end my-1 pb-4">
-                  <span class="text-sm text-gray-300"><a href="#">Quên mật khẩu</a></span>
+                <div class="flex justify-end my-2 pb-4">
+                  <span class="text-sm text-gray-400"><a href="#">Quên mật khẩu</a></span>
                 </div>
               </div>
               <div class="bg-purple-500 p-2 text-center rounded-full">

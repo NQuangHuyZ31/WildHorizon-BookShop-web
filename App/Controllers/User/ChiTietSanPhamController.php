@@ -10,6 +10,8 @@ use App\Models\FlashSales;
 use App\Models\Categories;
 use App\Models\ProductAttribute;
 use App\Models\Reviews;
+use Core\CSRF;
+use Core\Response;
 
 class ChiTietSanPhamController extends Controller
 {
@@ -81,12 +83,24 @@ class ChiTietSanPhamController extends Controller
 
   public function checkQuantity()
   {
+
+    $this->checkMethod($_POST['csrf_token']);
+
+    CSRF::destroyToken();
+    $token = CSRF::generateToken();
+
     // Kiểm tra dữ liệu đầu vào
     if (!isset($_POST['quantity'], $_POST['productID'])) {
-      echo json_encode(['error' =>  ['message' => 'Dữ liệu không hợp lệ']]);
-      exit();
+      Response::json([
+        'error' =>  [
+          'msg' => 'Dữ liệu không hợp lệ'
+        ],
+        'token' => $token,
+        'quantity' => 1
+      ], 400);
     }
 
+    // lấy dữ liệu
     $quantity = intval($_POST['quantity']);
     $productID = intval($_POST['productID']);
 
@@ -94,26 +108,59 @@ class ChiTietSanPhamController extends Controller
     $product = $this->product->find($productID);
 
     if (!$product) {
-      echo json_encode(['error' => ['message' => 'Sản phẩm không tồn tại']]);
-      exit();
+      Response::json([
+        'error' => [
+          'msg' => 'Sản phẩm không tồn tại'
+        ],
+        'token' => $token,
+        'quantity' => 1
+      ], 400);
+    }
+
+    // kiểm tra số lượng trong kho
+    if ($product['stock'] <= 0) {
+      Response::json([
+        'error' => [
+          'status' => 'error',
+          'msg' => 'Sản phẩm này đã hết hàng'
+        ],
+        'token' => $token,
+        'quantity' => 1
+      ], 400);
     }
 
     // Kiểm tra số lượng flash sale
     if ($product['f_quantity'] > 0) {
       if ($quantity >= $product['f_quantity']) {
-        echo json_encode(['error' => ['message' => 'Số lượng flash sale đạt giới hạn']]);
-        exit();
+        Response::json([
+          'error' => [
+            'status' => 'success',
+            'msg' => 'Số lượng flash sale đạt giới hạn'
+          ],
+          'token' => $token,
+          'quantity' => $quantity
+        ], 400);
       }
     }
 
     // Kiểm tra số lượng kho
-    if ($quantity >= $product['stock']) {
-      echo json_encode(['error' =>  ['message' => 'Số lượng sản phẩm đạt giới hạn']]);
-      exit();
+    if ($product['f_quantity'] <= 0 && $quantity >= $product['stock']) {
+      Response::json([
+        'error' =>  [
+          'status' => 'success',
+          'msg' => 'Số lượng sản phẩm đạt giới hạn'
+        ],
+        'token' => $token,
+        'quantity' => $quantity
+      ], 400);
     }
 
     // Nếu không có lỗi, trả về thành công
-    echo json_encode(['success' => ['message' => "Đủ số lượng"]]);
+    Response::json([
+      'success' => 1,
+      'token' => $token,
+      'quantity' => $quantity
+    ], 200);
     exit();
   }
 }

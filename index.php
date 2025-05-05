@@ -1,6 +1,6 @@
 <?php
+
 require_once 'Config/config.php';
-// Autoloader để tự động tải class
 
 // ob_start(); // Bắt đầu output buffering
 
@@ -9,11 +9,13 @@ require_once 'Config/config.php';
 // ini_set('display_errors', 0); // Ngăn lỗi in ra màn hình
 
 // Nếu cần log lỗi, bật log riêng (tùy chọn)
-// ini_set('log_errors', 1);
-// ini_set('error_log', '' . BASE_URL . '/data.log'); // Thư mục log tùy bạn
+ini_set('log_errors', 1);
+ini_set('error_log', 'data.log'); // Thư mục log tùy bạn
 ini_set('error_reporting', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+// Autoloader để tự động tải class
 spl_autoload_register(function ($class) {
     $classPath = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($classPath)) {
@@ -22,6 +24,7 @@ spl_autoload_register(function ($class) {
         die("Không tìm thấy file: $classPath");
     }
 });
+
 // Cho phép mọi nguồn truy cập (hoặc thay thế bằng domain cụ thể)
 
 // header("Access-Control-Allow-Origin: *");

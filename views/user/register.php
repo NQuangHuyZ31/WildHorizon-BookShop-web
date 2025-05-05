@@ -57,10 +57,10 @@ $csrf_token = Core\CSRF::generateToken();
               </a>
             </div>
           </div>
-          <div class="px-9">
+          <div class="px-9 mt-3">
             <form id="form-signup" action="<?php echo BASE_URL . '/dang-ky' ?>" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
-              <div class="py-1 mb-1">
+              <div class="py-1 mb-3">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-500 ms-2">
                     Tên người dùng
@@ -68,13 +68,13 @@ $csrf_token = Core\CSRF::generateToken();
                   <input type="text" name="username"
                     class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     value="<?php echo htmlspecialchars($username);  ?>"
-                    placeholder="Ví dụ: Nguyễn Quang Huy" />
+                    placeholder="Nguyễn Quang Huy" />
                   <!-- <?php if (!empty($usernameError)) { ?>
                     <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($usernameError) ?></span>
                   <?php } ?> -->
                 </label>
               </div>
-              <div class="py-1 mb-1">
+              <div class="py-1 mb-3">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-500 ms-2">
                     Email
@@ -82,13 +82,13 @@ $csrf_token = Core\CSRF::generateToken();
                   <input type="email" name="email"
                     class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
                     value="<?php echo htmlspecialchars($email); ?>"
-                    placeholder="ví dụ: nguyenvana@gmail.com" />
+                    placeholder="nguyenvana@gmail.com" />
                   <!-- <?php if (!empty($emailError)) { ?>
                     <span class="text-sm text-red-700 ps-4 mt-1"><?php echo htmlspecialchars($emailError) ?></span>
                   <?php } ?> -->
                 </label>
               </div>
-              <div class="py-1 mb-1">
+              <div class="py-1 mb-3">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-500 ms-2">
                     Mật khẩu
@@ -98,7 +98,7 @@ $csrf_token = Core\CSRF::generateToken();
                       id="whr-login-password"
                       name="password"
                       class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1"
-                      placeholder="Ví dụ: NQH@!123" />
+                      placeholder="NQH@!123" />
                     <div class="whr-show-hidden-pw-icon flex z-50">
                       <div class="cursor-pointer flex items-center justify-center" style="width: 24px;height: 24px;" id="togglePassword">
                         <div class="whr-show-pw-icon">
@@ -115,7 +115,7 @@ $csrf_token = Core\CSRF::generateToken();
                   <?php } ?> -->
                 </label>
               </div>
-              <div class="py-1 mb-1">
+              <div class="py-1 mb-3">
                 <label class="block">
                   <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-gray-500 ms-2">
                     Nhập lại mật khẩu

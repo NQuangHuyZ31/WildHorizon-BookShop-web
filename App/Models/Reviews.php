@@ -44,7 +44,7 @@ class Reviews extends Model
 
     $query = "SELECT rw.created_at, u.username, p.product_name, comment, rw.rating_id FROM $this->table rw join 
               products p on rw.product_id = p.id join users u on rw.user_id = u.id 
-              where rw.product_id = ? order by rw.rating_id DESC";
+              where rw.product_id = ? and rw.status = 1 order by rw.rating_id DESC";
 
     $stmt = $this->db->prepare($query);
 
@@ -60,7 +60,7 @@ class Reviews extends Model
   {
     $query = "SELECT r.score, r.id AS rating_id,
                 COUNT(prw.rating_id) AS count,
-                (COUNT(prw.rating_id) * 100 / NULLIF((SELECT COUNT(*) FROM product_reviews WHERE product_id = ?), 0)) AS per
+                (COUNT(prw.rating_id) * 100 / NULLIF((SELECT COUNT(*) FROM product_reviews WHERE product_id = ? and status = 1), 0)) AS per
                 FROM ratings r LEFT JOIN product_reviews prw ON prw.rating_id = r.id AND prw.product_id = ?
                 WHERE r.id BETWEEN 1 AND 5 GROUP BY r.id ORDER BY r.id DESC";
 
@@ -79,7 +79,7 @@ class Reviews extends Model
   public function getAvgProduct($productID)
   {
 
-    $query = "SELECT avg(rating_id) as avgRating FROM product_reviews WHERE product_id = ?";
+    $query = "SELECT avg(rating_id) as avgRating FROM product_reviews WHERE product_id = ? and status = 1";
 
     $stmt = $this->db->prepare($query);
 

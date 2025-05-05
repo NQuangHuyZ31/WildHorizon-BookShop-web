@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
+use App\Models\Order;
 use Core\Encrypt;
 use Core\Session;
 
@@ -138,6 +139,11 @@ class OrderController extends Controller
             $stmt = $this->db->prepare($updateQuery);
             $stmt->bindParam(':status', $status, \PDO::PARAM_STR);
             $stmt->bindParam(':order_id', $order_id, \PDO::PARAM_INT);
+
+            if ($status && $status === 'Đã giao hàng') {
+                $order = new Order();
+                $order->updateColumn($order_id, 'is_payment', 1);
+            }
 
             if ($stmt->execute()) {
                 Session::set('message', [

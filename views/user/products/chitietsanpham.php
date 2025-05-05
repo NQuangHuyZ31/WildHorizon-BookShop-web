@@ -24,13 +24,13 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           </div>
           <div class="flex py-5 justify-between">
             <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
-              <button type="button" class="flex product-box-btn items-center border-2 justify-center rounded-md border-red-700 mr-2">
+              <button type="button" class="flex product-box-btn items-center border-2 justify-center rounded-md border-red-700 mr-2" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
                 <i class="fa-solid fa-cart-shopping mr-3 text-red-600"></i>
                 <p class="text-red-600 text-sm font-bold">Thêm vào giỏ hàng</p>
               </button>
             </a>
             <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['id'] ?>">
-              <button type="button" class="flex product-box-btn items-center justify-center rounded-md bg-red-700">
+              <button type="button" class="flex product-box-btn items-center justify-center rounded-md bg-red-700" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
                 <p class="text-white text-sm font-bold">Mua ngay</p>
               </button>
             </a>
@@ -83,16 +83,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           <?php } ?>
           <?php if ($product['f_quantity'] > 0) { ?>
             <div class="mt-3 flex">
-              <img src="<?php echo BASE_URL . '/Public/images/icon/label-flashsale.svg' ?>" alt="icon_fs">
+              <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs">
               <p class="text-lg font-bold ms-5">Còn lại: <span class="text-orange-500"><?php echo $product['f_quantity'] ?></span></p>
             </div>
           <?php } ?>
           <div class="mt-3 flex items-center">
             <p class="text-3xl font-bold text-red-700">
-              <?php echo $product['f_discount_price'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
+              <?php echo $product['f_quantity'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
               đ</p>
             <p class="ms-3 text-gray-400 text-lg"><s><?php echo Format::forMatPrice($product['price']) ?></s></p>
-            <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $product['f_discount_price'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
+            <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $product['f_quantity'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
           </div>
         </div>
         <div class="bg-white flex flex-col p-4 rounded-md mt-3">
@@ -120,16 +120,19 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           <div class="flex items-center mt-3">
             <p class="font-bold mr-3">Số lượng</p>
             <div class="flex items-center user-select-none">
-              <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75" style="width: 32px;height: 32px;">
+              <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75 <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
                 <span class="w-full "><i class="fa-solid fa-minus"></i></span>
               </div>
               <div class="p-2" style="width: 44px;">
-                <input type="text" value=1 class="w-full text-center outline-none product-detail-quantity" name="cart-quantity" data-id="<?php echo $product['id'] ?>">
+                <input type="text" value=1 class="w-full text-center outline-none product-detail-quantity" name="cart-quantity" data-id="<?php echo $product['id'] ?> ">
               </div>
-              <div class="inc-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
+              <div class="inc-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
                 <span class="w-full"><i class="fa-solid fa-plus"></i></span>
               </div>
             </div>
+            <?php if ($product['stock'] <= 0) { ?>
+              <p class="text-red-700 ms-5 text-[14px]">Hết hàng</p>
+            <?php } ?>
           </div>
         </div>
         <!-- THÔNG TIN CHI TIÊT -->

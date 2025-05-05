@@ -5,6 +5,7 @@ namespace App\Controllers\User;
 use App\Controllers\Controller;
 use App\Models\Cart;
 use App\Models\Products;
+use Core\CSRF;
 use Core\Response;
 use Helpers\Format;
 use Core\Session;
@@ -71,32 +72,58 @@ class CartController extends Controller
   // Thêm sản phẩm vào giỏ hàng
   public function addToCart()
   {
+    $this->checkMethod($_POST['csrf_token']);
+
+    CSRF::destroyToken();
+    $token = CSRF::generateToken();
+
+    // lấy dữ liệu
     $event = isset($_POST['event']) ? $_POST['event'] : '';
-
     $productID = isset($_POST['productID']) ? $_POST['productID'] : '';
-
     $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : '';
-
     $userID = Session::get('user')['id'];
 
-    if ($this->cart->checkCart($userID, $productID) == 1) {
-
+    if ($this->cart->checkCart($userID, $productID)) {
       Response::json([
-        'error' => ['message' => 'Sản phẩm đã có trong giỏ hàng'],
-        'data' => [
-          'event' => $event
-        ]
-      ], 200);
-    } else {
-      $this->cart->add($userID, $productID, $quantity);
-
-      Response::json([
-        'success' => ['message' => 'Thêm vào giỏ hàng thành công'],
-        'data' => [
-          'event' => $event
-        ]
-      ], 200);
+        'error' => [
+          'msg' => 'Sản phẩm đã có trong giỏ hàng'
+        ],
+        'token' => $token
+      ], 400);
     }
+
+    // check số lượng
+    // Lấy sản phẩm
+    $product = $this->product->find($productID);
+
+    if (!$product) {
+      Response::json([
+        'error' => [
+          'msg' => 'Sản phẩm không tồn tại'
+        ],
+        'token' => $token,
+      ], 400);
+    }
+
+    // 
+    if ($product['stock'] <= 0) {
+      Response::json([
+        'error' => [
+          'msg' => 'Sản phẩm này hết hàng'
+        ],
+        'token' => $token,
+      ], 400);
+    }
+
+    $this->cart->add($userID, $productID, $quantity);
+
+    Response::json([
+      'success' => [
+        'msg' => 'Thêm vào giỏ hàng thành công'
+      ],
+      'token' => $token,
+      'event' => $event
+    ], 200);
   }
 
   // Kiểm tra số lượng khi click
@@ -118,7 +145,7 @@ class CartController extends Controller
       $product = $this->product->find($productID);
 
       if (!$product) {
-        Response::json(['error' => ['message' => 'Dữ liệu không hợp lệ']], 400);
+        Response::json(['error' => ['message' => '']], 400);
         $this->db->rollBack();
         exit();
       }

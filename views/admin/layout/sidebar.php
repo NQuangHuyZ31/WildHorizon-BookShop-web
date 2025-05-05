@@ -19,7 +19,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                 <li class="mb-4">
                     <a href="<?= BASE_URL ?>/admin/banner"
                         class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 <?= str_contains($currentUrl, '/admin/banner') ? 'bg-gray-700' : '' ?>">
-                        <i class="fa-solid fa-newspaper"></i>
+                        <i class="fa-solid fa-newspaper w-5 h-5"></i>
                         <span>Banner quảng cáo</span>
                     </a>
                 </li>
@@ -79,6 +79,14 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                         <span>Đánh giá</span>
                     </a>
                 </li>
+                <li class="mb-4">
+                    <a href="<?= BASE_URL ?>/admin/user_feedback"
+                        class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-700 <?= str_contains($currentUrl, '/admin/user_feedback') ? 'bg-gray-700' : '' ?>">
+                        <i class="fa-solid fa-comments w-5 h-5"></i>
+                        <span>Góp ý từ khách hàng</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
         <div>

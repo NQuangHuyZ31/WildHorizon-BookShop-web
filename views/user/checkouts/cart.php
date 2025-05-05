@@ -105,7 +105,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     <?php } else { ?>
       <div class="flex flex-col justify-center">
         <div class="flex justify-center">
-          <img src="./Public/images/icon/cart.png" alt="cart_image">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="cart_image">
         </div>
         <div class="flex flex-col">
           <div class="text-center mt-3 text-lg text-gray-600">

@@ -1575,12 +1575,20 @@ html {
     border-color: var(--btn-color, var(--fallback-b2));
   }
 
+  .btn-primary {
+    --btn-color: var(--fallback-p);
+  }
+
   .btn-accent {
     --btn-color: var(--fallback-a);
   }
 
   .btn-success {
     --btn-color: var(--fallback-su);
+  }
+
+  .btn-warning {
+    --btn-color: var(--fallback-wa);
   }
 }
 
@@ -1627,13 +1635,27 @@ html {
   outline-offset: 2px;
 }
 
+.btn-primary {
+  --tw-text-opacity: 1;
+  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-p,oklch(var(--p)/1));
+}
+
 @supports (color: oklch(0% 0 0)) {
+  .btn-primary {
+    --btn-color: var(--p);
+  }
+
   .btn-accent {
     --btn-color: var(--a);
   }
 
   .btn-success {
     --btn-color: var(--su);
+  }
+
+  .btn-warning {
+    --btn-color: var(--wa);
   }
 }
 
@@ -1647,6 +1669,12 @@ html {
   --tw-text-opacity: 1;
   color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
   outline-color: var(--fallback-su,oklch(var(--su)/1));
+}
+
+.btn-warning {
+  --tw-text-opacity: 1;
+  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-wa,oklch(var(--wa)/1));
 }
 
 .btn.glass {
@@ -2796,6 +2824,10 @@ html {
   left: 0px;
 }
 
+.left-\[25\%\] {
+  left: 25%;
+}
+
 .left-\[3\%\] {
   left: 3%;
 }
@@ -2822,6 +2854,10 @@ html {
 
 .top-\[30\%\] {
   top: 30%;
+}
+
+.top-\[40\%\] {
+  top: 40%;
 }
 
 .isolate {
@@ -2875,6 +2911,11 @@ html {
 .my-1 {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+}
+
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .my-3 {
@@ -3101,6 +3142,10 @@ html {
   height: 100px;
 }
 
+.h-\[120px\] {
+  height: 120px;
+}
+
 .h-\[15px\] {
   height: 15px;
 }
@@ -3109,8 +3154,16 @@ html {
   height: 17px;
 }
 
+.h-\[240px\] {
+  height: 240px;
+}
+
 .h-\[2px\] {
   height: 2px;
+}
+
+.h-\[30px\] {
+  height: 30px;
 }
 
 .h-\[35px\] {
@@ -3135,6 +3188,10 @@ html {
 
 .max-h-full {
   max-height: 100%;
+}
+
+.min-h-\[30px\] {
+  min-height: 30px;
 }
 
 .min-h-\[500px\] {
@@ -3217,8 +3274,16 @@ html {
   width: 15px;
 }
 
+.w-\[160px\] {
+  width: 160px;
+}
+
 .w-\[17px\] {
   width: 17px;
+}
+
+.w-\[240px\] {
+  width: 240px;
 }
 
 .w-\[2px\] {
@@ -4015,6 +4080,10 @@ html {
   line-height: 2.5rem;
 }
 
+.text-\[11px\] {
+  font-size: 11px;
+}
+
 .text-\[12px\] {
   font-size: 12px;
 }
@@ -4031,8 +4100,20 @@ html {
   font-size: 15px;
 }
 
+.text-\[16px\] {
+  font-size: 16px;
+}
+
+.text-\[17px\] {
+  font-size: 17px;
+}
+
 .text-\[18px\] {
   font-size: 18px;
+}
+
+.text-\[20px\] {
+  font-size: 20px;
 }
 
 .text-lg {

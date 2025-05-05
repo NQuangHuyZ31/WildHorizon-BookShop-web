@@ -4,18 +4,14 @@
 
     use Core\Session;
 
-    if (isset($homePage)) { ?>
+    if (isset($homePage) && $banner_footers != null) { ?>
       <div class="flex">
         <div class="grid grid-cols-3 px-2 py-4">
-          <div class="me-2">
-            <img src="<?php echo BASE_URL ?>/Public//images/banners//37713475645bb0698c30715499fdef2d.png_2200x2200q80.jpg" alt="banner1">
-          </div>
-          <div class="me-2">
-            <img src="<?php echo BASE_URL ?>/Public/images/banners/474e65da5a6ed1a078c0e66e929d378b.png_2200x2200q80.jpg" alt="banner1">
-          </div>
-          <div class="me-2">
-            <img src="<?php echo BASE_URL ?>/Public/images/banners/f3947c0bcaf171d91ac032e2820bbb88.png_2200x2200q80.jpg" alt="banner1">
-          </div>
+          <?php foreach ($banner_footers as $banner) { ?>
+            <div class="me-2">
+              <img src="<?php echo $banner['image'] ?>" alt="banner1">
+            </div>
+          <?php } ?>
         </div>
       </div>
     <?php } ?>
@@ -60,9 +56,9 @@
       <div>
         <div class="flex flex-wrap mt-3" style="width: 290px;">
           <!-- <h1 class="text-lg">Address</h1> -->
-          <div class="px-1 py-2 me-1"><img src="<?php echo BASE_URL ?>/Public/images/banners/00fecce4-0f30-4d24-8a14-a22e164b8d26_VN-126-42.png" alt="" width="126" height="42"></div>
-          <div class="px-1 py-2 me-1"><img src="<?php echo BASE_URL ?>/Public/images/banners/287a1db8-9616-4998-87c2-98f42f4f664e_VN-126-42.png" alt="" width="126" height="42"></div>
-          <div class="px-1 py-2 me-1"><img src="<?php echo BASE_URL ?>/Public/images/banners/76421850-ecc3-468e-b747-51959d838184_VN-126-42.png" alt="" width="126" height="42"></div>
+          <div class="px-1 py-2 me-1"><img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262297/gpykjvrri1urreezgu5b.png" alt="" width="126" height="42"></div>
+          <div class="px-1 py-2 me-1"><img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262296/jayddy3a1hmqtkbyjyji.png" alt="" width="126" height="42"></div>
+          <div class="px-1 py-2 me-1"><img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ut61h8vhqfjemgmevxbw.png" alt="" width="126" height="42"></div>
         </div>
       </div>
     </div>
@@ -74,24 +70,25 @@
     <div class="float-left mr-5" style="width: 35%;">
       <h1 class="text-lg px-2 py-2 font-bold">Payment Methods</h1>
       <div class="flex flex-wrap">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/VISA.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/kb.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/JCB.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/CASH.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/napas.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/zalopay.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/momo.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262300/hhnu7934rfekk67nnhee.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262299/wdbqerws4it4n2qxzvsk.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ywpkqhmdriwpshdtzikq.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262294/dpflumu5t9o52myclrtw.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/inomznpdmp8cfvjcyvdh.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/uxf5jomf4hbmx95jtsrl.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262625/rui3zw9prsfi5bttckib.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+
       </div>
     </div>
     <div class="float-left mr-5" style="width: 32%;">
       <h1 class="text-lg px-2 py-2 font-bold">Delivery Services</h1>
       <div class="flex flex-wrap">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/O1CN01ahATKv21NE8iPiA0Q_!!6000000006972-2-tps-1-2.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/O1CN01gjgEds1LYU0p2Pl9N_!!6000000001311-2-tps-96-70.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/O1CN01S7cpxb1h5697fS0Bl_!!6000000004225-2-tps-96-70.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/O1CN01TmRqKw1hqjKxGAxIf_!!6000000004329-2-tps-96-70.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/O1CN01wsWwqO1o1caN5JZDp_!!6000000005165-2-tps-96-70.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-        <img src="<?php echo BASE_URL ?>/Public//images/banners/O1CN01wysPrK1R8jRG6tesj_!!6000000002067-2-tps-96-70.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/xs2thvgu6fhstn5lca0z.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262623/forjgbiaxzfnpkj0vkfl.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/ihrp53voxcf88dabze2u.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/hbhf9x1rruqyhw7oo8qk.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/bcpmpmlnrdosjxw5igs6.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/qtp5xxdymasvmeazzwyk.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
       </div>
     </div>
   </div>

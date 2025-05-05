@@ -33,12 +33,14 @@ $csrf_token = Core\CSRF::generateToken();
 </head>
 
 <body style="background-color: #f5f5f5;">
-  <?php if (isset($homePage)) { ?>
+  <?php if (isset($homePage) && $banner_top_headers != null) { ?>
     <div class=" banner-top w-screen bg-banner-top py-2" style="height: 80px;">
       <!-- <div class="flex align-middle relative h-full" style="background: url(<?php echo BASE_URL ?>/Public/images/DESK.gif); background-repeat: no-repeat;">
       </div> -->
       <div class="flex align-middle relative h-full">
-        <img class="mx-auto" src="<?php echo BASE_URL ?>/Public//images/banners/1fa52232-27a7-427f-93c5-c8ed1cb0e0ca_VN-1188-80.gif_2200x2200q80.gif_.webp" alt="banner-top">
+        <?php foreach ($banner_top_headers as $banner) { ?>
+          <img class="mx-auto" src="<?php echo $banner['image'] ?>" alt="banner-top">
+        <?php } ?>
       </div>
       <div class="absolute z-50 cursor-pointer hover:opacity-60" style="top: 15px;right: 10%" id="banner-top-ee">
         <i class="fa-solid fa-xmark text-lg text-white"></i>
@@ -47,49 +49,49 @@ $csrf_token = Core\CSRF::generateToken();
   <?php } ?>
   <div class="w-full mx-auto relative">
     <div class="container-fuild m-auto">
-      <ul class="flex justify-around py-1" style="font-size: 12px;margin-left: 200px;">
-        <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">feedback</a></li>
-        <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">SAVE MORE ON APP</a></li>
-        <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">sell on shop</a></li>
-        <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">CUSTOMER CARE</a></li>
-        <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">Track my order</a></li>
+      <ul class="flex justify-around py-1" style="font-size: 12px;margin-left: 100px;">
+        <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">Góp ý</a></li>
+        <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Tiết kiệm hơn với ứng dụng</a></li>
+        <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Bán hàng cùng WHR shop</a></li>
+        <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Chăm sóc khách hàng</a></li>
+        <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">Kiểm tra đơn hàng</a></li>
         <?php if (!empty($user)) { ?>
           <li class="whr-menu-user-popup text-gray-400 uppercase cursor-pointer relative" id="whr-menu-user">
             <p><?php echo htmlspecialchars($user['username']); ?></p>
             <div class="pt-2 absolute whr-menu-user">
-              <div class="relative bg-white border border-gray-300 z-50 shadow-sm px-6 pt-3 pb-2">
+              <div class="relative bg-white border border-gray-300 z-50 shadow-sm px-4 pt-3 pb-2 text-[11px]">
                 <div class="whr-meu-user-content top-content">
                   <ul class="mt-2 text-nowrap">
                     <li class="px-2 mt-1 my-3">
                       <a href="<?php echo BASE_URL . '/customer/account' ?>" class="flex items-center">
-                        <span class="text-2xl text-gray-400"><i class="fa-regular fa-face-smile"></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Manage My Account</p>
+                        <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-face-smile"></i></span>
+                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Quản lí tài khoản</p>
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
                       <a href="<?php echo BASE_URL ?>/customer/order" class="flex items-center">
-                        <span class="text-2xl text-gray-400"><i class="fa-regular fa-gem"></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">My Order</p>
+                        <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-gem"></i></span>
+                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Đơn hàng của tôi</p>
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
                       <a href="<?php echo BASE_URL ?>/customer/wishlist" class="flex items-center">
-                        <span class="text-2xl text-gray-400"><i class="fa-regular fa-heart"></i></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">My Wishlist & Followed Stores</p>
+                        <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-heart"></i></i></span>
+                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Danh sách yêu thích</p>
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
                       <a href="<?php echo BASE_URL ?>/customer/review" class="flex items-center">
-                        <span class="text-2xl text-gray-400"><i class="fa-regular fa-star"></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">My Reviews</p>
+                        <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-star"></i></span>
+                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Nhận xét của tôi</p>
                       </a>
                     </li>
                     <li class="ps-2 mt-1 my-3">
                       <form action="<?php echo BASE_URL . '/dang-xuat' ?>" method="post">
                         <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
                         <button type="submit" class="flex items-center">
-                          <span class="text-2xl text-gray-400"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
-                          <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Log out</p>
+                          <span class="text-2xl text-gray-400"><i class="text-[20px] fa-solid fa-arrow-right-from-bracket"></i></span>
+                          <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline uppercase">Đăng xuất</p>
                         </button>
                       </form>
                     </li>
@@ -99,8 +101,8 @@ $csrf_token = Core\CSRF::generateToken();
             </div>
           </li>
         <?php } else { ?>
-          <li class=""><a href="<?php echo BASE_URL . '/dang-nhap' ?>" class="text-gray-400 hover:text-orange-400 uppercase">login</a></li>
-          <li class=""><a href="<?php echo BASE_URL . '/dang-ky' ?>" class="text-gray-400 hover:text-orange-400 uppercase">signup</a></li>
+          <li class=""><a href="<?php echo BASE_URL . '/dang-nhap' ?>" class="text-gray-400 hover:text-orange-400 uppercase">Đăng nhập</a></li>
+          <li class=""><a href="<?php echo BASE_URL . '/dang-ky' ?>" class="text-gray-400 hover:text-orange-400 uppercase">Đăng kí</a></li>
         <?php } ?>
 
         <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">THAY ĐỔI NGÔN NGỮ</a></li>
@@ -126,7 +128,7 @@ $csrf_token = Core\CSRF::generateToken();
           <a href="<?php echo BASE_URL . '/gio-hang' ?>"><i class="fa-solid fa-cart-shopping cursor-pointer" style="height: 26px;"></i></a>
         </div>
         <div class="ms-6" style="height: 45px;">
-          <a href="#"><img src="<?php echo BASE_URL ?>/Public/images/banners/O1CN01yOpioK1Qz7NKPWfkw_!!6000000002046-2-tps-376-90.avif" alt="" width="188" height="45"></a>
+          <a href="#"><img src="<?php echo BASE_URL ?>/Public/images/658519f4-fceb-4e33-8895-70cb806e7efa_VN-376-90.png" alt="" width="188" height="45"></a>
         </div>
       </div>
     </div>
