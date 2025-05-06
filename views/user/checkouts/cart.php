@@ -126,7 +126,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     <p class=" text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
     <div class="grid grid-cols-5 mt-7">
       <?php foreach ($suggestproduct as $product) { ?>
-        <a href="<?php echo  '/WildHorizon-BookShop/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+        <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
           <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
             <div class="whr-product-img py-2">
               <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">

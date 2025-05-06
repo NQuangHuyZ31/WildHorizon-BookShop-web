@@ -1,3 +1,8 @@
+// Config
+window.APP_CONFIG = {
+    appURL: '/WildHorizon-BookShop',
+};
+
 // config toastr
 document.addEventListener('DOMContentLoaded', function () {
     toastr.options = {

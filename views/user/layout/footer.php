@@ -17,15 +17,14 @@
     <?php } ?>
     <div class="grid grid-cols-4 py-5 px-3">
       <div class="flex flex-col">
-        <h1 class="text-lg text-sky-400">Contact us</h1>
+        <h1 class="text-lg text-sky-400">Liên hệ với chúng tôi</h1>
         <div class="mt-1">
           <ul class="list-none text-sm ps-2 text-red-950">
-            <li><a href="#" class="hover:underline">Hotline & Online chat (24/7)</a></li>
-            <li><a href="#" class="hover:underline">Help Center</a></li>
-            <li><a href="#" class="hover:underline">How to Buy</a></li>
-            <li><a href="#" class="hover:underline">Shipping & Delivery</a></li>
-            <li><a href="#" class="hover:underline">International Product Policy</a></li>
-            <li><a href="#" class="hover:underline">How to Return</a></li>
+            <li><a href="#" class="hover:underline">Đường dây nóng & Trò chuyện trực tuyến</a></li>
+            <li><a href="#" class="hover:underline">Trung tâm trợ giúp</a></li>
+            <li><a href="#" class="hover:underline">Cách mua sản phẩm</a></li>
+            <li><a href="#" class="hover:underline">Vận chuyển & Giao hàng</a></li>
+            <li><a href="#" class="hover:underline">Chính sách sản phẩm quốc tế</a></li>
           </ul>
         </div>
       </div>
@@ -33,17 +32,16 @@
         <h1 class="text-lg text-sky-400">WildHorizon BookShop</h1>
         <div class="mt-1">
           <ul class="list-none text-sm ps-2 text-red-950">
-            <li><a href="#" class="hover:underline">About us</a></li>
-            <li><a href="#" class="hover:underline">Terms & Conditions</a></li>
-            <li><a href="#" class="hover:underline">Privacy Policy</a></li>
-            <li><a href="#" class="hover:underline">Intellectual Property Protection</a></li>
-            <li><a href="#" class="hover:underline">Operating Regulation</a></li>
-            <li><a href="#" class="hover:underline">Procedure of claim and dispute handling</a></li>
+            <li><a href="#" class="hover:underline">Về chúng tôi</a></li>
+            <li><a href="#" class="hover:underline">Điều khoản & Điều kiện</a></li>
+            <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
+            <li><a href="#" class="hover:underline">Bảo vệ sở hữu trí tuệ</a></li>
+            <li><a href="#" class="hover:underline">Quy định hoạt động</a></li>
           </ul>
         </div>
       </div>
       <div class="flex flex-col">
-        <h1 class="text-lg text-sky-400">Address</h1>
+        <h1 class="text-lg text-sky-400">Địa chỉ</h1>
         <div class="mt-1">
           <ul class="list-none text-sm ps-2 text-red-950">
             <li><a href="#" class="hover:underline">Địa chỉ: 123 NVB, Gò Vấp</a></li>

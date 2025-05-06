@@ -39,6 +39,7 @@ use App\Controllers\User\Customer_Account\CustomerSpecialEventController;
 use App\Controllers\User\Customer_Account\CustomerVoucherController;
 use App\Controllers\User\Customer_Account\CustomerWishListController;
 use App\Controllers\User\LoginFacebookController;
+use App\Controllers\User\VoucherController;
 use App\Middleware\AuthAdminMiddleware;
 // User Middleware
 use App\Middleware\AuthMiddleware;
@@ -74,6 +75,9 @@ $router->post('/dang-xuat', [AuthController::class, 'logout']);
 $router->get('/feedback', [FeedbackController::class, 'feedback'], [AuthMiddleware::class]);
 $router->post('/feedback', [FeedbackController::class, 'handleFeedback'], [AuthMiddleware::class]);
 $router->get('/feedback/answer', [FeedbackController::class, 'feedbackAnswer'], [AuthMiddleware::class]);
+
+// Route Trang voucher
+$router->get('/voucher', [VoucherController::class, 'index']);
 
 // Route trang flash sale
 $router->get('/flash-sale', [FlashSaleController::class, 'index']);
@@ -137,6 +141,7 @@ $router->get('/customer/order/getproductreview', [CustomerReviewController::clas
 $router->get('/customer/voucher', [CustomerVoucherController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/wishlist', [CustomerWishListController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/review', [CustomerReviewController::class, 'index'], [AuthMiddleware::class]);
+
 
 // ===========================================================ROUTER ADMIN==============================================================
 // Route đến trang đăng nhập admin

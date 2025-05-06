@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    const baseURL = window.location.origin + '/WildHorizon-BookShop';
+    const baseURL = APP_CONFIG.appURL;
+
     let URL_SAVE_TEMP_ADDRESS = baseURL + '/savetempaddress';
     let URL_CHECK_QUANTITY_PRODUCT_DT = baseURL + '/checkquantity';
     let URL_ADD_TO_CART = baseURL + '/addtocart';
@@ -137,25 +138,26 @@ $(document).ready(function () {
 
     // Kiểm tra số lượng khi tăng giảm
     function checkQuantity(quantity, productID) {
-        const csrf_token = $('input[name="csrf_token"]').val();
         $.ajax({
             type: 'POST',
             url: URL_CHECK_QUANTITY_PRODUCT_DT,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'),
+            },
             data: {
-                csrf_token,
                 quantity: quantity,
                 productID: productID,
             },
             dataType: 'json',
             success: function (response) {
                 if (response) {
-                    $('input[name="csrf_token"]').val(response.token);
+                    $('meta[name="csrf_token"]').attr('content', response.token);
                     $('.product-detail-quantity').val(response.quantity);
                 }
             },
             error: function (response) {
                 if (response) {
-                    $('input[name="csrf_token"]').val(response.responseJSON.token);
+                    $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
                     $('.product-detail-quantity').val(response.responseJSON.quantity);
                     toastr['error'](response.responseJSON.error.msg);
                     if (response.responseJSON.error.status == 'error') {
@@ -175,21 +177,22 @@ $(document).ready(function () {
         const event = $(this).data('event');
         const productID = $(this).data('id');
         const quantity = parseInt($('.product-detail-quantity').val());
-        const csrf_token = $('input[name="csrf_token"]').val();
 
         $.ajax({
             type: 'POST',
             url: URL_ADD_TO_CART,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'),
+            },
             data: {
                 event: event,
                 productID: productID,
                 quantity: quantity,
-                csrf_token,
             },
             dataType: 'json',
             success: function (response) {
                 if (response) {
-                    $('input[name="csrf_token"]').val(response.token);
+                    $('meta[name="csrf_token"]').attr('content', response.token);
                     if (response.event == 0) {
                         toastr['success'](response.success.msg);
                     } else {
@@ -201,7 +204,7 @@ $(document).ready(function () {
             },
             error: function (response) {
                 if (response) {
-                    $('input[name="csrf_token"]').val(response.token);
+                    $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
                     toastr['error'](response.responseJSON.error.msg);
                 }
             },

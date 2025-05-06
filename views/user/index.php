@@ -33,7 +33,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
                     <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
-                    <p class="uppercase ms-2 text-nowrap font-bold" style="font-size: 14px; color: #6c1d00;;">try wildhorizon app</p>
+                    <p class="uppercase ms-2 text-nowrap font-bold" style="font-size: 14px; color: #6c1d00;;">Thử ngay trên app</p>
                 </div>
                 <div class="download-app-content">
                     <div class="flex justify-start items-center py-1 px-2 text-white" style="font-size: 12px;">
@@ -41,16 +41,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                         <p class="ms-2 font-bold">4.7 Rated</p>
                     </div>
                     <div class="flex justify-start items-center px-2 mt-1 ">
-                        <p class="text-white font-bold" style="font-size: 12px;">Get the wildhorizon App to enjoy</p>
+                        <p class="text-white font-bold" style="font-size: 12px;">Tải ứng dụng để tận hưởng</p>
                     </div>
                     <div class="flex justify-around items-center flex-col ms-5 px-4">
                         <div class="flex justify-start items-center">
                             <img class="lazyload" data-src="https://res.cloudinary.com/whr-clound/image/upload/v1746262298/vy5zjlui8rlwmltdfd9x.avif" alt="Freeshipping" style="width: 36px; height: 36px;">
-                            <p class="text-white ms-4 uppercase font-bold">free shipping</p>
+                            <p class="text-white ms-4 uppercase font-bold text-[14px]">Miễn phí vận chuyển</p>
                         </div>
                         <div class="flex justify-start items-center">
                             <img class="lazyload" data-src="https://res.cloudinary.com/whr-clound/image/upload/v1746262970/vwzulzjtwayjok5m1bjh.avif" alt="vouchers" style="width: 36px; height: 36px;">
-                            <p class="text-white ms-4 uppercase font-bold">EXCLUSIVE VOUCHERS</p>
+                            <p class="text-white ms-4 uppercase font-bold text-[14px]">Giảm giá độc quyền</p>
                         </div>
                     </div>
                 </div>
@@ -64,17 +64,17 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                     </div>
                 </div>
                 <div>
-                    <p class="font-bold p-1" style="font-size: 10px;">Download the App now by scanning the QR code</p>
+                    <p class="font-bold p-1" style="font-size: 10px;">Tải xuống ứng dụng ngay bây giờ bằng cách quét mã QR</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="grid grid-cols-3 mt-4">
-        <a href="#" class="shadow-lg mr-3" style="height: 130px;">
+        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-lg mr-3" style="height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
+                    <p class="text-nowrap hover:text-orange-400 text-sm">Thu thập & Sử dụng ngay!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
@@ -125,10 +125,9 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                             <div class="flash-sale-product mt-1 mx-2">
                                 <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
                                 <div class="flash-sale-product-price">
-                                    <p class="text-orange-500"><u class="text-orange-500">đ</u><?php echo Format::forMatPrice($fproduct['price']) ?></p>
-                                    <p style="font-size: 13px;">
-                                        <s class="opacity-50"><?php echo 'đ' . Format::forMatPrice($fproduct['price'] * (1 + $fproduct['discount_price'] / 100)) ?></s>
-                                        <span class="text-black ms-2"><?php echo '-' . Format::forMatPrice($fproduct['discount_price']) . '%'; ?></span>
+                                    <p class="text-orange-500"><?php echo Format::forMatPrice($fproduct['price'] - ($fproduct['price'] * $fproduct['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
+                                    <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fproduct['price'], 0, '.', ',') ?></s>
+                                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
                                     </p>
                                 </div>
                             </div>

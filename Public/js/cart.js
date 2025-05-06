@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    const baseURL = window.location.origin + '/WildHorizon-BookShop';
-    let URL_UPDATE_PRICE_CART = baseURL + '/updatepricecart';
-    let URL_CHECK_QUANTITY_CART = baseURL + '/checkquantitycart';
-    let URL_DELETE_ITEM_CART = baseURL + '/gio-hang/delete';
-    let URL_ADD_ADDRESS_CHECKOUT = baseURL + '/checkout/addnewaddress';
-    let URL_GET_ADDRESS_CHECKOUT = baseURL + '/checkout/getaddress';
+    const baseUrl = APP_CONFIG.appURL;
+    let URL_UPDATE_PRICE_CART = baseUrl + '/updatepricecart';
+    let URL_CHECK_QUANTITY_CART = baseUrl + '/checkquantitycart';
+    let URL_DELETE_ITEM_CART = baseUrl + '/gio-hang/delete';
+    let URL_ADD_ADDRESS_CHECKOUT = baseUrl + '/checkout/addnewaddress';
+    let URL_GET_ADDRESS_CHECKOUT = baseUrl + '/checkout/getaddress';
 
     // check từng sản phẩm
     $('.cart-item-checkbox').on('click', function (e) {
@@ -97,18 +97,29 @@ $(document).ready(function () {
         $.ajax({
             type: 'post',
             url: URL_UPDATE_PRICE_CART,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'),
+            },
             data: { data: data },
             dataType: 'json',
             success: function (response) {
-                $('#cart-subtotal').text(response.data.totalprice);
-                $('#cart-saved').text(response.data.saveprice);
-                $('#cart-total').text(response.data.total);
-                if (response.data.total == 0) {
-                    $('#cart-checkout').removeClass('bg-orange-500').addClass('bg-gray-300');
-                    $('#btn-checkout').addClass('pointer-event-none');
-                } else {
-                    $('#cart-checkout').addClass('bg-orange-500').removeClass('bg-gray-300');
-                    $('#btn-checkout').removeClass('pointer-event-none');
+                if (response) {
+                    $('meta[name="csrf_token"]').attr('content', response.token);
+                    $('#cart-subtotal').text(response.data.totalprice);
+                    $('#cart-saved').text(response.data.saveprice);
+                    $('#cart-total').text(response.data.total);
+                    if (response.data.total == 0) {
+                        $('#cart-checkout').removeClass('bg-orange-500').addClass('bg-gray-300');
+                        $('#btn-checkout').addClass('pointer-event-none');
+                    } else {
+                        $('#cart-checkout').addClass('bg-orange-500').removeClass('bg-gray-300');
+                        $('#btn-checkout').removeClass('pointer-event-none');
+                    }
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
                 }
             },
         });
@@ -119,19 +130,30 @@ $(document).ready(function () {
         $.ajax({
             type: 'post',
             url: URL_CHECK_QUANTITY_CART,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'),
+            },
             data: {
                 quantity: quantity,
                 productID: productID,
             },
             dataType: 'json',
             success: function (response) {
-                if (response.error) {
-                    toastr.error(response.error.message);
-                    btn.addClass('pointer-events-none');
-                    btn.closest('.cart-product-item').find('.cart-product-quantity').val(response.quantity);
-                    console.log(btn.closest('.cart-product-item').find('.cart-product-quantity').val());
-                } else if (response.success) {
-                    updatePrice();
+                if (response) {
+                    $('meta[name="csrf_token"]').attr('content', response.token);
+                    if (response.error) {
+                        toastr.error(response.error.message);
+                        btn.addClass('pointer-events-none');
+                        btn.closest('.cart-product-item').find('.cart-product-quantity').val(response.quantity);
+                        console.log(btn.closest('.cart-product-item').find('.cart-product-quantity').val());
+                    } else if (response.success) {
+                        updatePrice();
+                    }
+                }
+            },
+            error: function (response) {
+                if (response) {
+                    $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
                 }
             },
         });

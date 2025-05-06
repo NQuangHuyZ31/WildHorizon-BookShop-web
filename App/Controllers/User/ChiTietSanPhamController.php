@@ -83,8 +83,20 @@ class ChiTietSanPhamController extends Controller
 
   public function checkQuantity()
   {
-
-    $this->checkMethod($_POST['csrf_token']);
+    $headers = getallheaders(); // Lấy tất cả header
+    if (isset($headers['X-CSRF-TOKEN'])) {
+      $csrfToken = $headers['X-CSRF-TOKEN'];
+      $this->checkMethod($csrfToken);
+    } else {
+      // Token không tồn tại, xử lý lỗi tại đây
+      Response::json([
+        'error' => [
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
+        ],
+        'token' => $headers['X-CSRF-TOKEN'],
+        'quantity' => 1
+      ], 400);
+    }
 
     CSRF::destroyToken();
     $token = CSRF::generateToken();

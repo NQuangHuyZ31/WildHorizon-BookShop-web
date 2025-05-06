@@ -72,7 +72,20 @@ class CartController extends Controller
   // Thêm sản phẩm vào giỏ hàng
   public function addToCart()
   {
-    $this->checkMethod($_POST['csrf_token']);
+    $headers = getallheaders(); // Lấy tất cả header
+    if (isset($headers['X-CSRF-TOKEN'])) {
+      $csrfToken = $headers['X-CSRF-TOKEN'];
+      $this->checkMethod($csrfToken);
+    } else {
+      // Token không tồn tại, xử lý lỗi tại đây
+      Response::json([
+        'error' => [
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
+        ],
+        'token' => $headers['X-CSRF-TOKEN'],
+        'quantity' => 1
+      ], 400);
+    }
 
     CSRF::destroyToken();
     $token = CSRF::generateToken();
@@ -129,11 +142,28 @@ class CartController extends Controller
   // Kiểm tra số lượng khi click
   public function checkQuantityCart()
   {
+    $headers = getallheaders(); // Lấy tất cả header
+    if (isset($headers['X-CSRF-TOKEN'])) {
+      $csrfToken = $headers['X-CSRF-TOKEN'];
+      $this->checkMethod($csrfToken);
+    } else {
+      // Token không tồn tại, xử lý lỗi tại đây
+      Response::json([
+        'error' => [
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
+        ],
+        'token' => $headers['X-CSRF-TOKEN'],
+        'quantity' => 1
+      ], 400);
+    }
+
+    CSRF::destroyToken();
+    $token = CSRF::generateToken();
+
     $userID = Session::get('user')['id'];
 
     if (!isset($_POST['quantity'], $_POST['productID'])) {
-      Response::json(['error' => ['message' => 'Dữ liệu không hợp lệ']], 400);
-      exit();
+      Response::json(['error' => ['message' => 'Dữ liệu không hợp lệ'], 'token' => $token], 400);
     }
 
     $quantity = intval($_POST['quantity']);
@@ -145,7 +175,7 @@ class CartController extends Controller
       $product = $this->product->find($productID);
 
       if (!$product) {
-        Response::json(['error' => ['message' => '']], 400);
+        Response::json(['error' => ['message' => ''], 'token' => $token], 400);
         $this->db->rollBack();
         exit();
       }
@@ -169,11 +199,12 @@ class CartController extends Controller
 
       Response::json([
         isset($message) ? 'error' : 'success' => ['message' => isset($message) ? $message : "Đủ số lượng"],
-        'quantity' => $quantity
+        'quantity' => $quantity,
+        'token' => $token
       ], 200);
     } catch (Exception $e) {
       $this->db->rollBack(); // Hoàn tác nếu có lỗi
-      Response::json(['error' => 0, 'message' => 'Có lỗi xảy ra'], 400);
+      Response::json(['error' => 0, 'message' => 'Có lỗi xảy ra', 'toekn' => $token], 400);
     }
     exit();
   }
@@ -181,57 +212,73 @@ class CartController extends Controller
   // Update giá qua ajax
   public function updatePriceCart()
   {
+
+    $headers = getallheaders(); // Lấy tất cả header
+    if (isset($headers['X-CSRF-TOKEN'])) {
+      $csrfToken = $headers['X-CSRF-TOKEN'];
+      $this->checkMethod($csrfToken);
+    } else {
+      // Token không tồn tại, xử lý lỗi tại đây
+      Response::json([
+        'error' => [
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
+        ],
+        'token' => $headers['X-CSRF-TOKEN'],
+        'quantity' => 1
+      ], 400);
+    }
+
+    CSRF::destroyToken();
+    $token = CSRF::generateToken();
+
     $totalPrice = 0;
     $savePrice = 0;
 
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-
-      if (!isset($_POST['data'])) {
-        Response::json([
-          'success' => ['message' => 'Cập nhật thành công'],
-          'data' => [
-            'totalprice' => Format::forMatPrice($totalPrice),
-            'saveprice' => Format::forMatPrice($savePrice),
-            'total' => Format::forMatPrice($totalPrice - $savePrice)
-          ]
-        ], 200);
-
-        exit();
-      }
-
-      $data = $_POST['data'];
-      $userID = Session::get('user')['id'];
-
-      foreach ($data as $item) {
-
-        $productID = $item['productID'];
-        $quantity = $item['quantity'];
-
-        $product = $this->cart->find($userID, $productID);
-
-        $totalPrice += $product['price'] * $quantity;
-
-        $savePrice += ($product['f_discount_price'] != null ? $product['f_discount_price'] / 100 * $product['price']
-          : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
-      }
-
+    if (!isset($_POST['data'])) {
       Response::json([
-
         'success' => ['message' => 'Cập nhật thành công'],
-
         'data' => [
           'totalprice' => Format::forMatPrice($totalPrice),
-
           'saveprice' => Format::forMatPrice($savePrice),
-
-          'total' => Format::forMatPrice($totalPrice - $savePrice + 23000)
+          'total' => Format::forMatPrice($totalPrice - $savePrice)
         ],
-
-        'product' => [
-          'id' => $productID,
-          'quantity' => $quantity
-        ]
+        'token' => $token
       ], 200);
     }
+
+    $data = $_POST['data'];
+    $userID = Session::get('user')['id'];
+
+    foreach ($data as $item) {
+
+      $productID = $item['productID'];
+      $quantity = $item['quantity'];
+
+      $product = $this->cart->find($userID, $productID);
+
+      $totalPrice += $product['price'] * $quantity;
+
+      $savePrice += ($product['f_discount_price'] != null ? $product['f_discount_price'] / 100 * $product['price']
+        : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
+    }
+
+    Response::json([
+
+      'success' => ['message' => 'Cập nhật thành công'],
+
+      'data' => [
+        'totalprice' => Format::forMatPrice($totalPrice),
+
+        'saveprice' => Format::forMatPrice($savePrice),
+
+        'total' => Format::forMatPrice($totalPrice - $savePrice + 23000)
+      ],
+
+      'product' => [
+        'id' => $productID,
+        'quantity' => $quantity
+      ],
+      'token' => $token
+    ], 200);
   }
 }

@@ -36,13 +36,33 @@ class AuthMiddleware implements Middleware
 {
   public function handle($request, $next)
   {
-
+    // Nếu chưa đăng nhập
     if (!Session::has('user')) {
-      header('Location:' . BASE_URL . '/dang-nhap');
-    } else if (Session::get('user')['role'] != 'customer') {
-      Session::delete('user');
-      header('location:' . BASE_URL . '/');
+      // Nếu là request từ trình duyệt -> chuyển hướng
+      if (!self::isApiRequest($request)) {
+        header('Location:' . BASE_URL . '/dang-nhap');
+      } else {
+        // Nếu là request API -> trả JSON lỗi
+        http_response_code(401);
+        echo json_encode(['error' => 'Chưa đăng nhập']);
+      }
+      exit; // Quan trọng!
     }
+
+    // Nếu không phải customer → hủy session
+    if (Session::get('user')['role'] != 'customer') {
+      Session::delete('user');
+      header('Location:' . BASE_URL . '/');
+      exit;
+    }
+
     return $next($request);
+  }
+
+  // Hàm phụ để kiểm tra xem có phải gọi API không (dựa vào header)
+  private static function isApiRequest($request)
+  {
+    $accept = $_SERVER['HTTP_ACCEPT'] ?? '';
+    return stripos($accept, 'application/json') !== false;
   }
 }

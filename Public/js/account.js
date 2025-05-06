@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const baseUrl = '/WildHorizon-BookShop';
+    const baseUrl = APP_CONFIG.appURL;
 
     const URL_UPDATE_INFO_CUSTOMER = `${baseUrl}/customer/account`;
     const URL_CUSTOMER_ADDRESS = `${baseUrl}/customer/address`;

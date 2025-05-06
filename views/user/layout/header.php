@@ -16,7 +16,7 @@ $csrf_token = Core\CSRF::generateToken();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="csrf-token" content="<?php echo $csrf_token ?>">
+  <meta name="csrf_token" content="<?php echo $csrf_token ?>">
   <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/app.css?v=<?php echo rand() ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="icon" type="jpg" href="<?php echo BASE_URL ?>/Public//images//icon.jpg">

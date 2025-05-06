@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const baseURL = window.location.origin + '/WildHorizon-BookShop';
+    const baseURL = APP_CONFIG.appURL;
     let URL_GET_PRODUCT_FILTER = baseURL + '/product/search-filter';
 
     if (window.location.pathname == '/WildHorizon-BookShop/product' || window.location.pathname.includes('/WildHorizon-BookShop/category/')) {

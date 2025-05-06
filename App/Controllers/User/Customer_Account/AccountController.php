@@ -4,6 +4,8 @@ namespace App\Controllers\User\Customer_Account;
 
 use App\Controllers\User\Customer_Account\CustomerController;
 use App\Models\Order;
+use App\Models\UserVoucher;
+use App\Models\Voucher;
 use App\Requests\UpdateCustomerInfoValidate;
 use Core\CSRF;
 use Core\Response;
@@ -14,11 +16,15 @@ class AccountController extends CustomerController
 
   protected $page = 'Tài khoản';
   protected $order;
+  protected $voucher;
+  protected $user_voucher;
 
   public function __construct()
   {
     parent::__construct();
     $this->order = new Order();
+    $this->voucher = new Voucher();
+    $this->user_voucher = new UserVoucher();
   }
 
   public function index()
@@ -27,6 +33,10 @@ class AccountController extends CustomerController
     $pageName = $this->page;
 
     $customer = $this->customer;
+
+    $countVoucher = count($this->voucher->getAllByUser($customer['id']));
+
+    $countVoucherFreeShip = count($this->user_voucher->getByType($customer['id'], 'freeship'));
 
     list($year, $month, $day) = !empty($customer['birthday']) ? explode("-", $customer['birthday']) : '';
 

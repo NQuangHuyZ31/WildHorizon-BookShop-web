@@ -34,7 +34,7 @@ $csrf_token = Core\CSRF::generateToken();
 <body>
   <div class="login-content">
     <div class="container-fuild mx-auto my-auto">
-      <main class="relative min-h-screen flex flex-col justify-center bg-slate-50 overflow-hidden">
+      <main class="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-24">
           <div class="flex justify-center">
             <div class="max-w-md mx-auto text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">

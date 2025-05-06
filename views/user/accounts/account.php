@@ -19,11 +19,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               <div class="flex justify-between w-full mt-4">
                 <div class="flex flex-col bg-slate-300/30 rounded-lg p-2 w-1/2 mx-2">
                   <p class="text-[12px] px-1 py-2 text-black">Voucher hiện có</p>
-                  <p class="text-lg p-1 text-red-600 font-semibold">0</p>
+                  <p class="text-lg p-1 text-red-600 font-semibold"><?php echo $countVoucher ?></p>
                 </div>
                 <div class="flex flex-col bg-slate-300/30 rounded-lg p-2 w-1/2 mx-2">
                   <p class="text-[12px] px-1 py-2 text-black">Freeship hiện có</p>
-                  <p class="text-lg p-1 text-red-600 font-semibold">0 lần</p>
+                  <p class="text-lg p-1 text-red-600 font-semibold"><?php echo $countVoucherFreeShip ?></p>
                 </div>
                 <div>
                 </div>

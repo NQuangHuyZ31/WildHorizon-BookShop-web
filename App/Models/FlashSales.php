@@ -14,7 +14,7 @@ class FlashSales extends Model
   public function getAll()
   {
 
-    $query = "SELECT product_id, product_name, price, product_image f.discount_price as discount_price, f.quantity FROM $this->table f JOIN products p ON f.product_id = p.id";
+    $query = "SELECT product_id, product_name, price, product_image, f.discount_price as discount_price, f.quantity FROM $this->table f JOIN products p ON f.product_id = p.id";
 
     $stmt = $this->db->prepare($query);
 
