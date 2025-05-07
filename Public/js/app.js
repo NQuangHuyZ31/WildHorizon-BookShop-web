@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Hàm main hanle logic
 $(document).ready(function () {
-    const baseURL = window.location.origin + '/WildHorizon-BookShop';
+    const baseURL = APP_CONFIG.appURL;
     let URL_GETMORE_PRODUCT_HOMEPAGE = baseURL + '/product/loadmore';
     let URL_GETMORE_FS_PRODUCT_HOMEPAGE = baseURL + '/loadmorefs';
     let URL_FEEDBACK = baseURL + '/feedback';
@@ -221,9 +221,9 @@ $(document).ready(function () {
                             product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.f_discount_pice) : new Intl.NumberFormat('vi').format(product.discount_price)
                         }%</span>
                       </p>
-                      <img src="${response.url}/Public/images/icon/label-flashsale.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
-                            response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'
-                        }">
+                      <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
+                          response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'
+                      }">
                     </div>
                   </div>
                     <div class="flex justify-end px-1 ${response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'}">

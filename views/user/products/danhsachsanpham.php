@@ -35,7 +35,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                       <p class="flash-sale-product-price-sale <?php echo $product['discount_price'] > 0 || $product['f_discount_price'] > 0 ? '' : 'hidden' ?>"><s class="opacity-50">đ<?php echo Format::forMatPrice($product['price']) ?></s>
                         <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo ($product['f_discount_price'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price'])) . '%' ?></span>
                       </p>
-                      <img src="<?php echo BASE_URL . '/Public/images/icon/label-flashsale.svg' ?>" alt="icon_fs" width="70" height="40" class="mr-2 <?php echo $product['f_quantity'] > 0 ? '' : 'hidden' ?>">
+                      <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 <?php echo $product['f_quantity'] > 0 ? '' : 'hidden' ?>">
                     </div>
                   </div>
                   <?php if ($product['f_quantity']) { ?>
