@@ -78,6 +78,7 @@ $router->get('/feedback/answer', [FeedbackController::class, 'feedbackAnswer'], 
 
 // Route Trang voucher
 $router->get('/voucher', [VoucherController::class, 'index']);
+$router->post('/voucher/save', [VoucherController::class, 'saveVoucher'], [AuthMiddleware::class]);
 
 // Route trang flash sale
 $router->get('/flash-sale', [FlashSaleController::class, 'index']);

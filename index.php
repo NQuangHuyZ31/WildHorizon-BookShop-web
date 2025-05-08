@@ -27,13 +27,13 @@ spl_autoload_register(function ($class) {
 
 // Cho phép mọi nguồn truy cập (hoặc thay thế bằng domain cụ thể)
 
-// header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: *");
 
-// // Cho phép các phương thức HTTP cụ thể
-// header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+// Cho phép các phương thức HTTP cụ thể
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 
-// // Cho phép các header cụ thể
-// header("Access-Control-Allow-Headers: Content-Type, Authorization");
+// Cho phép các header cụ thể
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // Xử lý yêu cầu OPTIONS (Preflight Request)
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {

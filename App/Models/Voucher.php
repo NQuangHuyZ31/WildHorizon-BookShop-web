@@ -41,4 +41,14 @@ class Voucher extends Model
 
   //   return $stmt->fetchAll(PDO::FETCH_ASSOC);
   // }
+
+  public function findByID($voucherID)
+  {
+    $query = "SELECT *FROM $this->table WHERE id = ?  and end_date > now() and status = 'active'";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindValue(1, $voucherID, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+  }
 }

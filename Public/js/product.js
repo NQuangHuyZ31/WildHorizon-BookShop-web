@@ -189,7 +189,7 @@ $(document).ready(function () {
                               <div class="flex flex-col justify-center text-center mt-4">
                                 <p class="text-sm text-gray-500">Quay lại mua sắm</p>
                                 <div class="text-center mt-2">
-                                  <button type="button" class="bg-orange-400 rounded-sm text-white" style="width: 240px;height: 50px;"><a href="/WildHorizon-BookShop/product" class="w-full">Go to Shopping</a></button>
+                                  <button type="button" class="bg-orange-400 rounded-sm text-white" style="width: 240px;height: 50px;"><a href="${APP_CONFIG.appURL}/product" class="w-full">Go to Shopping</a></button>
                                 </div>
                               </div>
                           `);

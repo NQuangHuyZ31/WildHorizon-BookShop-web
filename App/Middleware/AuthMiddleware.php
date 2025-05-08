@@ -44,7 +44,7 @@ class AuthMiddleware implements Middleware
       } else {
         // Nếu là request API -> trả JSON lỗi
         http_response_code(401);
-        echo json_encode(['error' => 'Chưa đăng nhập']);
+        echo json_encode(['error' => 'Chưa đăng nhập', 'login_url' => BASE_URL . '/dang-nhap']);
       }
       exit; // Quan trọng!
     }

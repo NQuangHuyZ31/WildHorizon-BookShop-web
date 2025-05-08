@@ -48,6 +48,7 @@ $(document).ready(function () {
     let URL_GETMORE_FS_PRODUCT_HOMEPAGE = baseURL + '/loadmorefs';
     let URL_FEEDBACK = baseURL + '/feedback';
     let URL_RESEND_VERIFY_ACCOUNT = baseURL + '/dang-ky/verify-account/resend';
+    let URL_SAVE_VOUCHER = baseURL + '/voucher/save';
 
     // Ẩn banner top
     $('#banner-top-ee').click(function () {
@@ -322,6 +323,55 @@ $(document).ready(function () {
     // Upload
     $('#btn-feedback').click(function (e) {
         JsLoadingOverlay.show();
+    });
+
+    // Save voucher
+    $('.btn-save-voucher').click(function (e) {
+        e.preventDefault();
+        JsLoadingOverlay.show();
+
+        const btn = $(this);
+
+        btn.attr('disabled', true);
+        setTimeout(() => {
+            btn.attr('disabled', false);
+        }, 3000);
+
+        const voucherID = btn.data('id');
+
+        setTimeout(() => {
+            $.ajax({
+                type: 'post',
+                url: URL_SAVE_VOUCHER,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content'),
+                },
+                data: {
+                    voucherID,
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response) {
+                        JsLoadingOverlay.hide();
+                        $('meta[name="csrf_token"]').attr('content', response.token);
+                        toastr['success'](response.success.msg);
+                        btn.text(response.success.title);
+                        btn.removeClass('bg-blue-500 btn-save-voucher').addClass('bg-gray-300 pointer-events-none');
+                    }
+                },
+                error: function (response) {
+                    if (response) {
+                        $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
+                        if (response.status == 401) {
+                            window.location.href = response.responseJSON.login_url;
+                        } else {
+                            JsLoadingOverlay.hide();
+                            toastr['error'](response.responseJSON.error.msg);
+                        }
+                    }
+                },
+            });
+        }, 500);
     });
     // ------------CREATE SLUG-----------------------------------
     function createSlug(title) {

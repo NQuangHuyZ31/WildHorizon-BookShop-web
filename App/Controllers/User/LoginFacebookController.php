@@ -33,7 +33,7 @@ class LoginFacebookController extends Controller
 
     $permissions = ['email']; // Thiết lập quyền muốn truy cập
 
-    $loginUrl = $helper->getLoginUrl('http://localhost/WildHorizon-BookShop/fb-callback', $permissions);
+    $loginUrl = $helper->getLoginUrl(BASE_URL . '/fb-callback', $permissions);
 
     header('location:' . $loginUrl . '');
     exit;
