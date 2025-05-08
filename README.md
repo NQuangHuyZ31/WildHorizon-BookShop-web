@@ -37,7 +37,7 @@ Link demo: [https://wildhorizonbs.shoplands.store/](https://wildhorizonbs.shopla
 
 ## Tạo file config
 
-Trong thư mục dự án tạo một foder tên Cofig và tạo file tên config.php
+Trong thư mục dự án tạo một foder tên Config và tạo file tên config.php
 Copy nội dung bên dưới vào file
 
       <?php 
