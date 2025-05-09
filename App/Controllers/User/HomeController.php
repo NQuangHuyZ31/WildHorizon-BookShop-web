@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         $pageName = 'WildHorizonBS - Nhà sách trực tuyến';
 
-        $flassale_products = $this->fs->getLimit(6, 0);
+        $flassale_products = $this->fs->getLimit(10, 0);
 
         $categories = $this->categories->getAll();
 

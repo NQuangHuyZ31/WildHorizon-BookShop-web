@@ -22,14 +22,14 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <?php } else { ?>
             <div class="p-2 relative">
                 <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746261219/lbh72mmtznw6zcjmp9ao.png" alt="banner_image">
-                <div class="absolute top-[40%] left-[25%] w-[50%] user-select-none">
-                    <p class="text-white text-2xl p-1">Wildhorizon BookShop</p>
-                    <p class="text-white p-1 mb-1">Khám phá thế giới tri thức bất tận, nơi những cuốn sách hay dẫn lối bạn đến chân trời mới mỗi ngày.</p>
-                    <button class="btn btn-warning w-[160px]"><a href="<?php echo BASE_URL ?>/product">Khám phá ngay</a></button>
+                <div class="absolute top-[20%] lg:top-[40%] left-[25%] w-[50%] user-select-none">
+                    <p class="text-sm text-white lg:text-2xl p-1">Wildhorizon BookShop</p>
+                    <p class="text-white p-1 mb-1 hidden lg:block">Khám phá thế giới tri thức bất tận, nơi những cuốn sách hay dẫn lối bạn đến chân trời mới mỗi ngày.</p>
+                    <button class="btn btn-warning lg:w-[160px]"><a href="<?php echo BASE_URL ?>/product" class="text-sm">Khám phá ngay</a></button>
                 </div>
             </div>
         <?php } ?>
-        <div class="flex px-1 flex-col ms-2">
+        <div class="hidden lg:flex px-1 flex-col ms-2">
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
                     <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
@@ -69,23 +69,12 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-3 mt-4">
-        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-lg mr-3" style="height: 130px;">
+    <div class="grid grid-cols-2 lg:grid-cols-3 mt-4 px-2 gap-1">
+        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-lg" style="height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-nowrap hover:text-orange-400 text-sm">Thu thập & Sử dụng ngay!</p>
-                </div>
-                <div class="flex justify-end" style="width: 138px;">
-                    <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
-                </div>
-            </div>
-        </a>
-        <a href="#" class="shadow-lg mr-3" style="height: 130px;">
-            <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
-                <div class="">
-                    <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
+                    <p class="text-wrap lg:text-nowrap hover:text-orange-400 text-sm">Thu thập & Sử dụng ngay!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
@@ -96,7 +85,18 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
+                    <p class="text-wrap lg:text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
+                </div>
+                <div class="flex justify-end" style="width: 138px;">
+                    <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
+                </div>
+            </div>
+        </a>
+        <a href="#" class="shadow-lg" style="height: 130px;">
+            <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
+                <div class="">
+                    <p class="font-bold mb-2">Voucher</p>
+                    <p class="text-wrap lg:text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end" style="width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
@@ -104,43 +104,48 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
         </a>
     </div>
+    <!-- Flashsales -->
     <div class="mt-4">
         <div class="mb-3">
-            <p class="text-lg">Flash Sale</p>
+            <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Flash Sale</p>
         </div>
         <div class="bg-white">
             <div class="flex justify-between items-center border-b-gray-300 border-b p-3 mb-3">
-                <p class="uppercase font-bold text-orange-500 ms-3">On Sale Now</p>
+                <p class="text-[12px] lg:text-[14px] uppercase font-bold text-orange-500 ms-3">On Sale Now</p>
                 <div class="mr-3 flash-sale-btn">
-                    <a href="<?php echo BASE_URL . '/flash-sale' ?>" class="uppercase font-bold text-orange-500">shop all products</a>
+                    <a href="<?php echo BASE_URL . '/flash-sale' ?>" class="uppercase font-bold text-orange-500 text-[12px] lg:text-[14px]">shop all products</a>
                 </div>
             </div>
-            <div class="grid grid-cols-6">
-                <?php foreach ($flassale_products as $fproduct) { ?>
-                    <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2">
-                        <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                            <div class="whr-product-img py-2">
-                                <img class="w-full h-full lazyload" data-src="<?php echo $fproduct['product_image'] ?>" alt="sanpham">
-                            </div>
-                            <div class="flash-sale-product mt-1 mx-2">
-                                <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
-                                <div class="flash-sale-product-price">
-                                    <p class="text-orange-500"><?php echo Format::forMatPrice($fproduct['price'] - ($fproduct['price'] * $fproduct['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
-                                    <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fproduct['price'], 0, '.', ',') ?></s>
-                                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
-                                    </p>
+            <div class="swiper swiperFlashsale">
+                <div class="swiper-wrapper">
+                    <?php foreach ($flassale_products as $fproduct) { ?>
+                        <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2 swiper-slide">
+                            <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+                                <div class="whr-product-img py-2">
+                                    <img class="w-full h-full lazyload" data-src="<?php echo $fproduct['product_image'] ?>" alt="sanpham">
+                                </div>
+                                <div class="flash-sale-product mt-1 mx-2">
+                                    <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
+                                    <div class="flash-sale-product-price">
+                                        <p class="text-orange-500"><?php echo Format::forMatPrice($fproduct['price'] - ($fproduct['price'] * $fproduct['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
+                                        <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fproduct['price'], 0, '.', ',') ?></s>
+                                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="flex" style="height: 16px;"></div>
-                    </a>
-                <?php } ?>
+                            <div class="flex" style="height: 16px;"></div>
+                        </a>
+                    <?php } ?>
+                </div>
+                <!-- <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div> -->
             </div>
         </div>
     </div>
     <div class="mt-4">
-        <p class="text-lg">Categories</p>
-        <div class="grid grid-cols-8 mt-3">
+        <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Categories</p>
+        <div class="grid grid-cols-3 lg:grid-cols-8 mt-3">
             <?php foreach ($categories as $category) {  ?>
                 <a href="<?php echo BASE_URL . '/category/' . CreateSlug::createSlug($category['catalog_name']) . '-' . ($category['id']) ?>">
                     <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
@@ -158,11 +163,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
     </div>
     <div class="mt-4">
-        <p class="text-lg">Just For You</p>
+        <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Just For You</p>
         <div class="flex flex-col ">
-            <div class="mt-3 grid grid-cols-6 whr-product">
+            <div class="mt-3 grid gap-2 grid-cols-2 lg:grid-cols-6 whr-product px-1 lg:px-0">
                 <?php foreach ($products as $product) { ?>
-                    <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+                    <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
                             <div class="whr-product-img py-2">
                                 <img data-src="<?php echo $product['product_image'] ?>" class="w-full h-full lazyload" alt="image">
@@ -188,7 +193,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 <?php } ?>
             </div>
             <div class="mb-2 pt-3">
-                <button type="button" id="loadMore-product" class="load-more-product" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Load more</button>
+                <button type="button" id="loadMore-product" class="load-more-product w-[130px] lg:w-full" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Xem thêm</button>
             </div>
         </div>
     </div>

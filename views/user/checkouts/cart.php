@@ -13,8 +13,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     <!-- -->
     <?php if (\Core\Session::has('user')) { ?>
       <?php if (count($products) > 0) { ?>
-        <div class="flex justify-between">
-          <div style="width:788px">
+        <div class="flex flex-col lg:flex-row lg:justify-between">
+          <div class="lg:w-full" style="max-width:788px">
             <div class="flex justify-between w-full bg-white px-3 py-2 rounded-sm">
               <div class="flex items-center">
                 <p class=" text-gray-500 uppercase text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> sản phẩm)</p>
@@ -24,41 +24,45 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
               <div class="w-full mt-3 flex flex-col">
                 <?php foreach ($products as $product) { ?>
-                  <div class="flex bg-white px-3 py-2 cart-product-item mb-3 rounded-sm">
-                    <div class="border border-orange-500 bg-orange-500 rounded-sm cursor-pointer cart-item-checkbox relative mt-8" style="width: 16px; height: 17px;">
-                      <i class="px-0.5 text-sm fa-solid fa-check text-white absolute top-0 cart-icon-checkbox cursor-pointer"></i>
-                      <input type="checkbox" class="hidden cart-input-checkbox" name="cart-product-id[]" value="<?php echo $product['id'] ?>" checked>
-                    </div>
-                    <div class="ms-3 align-middle">
-                      <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
-                        <img src="<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
-                      </a>
-                    </div>
-                    <div class="flex items-start ms-3 text-sm" style="width: 328px;">
-                      <p><?php echo $product['product_name'] ?></p>
-                    </div>
-                    <div class="flex flex-col ms-6 items-start" style="width: 100px;">
-                      <p class="text-orange-400 text-lg">
-                        <?php echo $product['f_quantity'] > 0 ? 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['f_discount_price'] / 100)))
-                          : 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['discount_price'] / 100))) ?>
-                      </p>
-                      <p class="text-gray-300 text-sm"><s><?php echo 'đ ' . Format::forMatPrice($product['price']) ?></s></p>
-                      <button type="button" class="cart-delete-product" data-id="<?php echo $product['id'] ?>">
-                        <i class="fa-regular fa-trash-can text-gray-400 text-md ps-1 pt-2"></i>
-                      </button>
-                    </div>
-                    <div class="flex items-center ms-10 p-3 user-select-none">
-                      <div class="dec-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
-                        <span class="w-full "><i class="fa-solid fa-minus"></i></span>
+                  <div class="flex items-center bg-white px-3 py-2 cart-product-item mb-3 rounded-sm">
+                    <div class="flex items-center">
+                      <div class="border border-orange-500 bg-orange-500 rounded-sm cursor-pointer cart-item-checkbox relative" style="width: 16px; height: 17px;">
+                        <i class="px-0.5 text-sm fa-solid fa-check text-white absolute top-0 cart-icon-checkbox cursor-pointer"></i>
+                        <input type="checkbox" class="hidden cart-input-checkbox" name="cart-product-id[]" value="<?php echo $product['id'] ?>" checked>
                       </div>
-                      <div class="p-2" style="width: 44px;">
-                        <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>">
+                      <div class="lg:ms-3 align-middle">
+                        <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
+                          <img src="<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
+                        </a>
                       </div>
-                      <div
-                        class="<?php echo $product['f_quantity'] > 0 ? ($product['f_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>
+                    </div>
+                    <div class="flex justify-start w-[300px] lg:w-full lg:items-center flex-col lg:flex-row">
+                      <div class="flex items-start lg:ms-3 text-sm lg:w-full" style="max-width: 328px;">
+                        <p class="w-full text-[12px] lg:text-[14px]"><?php echo $product['product_name'] ?></p>
+                      </div>
+                      <div class="flex flex-row items-center gap-2 lg:gap-0 lg:flex-col lg:ms-6 lg:w-full lg:items-start" style="max-width: 100px;">
+                        <p class="text-orange-400 text-sm lg:text-lg text-nowrap">
+                          <?php echo $product['f_quantity'] > 0 ? 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['f_discount_price'] / 100)))
+                            : 'đ ' . Format::forMatPrice($product['price'] - ($product['price'] * ($product['discount_price'] / 100))) ?>
+                        </p>
+                        <p class="text-gray-300 text-sm text-nowrap"><s><?php echo 'đ ' . Format::forMatPrice($product['price']) ?></s></p>
+                        <button type="button" class="cart-delete-product" data-id="<?php echo $product['id'] ?>">
+                          <i class="fa-regular fa-trash-can text-gray-400 text-md ps-1 pt-2"></i>
+                        </button>
+                      </div>
+                      <div class="flex items-center text-[12px] lg:text-[14px] lg:ms-10 lg:p-3 user-select-none">
+                        <div class="dec-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white" style="width: 32px;height: 32px;">
+                          <span class="w-full "><i class="fa-solid fa-minus"></i></span>
+                        </div>
+                        <div class="p-2" style="width: 44px;">
+                          <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>">
+                        </div>
+                        <div
+                          class="<?php echo $product['f_quantity'] > 0 ? ($product['f_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>
                       inc-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white"
-                        style="width: 32px;height: 32px;">
-                        <span class="w-full"><i class="fa-solid fa-plus"></i></span>
+                          style="width: 32px;height: 32px;">
+                          <span class="w-full"><i class="fa-solid fa-plus"></i></span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -66,7 +70,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
               </div>
             </form>
           </div>
-          <div class="bg-white px-3 py-4 ms-2 flex-1 rounded-md" style="max-height: 250px;">
+          <div class="bg-white px-3 py-4 lg:ms-2 flex-1 rounded-md" style="max-height: 250px;">
             <div class="mb-3">
               <p class="text-lg">Tổng tiền đơn hàng</p>
             </div>
@@ -123,8 +127,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     <?php } ?>
   </div>
   <div class="rounded-md mt-3">
-    <p class=" text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
-    <div class="grid grid-cols-5 mt-7">
+    <p class="text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
+    <div class="grid grid-cols-2 lg:grid-cols-5 mt-7">
       <?php foreach ($suggestproduct as $product) { ?>
         <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
           <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
@@ -152,7 +156,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
       <?php } ?>
     </div>
     <div class="mb-2 pt-3">
-      <button type="button" id="loadMore-product" class="load-more-product"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
+      <button type="button" id="loadMore-product" class="load-more-product w-[130px] lg:w-full"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
     </div>
   </div>
 </div>

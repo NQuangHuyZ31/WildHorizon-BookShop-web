@@ -9,11 +9,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
 <div class="container-fuild mx-auto">
   <div class="whr-flash-sale">
     <?php if (!empty($fs_products)) { ?>
-      <div class="grid grid-cols-6 mt-4 whr-product-flash-sale">
+      <div class="grid grid-cols-3 gap-1 px-1 lg:p-0 lg:grid-cols-6 mt-4 whr-product-flash-sale">
         <?php foreach ($fs_products as $fs_product) { ?>
-          <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white mb-3">
+          <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="mr-2 bg-white">
             <div class="flex flex-col ">
-              <div class="whr-product-img py-2">
+              <div class="whr-product-img py-2 h-[140px] lg:h-[180px]">
                 <img src="<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
               </div>
               <div class="flash-sale-product mt-1 mx-2">
@@ -34,7 +34,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
         <?php } ?>
       </div>
       <div class="mb-2 pt-3">
-        <button type="button" class="load-more-product" id="loadmore-product-fs" data-offset="10">Load more</button>
+        <button type="button" class="load-more-product w-[130px] lg:w-full" id="loadmore-product-fs" data-offset="10">Load more</button>
       </div>
     <?php } else { ?>
       <div class="text-center mt-4">

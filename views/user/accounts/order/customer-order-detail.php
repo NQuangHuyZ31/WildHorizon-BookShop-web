@@ -5,9 +5,9 @@ use Helpers\Format;
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
-    <div class="flex w-full">
+    <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
       <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
-      <div class=" w-[75%] ms-3">
+      <div class="w-full px-1 lg:w-[75%] lg:ms-3">
         <?php if ($order['payment_method'] == 'VNPAY' && $order['is_payment'] == 0) { ?>
           <div class="mx-auto p-2 mb-3 bg-white shadow-lg rounded-2xl w-full flex items-center justify-between">
             <div class="flex items-center px-4 text-[14px]">
@@ -16,7 +16,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
             </div>
             <form action="<?php echo BASE_URL ?>/checkout/vnpay/checkout_again/<?php echo $order['id'] ?>" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
-              <button type="submit" name="btn-checkout-again" class="w-[120px] h-[40px] bg-red-700 p-2 mr-3 text-[14px] text-white font-semibold rounded-md">
+              <button type="submit" name="btn-checkout-again" class="w-[100px] h-[35px] text-[12px] lg:w-[120px] lg:h-[40px] bg-red-700 p-2 mr-3 lg:text-[14px] text-white font-semibold rounded-md">
                 Thanh toán lại
               </button>
             </form>
@@ -65,7 +65,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 
             <!-- Line progress -->
             <div class="absolute bg-green-600 h-[2px] top-[30%] left-[3%] transition-all duration-500" style="width: calc(<?php echo $step_line ?>);"></div>
-            <div class="flex justify-between w-full">
+            <div class="flex justify-between gap-2 lg:gap-0 w-full">
               <!-- Step 1 -->
               <div class="flex flex-col items-center text-center z-10">
                 <div
@@ -116,7 +116,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                     <p class="py-3 px-1">Số lượng: <?php echo $order_detail['quantity'] ?></p>
                   </div>
                 </div>
-                <div class="px-3">
+                <div class="px-3 text-nowrap">
                   <p class="text-black font-semibold"><?php echo Format::formatNumber($order_detail['total']) ?> đ</p>
                 </div>
               </div>

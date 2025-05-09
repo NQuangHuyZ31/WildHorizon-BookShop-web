@@ -6,15 +6,15 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
-    <div class="flex w-full">
+    <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
       <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
-      <div class="flex-1 ms-4">
+      <div class="flex-1 lg:ms-4">
         <div class="w-full bg-white rounded-md shadow-md pb-4">
-          <div class="img-account-content">
+          <div class="img-account-content w-full">
             <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745418122/twahnebk6fnag8thhydz.png" alt="" class="w-full h-full rounded-md">
           </div>
-          <div class="flex justify-between px-4 mt-2 w-full">
-            <div class="bg-white rounded-md shadow-lg mx-2 w-1/2 p-4 border border-gray-100">
+          <div class="grid grid-cols-1 lg:grid-cols-2 px-4 mt-2 w-full gap-2">
+            <div class="bg-white rounded-md shadow-lg mx-2 w-full p-4 border border-gray-100">
               <p class="text-lg font-bold">Ưu đãi hiện tại</p>
               <div class="flex justify-between w-full mt-4">
                 <div class="flex flex-col bg-slate-300/30 rounded-lg p-2 w-1/2 mx-2">
@@ -29,7 +29,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                 </div>
               </div>
             </div>
-            <div class="bg-white rounded-md shadow-lg mx-2 w-1/2 p-4 border border-gray-100">
+            <div class="bg-white rounded-md shadow-lg mx-2 w-full gap-1 p-4 border border-gray-100">
               <p class="text-lg font-bold">Thành tích năm <?php echo date('Y') ?></p>
               <div class="flex justify-between w-full mt-4">
                 <div class="flex flex-col bg-slate-300/30 rounded-lg p-2 w-1/2 mx-2">

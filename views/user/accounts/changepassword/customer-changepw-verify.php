@@ -7,16 +7,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
-    <div class="flex w-full">
+    <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
       <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
-      <div class="flex-1 ms-4">
-        <div class="bg-white rounded-md shadow-lg mx-2 w-full p-4 border border-gray-100">
+      <div class="flex-1 px-1 lg:ms-4">
+        <div class="bg-white rounded-md shadow-lg lg:mx-2 w-full p-4 border border-gray-100">
           <p class="text-lg font-bold">Xác nhận đổi mật khẩu</p>
           <div class="mt-3">
             <form action="<?php echo BASE_URL ?>/customer/changepassword/verify" method="post">
               <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
               <div class="w-full flex items-center py-3">
-                <div class="profile-label text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Mật khẩu mới</div>
+                <div class="profile-label text-[11px] lg:text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Mật khẩu mới</div>
                 <input
                   type="password"
                   name="new_password"
@@ -26,7 +26,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                   readonly>
               </div>
               <div class="w-full flex items-center py-3">
-                <div class="profile-label text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Nhập lại mật khẩu mới</div>
+                <div class="profile-label text-[11px] lg:text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Nhập lại mật khẩu mới</div>
                 <input
                   type="password"
                   name="confirm_new_password"
@@ -36,7 +36,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                   readonly>
               </div>
               <div class="w-full flex items-center py-3">
-                <div class="profile-label text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Nhập mã xác nhận</div>
+                <div class="profile-label text-[11px] lg:text-[13px] text-gray-500 after:content-['*'] after:ml-0.5 after:text-red-500 py-1 mr-2">Nhập mã xác nhận</div>
                 <div class="p-1">
                   <div class="flex items-center gap-3">
                     <input
@@ -63,15 +63,15 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                 </div>
               </div>
               <div class="mt-2">
-                <p class="p-1 text-[13px] text-gray-400">Mã xác minh được gửi về email bạn đăng ký tài khoản. Vui lòng kiểm tra.</p>
-                <p class="p-1 text-[13px] text-gray-400">Bạn chưa nhận được mã?
-                  <span class="text-sm text-blue-700 font-semibold cursor-pointer" id="btn-otp-resend">
+                <p class="p-1 text-[11px] lg:text-[13px] text-gray-400">Mã xác minh được gửi về email bạn đăng ký tài khoản. Vui lòng kiểm tra.</p>
+                <p class="p-1 text-[11px] lg:text-[13px] text-gray-400">Bạn chưa nhận được mã?
+                  <span class="text-[12px] lg:text-[14px] text-blue-700 font-semibold cursor-pointer" id="btn-otp-resend">
                     Gửi lại
                   </span>
                 </p>
               </div>
               <div class="flex justify-end text-center">
-                <button type="submit" class="px-14 py-2 text-white bg-red-700 rounded-lg font-semibold">
+                <button type="submit" class="px-11 py-2 text-[12px] lg:text-[15px] text-white bg-red-700 rounded-lg font-semibold lg:px-14">
                   Xác nhận
                 </button>
               </div>

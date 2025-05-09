@@ -14,9 +14,9 @@ class UploadClound
 
     Configuration::instance([
       'cloud' => [
-        'cloud_name' => 'whr-clound',
-        'api_key' => '346669594552425',
-        'api_secret' => 'EYnarkbzTDp7gdmzJPXRBp_dbBg'
+        'cloud_name' => clound_name,
+        'api_key' => clound_api_key,
+        'api_secret' => clound_api_serect
       ],
       'url' => [
         'secure' => true
@@ -82,9 +82,9 @@ class UploadClound
     // Cấu hình Cloudinary
     $config = Configuration::instance([
       'cloud' => [
-        'cloud_name' => 'whr-clound',
-        'api_key' => '346669594552425',
-        'api_secret' => 'EYnarkbzTDp7gdmzJPXRBp_dbBg'
+        'cloud_name' => clound_name,
+        'api_key' => clound_api_key,
+        'api_secret' => clound_api_serect
       ],
       'url' => [
         'secure' => true

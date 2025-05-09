@@ -6,16 +6,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
-    <div class="flex w-full">
+    <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
       <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
-      <div class="w-[75%] ms-3">
+      <div class="w-full px-1 lg:w-[75%] lg:ms-3">
         <div class="w-full bg-white rounded-md shadow-sm px-4">
-          <div class="w-full flex justify-content-around items-center gap-4">
+          <div class="w-full flex justify-content-around items-center gap-7 lg:gap-4">
             <a
               href="<?php echo BASE_URL ?>/customer/order?type=all"
               class="p-2 w-full text-center text-[15px] cursor-pointer customer-order-type 
               <?php echo !isset($_GET['type']) || isset($_GET['type']) && $_GET['type'] == 'all' ? 'active font-semibold' : '' ?>">
-              <span>
+              <span class="text-[13px] lg:text-[14px]">
                 Tất cả
               </span>
             </a>
@@ -23,7 +23,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               href="<?php echo BASE_URL ?>/customer/order?type=Chờ xác nhận"
               class="p-2 w-full text-center text-[15px] cursor-pointer customer-order-type 
               <?php echo isset($_GET['type']) && $_GET['type'] == 'Chờ xác nhận' ? 'active font-semibold' : '' ?>">
-              <span>
+              <span class="text-[13px] lg:text-[14px]">
                 Chờ xác nhận
               </span>
             </a>
@@ -31,7 +31,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               href="<?php echo BASE_URL ?>/customer/order?type=Chuẩn bị hàng"
               class="p-2 w-full text-center text-[15px] cursor-pointer customer-order-type 
               <?php echo isset($_GET['type']) && $_GET['type'] == 'Chuẩn bị hàng' ? 'active font-semibold' : '' ?>">
-              <span>
+              <span class="text-[13px] lg:text-[14px]">
                 Chuẩn bị hàng
               </span>
             </a>
@@ -39,7 +39,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               href="<?php echo BASE_URL ?>/customer/order?type=Đang giao hàng"
               class="p-2 w-full text-center text-[15px] cursor-pointer customer-order-type 
               <?php echo isset($_GET['type']) && $_GET['type'] == 'Đang giao hàng' ? 'active font-semibold' : '' ?>">
-              <span>
+              <span class="text-[13px] lg:text-[14px]">
                 Đang giao hàng
               </span>
             </a>
@@ -47,7 +47,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
               href="<?php echo BASE_URL ?>/customer/order?type=Đã giao hàng"
               class="p-2 w-full text-center text-[15px] cursor-pointer customer-order-type 
               <?php echo isset($_GET['type']) && $_GET['type'] == 'Đã giao hàng' ? 'active font-semibold' : '' ?>">
-              <span>
+              <span class="text-[13px] lg:text-[14px]">
                 Đã giao hàng
               </span>
             </a>
@@ -76,8 +76,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
                         class="w-16 h-16 object-cover rounded"
                         alt="product">
                       <div class="flex-1">
-                        <p class="font-medium">Sản phẩm: <?php echo $item['product_name'] ?></p>
-                        <p class="text-sm text-gray-500">Số lượng: <?php echo $item['quantity'] ?></p>
+                        <p class="text-[12px] lg:text-[14px] font-medium">Sản phẩm: <?php echo $item['product_name'] ?></p>
+                        <p class="text-[12px] lg:text-[14px] text-gray-500">Số lượng: <?php echo $item['quantity'] ?></p>
                       </div>
                     </div>
                     <div class="text-right text-[14px]">

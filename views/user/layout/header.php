@@ -15,7 +15,7 @@ $csrf_token = Core\CSRF::generateToken();
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf_token" content="<?php echo $csrf_token ?>">
   <link rel="stylesheet" href="<?php echo BASE_URL ?>/Public/css/app.css?v=<?php echo rand() ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +23,7 @@ $csrf_token = Core\CSRF::generateToken();
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
@@ -48,8 +49,8 @@ $csrf_token = Core\CSRF::generateToken();
     </div>
   <?php } ?>
   <div class="w-full mx-auto relative">
-    <div class="container-fuild m-auto">
-      <ul class="flex justify-around py-1" style="font-size: 12px;margin-left: 100px;">
+    <div class="container-fuild m-auto ">
+      <ul class="hidden py-1 lg:flex lg:justify-around" style="font-size: 12px;margin-left: 100px;">
         <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">Góp ý</a></li>
         <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Tiết kiệm hơn với ứng dụng</a></li>
         <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Bán hàng cùng WHR shop</a></li>
@@ -107,28 +108,32 @@ $csrf_token = Core\CSRF::generateToken();
 
         <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">THAY ĐỔI NGÔN NGỮ</a></li>
     </div>
-    <div class="w-full pt-2 bg-white header-content">
-      <div class="container-fuild mx-auto flex justify-start items-center">
-        <div class="header-logo">
-          <a href="<?php echo BASE_URL . '/' ?>"><img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" height="75" width="180"></a>
+    <div class="w-full pt-2 bg-white header-content lg:h-[80px]">
+      <div class="grid grid-cols-3 h-full items-center lg:w-[1024px] lg:mx-auto lg:grid-cols-4 ">
+        <div class="header-logo col-span-4 flex justify-center w-full lg:col-span-1">
+          <a href="<?php echo BASE_URL . '/' ?>">
+            <img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" class="max-w-[130px] max-h-[40px] lg:max-w-[100%] lg:max-h-[60px]">
+          </a>
         </div>
-        <div class="flex-1 <?php if (isset($nosearch)) {
-                              echo 'pointer-events-none';
-                            }; ?>">
+        <div class="col-span-2 mx-3 lg:col-span-2 <?php if (isset($nosearch)) {
+                                                    echo 'pointer-events-none';
+                                                  }; ?>">
           <form action="<?php echo BASE_URL . '/product' ?>" class="w-full" method="get">
             <div class="w-full flex header-search relative">
               <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
-              <div class="header-search-icon hover:opacity-80 rounded-lg">
+              <div class="hidden header-search-icon hover:opacity-80 rounded-lg lg:flex">
                 <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3 text-lg"></i></button>
               </div>
             </div>
           </form>
         </div>
-        <div class="ms-6">
+        <div class="lg:ms-6 flex items-center justify-around col-span-1">
           <a href="<?php echo BASE_URL . '/gio-hang' ?>"><i class="fa-solid fa-cart-shopping cursor-pointer" style="height: 26px;"></i></a>
+          <a href="<?php echo BASE_URL . '/customer/account' ?>" class="block lg:hidden"><i class="fa-solid fa-user cursor-pointer" style="height: 26px;"></i></a>
+          <div class="ms-6 lg:block hidden" style="height: 45px;">
+            <a href="#"><img src="<?php echo BASE_URL ?>/Public/images/658519f4-fceb-4e33-8895-70cb806e7efa_VN-376-90.png" alt="" width="188" height="45"></a>
+          </div>
         </div>
-        <div class="ms-6" style="height: 45px;">
-          <a href="#"><img src="<?php echo BASE_URL ?>/Public/images/658519f4-fceb-4e33-8895-70cb806e7efa_VN-376-90.png" alt="" width="188" height="45"></a>
-        </div>
+
       </div>
     </div>

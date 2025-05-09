@@ -5,13 +5,13 @@ use Helpers\Format;
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 <div class="container-fuild min-h-[500px] mx-auto">
   <div class="bg-white mt-3 w-full rounded-md">
-    <div class="w-full p-4">
+    <div class="w-full p-4 mb-3 min-h-[750px]">
       <div class="w-full">
         <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746515620/qacztkzptp4ubpmqnquh.png" alt="" class="w-full h-[50%]">
       </div>
-      <div class="grid grid-cols-2 mt-3">
+      <div class="grid grid-cols-1 lg:grid-cols-2 mt-3">
         <?php foreach ($vouchers as $voucher) { ?>
-          <div class="border border-gray-200 rounded-md mr-3 px-4 ">
+          <div class="border border-gray-200 rounded-md mr-3 px-4 mb-3">
             <div class="flex">
               <i class="fa-solid fa-ticket text-[100px] text-green-500"></i>
               <div class="ms-3 text-[14px] font-semibold my-3 flex flex-col justify-between">

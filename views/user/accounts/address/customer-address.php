@@ -2,9 +2,9 @@
 
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
-    <div class="flex w-full">
+    <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
       <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
-      <div class="flex-1 ms-3">
+      <div class="flex-1 p-1 lg:ms-3">
         <div class="customer-address-content w-full bg-white rounded-md shadow-md pb-4 px-4">
           <?php if ($customer_address != null) { ?>
             <div class="px-4 py-3">
@@ -19,11 +19,13 @@
             <?php foreach ($customer_address as $address) { ?>
               <div class="mt-2 py-3 px-4 border-b border-slate-200">
                 <div class="flex justify-between items-center">
-                  <div class="flex items-center text-m font-semibold text-black tracking-wide">
-                    <p><?php echo $address['username'] ?></p>
-                    <div class="border-r-2 border-gray-200 mx-3" style="height: 18px;"></div>
-                    <p><?php echo $address['phone'] != null ? $address['phone'] : 'Chưa có số điện thoại' ?></p>
-                    <div class="<?php echo $address['default_address'] == 1 ? 'block' : 'hidden' ?> ms-4 bg-blue-100 p-1 rounded-sm">
+                  <div class="flex items-start flex-col text-m font-semibold text-black tracking-wide lg:flex-row lg:items-center">
+                    <div class="flex items-center">
+                      <p><?php echo $address['username'] ?></p>
+                      <div class="border-r-2 border-gray-200 mx-3" style="height: 18px;"></div>
+                      <p><?php echo $address['phone'] != null ? $address['phone'] : 'Chưa có số điện thoại' ?></p>
+                    </div>
+                    <div class="<?php echo $address['default_address'] == 1 ? 'block' : 'hidden' ?> mt-2 lg:mt-0 lg:ms-4 bg-blue-100 p-1 rounded-sm">
                       <p class="font-normal text-blue-400 text-m">Địa chỉ giao hàng mặc định</p>
                     </div>
                   </div>
