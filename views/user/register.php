@@ -146,7 +146,7 @@ $csrf_token = Core\CSRF::generateToken();
                 </label>
               </div>
               <div class="bg-purple-500 p-2 text-center rounded-full">
-                <button type="button" class="uppercase font-bold text-white w-full" id="btn-signup">Đăng ký</button>
+                <button type="submit" class="uppercase font-bold text-white w-full" id="btn-signup">Đăng ký</button>
               </div>
             </form>
           </div>
@@ -178,6 +178,7 @@ $csrf_token = Core\CSRF::generateToken();
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/app.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>

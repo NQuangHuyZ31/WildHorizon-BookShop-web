@@ -213,9 +213,9 @@ class CartController extends Controller
   public function updatePriceCart()
   {
 
-    $headers = getallheaders(); // Lấy tất cả header
-    if (isset($headers['X-CSRF-TOKEN'])) {
-      $csrfToken = $headers['X-CSRF-TOKEN'];
+    $csrfToken = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+    if (isset($csrfToken)) {
+      $csrfToken = $csrfToken;
       $this->checkMethod($csrfToken);
     } else {
       // Token không tồn tại, xử lý lỗi tại đây
@@ -223,11 +223,10 @@ class CartController extends Controller
         'error' => [
           'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
         ],
-        'token' => $headers['X-CSRF-TOKEN'],
+        'token' => $csrfToken,
         'quantity' => 1
       ], 400);
     }
-
     CSRF::destroyToken();
     $token = CSRF::generateToken();
 
