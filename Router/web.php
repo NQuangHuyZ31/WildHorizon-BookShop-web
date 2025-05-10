@@ -114,8 +114,8 @@ $router->post('/checkout/vnpay/checkout_again/{id}', [CheckoutController::class,
 $router->get('/checkout/vnpay/return', [CheckoutController::class, 'vnPayReturn'], [AuthMiddleware::class]);
 
 // Route đến trang customer
-$router->get('/customer/account', [AccountController::class, 'index']);
-$router->post('/customer/account', [AccountController::class, 'updateInfo']);
+$router->get('/customer/account', [AccountController::class, 'index'], [AuthMiddleware::class]);
+$router->post('/customer/account', [AccountController::class, 'updateInfo'], [AuthMiddleware::class]);
 
 $router->get('/customer/address', [CustomerAddressController::class, 'index'], [AuthMiddleware::class]);
 $router->get('/customer/address/add', [CustomerAddressController::class, 'showPageAddNew'], [AuthMiddleware::class]);

@@ -53,13 +53,13 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <div class="flex items-center py-2">
 
         <label class="text-sm text-slate-500 flex items-center cursor-pointer">
-          <input type="radio" name="shipping-fee" class="mr-3 shipping-fee" value="23000" checked>
+          <input type="radio" name="shipping-fee" class="accent-blue-600 dark:accent-blue-400 mr-3 shipping-fee" value="23000" checked>
           <p>Vận chuyển tiêu chuẩn (23.000 đ)</p>
         </label>
       </div>
       <div class="flex items-center py-2">
         <label class="text-sm text-slate-500 flex items-center cursor-pointer">
-          <input type="radio" name="shipping-fee" class="mr-3 shipping-fee" value="32000">
+          <input type="radio" name="shipping-fee" class="accent-blue-600 dark:accent-blue-400 mr-3 shipping-fee" value="32000">
           <p>Vận chuyển nhanh (32.000 đ)</p>
         </label>
       </div>
@@ -68,21 +68,21 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <p class="text-lg uppercase font-bold py-2 border-b">Phương thức thanh toán</p>
       <div class="flex items-center">
         <label class="text-sm flex items-center cursor-pointer">
-          <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="Tiền mặt" checked>
+          <input type="radio" name="payment-method" class="mr-3 accent-blue-600 dark:accent-blue-400 payment-method cursor-pointer" value="Tiền mặt" checked>
           <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417547/jtaerq0bcxjrnnp7fnwg.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán sau khi nhận hàng</p>
         </label>
       </div>
       <div class="flex items-center">
         <label class="text-sm flex items-center cursor-pointer">
-          <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="VNPAY">
+          <input type="radio" name="payment-method" class="mr-3 accent-blue-600 dark:accent-blue-400 payment-method cursor-pointer" value="VNPAY">
           <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417656/wytvfotat2mk3kbqhfit.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán qua VNPAY</p>
         </label>
       </div>
       <div class="flex items-center">
         <label class="text-sm flex items-center cursor-pointer">
-          <input type="radio" name="payment-method" class="mr-3 payment-method cursor-pointer" value="MoMo">
+          <input type="radio" name="payment-method" class="mr-3 accent-blue-600 dark:accent-blue-400 payment-method cursor-pointer" value="MoMo">
           <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417655/mlicklrqbxcvguevagbq.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán qua ví momo</p>
         </label>
@@ -156,7 +156,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
 <!-- Modal thêm địa chỉ -->
 <dialog id="checkout_new_address_modal" class="modal">
-  <div class="modal-box">
+  <div class="modal-box bg-white dark:bg-gray-900">
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>

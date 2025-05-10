@@ -9,20 +9,20 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <div class="container-fuild mx-auto">
   <div class="w-full mt-6 p-1">
-    <div class="flex">
-      <div class="product-detail-content shadow-sm">
+    <div class="flex flex-col lg:flex-row ">
+      <div class="product-detail-content shadow-sm p-1 lg:p-0">
         <div class="bg-white flex flex-col p-4 rounded-md" style="position: sticky;top:16px;">
           <div class="product-detail-image mb-2 mx-auto">
             <img src="<?php echo $product['product_image'] ?>" class="w-full h-full" alt="product-image">
           </div>
-          <div class="flex justify-around shadow-sm">
-            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
-            <img src="<?php echo $product['product_image'] ?>" class="mr-5" alt="" width="60" height="60">
+          <div class="grid grid-cols-4 gap-2 flex-wrap shadow-sm">
+            <img src="<?php echo $product['product_image'] ?>" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" alt="" width="60" height="60">
+            <img src="<?php echo $product['product_image'] ?>" alt="" width="60" height="60">
             <img src="<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
           </div>
-          <div class="flex py-5 justify-between">
+          <div class="hidden lg:flex py-5 justify-between">
             <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
               <button type="button" class="flex product-box-btn items-center border-2 justify-center rounded-md border-red-700 mr-2" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
                 <i class="fa-solid fa-cart-shopping mr-3 text-red-600"></i>
@@ -35,7 +35,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               </button>
             </a>
           </div>
-          <div class="flex flex-col">
+          <div class="hidden lg:flex flex-col">
             <p class="text-sm font-bold mb-3">Chính sách ưu đãi của WildHorizon BookShop</p>
             <div class="text-sm">
               <a href="<?php echo BASE_URL . '/chinh-sach/delivery' ?>" class="flex items-center mb-3">
@@ -58,23 +58,37 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
       </div>
       <!-- THÔNG TIN SẢN PHẨM -->
-      <div class="ms-5 w-full">
-        <div class="bg-white rounded-md px-3 py-4 shadow-sm">
+      <div class="px-1 lg:ms-5 w-full">
+        <div class="block bg-white lg:hidden">
+          <div class="flex flex-col py-1">
+            <div class="w-full bg-gradient-to-r from-[#e53935] to-[#ff7043] text-white py-2 ps-3">
+              <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746867428/dzxhpsuecpi8ktrjn3dr.svg" alt="icon_fs" class="">
+            </div>
+            <div class="mt-3 flex items-center ps-3">
+              <p class="text-3xl font-bold text-red-700">
+                <?php echo $product['f_quantity'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
+                đ</p>
+              <p class="ms-3 text-gray-400 text-lg"><s><?php echo Format::forMatPrice($product['price']) ?></s></p>
+              <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $product['f_quantity'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-md px-3 py-1 lg:py-4 shadow-sm">
           <p class="text-2xl font-bold"><?php echo $product['product_name'] ?></p>
           <?php if ($product['catalog_id'] == 10) { ?>
-            <div class="mt-3">
+            <div class="mt-3 hidden lg:block">
               <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo $product['brand_name'] != null ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else if ($product['catalog_id'] == 11) { ?>
-            <div class="mt-3">
+            <div class="mt-3 hidden lg:block">
               <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['supplier_name']) ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['brand_name']) ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else { ?>
-            <div class="mt-3">
+            <div class="mt-3 hidden lg:block">
               <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="inline-block w-1/3 text-sm">Tác giả: <span class="font-bold"><?php echo $product['author'] != null ? $product['author'] : 'Chưa cập nhật' ?></span></p>
               <p class="inline-block w-1/2 text-sm mt-2">Nhà xuất bản: <span class="font-bold"><?php echo $product['publisher'] != null ? $product['publisher'] : 'Chưa cập nhật' ?></span></p>
@@ -82,12 +96,12 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
           <?php } ?>
           <?php if ($product['f_quantity'] > 0) { ?>
-            <div class="mt-3 flex">
+            <div class="mt-3 hidden lg:flex ">
               <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs">
               <p class="text-lg font-bold ms-5">Còn lại: <span class="text-orange-500"><?php echo $product['f_quantity'] ?></span></p>
             </div>
           <?php } ?>
-          <div class="mt-3 flex items-center">
+          <div class="mt-3 hidden lg:flex  items-center">
             <p class="text-3xl font-bold text-red-700">
               <?php echo $product['f_quantity'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
               đ</p>
@@ -117,14 +131,14 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               <div style="width: 16px;height: 16px;background: url('https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg');background-repeat: no-repeat;margin-top: 2px;"></div>
             </div>
           </div>
-          <div class="flex items-center mt-3">
+          <div class="hidden lg:flex items-center mt-3">
             <p class="font-bold mr-3">Số lượng</p>
             <div class="flex items-center user-select-none">
               <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75 <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
                 <span class="w-full "><i class="fa-solid fa-minus"></i></span>
               </div>
               <div class="p-2" style="width: 44px;">
-                <input type="text" value=1 class="w-full text-center outline-none product-detail-quantity" name="cart-quantity" data-id="<?php echo $product['id'] ?> ">
+                <input type="text" value="1" class="w-full text-center outline-none product-detail-quantity bg-white" name="cart-quantity" data-id="<?php echo $product['id'] ?> ">
               </div>
               <div class="inc-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
                 <span class="w-full"><i class="fa-solid fa-plus"></i></span>
@@ -140,13 +154,13 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           <p class="font-bold text-lg">Thông tin chi tiết</p>
           <table class="table-auto w-full text-sm text-gray-500">
             <colgroup>
-              <col width="25%">
+              <col width="40%">
               <col>
             </colgroup>
             <?php foreach ($product_attrs as $product_attr) { ?>
               <tr>
-                <td class="p-2 border-b-sm"><?php echo $product_attr['attr_name']; ?></td>
-                <td class="p-2 border-b-sm"><?php echo $product_attr['attr_value']; ?></td>
+                <td class="p-2 border-b-sm align-middle"><?php echo $product_attr['attr_name']; ?></td>
+                <td class="p-2 border-b-sm align-middle"><?php echo $product_attr['attr_value']; ?></td>
               </tr>
             <?php } ?>
           </table>
@@ -161,19 +175,48 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           <p class="font-bold text-sm mt-3"><?php echo $product['product_name'] ?></p>
           <p class="text-sm text-gray-500 mt-2"><?php echo $product['p_description'] ? $product['p_description'] : '' ?></p>
         </div>
+        <!-- moblie quanity, addcart template -->
+        <div class="fixed w-full left-0 right-0 bottom-0 z-[999999] block lg:hidden">
+          <div class="mx-auto max-w-[600px] w-full bg-white h-[48px] shadow-md flex items-center justify-center px-4">
+            <div class="flex items-center user-select-none mr-2">
+              <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75 <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
+                <span class="w-full "><i class="fa-solid fa-minus"></i></span>
+              </div>
+              <div class="p-2" style="width: 44px;">
+                <input type="text" value="1" class="w-full text-center outline-none product-detail-quantity bg-white" name="cart-quantity" data-id="<?php echo $product['id'] ?> ">
+              </div>
+              <div class="inc-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
+                <span class="w-full"><i class="fa-solid fa-plus"></i></span>
+              </div>
+            </div>
+            <div class="flex justify-around py-5 w-full">
+              <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
+                <button type="button" class="flex items-center h-[45px] px-2 border-2 justify-center rounded-md border-red-700 mr-2" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
+                  <p class="text-red-600 text-sm font-bold">Thêm vào giỏ hàng</p>
+                </button>
+              </a>
+              <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['id'] ?>">
+                <button type="button" class="flex items-center h-[45px] px-2 justify-center rounded-md bg-red-700" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
+                  <p class="text-white text-sm font-bold">Mua ngay</p>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div class="bg-white flex flex-col p-4 rounded-md mt-3">
       <p class="text-lg font-bold">Đánh giá sản phẩm</p>
       <div class="flex items-center mt-3">
-        <div class="flex flex-col w-1/4">
+        <div class="flex flex-col w-1/4 mr-3 lg:mr-0">
           <div class="flex items-center text-4xl justify-center">
             <i class="fa-solid fa-star fill-current text-orange-300 text-lg"></i>
             <p class="ms-1"><?php echo !empty($avgRating) ? floatval($avgRating['avgRating']) : '0' ?><span class="text-sm text-gray-400">/5</span></p>
           </div>
           <p class="text-center text-sm text-gray-400"><?php echo count($reviews) . ' đánh giá' ?></p>
         </div>
-        <div class="w-1/3">
+        <div class="flex-1 lg:flex-none lg:w-1/3">
           <ul>
             <?php foreach ($rating_reviews as $rating) { ?>
               <li class="flex items-center text-sm w-full mb-2">
@@ -187,7 +230,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           </ul>
         </div>
       </div>
-      <div class="px-2 py-1">
+      <div class="px-2 py-1 lg:w-[70%]">
         <?php if (count($reviews) > 0) { ?>
           <?php foreach ($reviews as $review) { ?>
             <div class="mt-3 ps-2 py-1" style="font-size: 12px;">
@@ -218,11 +261,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <div class="bg-white flex flex-col p-4 rounded-md mt-3">
         <p class="text-lg font-bold mb-3">Sản phẩm liên quan</p>
         <div class="more-product-detail">
-          <div class="grid grid-cols-5 py-2 more-product-detail">
+          <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 py-2 more-product-detail">
             <?php foreach ($moreProducts as $product) { ?>
-              <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+              <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="">
                 <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                  <div class="whr-product-img py-2">
+                  <div class="whr-product-img py-2 h-[140px] lg:h-[180px]">
                     <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                   </div>
                   <div class="px-2 mt-2 pb-3">
@@ -250,11 +293,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
     <?php } ?>
     <div class="rounded-md mt-3 product-suggest">
       <div class="flex py-1" style="height: 70px;"></div>
-      <div class="grid grid-cols-5 mt-7">
+      <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 mt-7">
         <?php foreach ($suggest_products as $product) { ?>
-          <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
+          <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="">
             <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-              <div class="whr-product-img py-2">
+              <div class="whr-product-img py-2 h-[140px] lg:h-[180px]">
                 <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
               </div>
               <div class="px-2 mt-2 pb-3">
@@ -278,7 +321,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <?php } ?>
       </div>
       <div class="mb-2 pt-3">
-        <button type="button" id="loadMore-product" class="load-more-product"><a href="<?php echo BASE_URL . '/product' ?>">Load more</a></button>
+        <button type="button" id="loadMore-product" class="load-more-product w-[130px] lg:w-full"><a href="<?php echo BASE_URL . '/product' ?>">Load more</a></button>
       </div>
     </div>
   </div>
@@ -293,20 +336,20 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </form> -->
       <h3 class="text-lg font-bold border-b-2 border-gray-300 pb-2 text-center">Chọn địa chỉ giao hàng của bạn</h3>
       <div class="mt-3 flex text-nowrap items-center">
-        <p class="mr-2" style="width: 190px;">Chọn Tỉnh/Thành phố:</p>
-        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md " name="temp-address-province" id="temp-address-province">
+        <p class="mr-2 text-[12px] lg:text-sm w-[140px] lg:w-full" style="max-width: 190px;">Chọn Tỉnh/Thành phố:</p>
+        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] lg:text-sm" name="temp-address-province" id="temp-address-province">
           <option value="">Chọn tỉnh/thành phố</option>
         </select>
       </div>
       <div class="mt-3 flex text-nowrap items-center">
-        <p class="mr-2" style="width: 190px;">Chọn Quận/Huyện:</p>
-        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md " name="temp-address-district" id="temp-address-district" disabled>
+        <p class="mr-2 text-[12px] lg:text-sm w-[140px] lg:w-full" style="max-width: 190px;">Chọn Quận/Huyện:</p>
+        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] lg:text-sm" name="temp-address-district" id="temp-address-district" disabled>
           <option value="">Chọn quận/huyện</option>
         </select>
       </div>
       <div class="mt-3 flex text-nowrap items-center">
-        <p class="mr-2" style="width: 190px;">Chọn Phường/Xã:</p>
-        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md " name="temp-address-ward" id="temp-address-ward" disabled>
+        <p class="mr-2 text-[12px] lg:text-sm w-[140px] lg:w-full" style="max-width: 190px;">Chọn Phường/Xã:</p>
+        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] lg:text-sm" name="temp-address-ward" id="temp-address-ward" disabled>
           <option value="">Chọn phường xã</option>
         </select>
       </div>

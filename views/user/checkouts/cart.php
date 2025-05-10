@@ -55,7 +55,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                           <span class="w-full "><i class="fa-solid fa-minus"></i></span>
                         </div>
                         <div class="p-2" style="width: 44px;">
-                          <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>">
+                          <input type="text" value="<?php echo $product['cart_quantity'] ?>" class="w-full text-center outline-none cart-product-quantity bg-white" name="cart-quantity[]" data-productID="<?php echo $product['id'] ?>">
                         </div>
                         <div
                           class="<?php echo $product['f_quantity'] > 0 ? ($product['f_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>

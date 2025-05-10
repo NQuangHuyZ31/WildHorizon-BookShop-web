@@ -207,21 +207,21 @@ h6 {
 
 /* LOGIN */
 .whr-login {
-    width: 444px !important;
+    max-width: 444px;
 }
 
 .login-content,
 .register-content {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     background-image: url(https://res.cloudinary.com/whr-clound/image/upload/v1745418551/fle1ah8qy99bnsjrksxr.jpg);
-    height: 100%;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    /* background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; */
 }
 
 .whr-register {
-    min-height: 610px;
-    width: 480px !important;
+    /* min-height: 610px; */
+    max-width: 480px;
 }
 
 .whr-show-hidden-pw-icon {
@@ -360,7 +360,7 @@ h6 {
 
 /* Chi tiết sản phẩm */
 .product-detail-content {
-    width: 500px;
+    max-width: 500px;
 }
 
 .product-detail-image {

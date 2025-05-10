@@ -22,10 +22,10 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <?php } else { ?>
             <div class="p-2 relative">
                 <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746261219/lbh72mmtznw6zcjmp9ao.png" alt="banner_image">
-                <div class="absolute top-[20%] lg:top-[40%] left-[25%] w-[50%] user-select-none">
-                    <p class="text-sm text-white lg:text-2xl p-1">Wildhorizon BookShop</p>
+                <div class="absolute top-[35%] lg:top-[40%] left-[25%] w-[50%] user-select-none">
+                    <p class="text-[14px] text-white lg:text-2xl p-1">Wildhorizon BookShop</p>
                     <p class="text-white p-1 mb-1 hidden lg:block">Khám phá thế giới tri thức bất tận, nơi những cuốn sách hay dẫn lối bạn đến chân trời mới mỗi ngày.</p>
-                    <button class="btn btn-warning lg:w-[160px]"><a href="<?php echo BASE_URL ?>/product" class="text-sm">Khám phá ngay</a></button>
+                    <button class="btn btn-warning min-h-[40px] h-[30px] lg:h-full w-[120px] lg:w-[160px]"><a href="<?php echo BASE_URL ?>/product" class="text-[11px] lg:text-[14px]">Khám phá ngay</a></button>
                 </div>
             </div>
         <?php } ?>
@@ -33,7 +33,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
                     <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
-                    <p class="uppercase ms-2 text-nowrap font-bold" style="font-size: 14px; color: #6c1d00;;">Thử ngay trên app</p>
+                    <p class="uppercase ms-2 text-nowrap font-bold text-[11px] lg:text-[14px]">Thử ngay trên app</p>
                 </div>
                 <div class="download-app-content">
                     <div class="flex justify-start items-center py-1 px-2 text-white" style="font-size: 12px;">
@@ -69,36 +69,36 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-2 lg:grid-cols-3 mt-4 px-2 gap-1">
-        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-lg" style="height: 130px;">
+    <div class="grid grid-cols-2 lg:grid-cols-3 mt-4 px-2 gap-3">
+        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-lg h-full" style="max-height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
-                <div class="">
+                <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-wrap lg:text-nowrap hover:text-orange-400 text-sm">Thu thập & Sử dụng ngay!</p>
+                    <p class="text-wrap text-[11px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Thu thập & Sử dụng ngay!</p>
                 </div>
-                <div class="flex justify-end" style="width: 138px;">
+                <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
-        <a href="#" class="shadow-lg" style="height: 130px;">
+        <a href="#" class="shadow-lg h-full" style="max-height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
-                <div class="">
+                <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-wrap lg:text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
+                    <p class="text-wrap text-[11px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
                 </div>
-                <div class="flex justify-end" style="width: 138px;">
+                <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>
         </a>
-        <a href="#" class="shadow-lg" style="height: 130px;">
+        <a href="#" class="shadow-lg h-full" style="max-height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
-                <div class="">
+                <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-wrap lg:text-nowrap hover:text-orange-400 text-sm">Collect & Redeem Now!</p>
+                    <p class="text-wrap text-[11px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
                 </div>
-                <div class="flex justify-end" style="width: 138px;">
+                <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
                 </div>
             </div>

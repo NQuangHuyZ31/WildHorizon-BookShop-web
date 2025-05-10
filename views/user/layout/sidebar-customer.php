@@ -118,6 +118,14 @@
           </div>
         </li>
       </a>
+      <form action="<?php echo BASE_URL ?>/dang-xuat" method="post" class="w-full text-center mt-2">
+        <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
+        <li class="text-center block">
+          <button type="submit" class="w-full bg-red-700 text-white flex justify-center items-center">
+            <span>Đăng xuất</span>
+          </button>
+        </li>
+      </form>
     </ul>
   </div>
 </div>
