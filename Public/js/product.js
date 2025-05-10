@@ -136,8 +136,8 @@ $(document).ready(function () {
                             $('.whr-product').removeClass('grid-cols-1').addClass('grid-cols-4');
                             response.products.forEach((product) => {
                                 $('.whr-product').append(`
-                                <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="mr-3 mb-4">
-                                  <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content main-product-content">
+                                <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="">
+                                  <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
                                     <div class="whr-product-img py-2 main-img-product">
                                       <img src="${product.product_image}" class="w-full h-full" alt="image">
                                     </div>
@@ -145,35 +145,35 @@ $(document).ready(function () {
                                       <p class="product-title text-sm">${product.product_name}</p>
                                       <div class="product-price-sale">
                                         <p class="text-orange-500">
-                                          ${
-                                              product.f_quantity > 0
-                                                  ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_price) / 100)
-                                                  : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price) / 100)
-                                          }
-                                          <u class="text-orange-500 ms-1">đ</u>
+                                            ${
+                                                product.f_quantity > 0
+                                                    ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_price) / 100)
+                                                    : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price) / 100)
+                                            }
+                                            <u class="text-orange-500 ms-1">đ</u>
                                         </p>
                                         <div class="flex justify-between items-center">
-                                          <p class="flash-sale-product-price-sale ${
-                                              product.f_quantity > 0 || product.discount_price > 0 ? '' : 'hidden'
-                                          }"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
+                                        <p class="flash-sale-product-price-sale ${
+                                            product.f_quantity > 0 || product.discount_price > 0 ? '' : 'hidden'
+                                        }"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
                                             <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${
                                                 product.f_quantity > 0
                                                     ? new Intl.NumberFormat('vi').format(product.f_discount_price)
                                                     : new Intl.NumberFormat('vi').format(product.discount_price)
                                             }%</span>
-                                          </p>
-                                          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
-                                              product.f_quantity > 0 ? '' : 'hidden'
-                                          }">
+                                        </p>
+                                        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
+                                            product.f_quantity > 0 ? '' : 'hidden'
+                                        }">
                                         </div>
-                                                  </div>
-                                    ${
-                                        product.f_quantity > 0
-                                            ? `<div class="flex justify-end px-1">
-                                          <p class="text-gray-400" style="font-size: 11px;">còn ${product.f_quantity} sản phẩm</p>
-                                        </div>`
-                                            : ''
-                                    }
+                                    </div>
+                                            ${
+                                                product.f_quantity > 0
+                                                    ? `<div class="flex justify-end px-1">
+                                                    <p class="text-gray-400" style="font-size: 11px;">còn ${product.f_quantity} sản phẩm</p>
+                                                    </div>`
+                                                    : ''
+                                            }
                                     </div>
                                   </div>
                                 </a>
@@ -184,14 +184,14 @@ $(document).ready(function () {
                             $('.whr-product').addClass('grid-cols-1').removeClass('grid-cols-4');
                             $('.whr-product').append(`
                             <div class="text-center mt-4">
-                                <p class="text-2xl text-red-400">Không có sản phẩm.</p>
-                              </div>
-                              <div class="flex flex-col justify-center text-center mt-4">
-                                <p class="text-sm text-gray-500">Quay lại mua sắm</p>
+                                <p class="text-xl lg:text-2xl text-red-400">Không có sản phẩm.</p>
+                            </div>
+                            <div class="flex flex-col justify-center text-center mt-4">
+                                <p class="text-[12px] lg:text-sm text-gray-500">Quay lại mua sắm</p>
                                 <div class="text-center mt-2">
-                                  <button type="button" class="bg-orange-400 rounded-sm text-white" style="width: 240px;height: 50px;"><a href="${APP_CONFIG.appURL}/product" class="w-full">Go to Shopping</a></button>
+                                    <button type="button" class="bg-orange-400 rounded-sm text-white" style="width: 240px;height: 50px;"><a href="${APP_CONFIG.appURL}/product" class="w-full">Go to Shopping</a></button>
                                 </div>
-                              </div>
+                            </div>
                           `);
                         }
                         JsLoadingOverlay.hide();

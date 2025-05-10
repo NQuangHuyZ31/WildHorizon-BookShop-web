@@ -102,10 +102,6 @@ h6 {
 .header-logo {
     width: 230px;
 }
-.header-search {
-    height: 45px;
-    font-size: 14px;
-}
 
 .header-input-search {
     background-color: #eff0f5;
@@ -257,7 +253,7 @@ h6 {
 }
 
 .whr-product-content {
-    min-height: 290px;
+    /* min-height: 290px; */
 }
 
 .main-product-content {
@@ -278,11 +274,11 @@ h6 {
 
 .flash-sale-product-title,
 .product-title {
-    height: 40px;
-    font-size: 14px !important;
+    height: 20px;
+    font-size: 14px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
 }

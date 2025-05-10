@@ -3,16 +3,18 @@
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
     <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
-      <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
+      <div class="lg:w-1/4">
+        <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
+      </div>
       <div class="flex-1 p-1 lg:ms-3">
-        <div class="customer-address-content w-full bg-white rounded-md shadow-md pb-4 px-4">
+        <div class="customer-address-content w-full bg-white rounded-md shadow-sm lg:shadow-md pb-4 px-4">
           <?php if ($customer_address != null) { ?>
             <div class="px-4 py-3">
               <div class="flex justify-between items-center">
-                <p class="text-lg font-bold text-slate-500">Sổ địa chỉ</p>
+                <p class="text-[14px] lg:text-lg font-bold text-slate-500">Sổ địa chỉ</p>
                 <div class="text-sm text-sky-500 flex items-center cursor-pointer font-semibold">
                   <i class="fa-solid fa-plus"></i>
-                  <p class="ms-2"><a href="<?php echo BASE_URL ?>/customer/address/add">Thêm địa chỉ mới</a></p>
+                  <p class="ms-2 text-[12px] lg:text-sm"><a href="<?php echo BASE_URL ?>/customer/address/add">Thêm địa chỉ mới</a></p>
                 </div>
               </div>
             </div>
@@ -37,7 +39,7 @@
                     <?php } ?>
                   </div>
                 </div>
-                <div class="text-sm mt-1">
+                <div class="text-[12px] lg:text-sm mt-1">
                   <p class="text-slate-500 py-0.5"><?php echo $address['address'] ?></p>
                   <p class="text-slate-500 py-0.5"><?php echo $address['ward'] . ', ' . $address['district'] . ', ' . $address['province'] ?></p>
                 </div>
@@ -52,7 +54,7 @@
                   <div class="ms-2 text-sm text-gray-400">Đặt làm địa chỉ mặt định</div>
                 </div>
                 <div class="flex justify-end mt-3 text-center">
-                  <button type="button" id="btn-save-address" class="px-14 py-2 text-white bg-red-700 rounded-lg font-semibold">Lưu địa chỉ</button>
+                  <button type="button" id="btn-save-address" class="px-11 py-2 text-[12px] lg:text-[15px] text-white bg-red-700 rounded-lg font-semibold lg:px-14">Lưu địa chỉ</button>
                 </div>
               </div>
             </div>

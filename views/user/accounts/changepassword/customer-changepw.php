@@ -3,10 +3,12 @@
 <div class="container-fuild mx-auto">
   <div class="w-full mt-3 mb-3">
     <div class="flex flex-col lg:mb-0 lg:flex-row w-full">
-      <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
+      <div class="lg:w-1/4">
+        <?php include_once VIEW_PATH_USER_LAYOUT . 'sidebar-customer.php' ?>
+      </div>
       <div class="flex-1 px-1 lg:ms-4">
-        <div class="bg-white rounded-md shadow-lg lg:mx-2 w-full p-4 border border-gray-100">
-          <p class="text-lg font-bold">Đổi mật khẩu</p>
+        <div class="bg-white rounded-md shadow-sm lg:shadow-lg lg:mx-2 w-full p-4 border border-gray-100">
+          <p class="text-[14px] lg:text-lg font-bold">Đổi mật khẩu</p>
           <div class="mt-3">
             <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
             <div class="w-full flex items-center py-3">

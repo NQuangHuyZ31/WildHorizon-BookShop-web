@@ -9,7 +9,7 @@ $csrf_token = Core\CSRF::generateToken();
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <!-- Content -->
-<div class="container-fuild mx-auto mb-2">
+<div class="container-fuild mx-auto mb-2 p-1 lg:p-0">
     <div class="flex w-full justify-between">
         <?php if ($banner_headers != null) { ?>
             <div class="single-item shadow-lg flex-1">
@@ -105,7 +105,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </a>
     </div>
     <!-- Flashsales -->
-    <div class="mt-4">
+    <div class="mt-4 p-1 lg:p-0">
         <div class="mb-3">
             <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Flash Sale</p>
         </div>
@@ -120,13 +120,13 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 <div class="swiper-wrapper">
                     <?php foreach ($flassale_products as $fproduct) { ?>
                         <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($fproduct['product_name']) . '-' . $fproduct['product_id'] . '' ?>" class="mr-2 swiper-slide">
-                            <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+                            <div class="flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
                                 <div class="whr-product-img py-2">
                                     <img class="w-full h-full lazyload" data-src="<?php echo $fproduct['product_image'] ?>" alt="sanpham">
                                 </div>
                                 <div class="flash-sale-product mt-1 mx-2">
-                                    <p class="text-sm flash-sale-product-title"><?php echo $fproduct['product_name'] ?></p>
-                                    <div class="flash-sale-product-price">
+                                    <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $fproduct['product_name'] ?></p>
+                                    <div class="flash-sale-product-price text-[12px] lg:text-sm px-2 lg:px-0">
                                         <p class="text-orange-500"><?php echo Format::forMatPrice($fproduct['price'] - ($fproduct['price'] * $fproduct['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
                                         <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fproduct['price'], 0, '.', ',') ?></s>
                                             <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
@@ -143,18 +143,18 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
         </div>
     </div>
-    <div class="mt-4">
+    <div class="mt-4 p-1 lg:p-0">
         <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Categories</p>
         <div class="grid grid-cols-3 lg:grid-cols-8 mt-3">
             <?php foreach ($categories as $category) {  ?>
                 <a href="<?php echo BASE_URL . '/category/' . CreateSlug::createSlug($category['catalog_name']) . '-' . ($category['id']) ?>">
                     <div class="flex flex-col bg-white border-b-2 border-r-2 border-gray-200 category">
                         <div class="w-full">
-                            <div class="whr-category py-1">
+                            <div class="whr-category py-1 w-[50px] h-[50px] lg:w-[60px] lg:h-[60px]">
                                 <img data-src="<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full lazyload">
                             </div>
                             <div class="whr-category-title mb-2">
-                                <p class="text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
+                                <p class="text-[12px] lg:text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -162,22 +162,21 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <?php } ?>
         </div>
     </div>
-    <div class="mt-4">
+    <div class="mt-4 p-1 lg:p-0">
         <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Just For You</p>
         <div class="flex flex-col ">
             <div class="mt-3 grid gap-2 grid-cols-2 lg:grid-cols-6 whr-product px-1 lg:px-0">
                 <?php foreach ($products as $product) { ?>
                     <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>">
-                        <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+                        <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
                             <div class="whr-product-img py-2">
                                 <img data-src="<?php echo $product['product_image'] ?>" class="w-full h-full lazyload" alt="image">
                             </div>
-                            <div class="px-2 mt-2 pb-3">
-                                <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
-                                <div class="flex items-start mt-2 flex-col">
-                                    <div class="product-price">
+                            <div class="px-2 lg:mt-1 pb-3">
+                                <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $product['product_name'] ?></p>
+                                <div class="flex items-start lg:mt-1 flex-col px-2 lg:px-0">
+                                    <div class="product-price text-[12px] lg:text-sm">
                                         <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
-                                        <p class="text-sm" style="font-size: 12px;"></p>
                                     </div>
                                     <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
                                         <div class="product-price-sale">
@@ -193,7 +192,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 <?php } ?>
             </div>
             <div class="mb-2 pt-3">
-                <button type="button" id="loadMore-product" class="load-more-product w-[130px] lg:w-full" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Xem thêm</button>
+                <button type="button" id="loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[11px] lg:h-[40px] h-[35px] flex items-center justify-center" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Xem thêm</button>
             </div>
         </div>
     </div>

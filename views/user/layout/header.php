@@ -109,7 +109,7 @@ $csrf_token = Core\CSRF::generateToken();
         <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">THAY ĐỔI NGÔN NGỮ</a></li>
     </div>
     <div class="w-full pt-2 bg-white header-content lg:h-[80px]">
-      <div class="grid grid-cols-3 h-full items-center lg:w-[1024px] lg:mx-auto lg:grid-cols-4 ">
+      <div class="grid grid-cols-3 h-full items-center lg:mx-auto container-fuild lg:grid-cols-4 ">
         <div class="header-logo col-span-4 flex justify-center w-full lg:col-span-1">
           <a href="<?php echo BASE_URL . '/' ?>">
             <img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" class="max-w-[130px] max-h-[40px] lg:max-w-[100%] lg:max-h-[60px]">
@@ -119,8 +119,8 @@ $csrf_token = Core\CSRF::generateToken();
                                                     echo 'pointer-events-none';
                                                   }; ?>">
           <form action="<?php echo BASE_URL . '/product' ?>" class="w-full" method="get">
-            <div class="w-full flex header-search relative">
-              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
+            <div class="w-full flex  relative">
+              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg text-[11px] lg:text-sm" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
               <div class="hidden header-search-icon hover:opacity-80 rounded-lg lg:flex">
                 <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3 text-lg"></i></button>
               </div>

@@ -65,7 +65,7 @@
 </div>
 <div class="bg-white flex">
   <div class="container-fuild mx-auto">
-    <div class="lg:grid-cols-2">
+    <div class="grid lg:grid-cols-2">
       <div class="w-full">
         <h1 class="text-[14px] lg:text-lg px-2 py-2 font-bold">Payment Methods</h1>
         <div class="flex flex-wrap">

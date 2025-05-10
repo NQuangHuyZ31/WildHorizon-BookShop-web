@@ -59,40 +59,47 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </div>
       <!-- THÔNG TIN SẢN PHẨM -->
       <div class="px-1 lg:ms-5 w-full">
-        <div class="block bg-white lg:hidden">
+        <!-- mobile price -->
+        <div class="block bg-white lg:hidden rounded-md">
           <div class="flex flex-col py-1">
-            <div class="w-full bg-gradient-to-r from-[#e53935] to-[#ff7043] text-white py-2 ps-3">
-              <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746867428/dzxhpsuecpi8ktrjn3dr.svg" alt="icon_fs" class="">
-            </div>
-            <div class="mt-3 flex items-center ps-3">
-              <p class="text-3xl font-bold text-red-700">
+            <?php if ($product['f_quantity'] > 0) { ?>
+              <div class="w-full bg-gradient-to-r from-[#e53935] to-[#ff7043] text-white py-2 ps-3">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746867428/dzxhpsuecpi8ktrjn3dr.svg" alt="icon_fs" class="">
+              </div>
+            <?php } ?>
+            <div class="flex items-center ps-3">
+              <p class="text-2xl font-bold text-red-700">
                 <?php echo $product['f_quantity'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
                 đ</p>
               <p class="ms-3 text-gray-400 text-lg"><s><?php echo Format::forMatPrice($product['price']) ?></s></p>
-              <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $product['f_quantity'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
+              <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-[12px] font-bold">-<?php echo $product['f_quantity'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-md px-3 py-1 lg:py-4 shadow-sm">
-          <p class="text-2xl font-bold"><?php echo $product['product_name'] ?></p>
+        <div class="bg-white rounded-md px-3 pb-2 lg:py-4 shadow-sm">
+          <p class="text-[15px] lg:text-2xl font-bold"><?php echo $product['product_name'] ?>
+            <?php if ($product['stock'] <= 0) { ?>
+              <span class="text-red-700 ms-5 text-[13px] lg:hidden">Hết hàng</span>
+            <?php } ?>
+          </p>
           <?php if ($product['catalog_id'] == 10) { ?>
-            <div class="mt-3 hidden lg:block">
-              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo $product['brand_name'] != null ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
+            <div class="mt-3 hidden lg:grid lg:grid-cols-2 px-3">
+              <p class="text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm">Thương hiệu: <span class="font-bold"><?php echo $product['brand_name'] != null ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else if ($product['catalog_id'] == 11) { ?>
-            <div class="mt-3 hidden lg:block">
-              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['supplier_name']) ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['brand_name']) ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/2 text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
+            <div class="mt-3 hidden lg:grid lg:grid-cols-2 px-3">
+              <p class="text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['supplier_name']) ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['brand_name']) ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else { ?>
-            <div class="mt-3 hidden lg:block">
-              <p class="inline-block w-1/2 text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm">Tác giả: <span class="font-bold"><?php echo $product['author'] != null ? $product['author'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/2 text-sm mt-2">Nhà xuất bản: <span class="font-bold"><?php echo $product['publisher'] != null ? $product['publisher'] : 'Chưa cập nhật' ?></span></p>
-              <p class="inline-block w-1/3 text-sm mt-2">Năm xuất bản: <span class="font-bold"><?php echo $product['publication_year'] != null ? $product['publication_year'] : 'Chưa cập nhật' ?></span></p>
+            <div class="mt-3 hidden lg:grid lg:grid-cols-2 px-3">
+              <p class="text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm">Tác giả: <span class="font-bold"><?php echo $product['author'] != null ? $product['author'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm mt-2">Nhà xuất bản: <span class="font-bold"><?php echo $product['publisher'] != null ? $product['publisher'] : 'Chưa cập nhật' ?></span></p>
+              <p class="text-sm mt-2">Năm xuất bản: <span class="font-bold"><?php echo $product['publication_year'] != null ? $product['publication_year'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } ?>
           <?php if ($product['f_quantity'] > 0) { ?>
@@ -109,30 +116,30 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <span class="ms-3 bg-red-500 px-1 rounded-sm text-white text-sm font-bold">-<?php echo $product['f_quantity'] > 0 ? Format::formatNumber($product['f_discount_price']) : Format::formatNumber($product['discount_price']) ?>%</span>
           </div>
         </div>
-        <div class="bg-white flex flex-col p-4 rounded-md mt-3">
+        <div class="bg-white flex flex-col p-4 rounded-md mt-3 ">
           <div>
-            <p class="text-lg font-bold">Thông tin vận chuyển</p>
+            <p class="text-[14px] lg:text-lg font-bold">Thông tin vận chuyển</p>
             <div class="mt-2">
-              <p class="text-sm cursor-pointer" id="change-temp-address">Giao hàng đến: <span class="font-bold" id="temp_address">Phường Bến Nghé, Quận 1, Hồ Chí Minh</span><span class="ms-3 text-blue-600 font-bold">Thay đổi</span></p>
+              <p class="text-[12px] lg:text-sm cursor-pointer" id="change-temp-address">Giao hàng đến: <span class="font-bold" id="temp_address">Phường Bến Nghé, Quận 1, Hồ Chí Minh</span><span class="ms-3 text-blue-600 font-bold">Thay đổi</span></p>
             </div>
           </div>
           <div class="mt-3 flex">
             <i class="fa-solid fa-truck text-orange-500 mr-4 mt-1"></i>
             <div class="flex flex-col">
-              <p class="font-bold">Giao hàng tiêu chuẩn</p>
-              <p class="text-sm">Dự kiến giao: <span class="font-bold"><?php $date = new DateTime();
-                                                                        echo $date->modify('+3 day')->format('d-m-Y'); ?></span></p>
+              <p class="text-[14px] lg:text-lg font-bold">Giao hàng tiêu chuẩn</p>
+              <p class="text-[12px] lg:text-sm">Dự kiến giao: <span class="font-bold"><?php $date = new DateTime();
+                                                                                      echo $date->modify('+3 day')->format('d-m-Y'); ?></span></p>
             </div>
           </div>
           <div class="mt-3 flex items-center">
-            <p class="font-bold mr-3">Ưu dãi liên quan</p>
-            <div class="text-blue-500 cursor-pointer flex text-sm">
+            <p class="text-[14px] lg:text-lg font-bold mr-3">Ưu dãi liên quan</p>
+            <div class="text-blue-500 cursor-pointer flex text-[12px] lg:text-sm">
               <p class="mr-3">Xem thêm</p>
               <div style="width: 16px;height: 16px;background: url('https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg');background-repeat: no-repeat;margin-top: 2px;"></div>
             </div>
           </div>
           <div class="hidden lg:flex items-center mt-3">
-            <p class="font-bold mr-3">Số lượng</p>
+            <p class="text-lg font-bold mr-3">Số lượng</p>
             <div class="flex items-center user-select-none">
               <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75 <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
                 <span class="w-full "><i class="fa-solid fa-minus"></i></span>
@@ -151,8 +158,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
         <!-- THÔNG TIN CHI TIÊT -->
         <div class="bg-white rounded-md px-3 py-4 shadow-sm mt-5">
-          <p class="font-bold text-lg">Thông tin chi tiết</p>
-          <table class="table-auto w-full text-sm text-gray-500">
+          <p class="font-bold text-[14px] lg:text-lg">Thông tin chi tiết</p>
+          <table class="table-auto w-full text-[12px] lg:text-sm text-gray-500">
             <colgroup>
               <col width="40%">
               <col>
@@ -164,16 +171,16 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               </tr>
             <?php } ?>
           </table>
-          <div class="mt-2 text-sm">
+          <div class="mt-2 text-[12px] lg:text-sm">
             <p class="mb-1">Giá sản phẩm trên WildHorizon.com đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm,
               hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như Phụ phí đóng gói, phí vận chuyển, phụ phí hàng cồng kềnh,...</p>
             <p class="text-red-500">Chính sách khuyến mãi trên WildHorizon.com không áp dụng cho Hệ thống Nhà sách WildHorizon trên toàn quốc</p>
           </div>
         </div>
         <div class="bg-white rounded-md px-3 py-4 shadow-sm mt-5">
-          <p class="font-bold text-lg">Mô tả sản phẩm</p>
-          <p class="font-bold text-sm mt-3"><?php echo $product['product_name'] ?></p>
-          <p class="text-sm text-gray-500 mt-2"><?php echo $product['p_description'] ? $product['p_description'] : '' ?></p>
+          <p class="font-bold text-[14px] lg:text-lg">Mô tả sản phẩm</p>
+          <p class="font-bold text-[14px] lg:text-sm mt-3"><?php echo $product['product_name'] ?></p>
+          <p class="text-[12px] lg:text-sm text-gray-500 mt-2"><?php echo $product['p_description'] ? $product['p_description'] : '' ?></p>
         </div>
         <!-- moblie quanity, addcart template -->
         <div class="fixed w-full left-0 right-0 bottom-0 z-[999999] block lg:hidden">
@@ -206,7 +213,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
       </div>
     </div>
-    <div class="bg-white flex flex-col p-4 rounded-md mt-3">
+    <div class="bg-white flex flex-col p-4 rounded-md mt-3 text-[12px] lg:text-sm">
       <p class="text-lg font-bold">Đánh giá sản phẩm</p>
       <div class="flex items-center mt-3">
         <div class="flex flex-col w-1/4 mr-3 lg:mr-0">
@@ -259,18 +266,18 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
     </div>
     <?php if (count($moreProducts) > 0) { ?>
       <div class="bg-white flex flex-col p-4 rounded-md mt-3">
-        <p class="text-lg font-bold mb-3">Sản phẩm liên quan</p>
+        <p class="text-[14px] lg:text-lg font-bold mb-3">Sản phẩm liên quan</p>
         <div class="more-product-detail">
           <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 py-2 more-product-detail">
             <?php foreach ($moreProducts as $product) { ?>
               <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="">
-                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-                  <div class="whr-product-img py-2 h-[140px] lg:h-[180px]">
+                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[290px]">
+                  <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
                     <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                   </div>
                   <div class="px-2 mt-2 pb-3">
-                    <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
-                    <div class="flex items-start mt-2 flex-col">
+                    <p class="product-title text-[12px] lg:text-sm lg:px-2"><?php echo $product['product_name'] ?></p>
+                    <div class="flex items-start text-[12px] lg:px-2 lg:text-[15px] flex-col">
                       <div class="product-price">
                         <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
                         <p class="text-sm" style="font-size: 12px;"></p>
@@ -292,17 +299,17 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </div>
     <?php } ?>
     <div class="rounded-md mt-3 product-suggest">
-      <div class="flex py-1" style="height: 70px;"></div>
-      <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 mt-7">
+      <div class="flex py-1 lg:h-[70px]" style="max-height: 70px;"></div>
+      <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4 mt-7">
         <?php foreach ($suggest_products as $product) { ?>
           <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="">
-            <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
-              <div class="whr-product-img py-2 h-[140px] lg:h-[180px]">
+            <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[290px]">
+              <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
                 <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
               </div>
               <div class="px-2 mt-2 pb-3">
-                <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
-                <div class="flex items-start mt-2 flex-col">
+                <p class="product-title text-[12px] lg:text-sm lg:px-2"><?php echo $product['product_name'] ?></p>
+                <div class="flex items-start flex-col text-[12px] lg:text-[15px] lg:mt-2 lg:px-2">
                   <div class="product-price">
                     <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
                     <p class="text-sm" style="font-size: 12px;"></p>

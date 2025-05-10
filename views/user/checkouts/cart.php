@@ -8,8 +8,8 @@ Session::delete('error');
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'
 
 ?>
-<div class="container-fuild mx-auto">
-  <div class="whr-cart mt-3">
+<div class="container-fuild mx-auto p-1 lg:p-0">
+  <div class="mt-3 lg:min-h-[400px]">
     <!-- -->
     <?php if (\Core\Session::has('user')) { ?>
       <?php if (count($products) > 0) { ?>
@@ -17,7 +17,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           <div class="lg:w-full" style="max-width:788px">
             <div class="flex justify-between w-full bg-white px-3 py-2 rounded-sm">
               <div class="flex items-center">
-                <p class=" text-gray-500 uppercase text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> sản phẩm)</p>
+                <p class=" text-gray-500 uppercase text-[12px] lg:text-sm ms-3">Tất cả sản phẩm (<?php echo count($products) ?> sản phẩm)</p>
               </div>
             </div>
             <form id="form-checkout" action="<?php echo BASE_URL . '/checkout/process' ?>" method="post">
@@ -72,75 +72,74 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           </div>
           <div class="bg-white px-3 py-4 lg:ms-2 flex-1 rounded-md" style="max-height: 250px;">
             <div class="mb-3">
-              <p class="text-lg">Tổng tiền đơn hàng</p>
+              <p class="text-[14px] lg:text-lg">Tổng tiền đơn hàng</p>
             </div>
-            <div class="flex justify-between text-gray-500 text-sm mb-4">
+            <div class="flex justify-between text-gray-500 text-[12px] lg:text-sm mb-4">
               <p class="checkout-subtotal">Thành tiền</p>
               <p class="mr-2 checkout-subtotal-price text-sm"><span id="cart-subtotal"><?php echo Format::forMatPrice($totalPrice) ?></span> <u>đ</u></p>
             </div>
-            <div class="flex justify-between text-gray-500 text-sm mb-4">
+            <div class="flex justify-between text-gray-500 text-[12px] lg:text-sm mb-4">
               <p class="checkout-subtotal">Giảm giá</p>
               <p class="mr-2 checkout-subtotal-price text-red-400">- <span id="cart-saved"><?php echo Format::forMatPrice($saveprice) ?></span> <u>đ</u></p>
             </div>
-            <div class="flex justify-between text-gray-500 text-sm mb-4">
+            <div class="flex justify-between text-gray-500 text-[12px] lg:text-sm mb-4">
               <p class="checkout-subtotal">Phí vận chuyển (tiêu chuẩn)</p>
               <p class="mr-2 checkout-subtotal-price text-red-400"><span id="fee-shipping">23.000</span> <u>đ</u></p>
             </div>
-            <div class="flex justify-between text-black text-sm">
+            <div class="flex justify-between text-black text-[14px] lg:text-sm">
               <p class="checkout-subtotal">Tổng tiền</p>
-              <p class="mr-2 checkout-subtotal-price text-orange-500 text-lg"> <span id="cart-total"><?php echo Format::forMatPrice($totalPrice - $saveprice + 23000) ?></span><u>đ</u></p>
+              <p class="mr-2 checkout-subtotal-price text-orange-500 text-[15px] lg:text-lg"> <span id="cart-total"><?php echo Format::forMatPrice($totalPrice - $saveprice + 23000) ?></span><u>đ</u></p>
             </div>
             <div class="mt-2 text-center bg-orange-500 text-white py-2 rounded-md" id="cart-checkout">
-              <button type="button" class="cursor-pointer w-full" name="btn-checkout" id="btn-checkout">Đặt hàng</button>
+              <button type="button" class="cursor-pointer w-full lg:text-sm text-[14px]" name="btn-checkout" id="btn-checkout">Đặt hàng</button>
             </div>
           </div>
         </div>
       <?php } else { ?>
         <div class="mt-4 bg-white flex flex-col justify-center p-5 items-center ">
-          <div class="mb-3">
-            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="no-product-image">
+          <div class="mb-3 flex justify-center lg:block">
+            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="no-product-image" class="w-[50%] lg:w-full h-full">
           </div>
-          <p class="mb-4 text-sm text-gray-400">Chưa có sản phẩm trong giỏ hàng của bạn</p>
+          <p class="mb-4 text-[12px] lg:text-sm text-gray-400">Chưa có sản phẩm trong giỏ hàng của bạn</p>
           <div class="mb-3" style="width: 220px;height: 40px;">
-            <button type="button" class="bg-red-600 text-white w-full h-full uppercase rounded-md"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full h-full">Mua sắm ngay</a></button>
+            <button type="button" class="bg-red-600 text-white w-full h-full uppercase rounded-md"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full h-full lg:text-sm text-[13px]">Mua sắm ngay</a></button>
           </div>
         </div>
       <?php } ?>
     <?php } else { ?>
-      <div class="flex flex-col justify-center">
+      <div class="flex flex-col justify-center bg-white py-4 rounded-md shadow-sm p-1 lg:p-0 lg:py-3">
         <div class="flex justify-center">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="cart_image">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="cart_image" class="w-[50%] lg:w-full h-full">
         </div>
         <div class="flex flex-col">
-          <div class="text-center mt-3 text-lg text-gray-600">
+          <div class="text-center mt-3 text-[14px] lg:text-lg text-gray-600">
             <p class="p-1">Bạn chưa đăng nhập.</p>
             <p class="text-sm text-gray-400">Đăng nhập để thêm sản phẩm vào giỏ hàng!</p>
           </div>
           <div class="text-center mt-4">
-            <button type="button" class="bg-orange-500 p-2 hover:bg-orange-600 rounded-sm" style="height: 50px;width: 240px;"><a href="<?php echo BASE_URL . '/dang-nhap' ?>" class="text-white text-sm">Sign in/Sign up</a></button>
+            <button type="button" class="bg-orange-500 p-2 hover:bg-orange-600 rounded-sm" style="height: 50px;width: 240px;"><a href="<?php echo BASE_URL . '/dang-nhap' ?>" class="text-white text-[12px] lg:text-sm">Sign in/Sign up</a></button>
           </div>
           <div class="text-center mt-6">
-            <button type="button" class="p-2 hover:bg-orange-100 rounded-sm border border-orange-400" style="height: 50px;width: 240px;"><a href="<?php echo BASE_URL . '/' ?>" class="text-orange-400 text-sm">Go to Shopping</a></button>
+            <button type="button" class="p-2 hover:bg-orange-100 rounded-sm border border-orange-400" style="height: 50px;width: 240px;"><a href="<?php echo BASE_URL . '/' ?>" class="text-orange-400 text-[12px] lg:text-sm">Go to Shopping</a></button>
           </div>
         </div>
       </div>
     <?php } ?>
   </div>
   <div class="rounded-md mt-3">
-    <p class="text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
-    <div class="grid grid-cols-2 lg:grid-cols-5 mt-7">
+    <p class="text-[14px] lg:text-lg ps-2 font-bold">Có thể bạn quan tâm</p>
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-2 mt-2 lg:mt-7">
       <?php foreach ($suggestproduct as $product) { ?>
-        <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="mr-3 mb-4">
-          <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content">
+        <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>">
+          <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
             <div class="whr-product-img py-2">
-              <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
+              <img data-src="<?php echo $product['product_image'] ?>" class="w-full h-full lazyload" alt="image">
             </div>
-            <div class="px-2 mt-2 pb-3">
-              <p class="product-title text-sm"><?php echo $product['product_name'] ?></p>
-              <div class="flex items-start mt-2 flex-col">
-                <div class="product-price">
+            <div class="px-2 lg:mt-1 pb-3">
+              <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $product['product_name'] ?></p>
+              <div class="flex items-start lg:mt-1 flex-col px-2 lg:px-0">
+                <div class="product-price text-[12px] lg:text-sm">
                   <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
-                  <p class="text-sm" style="font-size: 12px;"></p>
                 </div>
                 <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
                   <div class="product-price-sale">
@@ -156,7 +155,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
       <?php } ?>
     </div>
     <div class="mb-2 pt-3">
-      <button type="button" id="loadMore-product" class="load-more-product w-[130px] lg:w-full"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
+      <button type="button" id="loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[11px] lg:h-[40px] h-[35px] flex items-center justify-center"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
     </div>
   </div>
 </div>
