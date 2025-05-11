@@ -8,40 +8,40 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <form action="<?php echo BASE_URL . '/saveorder' ?>" method="post">
   <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
-  <div class="container-fuild mx-auto pb-5">
-    <div class="bg-white w-full px-4 py-2 mt-3">
-      <p class="text-lg uppercase font-bold py-2 border-b">Địa chỉ giao hàng</p>
+  <div class="container-fuild mx-auto h-auto lg:p-0 px-2">
+    <div class="bg-white w-full px-2 py-2 mt-3 lg:px-4 ">
+      <p class="text-[15px] lg:text-lg uppercase font-bold py-2 border-b">Địa chỉ giao hàng</p>
       <?php if ($customerAddress != null) { ?>
         <div class="mt-3" id="checkout-address">
           <div class="checkout-address-content">
             <?php foreach ($customerAddress as $address) { ?>
               <div class="flex items-center justify-between mb-3">
-                <label class="flex items-center text-[14px] cursor-pointer">
+                <label class="flex items-center text-[12px] lg:text-sm cursor-pointer">
                   <input
                     type="radio"
                     name="checkout-address"
                     value="<?php echo $address['id'] ?>"
                     data-id="<?php echo $address['id'] ?>"
-                    class="radio radio-success mr-3"
+                    class="radio radio-success mr-3 w-[20px] h-[20px] lg:h-[24px] lg:w-[24px]"
                     <?php echo $address['default_address'] == 1 ? 'checked="checked" ' : '' ?> />
                   <!--  -->
-                  <?php echo $address['username'] ?>
+                  <p><?php echo $address['username'] ?></p>
                   <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
-                  <?php echo $address['address'] ?>, <?php echo $address['ward'] ?>, <?php echo $address['district'] ?>, <?php echo $address['province'] ?>
+                  <p><?php echo $address['address'] ?>, <?php echo $address['ward'] ?>, <?php echo $address['district'] ?>, <?php echo $address['province'] ?></p>
                   <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
-                  <?php echo $address['phone'] ?>
+                  <p><?php echo $address['phone'] ?></p>
                 </label>
-                <div class="text-[14px] flex justify-start w-[100px] font-semibold text-blue-500">
+                <div class="text-[12px] flex justify-start font-semibold text-blue-500 ms-2 lg:w-[100px] lg:text-[14px]">
                   <?php if ($address['default_address'] == 0) {  ?>
-                    <button type="button" class="update-address-checkout">Xóa</button>
+                    <button type="button" class="delete-address-checkout" data-id="<?php echo $address['id'] ?>">Xóa</button>
                   <?php } ?>
                 </div>
               </div>
             <?php } ?>
           </div>
           <div class="cursor-pointer flex items-center add-orther-address">
-            <i class="fa-solid fa-circle-plus text-[18px] text-red-700 mr-3"></i>
-            <p class="text-[14px]">Giao hàng đến địa chỉ khác</p>
+            <i class="fa-solid fa-circle-plus text-[14px] lg:text-[18px] text-red-700 mr-3"></i>
+            <p class="text-[12px] lg:text-[14px]">Giao hàng đến địa chỉ khác</p>
           </div>
         </div>
       <?php } else { ?>
@@ -49,105 +49,116 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       <?php } ?>
     </div>
     <div class="bg-white w-full px-4 py-2 mt-3">
-      <p class="text-lg uppercase font-bold py-2 border-b">Phương thức vận chuyển</p>
+      <p class="lg:text-lg text-[15px] uppercase font-bold py-2 border-b">Phương thức vận chuyển</p>
       <div class="flex items-center py-2">
 
-        <label class="text-sm text-slate-500 flex items-center cursor-pointer">
+        <label class="lg:text-sm text-[12px] text-slate-500 flex items-center cursor-pointer">
           <input type="radio" name="shipping-fee" class="accent-blue-600 dark:accent-blue-400 mr-3 shipping-fee" value="23000" checked>
           <p>Vận chuyển tiêu chuẩn (23.000 đ)</p>
         </label>
       </div>
       <div class="flex items-center py-2">
-        <label class="text-sm text-slate-500 flex items-center cursor-pointer">
+        <label class="lg:text-sm text-[12px] text-slate-500 flex items-center cursor-pointer">
           <input type="radio" name="shipping-fee" class="accent-blue-600 dark:accent-blue-400 mr-3 shipping-fee" value="32000">
           <p>Vận chuyển nhanh (32.000 đ)</p>
         </label>
       </div>
     </div>
     <div class="bg-white w-full px-4 py-2 mt-3">
-      <p class="text-lg uppercase font-bold py-2 border-b">Phương thức thanh toán</p>
+      <p class="lg:text-lg text-[15px] uppercase font-bold py-2 border-b">Phương thức thanh toán</p>
       <div class="flex items-center">
-        <label class="text-sm flex items-center cursor-pointer">
+        <label class="lg:text-sm text-[12px] flex items-center cursor-pointer">
           <input type="radio" name="payment-method" class="mr-3 accent-blue-600 dark:accent-blue-400 payment-method cursor-pointer" value="Tiền mặt" checked>
           <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417547/jtaerq0bcxjrnnp7fnwg.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán sau khi nhận hàng</p>
         </label>
       </div>
       <div class="flex items-center">
-        <label class="text-sm flex items-center cursor-pointer">
+        <label class="lg:text-sm text-[12px] flex items-center cursor-pointer">
           <input type="radio" name="payment-method" class="mr-3 accent-blue-600 dark:accent-blue-400 payment-method cursor-pointer" value="VNPAY">
           <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417656/wytvfotat2mk3kbqhfit.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán qua VNPAY</p>
         </label>
       </div>
       <div class="flex items-center">
-        <label class="text-sm flex items-center cursor-pointer">
+        <label class="lg:text-sm text-[12px] flex items-center cursor-pointer">
           <input type="radio" name="payment-method" class="mr-3 accent-blue-600 dark:accent-blue-400 payment-method cursor-pointer" value="MoMo">
           <p class="mr-2" style="background: url(https://res.cloudinary.com/whr-clound/image/upload/v1745417655/mlicklrqbxcvguevagbq.svg) no-repeat center center;width: 40px;height: 40px;"></p>
           <p>Thanh toán qua ví momo</p>
         </label>
       </div>
     </div>
-    <div class="bg-white w-full px-4 py-2 mt-3 ">
-      <p class="text-lg uppercase font-bold py-2 border-b">Kiểm tra lại đơn hàng</p>
+    <div class="bg-white w-full px-2 py-2 mt-3 lg:px-4 lg:mb-48">
+      <p class="lg:text-lg text-[15px] uppercase font-bold py-2 border-b">Kiểm tra lại đơn hàng</p>
       <?php foreach ($cartItems as $item) { ?>
         <div class="mt-3 flex">
-          <div class="checkout-product-image p-1">
-            <img src="<?php echo $item['product_image'] ?>" alt="" class="h-full mx-auto" width="80">
+          <div class="checkout-product-image p-1 lg:h-[150px]">
+            <img src="<?php echo $item['product_image'] ?>" alt="" class="h-full">
           </div>
-          <div class="checkout-product-title ms-4 pt-2 text-sm">
-            <p><?php echo $item['product_name'] ?></p>
-          </div>
-          <div class="checkout-price text-sm">
-            <p>
-              <?php echo $item['f_discount_price'] > 0 ? Format::forMatPrice($item['price'] - ($item['price'] * $item['f_discount_price'] / 100)) : Format::forMatPrice($item['price'] - ($item['price'] * $item['discount_price'] / 100)) ?>
-              đ</p>
-            <p class="text-gray-300">
-              <s>
-                <?php echo Format::forMatPrice($item['price']) ?>
-                đ
-              </s>
-            </p>
-          </div>
-          <div class="checkout-quantity text-sm text-center">
-            <p><?php echo $item['quantity'] ?></p>
-          </div>
-          <div class="text-orange-400">
-            <p>
-              <?php echo $item['f_discount_price'] > 0 ? Format::forMatPrice(($item['price'] - ($item['price'] * $item['f_discount_price'] / 100)) * $item['quantity']) : Format::forMatPrice(($item['price'] - ($item['price'] * $item['discount_price'] / 100)) * $item['quantity']) ?>
-              đ</p>
+          <div class="flex flex-col lg:flex-row lg:flex-1 lg:justify-around">
+            <div class="pt-2 text-[13px] w-[250px] lg:text-sm lg:w-[500px]">
+              <p><?php echo $item['product_name'] ?></p>
+            </div>
+            <div class="checkout-price text-sm w-full flex items-center lg:w-auto lg:block">
+              <p class="text-orange-500 mr-2 lg:text-black">
+                <?php echo $item['f_discount_price'] > 0 ? Format::forMatPrice($item['price'] - ($item['price'] * $item['f_discount_price'] / 100)) : Format::forMatPrice($item['price'] - ($item['price'] * $item['discount_price'] / 100)) ?>
+                <span>đ</span>
+              </p>
+              <p class="text-gray-300">
+                <s>
+                  <?php echo Format::forMatPrice($item['price']) ?>
+                  đ
+                </s>
+              </p>
+            </div>
+            <div class="text-[12px] lg:text-sm">
+              <p class="flex"><span class="block lg:hidden">Số lượng: </span><?php echo $item['quantity'] ?></p>
+            </div>
+            <div class="text-orange-400 hidden lg:block">
+              <p>
+                <?php echo $item['f_discount_price'] > 0 ? Format::forMatPrice(($item['price'] - ($item['price'] * $item['f_discount_price'] / 100)) * $item['quantity']) : Format::forMatPrice(($item['price'] - ($item['price'] * $item['discount_price'] / 100)) * $item['quantity']) ?>
+                đ</p>
+            </div>
+            <input type="hidden" name="productID[]" value="<?php echo $item['product_id'] ?>">
+            <input type="hidden" name="quantity[]" value="<?php echo $item['quantity'] ?>">
           </div>
         </div>
-        <input type="hidden" name="productID[]" value="<?php echo $item['product_id'] ?>">
-        <input type="hidden" name="quantity[]" value="<?php echo $item['quantity'] ?>">
       <?php } ?>
     </div>
-
+    <div class="flex items-center m-3 lg:hidden pb-28 lg:mb-0 p-1">
+      <input type="checkbox" name="dieu_khoan" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 cursor-pointer" checked>
+      <p class="ms-2 lg:text-sm text-[12px] lg:ms-3 text-gray-400">Bằng việc tiến hành Mua hàng, Bạn đã đồng ý với <span><br><a href="<?php echo BASE_URL ?>/dieu-khoan-whr" class="text-blue-700 font-semibold text-[12px] lg:text-sm">Điều khoản & Điều kiện của wildhorizonBS.com</a></span></p>
+    </div>
   </div>
-  <div class="bg-white flex justify-end">
-    <div class="p-2 flex flex-col">
-      <div class="w-full border-b border-slate-400">
-        <div class="flex flex-col border-b " style="width: 300px;">
-          <div class="flex justify-between p-2">
+  <!-- Phần cố định dưới cùng -->
+  <div class="fixed bottom-0 left-0 w-full lg:flex lg:items-center lg:justify-center p-2 bg-white dark:bg-gray-800 shadow-[0_-6px_10px_-6px_rgba(0,0,0,0.3)] z-50">
+    <div class="lg:min-w-[1024px] lg:mx-auto">
+      <div class="lg:p-2 lg:flex lg:items-end lg:justify-end">
+        <div class="lg:flex flex-col w-full lg:w-[300px]">
+          <div class="hidden lg:flex justify-between p-1 lg:text-sm">
             <p>Thành tiền</p>
             <p><?php echo Format::forMatPrice($total) ?>đ</p>
           </div>
-          <div class="flex justify-between p-2">
+          <div class="hidden lg:flex justify-between p-1 lg:text-sm">
             <p>Phí vận chuyển
             </p>
             <p class="shipping-cost">23.000đ</p>
           </div>
-          <div class="flex p-2 justify-between font-bold">
+          <div class="flex justify-between font-bold p-2 lg:text-sm lg:justify-between lg:p-1 ">
             <input type="hidden" name="total" value="<?php echo $total ?>">
-            <p>Tổng Số Tiền </p>
+            <p class="flex lg:text-sm text-[14px]">Tổng Tiền<span class="block lg:hidden"> (bao gồm phí ship)</span> </p>
             <p class="text-orange-400 total-price" data-total="<?php echo $total ?>"><?php echo Format::forMatPrice($total + 23000) ?>đ</p>
           </div>
         </div>
       </div>
       <hr>
-      <div class="w-full flex justify-end">
-        <div class="mt-3 text-white font-bold" style="width: 200px;height: 60px;">
-          <button type="submit" class="p-4 bg-red-700 rounded-md cursor-pointer user-select-none">Xác nhận thanh toán</button>
+      <div class="w-full lg:flex lg:justify-between">
+        <div class="hidden lg:flex items-center">
+          <input type="checkbox" name="dieu_khoan" value="1" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 cursor-pointer" checked>
+          <p class="lg:text-sm lg:ms-3 text-gray-400">Bằng việc tiến hành Mua hàng, Bạn đã đồng ý với <span><br><a href="<?php echo BASE_URL ?>/dieu-khoan-whr" class="text-blue-700 font-semibold">Điều khoản & Điều kiện của wildhorizonBS.com</a></span></p>
+        </div>
+        <div class="mt-3 text-white font-bold">
+          <button type="submit" class="p-3 text-[14px] w-full bg-red-700 rounded-md cursor-pointer user-select-none lg:text-sm lg:p-4">Xác nhận thanh toán</button>
         </div>
       </div>
     </div>

@@ -174,6 +174,15 @@ $(document).ready(function () {
     // Add To Cart
     $('.addToCart').click(function (e) {
         e.preventDefault();
+
+        const $btn = $(this); // đảm bảo an toàn khi dùng trong async
+
+        $btn.find('button').addClass('opacity-50 cursor-not-allowed').prop('disabled', true);
+
+        setTimeout(() => {
+            $btn.find('button').removeClass('opacity-50 cursor-not-allowed').prop('disabled', false);
+        }, 3000);
+
         const event = $(this).data('event');
         const productID = $(this).data('id');
         const quantity = parseInt($('.product-detail-quantity').val());

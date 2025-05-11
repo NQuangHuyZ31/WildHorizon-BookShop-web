@@ -227,6 +227,7 @@ class CartController extends Controller
         'quantity' => 1
       ], 400);
     }
+
     CSRF::destroyToken();
     $token = CSRF::generateToken();
 

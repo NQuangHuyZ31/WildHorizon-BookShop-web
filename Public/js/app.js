@@ -228,8 +228,8 @@ $(document).ready(function () {
                             <img data-src="${product.product_image}" class="w-full h-full lazyload" alt="image">
                             </div>
                             <div class="px-2 lg:mt-1 pb-3">
-                            <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0">${product.product_name}</p>
-                            <div class="product-price text-[12px] lg:text-sm lg:px-0 px-2">
+                            <p class="text-[13px] lg:text-sm flash-sale-product-title px-2 lg:px-0">${product.product_name}</p>
+                            <div class="product-price text-[13px] lg:text-sm lg:px-0 px-2">
                                 <p class="text-orange-500">
                                 ${
                                     product.f_discount_pice > 0
@@ -286,8 +286,8 @@ $(document).ready(function () {
                                 <img src="${product.product_image}" class="w-full h-full" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
-                                <p class="text-[12px] lg:text-sm flash-sale-product-titl">${product.product_name}</p>
-                                <div class="flash-sale-product-price text-[12px] lg:text-sm">
+                                <p class="text-[13px] lg:text-sm flash-sale-product-titl">${product.product_name}</p>
+                                <div class="flash-sale-product-price text-[13px] lg:text-sm">
                                 <p class="text-orange-500">${new Intl.NumberFormat('vi').format(
                                     product.price - (product.price * product.discount_price) / 100
                                 )}<u class="text-orange-500 ms-1">đ</u></p>

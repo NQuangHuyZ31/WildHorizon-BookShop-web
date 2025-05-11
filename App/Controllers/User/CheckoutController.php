@@ -166,6 +166,46 @@ class CheckoutController extends Controller
     ], 200);
   }
 
+  // Xóa đại chỉ
+  public function deleteAddressCheckout()
+  {
+    $csrfToken = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+    if (isset($csrfToken)) {
+      $csrfToken = $csrfToken;
+      $this->checkMethod($csrfToken);
+    } else {
+      // Token không tồn tại, xử lý lỗi tại đây
+      Response::json([
+        'error' => [
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
+        ],
+        'token' => $csrfToken,
+      ], 400);
+    }
+
+    CSRF::destroyToken();
+    $token = CSRF::generateToken();
+
+    $address = $this->customerAddress->getAddressByID($_POST['addressID'], $this->user_id);
+
+    if (!$address) {
+      Response::json([
+        'error' => [
+          'msg' => 'Địa chỉ không tồn tại'
+        ],
+        'token' => $token
+      ], 400);
+    }
+
+    $this->customerAddress->deleteAddress($_POST['addressID'], $this->user_id);
+    Response::json([
+      'success' => [
+        'msg' => 'Xóa thành công'
+      ],
+      'token' => $token
+    ], 200);
+  }
+
   public function checkout()
   {
 
@@ -200,7 +240,7 @@ class CheckoutController extends Controller
         Redirect::redirectWithError(400, $error, '/checkout');
       }
     } else {
-      $customer_checkout_address = $this->customerAddress->getAddressByID($checkout_address);
+      $customer_checkout_address = $this->customerAddress->getAddressByID($checkout_address, $this->user_id);
       // Gán lại dữ liệu
       $fullname = $customer_checkout_address['username'];
       $phone = $customer_checkout_address['phone'];

@@ -38,7 +38,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                     </div>
                     <div class="flex justify-start w-[300px] lg:w-full lg:items-center flex-col lg:flex-row">
                       <div class="flex items-start lg:ms-3 text-sm lg:w-full" style="max-width: 328px;">
-                        <p class="w-full text-[12px] lg:text-[14px]"><?php echo $product['product_name'] ?></p>
+                        <p class="w-full text-[13px] lg:text-[14px]"><?php echo $product['product_name'] ?></p>
                       </div>
                       <div class="flex flex-row items-center gap-2 lg:gap-0 lg:flex-col lg:ms-6 lg:w-full lg:items-start" style="max-width: 100px;">
                         <p class="text-orange-400 text-sm lg:text-lg text-nowrap">
@@ -47,7 +47,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                         </p>
                         <p class="text-gray-300 text-sm text-nowrap"><s><?php echo 'đ ' . Format::forMatPrice($product['price']) ?></s></p>
                         <button type="button" class="cart-delete-product" data-id="<?php echo $product['id'] ?>">
-                          <i class="fa-regular fa-trash-can text-gray-400 text-md ps-1 pt-2"></i>
+                          <i class="fa-regular fa-trash-can text-gray-400 text-[12px] lg:text-sm ps-1 pt-2"></i>
                         </button>
                       </div>
                       <div class="flex items-center text-[12px] lg:text-[14px] lg:ms-10 lg:p-3 user-select-none">
@@ -59,7 +59,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                         </div>
                         <div
                           class="<?php echo $product['f_quantity'] > 0 ? ($product['f_quantity'] == $product['cart_quantity'] ? 'pointer-events-none' : '') : ($product['stock'] == $product['cart_quantity'] ? 'pointer-events-none' : '') ?>
-                      inc-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white"
+                            inc-quantity flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white"
                           style="width: 32px;height: 32px;">
                           <span class="w-full"><i class="fa-solid fa-plus"></i></span>
                         </div>
@@ -136,15 +136,15 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
               <img data-src="<?php echo $product['product_image'] ?>" class="w-full h-full lazyload" alt="image">
             </div>
             <div class="px-2 lg:mt-1 pb-3">
-              <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $product['product_name'] ?></p>
+              <p class="text-[13px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $product['product_name'] ?></p>
               <div class="flex items-start lg:mt-1 flex-col px-2 lg:px-0">
-                <div class="product-price text-[12px] lg:text-sm">
+                <div class="product-price text-[13px] lg:text-sm">
                   <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
                 </div>
                 <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
                   <div class="product-price-sale">
                     <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
-                      <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                      <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center text-[9px] lg:text-[12px]">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
                     </p>
                   </div>
                 <?php  } ?>

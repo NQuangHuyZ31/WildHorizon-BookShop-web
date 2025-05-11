@@ -88,8 +88,8 @@ $router->get('/loadmorefs', [FlashSaleController::class, 'loadMoreFlashSale']);
 $router->get('/gio-hang', [CartController::class, 'index']);
 $router->post('/gio-hang/delete', [CartController::class, 'deleteProduct']);
 $router->post('/addtocart', [CartController::class, 'addToCart']);
-$router->post('/updatepricecart', [CartController::class, 'updatePriceCart']);
-$router->post('/checkquantitycart', [CartController::class, 'checkQuantityCart']);
+$router->post('/updatepricecart', [CartController::class, 'updatePriceCart'], [AuthMiddleware::class]);
+$router->post('/checkquantitycart', [CartController::class, 'checkQuantityCart'], [AuthMiddleware::class]);
 
 // Route trang danh sách sản phẩm
 $router->get('/product', [DanhSachSanPhamController::class, 'index']);
@@ -106,9 +106,10 @@ $router->post('/checkquantity', [ChiTietSanPhamController::class, 'checkQuantity
 
 // Route đến trang checkout
 $router->post('/checkout/process', [CheckoutController::class, 'chekoutProcess'], [AuthMiddleware::class]);
-$router->get('/checkout', [CheckoutController::class, 'index']);
-$router->post('/checkout/addnewaddress', [CheckoutController::class, 'addNewAddressCheckout']);
-$router->post('/checkout/getaddress', [CheckoutController::class, 'getAddressCheckout']);
+$router->get('/checkout', [CheckoutController::class, 'index'], [AuthMiddleware::class]);
+$router->post('/checkout/addnewaddress', [CheckoutController::class, 'addNewAddressCheckout'], [AuthMiddleware::class]);
+$router->post('/checkout/getaddress', [CheckoutController::class, 'getAddressCheckout'], [AuthMiddleware::class]);
+$router->post('/checkout/delete', [CheckoutController::class, 'deleteAddressCheckout'], [AuthMiddleware::class]);
 $router->post('/saveorder', [CheckoutController::class, 'checkout']);
 $router->post('/checkout/vnpay/checkout_again/{id}', [CheckoutController::class, 'vnPayCheckoutAgain'], [AuthMiddleware::class]);
 $router->get('/checkout/vnpay/return', [CheckoutController::class, 'vnPayReturn'], [AuthMiddleware::class]);

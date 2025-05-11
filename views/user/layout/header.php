@@ -112,7 +112,7 @@ $csrf_token = Core\CSRF::generateToken();
       <div class="grid grid-cols-3 h-full items-center lg:mx-auto container-fuild lg:grid-cols-4 ">
         <div class="header-logo col-span-4 flex justify-center w-full lg:col-span-1">
           <a href="<?php echo BASE_URL . '/' ?>">
-            <img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" class="max-w-[130px] max-h-[40px] lg:max-w-[100%] lg:max-h-[60px]">
+            <img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" class="max-w-[160px] max-h-[50px] lg:max-w-[100%] lg:max-h-[60px]">
           </a>
         </div>
         <div class="col-span-2 mx-3 lg:col-span-2 <?php if (isset($nosearch)) {
@@ -120,7 +120,7 @@ $csrf_token = Core\CSRF::generateToken();
                                                   }; ?>">
           <form action="<?php echo BASE_URL . '/product' ?>" class="w-full" method="get">
             <div class="w-full flex  relative">
-              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg text-[11px] lg:text-sm" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
+              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg text-[12px] lg:text-sm" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
               <div class="hidden header-search-icon hover:opacity-80 rounded-lg lg:flex">
                 <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3 text-lg"></i></button>
               </div>

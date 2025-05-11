@@ -23,8 +23,16 @@ $(document).ready(function () {
     const ward_value = '';
 
     // UPDATE THÔNG TIN KHÁCH HÀNG
-    $('#btn-update-customer').click((e) => {
+    $('#btn-update-customer').click(function (e) {
         e.preventDefault();
+
+        const $btn = $(this); // đảm bảo an toàn khi dùng trong async
+
+        $btn.prop('disabled', true);
+        setTimeout(() => {
+            $btn.prop('disabled', false);
+        }, 3000);
+
         const username = $('input[name="username"]').val();
         const phone = $('input[name="phone"]').val();
         const gender = $('input[name="gender"]:checked').val();
@@ -49,9 +57,6 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     toastr['success'](response.success.msg);
-                    setTimeout(() => {
-                        location.reload();
-                    }, 1000);
                     $('input[name="csrf_token"]').val(response.token);
                 }
             },
@@ -324,6 +329,12 @@ $(document).ready(function () {
     $('#btn-otp-resend').click(function (e) {
         e.preventDefault();
         JsLoadingOverlay.show();
+        const $btn = $(this); // đảm bảo an toàn khi dùng trong async
+
+        $btn.prop('disabled', true);
+        setTimeout(() => {
+            $btn.prop('disabled', false);
+        }, 5000);
 
         const csrf_token = $('input[name="csrf_token"]').val();
         $.ajax({

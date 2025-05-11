@@ -33,7 +33,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="download-app px-2 shadow-lg">
                 <div class="flex items-center">
                     <img class="lazyload" data-src="<?php echo BASE_URL ?>/Public/images/icon.jpg" alt="logo" style="width: 42px; height: 42px;">
-                    <p class="uppercase ms-2 text-nowrap font-bold text-[11px] lg:text-[14px]">Thử ngay trên app</p>
+                    <p class="uppercase ms-2 text-nowrap font-bold text-[12px] lg:text-[14px]">Thử ngay trên app</p>
                 </div>
                 <div class="download-app-content">
                     <div class="flex justify-start items-center py-1 px-2 text-white" style="font-size: 12px;">
@@ -74,7 +74,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-wrap text-[11px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Thu thập & Sử dụng ngay!</p>
+                    <p class="text-wrap text-[12px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Thu thập & Sử dụng ngay!</p>
                 </div>
                 <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
@@ -85,7 +85,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-wrap text-[11px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
+                    <p class="text-wrap text-[12px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
@@ -96,7 +96,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
-                    <p class="text-wrap text-[11px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
+                    <p class="text-wrap text-[12px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
                     <img data-src="<?php echo BASE_URL ?>/Public/images/52eea06f-896c-4e21-a3b8-9b681e4485a5_VN-276-260.png_300x300q80.png_.avif" alt="voucher collect" class="h-full lazyload">
@@ -125,8 +125,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                                     <img class="w-full h-full lazyload" data-src="<?php echo $fproduct['product_image'] ?>" alt="sanpham">
                                 </div>
                                 <div class="flash-sale-product mt-1 mx-2">
-                                    <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $fproduct['product_name'] ?></p>
-                                    <div class="flash-sale-product-price text-[12px] lg:text-sm px-2 lg:px-0">
+                                    <p class="text-[13px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $fproduct['product_name'] ?></p>
+                                    <div class="flash-sale-product-price text-[13px] lg:text-sm px-2 lg:px-0">
                                         <p class="text-orange-500"><?php echo Format::forMatPrice($fproduct['price'] - ($fproduct['price'] * $fproduct['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
                                         <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fproduct['price'], 0, '.', ',') ?></s>
                                             <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
@@ -154,7 +154,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                                 <img data-src="<?php echo $category['catalog_image'] ?>" alt="category" class="w-full h-full lazyload">
                             </div>
                             <div class="whr-category-title mb-2">
-                                <p class="text-[12px] lg:text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
+                                <p class="text-[13px] lg:text-sm mx-4 mt-1 category-title"><?php echo $category['catalog_name'] ?></p>
                             </div>
                         </div>
                     </div>
@@ -173,9 +173,9 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                                 <img data-src="<?php echo $product['product_image'] ?>" class="w-full h-full lazyload" alt="image">
                             </div>
                             <div class="px-2 lg:mt-1 pb-3">
-                                <p class="text-[12px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $product['product_name'] ?></p>
+                                <p class="text-[13px] lg:text-sm flash-sale-product-title px-2 lg:px-0"><?php echo $product['product_name'] ?></p>
                                 <div class="flex items-start lg:mt-1 flex-col px-2 lg:px-0">
-                                    <div class="product-price text-[12px] lg:text-sm">
+                                    <div class="product-price text-[13px] lg:text-sm">
                                         <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
                                     </div>
                                     <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
@@ -192,7 +192,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 <?php } ?>
             </div>
             <div class="mb-2 pt-3">
-                <button type="button" id="loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[11px] lg:h-[40px] h-[35px] flex items-center justify-center" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Xem thêm</button>
+                <button type="button" id="loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[12px] lg:h-[40px] h-[35px] flex items-center justify-center" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Xem thêm</button>
             </div>
         </div>
     </div>

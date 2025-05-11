@@ -22,13 +22,14 @@ class CustomerAddress extends Model
   }
 
   // Lấy địa chỉ theo id address
-  public function getAddressByID($addressID)
+  public function getAddressByID($addressID, $userID)
   {
 
     $query = "SELECT c.id, c.province, c.district, c.ward, c.address, c.default_address, c.username, c.phone 
-              FROM $this->table c WHERE id = ?";
+              FROM $this->table c WHERE id = ? and user_id = ?";
     $stmt = $this->db->prepare($query);
     $stmt->bindValue(1, $addressID, PDO::PARAM_INT);
+    $stmt->bindValue(2, $userID, PDO::PARAM_INT);
     $stmt->execute();
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
