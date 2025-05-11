@@ -17,9 +17,9 @@
     <?php } ?>
     <div class="grid grid-cols-1 py-5 px-3 lg:grid-cols-4">
       <div class="flex flex-col">
-        <h1 class="text-[13px] lg:text-[15px] text-sky-400">Liên hệ với chúng tôi</h1>
+        <h1 class="text-[15px] lg:text-lg text-sky-400">Liên hệ với chúng tôi</h1>
         <div class="mt-1">
-          <ul class="list-none text-[11px] lg:text-[13px] ps-2 text-red-950">
+          <ul class="list-none text-[13px] lg:text-sm ps-2 text-red-950">
             <li><a href="#" class="hover:underline">Đường dây nóng & Trò chuyện trực tuyến</a></li>
             <li><a href="#" class="hover:underline">Trung tâm trợ giúp</a></li>
             <li><a href="#" class="hover:underline">Cách mua sản phẩm</a></li>
@@ -29,9 +29,9 @@
         </div>
       </div>
       <div class="flex flex-col">
-        <h1 class="text-[13px] lg:text-[15px] text-sky-400">WildHorizon BookShop</h1>
+        <h1 class="text-[15px] lg:text-lg text-sky-400">WildHorizon BookShop</h1>
         <div class="mt-1">
-          <ul class="list-none text-[11px] lg:text-[13px] ps-2 text-red-950">
+          <ul class="list-none text-[13px] lg:text-sm ps-2 text-red-950">
             <li><a href="#" class="hover:underline">Về chúng tôi</a></li>
             <li><a href="#" class="hover:underline">Điều khoản & Điều kiện</a></li>
             <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
@@ -41,9 +41,9 @@
         </div>
       </div>
       <div class="flex flex-col">
-        <h1 class="text-[13px] lg:text-[15px] text-sky-400">Địa chỉ</h1>
+        <h1 class="text-[15px] lg:text-lg text-sky-400">Địa chỉ</h1>
         <div class="mt-1">
-          <ul class="list-none text-[11px] lg:text-[13px] ps-2 text-red-950">
+          <ul class="list-none text-[13px] lg:text-sm ps-2 text-red-950">
             <li><a href="#" class="hover:underline">Địa chỉ: 123 NVB, Gò Vấp</a></li>
             <li><a href="#" class="hover:underline">Email: quanghuy123@gmail.com</a></li>
             <li><a href="#" class="hover:underline">Sđt: 0908762316</a></li>

@@ -20,13 +20,13 @@ class LoginValidate
     }
 
     // Kiểm tra hợp lệ password có 6 kí tự
-    // else if (strlen($data['password']) < 6) {
-    //   $error = 'Mật khẩu phải có ít nhất 6 kí tự';
-    // }
+    else if (strlen($data['password']) < 6) {
+      $error = 'Mật khẩu phải có ít nhất 6 kí tự';
+    }
 
     // Kiểm tra hợp lệ password
     // else if (!preg_match('/^(?=.*[A-Z])(?=.*[\W_]).{6,}$/', $data['password'])) {
-    //   $error = 'Mật khẩu không đúng định dạng';
+    //   $error = 'Email hoặc mật khẩu không ';
     // }
 
     return $error;

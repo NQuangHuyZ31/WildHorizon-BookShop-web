@@ -3,31 +3,32 @@ window.APP_CONFIG = {
     appURL: '/WildHorizon-BookShop',
 };
 
-const swiper = new Swiper('.swiperFlashsale', {
-    loop: true,
-    spaceBetween: 20,
-    breakpoints: {
-        320: {
-            slidesPerView: 2.2, // Mobile nhỏ
-        },
-        480: {
-            slidesPerView: 3,
-        },
-        768: {
-            slidesPerView: 4,
-        },
-        1024: {
-            slidesPerView: 6, // Desktop
-        },
-    },
-    // navigation: {
-    //   nextEl: '.swiper-button-next',
-    //   prevEl: '.swiper-button-prev',
-    // },
-});
-
 // config toastr
 document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiperFlashsale', {
+        loop: true,
+        spaceBetween: 20,
+        breakpoints: {
+            320: {
+                slidesPerView: 2.2, // Mobile nhỏ
+            },
+            480: {
+                slidesPerView: 3,
+            },
+            768: {
+                slidesPerView: 4,
+            },
+            1024: {
+                slidesPerView: 6, // Desktop
+            },
+        },
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // },
+    });
+
+    // Config toastr
     toastr.options = {
         closeButton: false,
         debug: false,
@@ -122,12 +123,12 @@ $(document).ready(function () {
         JsLoadingOverlay.show();
 
         setTimeout(() => {
-            JsLoadingOverlay.hide();
-        }, 3000);
-
-        setTimeout(() => {
             $('#form-signup').submit();
         }, 500);
+
+        setTimeout(() => {
+            JsLoadingOverlay.hide();
+        }, 3000);
     });
 
     // ================================================

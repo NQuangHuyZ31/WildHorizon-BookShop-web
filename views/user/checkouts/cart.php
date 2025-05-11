@@ -96,8 +96,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
           </div>
         </div>
       <?php } else { ?>
-        <div class="mt-4 bg-white flex flex-col justify-center p-5 items-center ">
-          <div class="mb-3 flex justify-center lg:block">
+        <div class="mt-4 bg-white flex flex-col justify-center items-center p-5 ">
+          <div class="mb-3 flex justify-center">
             <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="no-product-image" class="w-[50%] lg:w-full h-full">
           </div>
           <p class="mb-4 text-[12px] lg:text-sm text-gray-400">Chưa có sản phẩm trong giỏ hàng của bạn</p>
@@ -108,8 +108,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
       <?php } ?>
     <?php } else { ?>
       <div class="flex flex-col justify-center bg-white py-4 rounded-md shadow-sm p-1 lg:p-0 lg:py-3">
-        <div class="flex justify-center">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="cart_image" class="w-[50%] lg:w-full h-full">
+        <div class="mb-3 flex justify-center items-center">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/poqkthizdksp4b1fhhqm.png" alt="no-product-image" class="w-[50%] lg:w-1/4 h-full">
         </div>
         <div class="flex flex-col">
           <div class="text-center mt-3 text-[14px] lg:text-lg text-gray-600">

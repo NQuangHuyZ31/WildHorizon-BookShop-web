@@ -39,8 +39,9 @@ $csrf_token = Core\CSRF::generateToken();
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css?v=<?php echo rand() ?>" />
   <link href="<?php echo BASE_URL ?>/Public/css/output.css?v=<?php echo rand() ?>" rel="stylesheet">
-  <title>Register</title>
+  <title>Đăng ký tài khoản</title>
 </head>
 
 <body>
@@ -145,7 +146,7 @@ $csrf_token = Core\CSRF::generateToken();
               </label>
             </div>
             <div class="bg-purple-500 p-2 text-center rounded-full">
-              <button type="submit" class="uppercase font-bold text-white w-full text-[12px] lg:text-[14px]" id="btn-signup">Đăng ký</button>
+              <button type="button" class="uppercase font-bold text-white w-full text-[12px] lg:text-[14px]" id="btn-signup">Đăng ký</button>
             </div>
           </form>
         </div>
@@ -172,11 +173,12 @@ $csrf_token = Core\CSRF::generateToken();
   </div>
   <script src="https://kit.fontawesome.com/3991b54e5c.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Swiper trước -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js?v=<?php echo rand() ?>"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/app.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/cart.js?v=<?php echo rand() ?>"></script>
   <script src="<?php echo BASE_URL ?>/Public/js/product-detail.js?v=<?php echo rand() ?>"></script>

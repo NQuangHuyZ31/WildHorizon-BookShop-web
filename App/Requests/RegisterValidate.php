@@ -7,7 +7,7 @@ use App\Models\User;
 class RegisterValidate
 {
 
-  public static function registerValidate($data)
+  public static function validate($data)
   {
 
     $user = new User();

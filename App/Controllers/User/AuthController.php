@@ -44,7 +44,7 @@ class AuthController extends Controller
 
     // Xác thực CSRF
     if (!CSRF::verifyToken($_POST['csrf_token'])) {
-      Redirect::redirectWithError(405, 'Có lỗi trong quá trình đăng nhập', '/dang-nhap');
+      Redirect::redirectWithError(400, 'Có lỗi trong quá trình đăng nhập', '/dang-nhap');
     }
 
     CSRF::destroyToken();
@@ -89,20 +89,21 @@ class AuthController extends Controller
 
     // Xác thực CSRF
     if (!CSRF::verifyToken($_POST['csrf_token'])) {
-      Redirect::redirectWithError(405, 'Có lỗi xảy ra. Vui lòng đăng ký lại.', '/dang-ky');
+      Redirect::redirectWithError(400, 'Có lỗi xảy ra. Vui lòng đăng ký lại.', '/dang-ky');
     }
 
     CSRF::destroyToken();
 
     // Lưu dữ liệu form
     $data = $_POST;
+
     Session::set('data', [
       'username' => $data['username'],
       'email' => $data['email'],
     ]);
 
     // Validate Form
-    $error = RegisterValidate::registerValidate($data);
+    $error = RegisterValidate::validate($data);
 
     // Kiểm tra lỗi
     if (!empty($error)) {
@@ -115,6 +116,8 @@ class AuthController extends Controller
     // Check email, nếu tồn tại thì gửi lại code
     $exitUser = $this->user->checkEmail($data['email'], 'is_active');
     if ($exitUser) {
+      $this->user->updateColumn('password', password_hash($data['password'], PASSWORD_DEFAULT), $exitUser['id']);
+      $this->user->updateColumn('username', $data['username'], $exitUser['id']);
       Session::set('pending_email', $exitUser['email']);
       Session::set('pending_username', $exitUser['username']);
       Session::set('pending_user_id', $exitUser['id']);
@@ -237,7 +240,7 @@ class AuthController extends Controller
   {
 
     // Check Method
-    $this->checkMethod($_POST[['csrf_token']]);
+    $this->checkMethod($_POST['csrf_token']);
 
     CSRF::destroyToken();
     $token = CSRF::generateToken();

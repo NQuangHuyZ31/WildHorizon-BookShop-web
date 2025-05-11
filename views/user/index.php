@@ -144,7 +144,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
     </div>
     <div class="mt-4 p-1 lg:p-0">
-        <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Categories</p>
+        <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Danh mục sản phẩm</p>
         <div class="grid grid-cols-3 lg:grid-cols-8 mt-3">
             <?php foreach ($categories as $category) {  ?>
                 <a href="<?php echo BASE_URL . '/category/' . CreateSlug::createSlug($category['catalog_name']) . '-' . ($category['id']) ?>">
@@ -163,7 +163,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
     </div>
     <div class="mt-4 p-1 lg:p-0">
-        <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Just For You</p>
+        <p class="ps-2 text-sm lg:p-0 lg:text-lg ">Dành cho bạn</p>
         <div class="flex flex-col ">
             <div class="mt-3 grid gap-2 grid-cols-2 lg:grid-cols-6 whr-product px-1 lg:px-0">
                 <?php foreach ($products as $product) { ?>

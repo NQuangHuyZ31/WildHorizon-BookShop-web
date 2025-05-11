@@ -5187,16 +5187,16 @@ html {
     margin-top: 0px;
   }
 
+  .lg\:mt-1 {
+    margin-top: 0.25rem;
+  }
+
   .lg\:mt-2 {
     margin-top: 0.5rem;
   }
 
   .lg\:mt-7 {
     margin-top: 1.75rem;
-  }
-
-  .lg\:mt-1 {
-    margin-top: 0.25rem;
   }
 
   .lg\:block {
@@ -5382,19 +5382,14 @@ html {
     padding-right: 0.5rem;
   }
 
-  .lg\:py-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  .lg\:py-2 {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-
   .lg\:py-3 {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+  }
+
+  .lg\:py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .lg\:pb-4 {
