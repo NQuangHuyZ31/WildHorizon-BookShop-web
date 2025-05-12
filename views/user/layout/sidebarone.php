@@ -19,7 +19,7 @@
           <a class="<?php echo parse_url(basename($_SERVER['REQUEST_URI']), PHP_URL_PATH) == 'product' ? 'text-orange-500' : '' ?>" href="<?php echo BASE_URL . '/product' ?>">Tất cả danh mục</a>
         </li>
         <?php foreach ($categories as $category) { ?>
-          <li class="leading-5 mb-2 hover:text-orange-400">
+          <li class="leading-5 mb-2 hover:text-orange-400 <?php echo parse_url(basename($_SERVER['REQUEST_URI']), PHP_URL_PATH) == (\Helpers\CreateSlug::createSlug($category['catalog_name']) . '-' . $category['id']) ? 'category-checked' : '' ?>" data-id="<?php echo $category['id'] ?>">
             <a class="<?php echo parse_url(basename($_SERVER['REQUEST_URI']), PHP_URL_PATH) == (\Helpers\CreateSlug::createSlug($category['catalog_name']) . '-' . $category['id']) ? 'text-orange-500' : '' ?>" href="<?php echo BASE_URL . '/category/' . \Helpers\CreateSlug::createSlug($category['catalog_name']) . '-' . $category['id'] . '' ?>">
               <?php echo $category['catalog_name'] ?>
             </a>
