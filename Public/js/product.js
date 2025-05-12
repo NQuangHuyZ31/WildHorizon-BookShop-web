@@ -214,7 +214,7 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success == 1) {
                             $('.whr-product').html('');
-                            $('.whr-product').removeClass('aa').addClass('grid lg:grid-cols-4');
+                            $('.whr-product').removeClass('aa').addClass('grid lg:grid-cols-5');
                             response.products.forEach((product) => {
                                 $('.whr-product').append(`
                                 <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="">
