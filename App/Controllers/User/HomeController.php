@@ -9,6 +9,7 @@ use App\Models\FlashSales;
 use App\Models\Products;
 use Core\FetchAPI;
 use Core\Log;
+use Core\Response;
 
 class HomeController extends Controller
 {
@@ -52,5 +53,21 @@ class HomeController extends Controller
         // Log::json($user);
 
         require VIEW_PATH . 'user/index.php';
+    }
+
+    // load thêm sản phẩm ở homepage
+    public function loadMore()
+    {
+        $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+
+        $limit =  10;
+
+        $products = $this->product->loadMoreProduct($limit, $offset, 0);
+
+        Response::json([
+            'data' => $products,
+            'offset' => 10,
+            'url' => BASE_URL,
+        ], 200);
     }
 }

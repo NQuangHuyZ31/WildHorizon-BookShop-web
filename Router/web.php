@@ -44,7 +44,6 @@ use App\Middleware\AuthAdminMiddleware;
 // User Middleware
 use App\Middleware\AuthMiddleware;
 use App\Middleware\BlockMiddleware;
-use Core\Auth;
 
 // Khởi tạo đối tượng Router
 $router = new Router();
@@ -71,6 +70,9 @@ $router->post('/dang-ky/verify-account/resend', [AuthController::class, 'resendO
 // Route Trang đăng xuất
 $router->post('/dang-xuat', [AuthController::class, 'logout']);
 
+// Route trang loadmore trang homepage
+$router->get('/homepage/product/loadmore', [HomeController::class, 'loadMore']);
+
 // Route Trang feedback 
 $router->get('/feedback', [FeedbackController::class, 'feedback'], [AuthMiddleware::class]);
 $router->post('/feedback', [FeedbackController::class, 'handleFeedback'], [AuthMiddleware::class]);
@@ -93,7 +95,7 @@ $router->post('/checkquantitycart', [CartController::class, 'checkQuantityCart']
 
 // Route trang danh sách sản phẩm
 $router->get('/product', [DanhSachSanPhamController::class, 'index']);
-$router->get('/product/loadmore', [DanhSachSanPhamController::class, 'loadMore']);
+$router->get('/product/loadmoreproduct', [DanhSachSanPhamController::class, 'loadmoreProduct']);
 $router->get('/product/search-filter', [DanhSachSanPhamController::class, 'searchFilter']);
 
 // Route đến danh mục sản phẩm

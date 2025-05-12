@@ -11,7 +11,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
     <?php if (!empty($fs_products)) { ?>
       <div class="grid grid-cols-3 gap-2 px-1 lg:p-0 lg:grid-cols-6 lg:gap-4 mt-4 whr-product-flash-sale">
         <?php foreach ($fs_products as $fs_product) { ?>
-          <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="bg-white">
+          <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="bg-white hover:shadow-md">
             <div class="flex flex-col">
               <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
                 <img src="<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">

@@ -26,7 +26,7 @@ $msg = is_array($success) && isset($success['msg']) ? $success['msg'] : '';
   const msg = "<?= addslashes($msg) ?>";
   toastr.options = {
     "closeButton": true,
-    "positionClass": "toast-bottom-right",
+    "positionClass": "toast-top-right",
     "onclick": null,
     "showDuration": "300",
     "hideDuration": "500",

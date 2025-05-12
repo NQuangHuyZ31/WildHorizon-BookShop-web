@@ -12,7 +12,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 <div class="container-fuild mx-auto mb-2 p-1 lg:p-0">
     <div class="flex w-full justify-between">
         <?php if ($banner_headers != null) { ?>
-            <div class="single-item shadow-lg flex-1">
+            <div class="single-item shadow-md flex-1">
                 <div class="single-item">
                     <?php foreach ($banner_headers as $banner) { ?>
                         <img src="<?php echo $banner['image'] ?>" alt="banner_ads">
@@ -70,7 +70,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
     </div>
     <div class="grid grid-cols-2 lg:grid-cols-3 mt-4 px-2 gap-3">
-        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-lg h-full" style="max-height: 130px;">
+        <a href="<?php echo BASE_URL ?>/voucher" class="shadow-sm lg:shadow-md h-full" style="max-height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
@@ -81,10 +81,10 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 </div>
             </div>
         </a>
-        <a href="#" class="shadow-lg h-full" style="max-height: 130px;">
+        <a href="#" class="shadow-sm lg:shadow-md h-full" style="max-height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="text-[12px] lg:text-sm">
-                    <p class="font-bold mb-2">Voucher</p>
+                    <p class="font-bold mb-2"></p>
                     <p class="text-wrap text-[12px] lg:text-nowrap hover:text-orange-400 lg:text-sm">Collect & Redeem Now!</p>
                 </div>
                 <div class="flex justify-end h-[60px] lg:h-full lg:w-full" style="max-width: 138px;">
@@ -92,7 +92,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 </div>
             </div>
         </a>
-        <a href="#" class="shadow-lg h-full" style="max-height: 130px;">
+        <a href="#" class="shadow-sm lg:shadow-md h-full" style="max-height: 130px;">
             <div class="bg-white flex justify-between p-3 rounded-md h-full w-full">
                 <div class="text-[12px] lg:text-sm">
                     <p class="font-bold mb-2">Voucher</p>
@@ -129,7 +129,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                                     <div class="flash-sale-product-price text-[13px] lg:text-sm px-2 lg:px-0">
                                         <p class="text-orange-500"><?php echo Format::forMatPrice($fproduct['price'] - ($fproduct['price'] * $fproduct['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
                                         <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fproduct['price'], 0, '.', ',') ?></s>
-                                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
+                                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-<?php echo Format::formatNumber($fproduct['discount_price']) . '%' ?></span>
                                         </p>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                                     <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
                                         <div class="product-price-sale">
                                             <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
-                                                <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                                                <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center text-[9px] lg:text-[11px]">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
                                             </p>
                                         </div>
                                     <?php  } ?>
@@ -192,7 +192,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 <?php } ?>
             </div>
             <div class="mb-2 pt-3">
-                <button type="button" id="loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[12px] lg:h-[40px] h-[35px] flex items-center justify-center" data-offset="<?php echo isset($primaryProduct) ? 30 : 10 ?>" data-load="<?php echo isset($primaryProduct) ? 1 : 0 ?>">Xem thêm</button>
+                <button type="button" id="homepage-loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[12px] lg:h-[40px] h-[35px] flex items-center justify-center" data-offset="10">Xem thêm</button>
             </div>
         </div>
     </div>

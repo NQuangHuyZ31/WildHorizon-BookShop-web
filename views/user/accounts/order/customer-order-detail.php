@@ -63,7 +63,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
 
           <div class="relative mt-6 mb-8">
             <!-- Line background -->
-            <div class="absolute bg-gray-200 h-[2px] top-[20%] lg:top-[30%] left-[3%]" style="width: calc(100% - 50px);"></div>
+            <div class="absolute bg-gray-200 h-[2px] top-[25%] left-[5%] lg:top-[30%] lg:left-[3%]" style="width: calc(100% - 50px);"></div>
 
             <!-- Line progress -->
             <div class="absolute bg-green-600 h-[2px] top-[30%] left-[3%] transition-all duration-500" style="width: calc(<?php echo $step_line ?>);"></div>

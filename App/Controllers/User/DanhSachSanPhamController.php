@@ -80,22 +80,21 @@ class DanhSachSanPhamController extends Controller
     ], 200);
   }
 
-  public function loadMore()
+  // Load thêm sản phẩm trang sản phẩm
+  public function loadmoreProduct()
   {
+    $limit = 30;
     $offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
 
-    $dataLoad = $_GET['dataLoad'];
-
-    $limit = $dataLoad == 0 ? 10 : 30;
-
-    $products = $this->product->loadMoreProduct($limit, $offset, $dataLoad);
+    $products = $this->product->loadMoreProduct($limit, $offset, 1);
 
     Response::json([
-      'status' => 200,
-      'data' => $products,
-      'offset' => $dataLoad == 0 ? 10 : 30,
+      'success' => [
+        'count' => count($products),
+        'data' => $products
+      ],
       'url' => BASE_URL,
-      'join_fs' => $dataLoad == 0 ? 0 : 1
+      'offset' => 30
     ], 200);
   }
 }

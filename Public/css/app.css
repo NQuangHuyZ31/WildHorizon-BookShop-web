@@ -353,7 +353,10 @@ h6 {
 .color-checked {
     background: transparent url('https://res.cloudinary.com/whr-clound/image/upload/v1745418339/wdrfoh6n7vpdvewy2m5m.webp') 0 50% no-repeat;
 }
-
+.auto-maxheight {
+    max-height: 200px;
+    overflow: hidden;
+}
 /* Chi tiết sản phẩm */
 .product-detail-content {
     max-width: 500px;

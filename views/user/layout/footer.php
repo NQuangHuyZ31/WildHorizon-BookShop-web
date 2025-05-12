@@ -69,25 +69,25 @@
       <div class="w-full">
         <h1 class="text-[14px] lg:text-lg px-2 py-2 font-bold">Payment Methods</h1>
         <div class="flex flex-wrap">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262300/hhnu7934rfekk67nnhee.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262299/wdbqerws4it4n2qxzvsk.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ywpkqhmdriwpshdtzikq.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262294/dpflumu5t9o52myclrtw.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/inomznpdmp8cfvjcyvdh.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/uxf5jomf4hbmx95jtsrl.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262625/rui3zw9prsfi5bttckib.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262300/hhnu7934rfekk67nnhee.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262299/wdbqerws4it4n2qxzvsk.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ywpkqhmdriwpshdtzikq.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262294/dpflumu5t9o52myclrtw.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/inomznpdmp8cfvjcyvdh.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/uxf5jomf4hbmx95jtsrl.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262625/rui3zw9prsfi5bttckib.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
 
         </div>
       </div>
       <div class="w-full">
         <h1 class="text-[14px] lg:text-lg px-2 py-2 font-bold">Delivery Services</h1>
         <div class="flex flex-wrap">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/xs2thvgu6fhstn5lca0z.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262623/forjgbiaxzfnpkj0vkfl.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/ihrp53voxcf88dabze2u.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/hbhf9x1rruqyhw7oo8qk.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/bcpmpmlnrdosjxw5igs6.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/qtp5xxdymasvmeazzwyk.png" alt="payment method" class="px-3 me-3 py-2" style="height: 60px; width: 80px;">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/xs2thvgu6fhstn5lca0z.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262623/forjgbiaxzfnpkj0vkfl.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/ihrp53voxcf88dabze2u.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/hbhf9x1rruqyhw7oo8qk.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/bcpmpmlnrdosjxw5igs6.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
+          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/qtp5xxdymasvmeazzwyk.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
         </div>
       </div>
     </div>

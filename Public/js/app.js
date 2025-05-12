@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // Hàm main hanle logic
 $(document).ready(function () {
     const baseURL = APP_CONFIG.appURL;
-    let URL_GETMORE_PRODUCT_HOMEPAGE = baseURL + '/product/loadmore';
+    let URL_GETMORE_PRODUCT_HOMEPAGE = baseURL + '/homepage/product/loadmore';
     let URL_GETMORE_FS_PRODUCT_HOMEPAGE = baseURL + '/loadmorefs';
     let URL_FEEDBACK = baseURL + '/feedback';
     let URL_RESEND_VERIFY_ACCOUNT = baseURL + '/dang-ky/verify-account/resend';
@@ -204,18 +204,13 @@ $(document).ready(function () {
     });
 
     // ----------------------------------------------------LOADMORE PRODUCT HOMEPAGE
-    $('#loadMore-product').click(() => {
-        var offset = $('#loadMore-product').data('offset');
-        var event = $('#loadMore-product').data('event');
-        var dataLoad = $('#loadMore-product').data('load');
-        console.log(event);
+    $('#homepage-loadMore-product').click(() => {
+        var offset = $('#homepage-loadMore-product').data('offset');
         $.ajax({
             type: 'GET',
             url: URL_GETMORE_PRODUCT_HOMEPAGE,
             data: {
                 offset: offset,
-                event: event,
-                dataLoad: dataLoad,
             },
             dataType: 'json',
             success: function (response) {
@@ -224,7 +219,7 @@ $(document).ready(function () {
                         $('.whr-product').append(`
                         <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}">
                         <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
-                            <div class="whr-product-img py-2 ${response.offset == 30 ? 'main-img-product' : ''}">
+                            <div class="whr-product-img py-2">
                             <img data-src="${product.product_image}" class="w-full h-full lazyload" alt="image">
                             </div>
                             <div class="px-2 lg:mt-1 pb-3">
@@ -232,8 +227,8 @@ $(document).ready(function () {
                             <div class="product-price text-[13px] lg:text-sm lg:px-0 px-2">
                                 <p class="text-orange-500">
                                 ${
-                                    product.f_discount_pice > 0
-                                        ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_pice) / 100)
+                                    product.f_discount_price > 0
+                                        ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_price) / 100)
                                         : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price) / 100)
                                 }
                                 <u class="text-orange-500 ms-1">đ</u>
@@ -242,13 +237,12 @@ $(document).ready(function () {
                                 <p class="flash-sale-product-price-sale ${
                                     product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'
                                 } "><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
-                                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${
-                                        product.f_discount_pice > 0 ? new Intl.NumberFormat('vi').format(product.f_discount_pice) : new Intl.NumberFormat('vi').format(product.discount_price)
+                                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${
+                                        product.f_discount_price > 0
+                                            ? new Intl.NumberFormat('vi').format(product.f_discount_price)
+                                            : new Intl.NumberFormat('vi').format(product.discount_price)
                                     }%</span>
                                 </p>
-                                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
-                                    response.join_fs == 1 && product.f_quantity > 0 ? '' : 'hidden'
-                                }">
                                 </div>
                             </div>
                             </div>
@@ -257,10 +251,10 @@ $(document).ready(function () {
                         `);
                     });
                 } else {
-                    $('#loadMore-product').addClass('poiter-events-none opacity-50');
+                    $('#homepage-loadMore-product').addClass('poiter-events-none opacity-50');
                 }
                 var newOfset = offset + parseInt(response.offset);
-                $('#loadMore-product').data('offset', newOfset);
+                $('#homepage-loadMore-product').data('offset', newOfset);
             },
         });
     });

@@ -1,7 +1,88 @@
 $(document).ready(function () {
     const baseURL = APP_CONFIG.appURL;
     let URL_GET_PRODUCT_FILTER = baseURL + '/product/search-filter';
+    let URL_LOADMORE_PRODUCT = baseURL + '/product/loadmoreproduct';
 
+    window.toggleContent = function (e) {
+        '200px' == $(e + '.auto-maxheight').css('max-height')
+            ? ($(e + '.auto-maxheight').css('max-height', 'fit-content'), $(e).closest('div').find('button').text('Thu gọn'))
+            : ($(e + '.auto-maxheight').css('max-height', '200px'),
+              $([document.documentElement, document.body]).animate(
+                  {
+                      scrollTop: $(e).offset().top,
+                  },
+                  500
+              ),
+              $(e).closest('div').find('button').text('Xem thêm'));
+    };
+
+    // Load thêm sản phẩm
+    $('#loadMore-product').click(function (e) {
+        e.preventDefault();
+        const btn = $(this);
+        const offset = $(this).data('offset');
+
+        $.ajax({
+            type: 'get',
+            url: URL_LOADMORE_PRODUCT,
+            data: {
+                offset,
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response) {
+                    var newOfset = offset + parseInt(response.offset);
+                    btn.data('offset', newOfset);
+                    if (response.success.count > 0) {
+                        response.success.data.forEach((product) => {
+                            $('.whr-product').append(`
+                             <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="">
+                                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content pb-2 lg:pb-0 lg:min-h-[260px]">
+                                    <div class="py-2 h-[130px] lg:h-[180px]">
+                                    <img src="${product.product_image}" class="w-full h-full" alt="image">
+                                    </div>
+                                    <div class="px-2 mt-2">
+                                    <p class="text-[13px] lg:text-sm flash-sale-product-title">${product.product_name}</p>
+                                    <div class="product-price-sale text-[12px] lg:text-sm">
+                                        <p class="text-orange-500">
+                                        ${
+                                            product.f_discount_pice > 0
+                                                ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_pice) / 100)
+                                                : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price) / 100)
+                                        }
+                                        <u class="text-orange-500 ms-1">đ</u>
+                                        </p>
+                                        <div class="flex justify-between items-center">
+                                        <p class="flash-sale-product-price-sale ${
+                                            product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'
+                                        }"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
+                                            <span class="text-white ms-1 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${
+                                                product.f_discount_price > 0
+                                                    ? new Intl.NumberFormat('vi').format(product.f_discount_price)
+                                                    : new Intl.NumberFormat('vi').format(product.discount_price)
+                                            }</span>
+                                        </p>
+                                        <div class="hidden lg:block">
+                                            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" class="px-1 w-[40px] h-[auto] lg:w-[70px] ${
+                                                product.f_quantity > 0 ? '' : 'hidden'
+                                            }">
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </a>
+                        `);
+                        });
+                    } else {
+                        btn.addClass('poiter-events-none opacity-50');
+                    }
+                }
+            },
+        });
+    });
+
+    // Tìm theo filter
     if (window.location.pathname == '/product' || window.location.pathname.includes('/category/')) {
         innitProductFilter();
     }
@@ -133,63 +214,60 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success == 1) {
                             $('.whr-product').html('');
-                            $('.whr-product').removeClass('grid-cols-1').addClass('grid-cols-4');
+                            $('.whr-product').removeClass('aa').addClass('grid lg:grid-cols-4');
                             response.products.forEach((product) => {
                                 $('.whr-product').append(`
                                 <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="">
-                                  <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
-                                    <div class="whr-product-img py-2 main-img-product">
-                                      <img src="${product.product_image}" class="w-full h-full" alt="image">
+                                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content pb-2 lg:pb-0 lg:min-h-[260px]">
+                                    <div class="py-2 h-[130px] lg:h-[180px]">
+                                    <img src="${product.product_image}" class="w-full h-full" alt="image">
                                     </div>
                                     <div class="px-2 mt-2">
-                                      <p class="product-title text-sm">${product.product_name}</p>
-                                      <div class="product-price-sale">
+                                    <p class="text-[13px] lg:text-sm flash-sale-product-title">${product.product_name}</p>
+                                    <div class="product-price-sale text-[12px] lg:text-sm">
                                         <p class="text-orange-500">
-                                            ${
-                                                product.f_quantity > 0
-                                                    ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_price) / 100)
-                                                    : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price) / 100)
-                                            }
-                                            <u class="text-orange-500 ms-1">đ</u>
+                                        ${
+                                            product.f_discount_pice > 0
+                                                ? new Intl.NumberFormat('vi').format(product.price - (product.price * product.f_discount_pice) / 100)
+                                                : new Intl.NumberFormat('vi').format(product.price - (product.price * product.discount_price) / 100)
+                                        }
+                                        <u class="text-orange-500 ms-1">đ</u>
                                         </p>
                                         <div class="flex justify-between items-center">
                                         <p class="flash-sale-product-price-sale ${
-                                            product.f_quantity > 0 || product.discount_price > 0 ? '' : 'hidden'
+                                            product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'
                                         }"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
-                                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1">-${
-                                                product.f_quantity > 0
+                                            <span class="text-white ms-1 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${
+                                                product.f_discount_price > 0
                                                     ? new Intl.NumberFormat('vi').format(product.f_discount_price)
                                                     : new Intl.NumberFormat('vi').format(product.discount_price)
                                             }%</span>
                                         </p>
-                                        <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" width="70" height="40" class="mr-2 ${
-                                            product.f_quantity > 0 ? '' : 'hidden'
-                                        }">
+                                        <div class="hidden lg:block">
+                                            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" class="px-1 w-[40px] h-[auto] lg:w-[70px] ${
+                                                product.f_quantity > 0 ? '' : 'hidden'
+                                            }">
+                                        </div>
                                         </div>
                                     </div>
-                                            ${
-                                                product.f_quantity > 0
-                                                    ? `<div class="flex justify-end px-1">
-                                                    <p class="text-gray-400" style="font-size: 11px;">còn ${product.f_quantity} sản phẩm</p>
-                                                    </div>`
-                                                    : ''
-                                            }
                                     </div>
-                                  </div>
-                                </a>
+                                </div>
+                            </a>
                               `);
                             });
                         } else if (response.success == 0) {
                             $('.whr-product').html('');
-                            $('.whr-product').addClass('grid-cols-1').removeClass('grid-cols-4');
+                            $('.whr-product').addClass('aa').removeClass('grid lg:grid-cols-5');
                             $('.whr-product').append(`
-                            <div class="text-center mt-4">
-                                <p class="text-xl lg:text-2xl text-red-400">Không có sản phẩm.</p>
-                            </div>
-                            <div class="flex flex-col justify-center text-center mt-4">
-                                <p class="text-[12px] lg:text-sm text-gray-500">Quay lại mua sắm</p>
-                                <div class="text-center mt-2">
-                                    <button type="button" class="bg-orange-400 rounded-sm text-white" style="width: 240px;height: 50px;"><a href="${APP_CONFIG.appURL}/product" class="w-full">Go to Shopping</a></button>
+                            <div class="flex flex-col justify-center bg-white h-auto mt-2 rounded-md py-3 mb-3 lg:mb-0 lg:py-6">
+                                <div class="text-center">
+                                    <p class="text-[15px] lg:text-xl text-red-400">Không có sản phẩm.</p>
+                                </div>
+                                <div class="flex flex-col justify-center text-center lg:mt-2">
+                                    <p class="text-[12px] lg:text-sm text-gray-500">Quay lại mua sắm</p>
+                                    <div class="text-center mt-2 text-[12px] lg:text-sm">
+                                    <button type="button" class="bg-orange-400 rounded-md text-white px-4 py-1 lg:px-7 lg:py-2"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full">Go to Shopping</a></button>
+                                    </div>
                                 </div>
                             </div>
                           `);
@@ -209,6 +287,10 @@ $(document).ready(function () {
         }
     }
 
+    // =======================================
+    $('#filter_on_off').click(function () {
+        $('#sidebar_product').toggleClass('block hidden');
+    });
     // Tạo slug
     function createSlug(title) {
         return title

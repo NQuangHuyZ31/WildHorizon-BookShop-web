@@ -155,7 +155,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
       <?php } ?>
     </div>
     <div class="mb-2 pt-3">
-      <button type="button" id="loadMore-product" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[11px] lg:h-[40px] h-[35px] flex items-center justify-center"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
+      <button type="button" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[11px] lg:h-[40px] h-[35px] flex items-center justify-center"><a href="<?php echo BASE_URL . '/product' ?>">Xem thêm</a></button>
     </div>
   </div>
 </div>
