@@ -33,7 +33,7 @@ $csrf_token = Core\CSRF::generateToken();
   <title><?php echo $pageName ?> - wildhorizonBS.com</title>
 </head>
 
-<body style="background-color: #f5f5f5;">
+<body class="dark:text-black text-black" style="background-color: #f5f5f5;">
   <?php if (isset($homePage) && $banner_top_headers != null) { ?>
     <div class=" banner-top w-[99vw]] bg-banner-top py-2" style="height: 80px;">
       <!-- <div class="flex align-middle relative h-full" style="background: url(<?php echo BASE_URL ?>/Public/images/DESK.gif); background-repeat: no-repeat;">
