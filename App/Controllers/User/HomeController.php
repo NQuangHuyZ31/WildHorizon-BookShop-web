@@ -40,6 +40,8 @@ class HomeController extends Controller
 
         $products = $this->product->loadMoreProduct(10, 0, 0);
 
+        $product_best_sellers = $this->product->getLimitRand(10);
+
         $banner_headers = $this->banner_ads->getActive('homepage', $limit = false);
         $banner_top_headers = $this->banner_ads->getActive('top_homepage', $limit = true);
         $banner_footers = $this->banner_ads->getActive('footer', $limit = false);
@@ -51,7 +53,6 @@ class HomeController extends Controller
         // print_r($user); // Truy xuất dữ liệu từ mảng thay vì object
         // // }
         // Log::json($user);
-
         require VIEW_PATH . 'user/index.php';
     }
 

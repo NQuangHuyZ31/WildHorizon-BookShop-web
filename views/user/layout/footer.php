@@ -1,97 +1,110 @@
-<footer class="mx-auto container-fuild">
-  <div class="border-t-2 border-gray-200">
-    <?php
-
-    use Core\Session;
-
-    if (isset($homePage) && $banner_footers != null) { ?>
-      <div class="flex">
-        <div class="grid grid-cols-3 px-2 py-4">
-          <?php foreach ($banner_footers as $banner) { ?>
-            <div class="me-2">
-              <img src="<?php echo $banner['image'] ?>" alt="banner1">
+<footer class="w-full my-3 xl:max-w-screen-xl xl:mx-auto px-2 xl:px-0 xl:my-5">
+  <div class="bg-white rounded-md p-3">
+    <div class="flex flex-col xl:flex-row">
+      <div class="w-full xl:w-1/3 xl:border-r border-gray-200">
+        <div class="flex flex-col">
+          <div class="w-full flex justify-center py-2 px-3">
+            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1747215942/zygzvqgbmarudnizljdj.png" alt="logo_web" class="w-2/3 xl:w-full">
+          </div>
+          <div class="flex flex-col pb-2 mt-2 text-[11px] xl:text-[12px] xl:px-5">
+            <p>12 Nguyễn Văn Bảo, phường 4, quận Gò Vấp, thành phố Hồ Chí Minh</p>
+            <p class="mt-1">WildHorizonBS.com nhận đặt hàng trực tuyến và giao hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn phòng cũng như tất cả Hệ Thống nhà sách trên toàn quốc.</p>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex py-2 justify-evenly xl:px-5">
+              <i class="text-[20px] text-gray-500 fa-brands cursor-pointer fa-facebook"></i>
+              <i class="text-[20px] text-gray-500 fa-brands cursor-pointer fa-facebook-messenger"></i>
+              <i class="text-[20px] text-gray-500 fa-brands cursor-pointer fa-square-instagram"></i>
+              <i class="text-[20px] text-gray-500 fa-brands cursor-pointer fa-youtube"></i>
+              <i class="text-[20px] text-gray-500 fa-brands cursor-pointer fa-square-twitter"></i>
+              <i class="text-[20px] text-gray-500 fa-brands cursor-pointer fa-pinterest"></i>
             </div>
-          <?php } ?>
+            <div class="flex items-center xl:px-5 py-2">
+              <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262296/jayddy3a1hmqtkbyjyji.png" alt="" class="mr-3">
+              <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ut61h8vhqfjemgmevxbw.png" alt="">
+            </div>
+          </div>
         </div>
       </div>
-    <?php } ?>
-    <div class="grid grid-cols-1 py-5 px-3 lg:grid-cols-4">
-      <div class="flex flex-col">
-        <h1 class="text-[15px] lg:text-lg text-sky-400">Liên hệ với chúng tôi</h1>
-        <div class="mt-1">
-          <ul class="list-none text-[13px] lg:text-sm ps-2 text-red-950">
-            <li><a href="#" class="hover:underline">Đường dây nóng & Trò chuyện trực tuyến</a></li>
-            <li><a href="#" class="hover:underline">Trung tâm trợ giúp</a></li>
-            <li><a href="#" class="hover:underline">Cách mua sản phẩm</a></li>
-            <li><a href="#" class="hover:underline">Vận chuyển & Giao hàng</a></li>
-            <li><a href="#" class="hover:underline">Chính sách sản phẩm quốc tế</a></li>
-          </ul>
+      <div class="flex flex-col flex-1">
+        <div class="w-full grid grid-cols-1 text-black xl:grid-cols-3 xl:px-5">
+          <div class="flex flex-col px-3">
+            <h1 class="text-[15px] xl:text-lg font-bold">Dịch vụ</h1>
+            <div class="mt-1">
+              <ul class="list-none text-[11px] xl:text-[13px] text-nowrap">
+                <li class="py-2"><a href="#">Điều khoản sử dụng</a></li>
+                <li class="py-2"><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
+                <li class="py-2"><a href="#">Chính sách bảo mật thanh toán</a></li>
+                <li class="py-2"><a href="#">Giới thiệu Wildhorizon</a></li>
+                <li class="py-2"><a href="#">Hệ thống trung tâm - nhà sách</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex flex-col px-3">
+            <h1 class="text-[15px] xl:text-lg font-bold">Hỗ trợ</h1>
+            <div class="mt-1">
+              <ul class="list-none text-[11px] xl:text-[13px] text-nowrap">
+                <li class="py-2"><a href="#">Chính sách đổi - trả - hoàn tiền</a></li>
+                <li class="py-2"><a href="#">Chính sách bảo hành - bồi hoàn</a></li>
+                <li class="py-2"><a href="#">Chính sách vận chuyển</a></li>
+                <li class="py-2"><a href="#">Chính sách khách sỉ</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="flex flex-col px-3">
+            <h1 class="text-[15px] xl:text-lg font-bold">Tài khoản của tôi</h1>
+            <div class="mt-1">
+              <ul class="list-none text-[11px] xl:text-[13px] text-nowrap">
+                <li class="py-2"><a href="<?php echo BASE_URL ?>/dang-nhap">Đăng nhập/Tạo mới tài khoản</a></li>
+                <li class="py-2"><a href="<?php echo BASE_URL ?>/customer/address">Thay đổi địa chỉ khách hàng</a></li>
+                <li class="py-2"><a href="<?php BASE_URL ?>/customer/account">Chi tiết tài khoản</a></li>
+                <li class="py-2"><a href="<?php echo BASE_URL ?>/customer/order">Lịch sử mua hàng</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="flex flex-col">
-        <h1 class="text-[15px] lg:text-lg text-sky-400">WildHorizon BookShop</h1>
-        <div class="mt-1">
-          <ul class="list-none text-[13px] lg:text-sm ps-2 text-red-950">
-            <li><a href="#" class="hover:underline">Về chúng tôi</a></li>
-            <li><a href="#" class="hover:underline">Điều khoản & Điều kiện</a></li>
-            <li><a href="#" class="hover:underline">Chính sách bảo mật</a></li>
-            <li><a href="#" class="hover:underline">Bảo vệ sở hữu trí tuệ</a></li>
-            <li><a href="#" class="hover:underline">Quy định hoạt động</a></li>
-          </ul>
+        <div class="xl:px-5">
+          <p class="text-[15px] xl:text-lg px-3 font-bold">Liên hệ</p>
+          <div class="grid grid-cols-1 xl:grid-cols-3">
+            <div class="flex items-center text-nowrap px-3 text-[11px] py-2 xl:text-[13px]">
+              <i class="fa-solid fa-location-dot"></i>
+              <p class="ms-2">12 Nguyễn Văn Bảo, GV, HCM</p>
+            </div>
+            <div class="flex items-center text-nowrap px-3 text-[11px] py-2 xl:text-[13px]">
+              <i class="fa-solid fa-envelope"></i>
+              <p class="ms-2">cskh@wildhorizon.com.vn</p>
+            </div>
+            <div class="flex items-center text-nowrap px-3 text-[11px] py-2 xl:text-[13px]">
+              <i class="fa-solid fa-phone"></i>
+              <p class="ms-2">1900112233</p>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="flex flex-col">
-        <h1 class="text-[15px] lg:text-lg text-sky-400">Địa chỉ</h1>
-        <div class="mt-1">
-          <ul class="list-none text-[13px] lg:text-sm ps-2 text-red-950">
-            <li><a href="#" class="hover:underline">Địa chỉ: 123 NVB, Gò Vấp</a></li>
-            <li><a href="#" class="hover:underline">Email: quanghuy123@gmail.com</a></li>
-            <li><a href="#" class="hover:underline">Sđt: 0908762316</a></li>
-            <li><a href="#" class="hover:underline">Fax: 46790-5678-5678</a></li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="flex flex-nwrap mt-3 w-[250px] lg:w-full" style="max-width: 290px;">
-          <!-- <h1 class="text-lg">Address</h1> -->
-          <div class="px-1 py-2 me-1"><img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262297/gpykjvrri1urreezgu5b.png" alt=""></div>
-          <div class="px-1 py-2 me-1"><img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262296/jayddy3a1hmqtkbyjyji.png" alt=""></div>
-          <div class="px-1 py-2 me-1"><img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ut61h8vhqfjemgmevxbw.png" alt=""></div>
+        <div class="container-fuild mx-auto mt-2">
+          <div class="flex flex-col gap-2">
+            <div class="w-full">
+              <div class="flex flex-wrap gap-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ywpkqhmdriwpshdtzikq.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262294/dpflumu5t9o52myclrtw.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/inomznpdmp8cfvjcyvdh.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/uxf5jomf4hbmx95jtsrl.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262625/rui3zw9prsfi5bttckib.png" alt="payment method" class="px-3 py-2">
+              </div>
+            </div>
+            <div class="w-full">
+              <div class="flex flex-wrap gap-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/xs2thvgu6fhstn5lca0z.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/hbhf9x1rruqyhw7oo8qk.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/bcpmpmlnrdosjxw5igs6.png" alt="payment method" class="px-3 py-2">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/qtp5xxdymasvmeazzwyk.png" alt="payment method" class="px-3 py-2">
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </footer>
-</div>
-<div class="bg-white flex">
-  <div class="container-fuild mx-auto">
-    <div class="grid lg:grid-cols-2">
-      <div class="w-full">
-        <h1 class="text-[14px] lg:text-lg px-2 py-2 font-bold">Payment Methods</h1>
-        <div class="flex flex-wrap">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262300/hhnu7934rfekk67nnhee.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262299/wdbqerws4it4n2qxzvsk.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262295/ywpkqhmdriwpshdtzikq.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262294/dpflumu5t9o52myclrtw.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/inomznpdmp8cfvjcyvdh.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/uxf5jomf4hbmx95jtsrl.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262625/rui3zw9prsfi5bttckib.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-
-        </div>
-      </div>
-      <div class="w-full">
-        <h1 class="text-[14px] lg:text-lg px-2 py-2 font-bold">Delivery Services</h1>
-        <div class="flex flex-wrap">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262293/xs2thvgu6fhstn5lca0z.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262623/forjgbiaxzfnpkj0vkfl.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/ihrp53voxcf88dabze2u.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/hbhf9x1rruqyhw7oo8qk.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/bcpmpmlnrdosjxw5igs6.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-          <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746262622/qtp5xxdymasvmeazzwyk.png" alt="payment method" class="px-3 me-3 py-2 w-[55px] h-[40px] lg:h-[60px] lg:w-[80px]">
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script src="https://kit.fontawesome.com/3991b54e5c.js" crossorigin="anonymous"></script>
@@ -110,6 +123,9 @@
 <script src="<?php echo BASE_URL ?>/Public/js/lazysizes.min.js?v=<?php echo rand() ?>" async=""></script>
 <script src="<?php echo BASE_URL ?>/Public/js/lity.min.js?v=<?php echo rand() ?>" async=""></script>
 <?php
+
+use Core\Session;
+
 $success = Session::get('success');
 $status = is_array($success) && isset($success['status']) ? $success['status'] : '';
 $msg = is_array($success) && isset($success['msg']) ? $success['msg'] : '';

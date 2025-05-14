@@ -9,32 +9,32 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
 <div class="container-fuild mx-auto">
   <div class="whr-flash-sale">
     <?php if (!empty($fs_products)) { ?>
-      <div class="grid grid-cols-3 gap-2 px-1 lg:p-0 lg:grid-cols-6 lg:gap-4 mt-4 whr-product-flash-sale">
+      <div class="grid grid-cols-3 gap-2 px-1 xl:p-0 xl:grid-cols-6 xl:gap-4 mt-4 whr-product-flash-sale">
         <?php foreach ($fs_products as $fs_product) { ?>
           <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($fs_product['product_name']) . '-' . $fs_product['product_id'] . '' ?>" class="bg-white hover:shadow-md">
             <div class="flex flex-col">
-              <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
+              <div class="whr-product-img py-2 h-[130px] xl:h-[180px]">
                 <img src="<?php echo $fs_product['product_image'] ?>" class="w-full h-full" alt="sanpham">
               </div>
               <div class="flash-sale-product mt-1 mx-2">
-                <p class="text-[12px] lg:text-sm flash-sale-product-title"><?php echo $fs_product['product_name'] ?></p>
-                <div class="flash-sale-product-price text-[12px] lg:text-sm">
+                <p class="text-[12px] xl:text-sm flash-sale-product-title"><?php echo $fs_product['product_name'] ?></p>
+                <div class="flash-sale-product-price text-[12px] xl:text-sm">
                   <p class="text-orange-500"><?php echo Format::forMatPrice($fs_product['price'] - ($fs_product['price'] * $fs_product['discount_price'] / 100), 0, '.', ',') ?><u class="text-orange-500 ms-1">đ</u></p>
                   <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo Format::forMatPrice($fs_product['price'], 0, '.', ',') ?></s>
-                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-<?php echo Format::formatNumber($fs_product['discount_price']) . '%' ?></span>
+                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] xl:text-[11px]">-<?php echo Format::formatNumber($fs_product['discount_price']) . '%' ?></span>
                   </p>
                 </div>
               </div>
             </div>
             <div class="flex justify-end px-1">
-              <p class="text-gray-400 text-[9px] lg:text-[11px]"><?php echo 'còn ' . $fs_product['quantity'] . ' sản phẩm' ?></p>
+              <p class="text-gray-400 text-[9px] xl:text-[11px]"><?php echo 'còn ' . $fs_product['quantity'] . ' sản phẩm' ?></p>
             </div>
             <div class="flex" style="height: 16px;"></div>
           </a>
         <?php } ?>
       </div>
       <div class="mb-2 pt-3">
-        <button type="button" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[11px] lg:h-[40px] h-[35px] flex items-center justify-center" id="loadmore-product-fs" data-offset="10">Load more</button>
+        <button type="button" class="load-more-product w-[100px] xl:w-full xl:text-sm text-[11px] xl:h-[40px] h-[35px] flex items-center justify-center" id="loadmore-product-fs" data-offset="10">Load more</button>
       </div>
     <?php } else { ?>
       <div class="text-center mt-4">

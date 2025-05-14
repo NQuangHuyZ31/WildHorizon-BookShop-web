@@ -9,8 +9,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <div class="container-fuild mx-auto">
   <div class="w-full mt-6 p-1">
-    <div class="flex flex-col lg:flex-row ">
-      <div class="product-detail-content shadow-sm p-1 lg:p-0">
+    <div class="flex flex-col xl:flex-row ">
+      <div class="product-detail-content shadow-sm p-1 xl:p-0">
         <div class="bg-white flex flex-col p-4 rounded-md" style="position: sticky;top:16px;">
           <div class="product-detail-image mb-2 mx-auto border-b border-gray-200">
             <img src="<?php echo $product['product_image'] ?>" data-lity class="w-full h-full" alt="product-image">
@@ -22,7 +22,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             <img src="<?php echo $product['product_image'] ?>" alt="" width="60" height="60">
             <img src="<?php echo $product['product_image'] ?>" class="" alt="" width="60" height="60">
           </div>
-          <div class="hidden lg:flex py-5 justify-between">
+          <div class="hidden xl:flex py-5 justify-between">
             <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="0" data-id="<?php echo $product['id'] ?>">
               <button type="button" class="flex product-box-btn items-center border-2 justify-center rounded-md border-red-700 mr-2" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
                 <i class="fa-solid fa-cart-shopping mr-3 text-red-600"></i>
@@ -35,7 +35,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               </button>
             </a>
           </div>
-          <div class="hidden lg:flex flex-col">
+          <div class="hidden xl:flex flex-col">
             <p class="text-sm font-bold mb-3">Chính sách ưu đãi của WildHorizon BookShop</p>
             <div class="text-sm">
               <a href="<?php echo BASE_URL . '/chinh-sach/delivery' ?>" class="flex items-center mb-3">
@@ -58,9 +58,9 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
       </div>
       <!-- THÔNG TIN SẢN PHẨM -->
-      <div class="px-1 lg:ms-5 w-full">
+      <div class="px-1 xl:ms-5 w-full">
         <!-- mobile price -->
-        <div class="block bg-white lg:hidden rounded-md">
+        <div class="block bg-white xl:hidden rounded-md">
           <div class="flex flex-col py-1">
             <?php if ($product['f_quantity'] > 0) { ?>
               <div class="w-full bg-gradient-to-r from-[#e53935] to-[#ff7043] text-white py-2 ps-3">
@@ -76,26 +76,26 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
           </div>
         </div>
-        <div class="bg-white rounded-md px-3 pb-2 lg:py-4 shadow-sm">
-          <p class="text-[15px] lg:text-2xl font-bold"><?php echo $product['product_name'] ?>
+        <div class="bg-white rounded-md px-3 pb-2 xl:py-4 shadow-sm">
+          <p class="text-[15px] xl:text-2xl font-bold"><?php echo $product['product_name'] ?>
             <?php if ($product['stock'] <= 0) { ?>
-              <span class="text-red-700 ms-5 text-[13px] lg:hidden">Hết hàng</span>
+              <span class="text-red-700 ms-5 text-[13px] xl:hidden">Hết hàng</span>
             <?php } ?>
           </p>
           <?php if ($product['catalog_id'] == 10) { ?>
-            <div class="mt-3 hidden lg:grid lg:grid-cols-2 px-3">
+            <div class="mt-3 hidden xl:grid xl:grid-cols-2 px-3">
               <p class="text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="text-sm">Thương hiệu: <span class="font-bold"><?php echo $product['brand_name'] != null ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else if ($product['catalog_id'] == 11) { ?>
-            <div class="mt-3 hidden lg:grid lg:grid-cols-2 px-3">
+            <div class="mt-3 hidden xl:grid xl:grid-cols-2 px-3">
               <p class="text-sm">Nhà cung cấp: <span class="font-bold"><?php echo !empty($product['supplier_name']) ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="text-sm">Thương hiệu: <span class="font-bold"><?php echo !empty($product['brand_name']) ? $product['brand_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="text-sm mt-2">Xuất xứ: <span class="font-bold"><?php echo !empty($product['origin']) ? $product['origin'] : 'Chưa cập nhật' ?></span></p>
             </div>
           <?php } else { ?>
-            <div class="mt-3 hidden lg:grid lg:grid-cols-2 px-3">
+            <div class="mt-3 hidden xl:grid xl:grid-cols-2 px-3">
               <p class="text-sm">Nhà cung cấp: <span class="font-bold"><?php echo $product['supplier_name'] != null ? $product['supplier_name'] : 'Chưa cập nhật' ?></span></p>
               <p class="text-sm">Tác giả: <span class="font-bold"><?php echo $product['author'] != null ? $product['author'] : 'Chưa cập nhật' ?></span></p>
               <p class="text-sm mt-2">Nhà xuất bản: <span class="font-bold"><?php echo $product['publisher'] != null ? $product['publisher'] : 'Chưa cập nhật' ?></span></p>
@@ -103,12 +103,12 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
             </div>
           <?php } ?>
           <?php if ($product['f_quantity'] > 0) { ?>
-            <div class="mt-3 hidden lg:flex ">
+            <div class="mt-3 hidden xl:flex ">
               <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs">
               <p class="text-lg font-bold ms-5">Còn lại: <span class="text-orange-500"><?php echo $product['f_quantity'] ?></span></p>
             </div>
           <?php } ?>
-          <div class="mt-3 hidden lg:flex  items-center">
+          <div class="mt-3 hidden xl:flex  items-center">
             <p class="text-3xl font-bold text-red-700">
               <?php echo $product['f_quantity'] > 0 ? Format::forMatPrice($product['price'] - ($product['price'] * $product['f_discount_price'] / 100)) : Format::formatNumber($product['price'] - ($product['price'] * $product['discount_price'] / 100)) ?>
               đ</p>
@@ -118,27 +118,27 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
         <div class="bg-white flex flex-col p-4 rounded-md mt-3 ">
           <div>
-            <p class="text-[14px] lg:text-lg font-bold">Thông tin vận chuyển</p>
+            <p class="text-[14px] xl:text-lg font-bold">Thông tin vận chuyển</p>
             <div class="mt-2">
-              <p class="text-[12px] lg:text-sm cursor-pointer" id="change-temp-address">Giao hàng đến: <span class="font-bold" id="temp_address">Phường Bến Nghé, Quận 1, Hồ Chí Minh</span><span class="ms-3 text-blue-600 font-bold">Thay đổi</span></p>
+              <p class="text-[12px] xl:text-sm cursor-pointer" id="change-temp-address">Giao hàng đến: <span class="font-bold" id="temp_address">Phường Bến Nghé, Quận 1, Hồ Chí Minh</span><span class="ms-3 text-blue-600 font-bold">Thay đổi</span></p>
             </div>
           </div>
           <div class="mt-3 flex">
             <i class="fa-solid fa-truck text-orange-500 mr-4 mt-1"></i>
             <div class="flex flex-col">
-              <p class="text-[14px] lg:text-lg font-bold">Giao hàng tiêu chuẩn</p>
-              <p class="text-[12px] lg:text-sm">Dự kiến giao: <span class="font-bold"><?php $date = new DateTime();
+              <p class="text-[14px] xl:text-lg font-bold">Giao hàng tiêu chuẩn</p>
+              <p class="text-[12px] xl:text-sm">Dự kiến giao: <span class="font-bold"><?php $date = new DateTime();
                                                                                       echo $date->modify('+3 day')->format('d-m-Y'); ?></span></p>
             </div>
           </div>
           <div class="mt-3 flex items-center">
-            <p class="text-[14px] lg:text-lg font-bold mr-3">Ưu dãi liên quan</p>
-            <div class="text-blue-500 cursor-pointer flex text-[12px] lg:text-sm">
+            <p class="text-[14px] xl:text-lg font-bold mr-3">Ưu dãi liên quan</p>
+            <div class="text-blue-500 cursor-pointer flex text-[12px] xl:text-sm">
               <p class="mr-3">Xem thêm</p>
               <div style="width: 16px;height: 16px;background: url('https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg');background-repeat: no-repeat;margin-top: 2px;"></div>
             </div>
           </div>
-          <div class="hidden lg:flex items-center mt-3">
+          <div class="hidden xl:flex items-center mt-3">
             <p class="text-lg font-bold mr-3">Số lượng</p>
             <div class="flex items-center user-select-none">
               <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75 <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
@@ -158,8 +158,8 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </div>
         <!-- THÔNG TIN CHI TIÊT -->
         <div class="bg-white rounded-md px-3 py-4 shadow-sm mt-5">
-          <p class="font-bold text-[14px] lg:text-lg">Thông tin chi tiết</p>
-          <table class="table-auto w-full text-[12px] lg:text-sm text-gray-500">
+          <p class="font-bold text-[14px] xl:text-lg">Thông tin chi tiết</p>
+          <table class="table-auto w-full text-[12px] xl:text-sm text-gray-500">
             <colgroup>
               <col width="40%">
               <col>
@@ -171,19 +171,19 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               </tr>
             <?php } ?>
           </table>
-          <div class="mt-2 text-[12px] lg:text-sm">
+          <div class="mt-2 text-[12px] xl:text-sm">
             <p class="mb-1">Giá sản phẩm trên WildHorizon.com đã bao gồm thuế theo luật hiện hành. Bên cạnh đó, tuỳ vào loại sản phẩm,
               hình thức và địa chỉ giao hàng mà có thể phát sinh thêm chi phí khác như Phụ phí đóng gói, phí vận chuyển, phụ phí hàng cồng kềnh,...</p>
             <p class="text-red-500">Chính sách khuyến mãi trên WildHorizon.com không áp dụng cho Hệ thống Nhà sách WildHorizon trên toàn quốc</p>
           </div>
         </div>
         <div class="bg-white rounded-md px-3 py-4 shadow-sm mt-5">
-          <p class="font-bold text-[14px] lg:text-lg">Mô tả sản phẩm</p>
-          <p class="font-bold text-[14px] lg:text-sm mt-3"><?php echo $product['product_name'] ?></p>
-          <p class="text-[12px] lg:text-sm text-gray-500 mt-2"><?php echo $product['p_description'] ? $product['p_description'] : '' ?></p>
+          <p class="font-bold text-[14px] xl:text-lg">Mô tả sản phẩm</p>
+          <p class="font-bold text-[14px] xl:text-sm mt-3"><?php echo $product['product_name'] ?></p>
+          <p class="text-[12px] xl:text-sm text-gray-500 mt-2"><?php echo $product['p_description'] ? $product['p_description'] : '' ?></p>
         </div>
         <!-- moblie quanity, addcart template -->
-        <div class="fixed w-full left-0 right-0 bottom-0 z-[999999] block lg:hidden">
+        <div class="fixed w-full left-0 right-0 bottom-0 z-[999999] block xl:hidden">
           <div class="mx-auto max-w-[600px] w-full bg-white h-[65px] shadow-md flex items-center justify-center px-4 py-2">
             <div class="flex items-center user-select-none mr-2">
               <div class="dec-quantity-product-detail flex items-center text-center m-1 bg-gray-100 text-gray-400 cursor-pointer hover:bg-gray-300 hover:text-white pointer-events-none opacity-75 <?php echo $product['stock'] <= 0 ? 'poiter-events-none' : '' ?>" style="width: 32px;height: 32px;">
@@ -213,20 +213,20 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
       </div>
     </div>
-    <div class="bg-white flex flex-col p-4 rounded-md mt-3 text-[12px] lg:text-sm">
-      <p class="text-[16px] lg:text-lg font-bold">Đánh giá sản phẩm</p>
+    <div class="bg-white flex flex-col p-4 rounded-md mt-3 text-[12px] xl:text-sm">
+      <p class="text-[16px] xl:text-lg font-bold">Đánh giá sản phẩm</p>
       <div class="flex items-center mt-3">
-        <div class="flex flex-col w-1/4 mr-3 lg:mr-0">
-          <div class="flex items-center text-lg lg:text-4xl justify-center">
+        <div class="flex flex-col w-1/4 mr-3 xl:mr-0">
+          <div class="flex items-center text-lg xl:text-4xl justify-center">
             <i class="fa-solid fa-star fill-current text-orange-300 text-2xl"></i>
-            <p class="ms-1"><?php echo !empty($avgRating) ? number_format(floatval($avgRating['avgRating']), 2, '.') : '0' ?><span class="text-sm text-gray-400">/5</span></p>
+            <p class="ms-1"><?php echo !empty($avgRating) ? number_format(floatval($avgRating['avgRating']), 1, '.') : '0' ?><span class="text-sm text-gray-400">/5</span></p>
           </div>
           <p class="text-center text-sm text-gray-400"><?php echo count($reviews) . ' đánh giá' ?></p>
         </div>
-        <div class="flex-1 lg:flex-none lg:w-1/3">
+        <div class="flex-1 xl:flex-none xl:w-1/3">
           <ul>
             <?php foreach ($rating_reviews as $rating) { ?>
-              <li class="flex items-center text-[13px] lg:text-sm w-full mb-2">
+              <li class="flex items-center text-[13px] xl:text-sm w-full mb-2">
                 <p class="mr-2 flex items-center"><?php echo $rating['rating_id'] ?><i class="fa-solid fa-star fill-current text-orange-300 ms-1"></i></p>
                 <div class="w-full bg-gray-200 rounded-lg" style="height: 6px;">
                   <p class="bg-orange-400 h-full rounded-lg" style="width: <?php echo !empty($rating['per']) ? intval($rating['per']) . '%' : '0%' ?>;"></p>
@@ -237,11 +237,11 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
           </ul>
         </div>
       </div>
-      <div class="px-2 py-1 lg:w-[70%]">
+      <div class="px-2 py-1 xl:w-[70%]">
         <?php if (count($reviews) > 0) { ?>
           <?php foreach ($reviews as $review) { ?>
             <div class="mt-3 ps-2 py-1" style="font-size: 12px;">
-              <p class="mb-1 pt-1 mr-2 text-[14px] font-semibold lg:text-sm"><?php echo $review['username'] ?></p>
+              <p class="mb-1 pt-1 mr-2 text-[14px] font-semibold xl:text-sm"><?php echo $review['username'] ?></p>
               <div class="flex px-1 items-center">
                 <?php for ($i = 1; $i <= 5; $i++) { ?>
                   <?php if ($i <= $review['rating_id']) { ?>
@@ -255,7 +255,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                 </div>
               </div>
               <div class="mt-2 <?php echo $review['comment'] != null ? 'block' : 'hidden' ?>">
-                <p class="text-[12px] lg:text-sm text-gray-600 ps-2"><?php echo $review['comment'] ?></p>
+                <p class="text-[12px] xl:text-sm text-gray-600 ps-2"><?php echo $review['comment'] ?></p>
               </div>
             </div>
           <?php } ?>
@@ -266,18 +266,18 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
     </div>
     <?php if (count($moreProducts) > 0) { ?>
       <div class="bg-white flex flex-col p-4 rounded-md mt-3">
-        <p class="text-[15px] lg:text-lg font-bold mb-3">Sản phẩm liên quan</p>
+        <p class="text-[15px] xl:text-lg font-bold mb-3">Sản phẩm liên quan</p>
         <div class="more-product-detail">
-          <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 py-2 more-product-detail">
+          <div class="grid grid-cols-3 xl:grid-cols-5 gap-2 py-2 more-product-detail">
             <?php foreach ($moreProducts as $product) { ?>
               <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="">
-                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
-                  <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
+                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content xl:min-h-[260px]">
+                  <div class="whr-product-img py-2 h-[130px] xl:h-[180px]">
                     <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
                   </div>
                   <div class="px-2 mt-2 pb-3">
-                    <p class="product-title text-[13px] lg:text-sm lg:px-2"><?php echo $product['product_name'] ?></p>
-                    <div class="flex items-start text-[12px] lg:px-2 lg:text-[15px] flex-col">
+                    <p class="product-title text-[13px] xl:text-sm xl:px-2"><?php echo $product['product_name'] ?></p>
+                    <div class="flex items-start text-[12px] xl:px-2 xl:text-[15px] flex-col">
                       <div class="product-price">
                         <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
                         <p class="text-sm" style="font-size: 12px;"></p>
@@ -285,7 +285,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                       <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
                         <div class="product-price-sale">
                           <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
-                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center text-[9px] lg:text-[11px]">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                            <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center text-[9px] xl:text-[11px]">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
                           </p>
                         </div>
                       <?php  } ?>
@@ -299,17 +299,17 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </div>
     <?php } ?>
     <div class="rounded-md mt-3 product-suggest">
-      <div class="flex py-1 lg:h-[70px]" style="max-height: 70px;"></div>
-      <div class="grid grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4 mt-7">
+      <div class="flex py-1 xl:h-[70px]" style="max-height: 70px;"></div>
+      <div class="grid grid-cols-3 xl:grid-cols-5 gap-2 xl:gap-4 mt-7">
         <?php foreach ($suggest_products as $product) { ?>
           <a href="<?php echo  BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] . '' ?>" class="">
-            <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
-              <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
+            <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content xl:min-h-[260px]">
+              <div class="whr-product-img py-2 h-[130px] xl:h-[180px]">
                 <img src="<?php echo $product['product_image']; ?>" class="w-full h-full" alt="image">
               </div>
               <div class="px-2 mt-2 pb-3">
-                <p class="product-title text-[13px] lg:text-sm lg:px-2"><?php echo $product['product_name'] ?></p>
-                <div class="flex items-start flex-col text-[12px] lg:text-[15px] lg:mt-2 lg:px-2">
+                <p class="product-title text-[13px] xl:text-sm xl:px-2"><?php echo $product['product_name'] ?></p>
+                <div class="flex items-start flex-col text-[12px] xl:text-[15px] xl:mt-2 xl:px-2">
                   <div class="product-price">
                     <p class="text-orange-500 mr-2"><?php echo number_format($product['price'] - (($product['price'] * $product['discount_price'] / 100)), '0', '.', '.') ?><u class="ms-1">đ</u></p>
                     <p class="text-sm" style="font-size: 12px;"></p>
@@ -317,7 +317,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
                   <?php if (isset($product['discount_price']) && $product['discount_price'] > 0) { ?>
                     <div class="product-price-sale">
                       <p class="flash-sale-product-price-sale"><s class="opacity-50">đ<?php echo number_format($product['price'], 0, '.', ',') ?></s>
-                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center text-[9px] lg:text-[11px]">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
+                        <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-center text-[9px] xl:text-[11px]">-<?php echo number_format($product['discount_price'], 0) . '%' ?></span>
                       </p>
                     </div>
                   <?php  } ?>
@@ -328,7 +328,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <?php } ?>
       </div>
       <div class="mb-2 pt-3">
-        <button type="button" class="load-more-product w-[100px] lg:w-full lg:text-sm text-[12px] lg:h-[40px] h-[35px] flex items-center justify-center"><a href="<?php echo BASE_URL . '/product' ?>">Load more</a></button>
+        <button type="button" class="load-more-product w-[100px] xl:w-full xl:text-sm text-[12px] xl:h-[40px] h-[35px] flex items-center justify-center"><a href="<?php echo BASE_URL . '/product' ?>">Load more</a></button>
       </div>
     </div>
   </div>
@@ -343,26 +343,26 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </form> -->
       <h3 class="text-lg font-bold border-b-2 border-gray-300 pb-2 text-center">Chọn địa chỉ giao hàng của bạn</h3>
       <div class="mt-3 flex text-nowrap items-center">
-        <p class="mr-2 text-[12px] lg:text-sm w-[140px] lg:w-full" style="max-width: 190px;">Chọn Tỉnh/Thành phố:</p>
-        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] lg:text-sm" name="temp-address-province" id="temp-address-province">
+        <p class="mr-2 text-[12px] xl:text-sm w-[140px] xl:w-full" style="max-width: 190px;">Chọn Tỉnh/Thành phố:</p>
+        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] xl:text-sm" name="temp-address-province" id="temp-address-province">
           <option value="">Chọn tỉnh/thành phố</option>
         </select>
       </div>
       <div class="mt-3 flex text-nowrap items-center">
-        <p class="mr-2 text-[12px] lg:text-sm w-[140px] lg:w-full" style="max-width: 190px;">Chọn Quận/Huyện:</p>
-        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] lg:text-sm" name="temp-address-district" id="temp-address-district" disabled>
+        <p class="mr-2 text-[12px] xl:text-sm w-[140px] xl:w-full" style="max-width: 190px;">Chọn Quận/Huyện:</p>
+        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] xl:text-sm" name="temp-address-district" id="temp-address-district" disabled>
           <option value="">Chọn quận/huyện</option>
         </select>
       </div>
       <div class="mt-3 flex text-nowrap items-center">
-        <p class="mr-2 text-[12px] lg:text-sm w-[140px] lg:w-full" style="max-width: 190px;">Chọn Phường/Xã:</p>
-        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] lg:text-sm" name="temp-address-ward" id="temp-address-ward" disabled>
+        <p class="mr-2 text-[12px] xl:text-sm w-[140px] xl:w-full" style="max-width: 190px;">Chọn Phường/Xã:</p>
+        <select class="w-1/2 outline-none border border-gray-400 ps-2 py-2 rounded-md text-[12px] xl:text-sm" name="temp-address-ward" id="temp-address-ward" disabled>
           <option value="">Chọn phường xã</option>
         </select>
       </div>
       <div class="flex justify-end items-center mt-3">
-        <p class="text-sm text-gray-500 mr-5 cursor-pointer text-[13px] lg:text-sm" id="cancel-temp-address">Hủy</p>
-        <button type="button" class="bg-red-700 text-white p-2 rounded-md pointer-events-none opacity-25 text-[14px] lg:text-sm" id="accept-temp-address">Xác nhận</button>
+        <p class="text-sm text-gray-500 mr-5 cursor-pointer text-[13px] xl:text-sm" id="cancel-temp-address">Hủy</p>
+        <button type="button" class="bg-red-700 text-white p-2 rounded-md pointer-events-none opacity-25 text-[14px] xl:text-sm" id="accept-temp-address">Xác nhận</button>
       </div>
     </div>
   </dialog>

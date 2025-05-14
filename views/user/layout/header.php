@@ -50,7 +50,7 @@ $csrf_token = Core\CSRF::generateToken();
   <?php } ?>
   <div class="w-full mx-auto relative">
     <div class="container-fuild m-auto ">
-      <ul class="hidden py-1 lg:flex lg:justify-around" style="font-size: 12px;margin-left: 100px;">
+      <ul class="hidden py-1 xl:flex xl:justify-around" style="font-size: 12px;margin-left: 100px;">
         <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">Góp ý</a></li>
         <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Tiết kiệm hơn với ứng dụng</a></li>
         <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Bán hàng cùng WHR shop</a></li>
@@ -108,29 +108,29 @@ $csrf_token = Core\CSRF::generateToken();
 
         <li class=""><a href="#" class="text-gray-400 hover:text-orange-400 uppercase">THAY ĐỔI NGÔN NGỮ</a></li>
     </div>
-    <div class="w-full pt-2 bg-white header-content lg:h-[80px]">
-      <div class="grid grid-cols-3 h-full items-center lg:mx-auto container-fuild lg:grid-cols-4 ">
-        <div class="header-logo col-span-4 flex justify-center w-full lg:col-span-1">
+    <div class="w-full py-2 bg-blue-500 xl:h-[80px]">
+      <div class="grid grid-cols-3 items-center gap-1 xl:mx-auto container-fuild xl:grid-cols-4 xl:gap-0">
+        <div class="header-logo col-span-4 flex justify-center w-full xl:col-span-1">
           <a href="<?php echo BASE_URL . '/' ?>">
-            <img src="<?php echo BASE_URL ?>/Public/images/logo.jpg" alt="" class="max-w-[160px] max-h-[50px] lg:max-w-[100%] lg:max-h-[60px]">
+            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1747215942/zygzvqgbmarudnizljdj.png" alt="" class="max-w-[160px] max-h-[50px] xl:max-w-[100%] xl:max-h-[60px]">
           </a>
         </div>
-        <div class="col-span-2 mx-3 lg:col-span-2 <?php if (isset($nosearch)) {
+        <div class="col-span-2 mx-3 xl:col-span-2 <?php if (isset($nosearch)) {
                                                     echo 'pointer-events-none';
                                                   }; ?>">
           <form action="<?php echo BASE_URL . '/product' ?>" class="w-full" method="get">
             <div class="w-full flex  relative">
-              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg text-[12px] lg:text-sm" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
-              <div class="hidden header-search-icon hover:opacity-80 rounded-lg lg:flex">
+              <input type="text" name="search" id="search" class="w-full header-input-search py-3 px-3 rounded-lg text-[12px] xl:text-sm" value="<?php echo isset($keyword) ? $keyword : '' ?>" placeholder="search in wildhorizon shop">
+              <div class="hidden header-search-icon hover:opacity-80 rounded-lg xl:flex">
                 <button type="submit" id="btn-header-search"><i class="fa-solid fa-magnifying-glass p-3 text-lg"></i></button>
               </div>
             </div>
           </form>
         </div>
-        <div class="lg:ms-6 flex items-center justify-around col-span-1">
+        <div class="xl:ms-6 flex items-center justify-around col-span-1 text-white">
           <a href="<?php echo BASE_URL . '/gio-hang' ?>"><i class="fa-solid fa-cart-shopping cursor-pointer" style="height: 26px;"></i></a>
-          <a href="<?php echo BASE_URL . '/customer/account' ?>" class="block lg:hidden"><i class="fa-solid fa-user cursor-pointer" style="height: 26px;"></i></a>
-          <div class="ms-6 lg:block hidden" style="height: 45px;">
+          <a href="<?php echo BASE_URL . '/customer/account' ?>" class="block xl:hidden"><i class="fa-solid fa-user cursor-pointer" style="height: 26px;"></i></a>
+          <div class="ms-6 xl:block hidden" style="height: 45px;">
             <a href="#"><img src="<?php echo BASE_URL ?>/Public/images/658519f4-fceb-4e33-8895-70cb806e7efa_VN-376-90.png" alt="" width="188" height="45"></a>
           </div>
         </div>

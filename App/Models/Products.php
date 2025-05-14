@@ -23,6 +23,18 @@ class Products extends Model
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  // lấy sản phẩm limit random
+  public function getLimitRand($limit)
+  {
+    $query = "SELECT p.id, product_name, price, product_image, p.discount_price, p.stock, COALESCE(f.discount_price, 0) AS f_discount_price, COALESCE(f.quantity, 0) AS f_quantity  
+              from products p LEFT JOIN flashsales f on p.id = f.product_id order by rand() limit :limit";
+    $stmt = $this->db->prepare($query);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   // Tìm sản phẩm theo id chi tiết sản phẩm
   public function find($productID)
   {

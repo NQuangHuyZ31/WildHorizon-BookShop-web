@@ -472,3 +472,15 @@ h6 {
 }
 
 /* Rating */
+.bg_fs {
+    background: url(https://res.cloudinary.com/whr-clound/image/upload/v1747141655/mqcesjm6cxlkrihb67cr.webp) no-repeat center center;
+    background-color: #ff6c6b;
+    position: absolute;
+    height: calc(100% + 32px);
+    width: 99vw;
+    object-fit: contain;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    margin-top: -16px;
+}

@@ -37,13 +37,13 @@ $(document).ready(function () {
                         response.success.data.forEach((product) => {
                             $('.whr-product').append(`
                              <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="">
-                                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content pb-2 lg:pb-0 lg:min-h-[260px]">
-                                    <div class="py-2 h-[130px] lg:h-[180px]">
+                                <div class="bg-white flex flex-col hover:shadow-full whr-product-content pb-2 xl:pb-0 xl:min-h-[260px]">
+                                    <div class="py-2 h-[130px] xl:h-[180px]">
                                     <img src="${product.product_image}" class="w-full h-full" alt="image">
                                     </div>
                                     <div class="px-2 mt-2">
-                                    <p class="text-[13px] lg:text-sm flash-sale-product-title">${product.product_name}</p>
-                                    <div class="product-price-sale text-[12px] lg:text-sm">
+                                    <p class="text-[13px] xl:text-sm flash-sale-product-title">${product.product_name}</p>
+                                    <div class="product-price-sale text-[12px] xl:text-sm">
                                         <p class="text-orange-500">
                                         ${
                                             product.f_discount_pice > 0
@@ -56,14 +56,14 @@ $(document).ready(function () {
                                         <p class="flash-sale-product-price-sale ${
                                             product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'
                                         }"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
-                                            <span class="text-white ms-1 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${
+                                            <span class="text-white ms-1 bg-red-600 rounded-sm px-1 text-[9px] xl:text-[11px]">-${
                                                 product.f_discount_price > 0
                                                     ? new Intl.NumberFormat('vi').format(product.f_discount_price)
                                                     : new Intl.NumberFormat('vi').format(product.discount_price)
                                             }</span>
                                         </p>
-                                        <div class="hidden lg:block">
-                                            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" class="px-1 w-[40px] h-[auto] lg:w-[70px] ${
+                                        <div class="hidden xl:block">
+                                            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" class="px-1 w-[40px] h-[auto] xl:w-[70px] ${
                                                 product.f_quantity > 0 ? '' : 'hidden'
                                             }">
                                         </div>
@@ -214,17 +214,17 @@ $(document).ready(function () {
                     success: function (response) {
                         if (response.success == 1) {
                             $('.whr-product').html('');
-                            $('.whr-product').removeClass('aa').addClass('grid lg:grid-cols-5');
+                            $('.whr-product').removeClass('aa').addClass('grid xl:grid-cols-5');
                             response.products.forEach((product) => {
                                 $('.whr-product').append(`
                                 <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}" class="">
-                                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content pb-2 lg:pb-0 lg:min-h-[260px]">
-                                    <div class="py-2 h-[130px] lg:h-[180px]">
+                                <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content pb-2 xl:pb-0 xl:min-h-[260px]">
+                                    <div class="py-2 h-[130px] xl:h-[180px]">
                                     <img src="${product.product_image}" class="w-full h-full" alt="image">
                                     </div>
                                     <div class="px-2 mt-2">
-                                    <p class="text-[13px] lg:text-sm flash-sale-product-title">${product.product_name}</p>
-                                    <div class="product-price-sale text-[12px] lg:text-sm">
+                                    <p class="text-[13px] xl:text-sm flash-sale-product-title">${product.product_name}</p>
+                                    <div class="product-price-sale text-[12px] xl:text-sm">
                                         <p class="text-orange-500">
                                         ${
                                             product.f_discount_pice > 0
@@ -237,14 +237,14 @@ $(document).ready(function () {
                                         <p class="flash-sale-product-price-sale ${
                                             product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'
                                         }"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
-                                            <span class="text-white ms-1 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${
+                                            <span class="text-white ms-1 bg-red-600 rounded-sm px-1 text-[9px] xl:text-[11px]">-${
                                                 product.f_discount_price > 0
                                                     ? new Intl.NumberFormat('vi').format(product.f_discount_price)
                                                     : new Intl.NumberFormat('vi').format(product.discount_price)
                                             }%</span>
                                         </p>
-                                        <div class="hidden lg:block">
-                                            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" class="px-1 w-[40px] h-[auto] lg:w-[70px] ${
+                                        <div class="hidden xl:block">
+                                            <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/xumhjzw0igzdwwgosq1k.svg" alt="icon_fs" class="px-1 w-[40px] h-[auto] xl:w-[70px] ${
                                                 product.f_quantity > 0 ? '' : 'hidden'
                                             }">
                                         </div>
@@ -257,16 +257,16 @@ $(document).ready(function () {
                             });
                         } else if (response.success == 0) {
                             $('.whr-product').html('');
-                            $('.whr-product').addClass('aa').removeClass('grid lg:grid-cols-5');
+                            $('.whr-product').addClass('aa').removeClass('grid xl:grid-cols-5');
                             $('.whr-product').append(`
-                            <div class="flex flex-col justify-center bg-white h-auto mt-2 rounded-md py-3 mb-3 lg:mb-0 lg:py-6">
+                            <div class="flex flex-col justify-center bg-white h-auto mt-2 rounded-md py-3 mb-3 xl:mb-0 xl:py-6">
                                 <div class="text-center">
-                                    <p class="text-[15px] lg:text-xl text-red-400">Không có sản phẩm.</p>
+                                    <p class="text-[15px] xl:text-xl text-red-400">Không có sản phẩm.</p>
                                 </div>
-                                <div class="flex flex-col justify-center text-center lg:mt-2">
-                                    <p class="text-[12px] lg:text-sm text-gray-500">Quay lại mua sắm</p>
-                                    <div class="text-center mt-2 text-[12px] lg:text-sm">
-                                    <button type="button" class="bg-orange-400 rounded-md text-white px-4 py-1 lg:px-7 lg:py-2"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full">Go to Shopping</a></button>
+                                <div class="flex flex-col justify-center text-center xl:mt-2">
+                                    <p class="text-[12px] xl:text-sm text-gray-500">Quay lại mua sắm</p>
+                                    <div class="text-center mt-2 text-[12px] xl:text-sm">
+                                    <button type="button" class="bg-orange-400 rounded-md text-white px-4 py-1 xl:px-7 xl:py-2"><a href="<?php echo BASE_URL . '/product' ?>" class="w-full">Go to Shopping</a></button>
                                     </div>
                                 </div>
                             </div>

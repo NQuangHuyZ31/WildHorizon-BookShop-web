@@ -15,7 +15,7 @@
             <?php include('layout/header.php'); ?>
 
             <!-- Statistics Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
                 <!-- Card 1 -->
                 <div class="bg-white rounded-lg shadow-lg p-6">
                     <div class="flex items-center space-x-4">
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            
+
 
         </div>
     </div>
@@ -91,29 +91,30 @@
     <?php include('layout/footer.php'); ?>
 </body>
 <script>
-                var ctx = document.getElementById('revenueChart').getContext('2d');
-                var revenueChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Hôm nay', 'Tháng này', 'Năm nay'],
-                        datasets: [{
-                            label: 'Doanh thu',
-                            data: [<?= $dailyRevenue ?>, <?= $monthlyRevenue ?>, <?= $yearlyRevenue ?>],
-                            borderColor: 'rgb(75, 192, 192)',
-                            fill: false,
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: {
-                            x: {
-                                beginAtZero: true
-                            },
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            </script>
+    var ctx = document.getElementById('revenueChart').getContext('2d');
+    var revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Hôm nay', 'Tháng này', 'Năm nay'],
+            datasets: [{
+                label: 'Doanh thu',
+                data: [<?= $dailyRevenue ?>, <?= $monthlyRevenue ?>, <?= $yearlyRevenue ?>],
+                borderColor: 'rgb(75, 192, 192)',
+                fill: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    beginAtZero: true
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
 </html>

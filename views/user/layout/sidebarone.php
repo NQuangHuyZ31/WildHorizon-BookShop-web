@@ -1,7 +1,7 @@
-<div class="bg-white px-2 mr-3 mt-3 rounded-md text-nowrap w-full lg:w-1/5">
-  <div class="flex items-center px-2 py-2 justify-between border-b border-gray-200 lg:py-4 lg:px-2">
-    <p class="lg:text-xl text-red-700 font-semibold uppercase">Lọc theo</p>
-    <label class="inline-grid btn btn-circle swap swap-rotate bg-white border-none hover:bg-white shadow-none lg:hidden ">
+<div class="bg-white px-2 mr-3 mt-3 rounded-md text-nowrap w-full xl:w-1/5">
+  <div class="flex items-center px-2 py-2 justify-between border-b border-gray-200 xl:py-4 xl:px-2">
+    <p class="xl:text-xl text-red-700 font-semibold uppercase">Lọc theo</p>
+    <label class="inline-grid btn btn-circle swap swap-rotate bg-white border-none hover:bg-white shadow-none xl:hidden ">
       <!-- this hidden checkbox controls the state -->
       <input type="checkbox" id="filter_on_off" />
 
@@ -11,10 +11,10 @@
       <i class="fa-solid fa-caret-up swap-on fill-current text-[20px]" id="filter-up"></i>
     </label>
   </div>
-  <div class="hidden w-full sticky lg:block" style="top: 16px;" id="sidebar_product">
+  <div class="hidden w-full sticky xl:block" style="top: 16px;" id="sidebar_product">
     <div class="mt-2 px-1">
-      <p class="font-bold mb-1 text-[14px] lg:text-[16px]">Danh mục sản phẩm</p>
-      <ul class="px-2 py-1 text-slate-500 text-[13px] lg:text-[14px] border-b border-gray-100 auto-maxheight" style="max-height: 200px;" id="list_catagories">
+      <p class="font-bold mb-1 text-[14px] xl:text-[16px]">Danh mục sản phẩm</p>
+      <ul class="px-2 py-1 text-slate-500 text-[13px] xl:text-[14px] border-b border-gray-100 auto-maxheight" style="max-height: 200px;" id="list_catagories">
         <li class="leading-5 mb-2 hover:text-orange-400">
           <a class="<?php echo parse_url(basename($_SERVER['REQUEST_URI']), PHP_URL_PATH) == 'product' ? 'text-orange-500' : '' ?>" href="<?php echo BASE_URL . '/product' ?>">Tất cả danh mục</a>
         </li>
@@ -29,8 +29,8 @@
       <button class="flex justify-center text-[13px] text-red-500 cursor-pointer w-full font-bold mt-2" onclick="toggleContent('#list_catagories')">Xem thêm</button>
     </div>
     <div class="mt-2 px-1 border-b border-gray-100">
-      <p class="font-bold mb-1 text-[14px] lg:text-[16px]">Giá</p>
-      <ul class="px-2 py-1 text-slate-500 text-[13px] lg:text-[14px]">
+      <p class="font-bold mb-1 text-[14px] xl:text-[16px]">Giá</p>
+      <ul class="px-2 py-1 text-slate-500 text-[13px] xl:text-[14px]">
         <li class="leading-5 mb-2 hover:text-orange-400">
           <a class="ps-5 price-unchecked filter cursor-pointer" id="price-m-1" data-id="1" data-from="0" data-to="150000">
             0đ - 150,000đ
@@ -60,8 +60,8 @@
     </div>
     <?php if ($id != 10 && $id != 11) { ?>
       <div class="mt-2 px-1">
-        <p class="font-bold mb-1 text-[14px] lg:text-[16px]">Nhà cung cấp</p>
-        <ul class="px-2 py-1 text-slate-500 text-[13px] lg:text-[14px] auto-maxheight border-b border-gray-100" style=" max-height: 200px;" id="list_supplier_name">
+        <p class="font-bold mb-1 text-[14px] xl:text-[16px]">Nhà cung cấp</p>
+        <ul class="px-2 py-1 text-slate-500 text-[13px] xl:text-[14px] auto-maxheight border-b border-gray-100" style=" max-height: 200px;" id="list_supplier_name">
           <?php foreach ($suppliers as $supplier) { ?>
             <li class="leading-5 mb-2  hover:text-orange-400 cursor-pointer">
               <a class="ps-5 supplier-unchecked filter" id="supplier-m-<?php echo $supplier['id'] ?>" data-id="<?php echo $supplier['id'] ?>">
@@ -75,8 +75,8 @@
     <?php } ?>
     <?php if ($id == 10 || $id == 11) { ?>
       <div class="mt-2 px-1 border-b">
-        <p class="font-bold mb-1 text-[14px] lg:text-[16px]">Thương hiệu</p>
-        <ul class="px-2 py-1 text-slate-500 text-[13px] lg:text-[14px] auto-maxheight border-gray-100" style="max-height: 200px;" id="list_brand_name">
+        <p class="font-bold mb-1 text-[14px] xl:text-[16px]">Thương hiệu</p>
+        <ul class="px-2 py-1 text-slate-500 text-[13px] xl:text-[14px] auto-maxheight border-gray-100" style="max-height: 200px;" id="list_brand_name">
           <?php foreach ($brands as $brand) { ?>
             <li class="leading-5 mb-2  hover:text-orange-400 cursor-pointer">
               <a class="ps-5 brand-unchecked filter" id="brand-m-<?php echo $brand['id'] ?>" data-id="<?php echo $brand['id'] ?>">
@@ -88,8 +88,8 @@
         <!-- <button class="flex justify-center text-[13px] text-red-500 cursor-pointer w-full font-bold mt-2" onclick="toggleContent('#list_brand_name')">Xem thêm</button> -->
       </div>
       <div class="mt-2 px-1 border-b">
-        <p class="font-bold mb-1 text-[14px] lg:text-[16px]">Màu sắc</p>
-        <ul class="px-2 py-1 text-slate-500 text-[13px] lg:text-[14px] border-gray-100" style="max-height: 200px;" id="list_color">
+        <p class="font-bold mb-1 text-[14px] xl:text-[16px]">Màu sắc</p>
+        <ul class="px-2 py-1 text-slate-500 text-[13px] xl:text-[14px] border-gray-100" style="max-height: 200px;" id="list_color">
           <?php foreach ($colors as $color) { ?>
             <?php if ($color['color'] != null) { ?>
               <li class="leading-5 mb-2  hover:text-orange-400 cursor-pointer">

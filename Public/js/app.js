@@ -28,6 +28,26 @@ document.addEventListener('DOMContentLoaded', function () {
         // },
     });
 
+    // Swiper 2 - Banner (ví dụ khác)
+    const swiperBanner = new Swiper('.outstanding_product', {
+        loop: false,
+        spaceBetween: 20,
+        breakpoints: {
+            320: {
+                slidesPerView: 2.2, // Mobile nhỏ
+            },
+            480: {
+                slidesPerView: 3,
+            },
+            768: {
+                slidesPerView: 4,
+            },
+            1024: {
+                slidesPerView: 6, // Desktop
+            },
+        },
+    });
+
     // Config toastr
     toastr.options = {
         closeButton: false,
@@ -218,13 +238,13 @@ $(document).ready(function () {
                     response.data.forEach((product) => {
                         $('.whr-product').append(`
                         <a href="${response.url}/product/${createSlug(product.product_name)}-${product.id}">
-                        <div class="bg-white flex flex-col hover:shadow-md hover:rounded-sm whr-product-content lg:min-h-[260px]">
+                        <div class="bg-white flex flex-col hover:shadow-full whr-product-content xl:min-h-[260px]">
                             <div class="whr-product-img py-2">
                             <img data-src="${product.product_image}" class="w-full h-full lazyload" alt="image">
                             </div>
-                            <div class="px-2 lg:mt-1 pb-3">
-                            <p class="text-[13px] lg:text-sm flash-sale-product-title px-2 lg:px-0">${product.product_name}</p>
-                            <div class="product-price text-[13px] lg:text-sm lg:px-0 px-2">
+                            <div class="px-2 xl:mt-1 pb-3">
+                            <p class="text-[13px] xl:text-sm flash-sale-product-title px-2 xl:px-0">${product.product_name}</p>
+                            <div class="product-price text-[13px] xl:text-sm xl:px-0 px-2">
                                 <p class="text-orange-500">
                                 ${
                                     product.f_discount_price > 0
@@ -237,7 +257,7 @@ $(document).ready(function () {
                                 <p class="flash-sale-product-price-sale ${
                                     product.discount_price > 0 || product.f_discount_pice > 0 ? '' : 'hidden'
                                 } "><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
-                                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${
+                                    <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] xl:text-[11px]">-${
                                         product.f_discount_price > 0
                                             ? new Intl.NumberFormat('vi').format(product.f_discount_price)
                                             : new Intl.NumberFormat('vi').format(product.discount_price)
@@ -276,22 +296,22 @@ $(document).ready(function () {
                         $('.whr-product-flash-sale').append(`
                             <a href="${response.url}/product/${createSlug(product.product_name)}-${product.product_id}" class="bg-white mb-3">
                             <div class="flex flex-col ">
-                            <div class="whr-product-img py-2 h-[130px] lg:h-[180px]">
+                            <div class="whr-product-img py-2 h-[130px] xl:h-[180px]">
                                 <img src="${product.product_image}" class="w-full h-full" alt="sanpham">
                             </div>
                             <div class="flash-sale-product mt-1 mx-2">
-                                <p class="text-[13px] lg:text-sm flash-sale-product-titl">${product.product_name}</p>
-                                <div class="flash-sale-product-price text-[13px] lg:text-sm">
+                                <p class="text-[13px] xl:text-sm flash-sale-product-titl">${product.product_name}</p>
+                                <div class="flash-sale-product-price text-[13px] xl:text-sm">
                                 <p class="text-orange-500">${new Intl.NumberFormat('vi').format(
                                     product.price - (product.price * product.discount_price) / 100
                                 )}<u class="text-orange-500 ms-1">đ</u></p>
                                 <p class="flash-sale-product-price-sale"><s class="opacity-50">đ${new Intl.NumberFormat('vi').format(product.price)}</s>
-                                <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] lg:text-[11px]">-${new Intl.NumberFormat('vi').format(product.discount_price)}%</span></p>
+                                <span class="text-white ms-2 bg-red-600 rounded-sm px-1 text-[9px] xl:text-[11px]">-${new Intl.NumberFormat('vi').format(product.discount_price)}%</span></p>
                                 </div>
                             </div>
                             </div>
                             <div class="flex justify-end px-1">
-                            <p class="text-gray-400 text-[9px] lg:text-[11px]">còn ${product.quantity} sản phẩm</p>
+                            <p class="text-gray-400 text-[9px] xl:text-[11px]">còn ${product.quantity} sản phẩm</p>
                             </div>
                             <div class="flex" style="height: 16px;"></div>
                         </a>`);

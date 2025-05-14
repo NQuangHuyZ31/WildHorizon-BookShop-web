@@ -40,47 +40,47 @@ $csrf_token = Core\CSRF::generateToken();
           <div class="flex justify-center">
             <div class="max-w-md mx-auto text-center bg-white px-4 sm:px-8 py-10 rounded-xl shadow">
               <header class="mb-8">
-                <h1 class="text-lg lg:text-2xl font-bold mb-1">Xác thực tài khoản của bạn</h1>
-                <p class="text-[13px] lg:text-[15px] text-slate-500">Vui lòng nhập 4 số được gửi về email bạn đăng ký tài khoản</p>
+                <h1 class="text-lg xl:text-2xl font-bold mb-1">Xác thực tài khoản của bạn</h1>
+                <p class="text-[13px] xl:text-[15px] text-slate-500">Vui lòng nhập 4 số được gửi về email bạn đăng ký tài khoản</p>
               </header>
               <form id="form-verify-account" action="<?php echo BASE_URL ?>/dang-ky/verify-account" method="post">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
                 <div class="flex items-center justify-center gap-3">
                   <input
                     type="text"
-                    class="w-11 h-11 lg:w-14 lg:h-14 text-center text-lg lg:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                    class="w-11 h-11 xl:w-14 xl:h-14 text-center text-lg xl:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                     pattern="\d*" maxlength="1"
                     name="code_verify[]" />
 
                   <input
                     type="text"
-                    class="w-11 h-11 lg:w-14 lg:h-14 text-center text-lg lg:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                    class="w-11 h-11 xl:w-14 xl:h-14 text-center text-lg xl:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                     maxlength="1"
                     name="code_verify[]" />
                   <input
                     type="text"
-                    class="w-11 h-11 lg:w-14 lg:h-14 text-center text-lg lg:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                    class="w-11 h-11 xl:w-14 xl:h-14 text-center text-lg xl:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                     maxlength="1"
                     name="code_verify[]" />
                   <input
                     type="text"
-                    class="w-11 h-11 lg:w-14 lg:h-14 text-center text-lg lg:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                    class="w-11 h-11 xl:w-14 xl:h-14 text-center text-lg xl:text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                     maxlength="1"
                     name="code_verify[]" />
                 </div>
                 <div class="max-w-[260px] mx-auto mt-4">
                   <button type="button" id="btn-verify-account"
-                    class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-[14px] lg:text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">
+                    class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-[14px] xl:text-sm font-medium text-white shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">
                     Xác thực tài khoản
                   </button>
                 </div>
               </form>
-              <div class="text-[12px] lg:text-sm text-slate-500 mt-4">Bạn chưa nhận được code?
+              <div class="text-[12px] xl:text-sm text-slate-500 mt-4">Bạn chưa nhận được code?
                 <button type="button" id="btn-resend-verify-account" class="font-medium text-indigo-500 hover:text-indigo-600 cursor-pointer">Gửi lại</button>
               </div>
               <div class="flex justify-start items-center mt-2">
                 <i class="fa-solid fa-arrow-left"></i>
-                <a href="<?php echo BASE_URL ?>" class="text-[13px] lg:text-sm ms-2 text-blue-500">Trở về trang chủ</a>
+                <a href="<?php echo BASE_URL ?>" class="text-[13px] xl:text-sm ms-2 text-blue-500">Trở về trang chủ</a>
               </div>
             </div>
           </div>

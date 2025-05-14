@@ -167,7 +167,7 @@ $(document).ready(function () {
                     response.success.data.forEach((address) => {
                         $('.checkout-address-content').append(`
                          <div class="flex items-center justify-between mb-3">
-                            <label class="flex items-center text-[12px] lg:text-sm cursor-pointer">
+                            <label class="flex items-center text-[12px] xl:text-sm cursor-pointer">
                                 <input
                                     type="radio"
                                     name="checkout-address"
@@ -182,7 +182,7 @@ $(document).ready(function () {
                                 <span class="h-[17px] w-[2px] bg-gray-200 mx-3"></span>
                                 <p>${address.phone}</p>
                             </label>
-                            <div class="text-[12px] flex justify-start font-semibold text-blue-500 ms-2 lg:w-[100px] lg:text-[14px]">
+                            <div class="text-[12px] flex justify-start font-semibold text-blue-500 ms-2 xl:w-[100px] xl:text-[14px]">
                             ${address.default_address == 0 ? `<button type="button" class="delete-address-checkout" data-id="${address.id}">Xóa</button` : ''}
                             </div>
                         </div>

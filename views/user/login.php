@@ -46,11 +46,11 @@ Session::delete('failLogin');
     <div class="container-fuild flex items-center justify-center px-3 min-h-screen mx-auto">
       <div class="bg-white whr-login w-full rounded-xl shadow-2 pb-3 pt-5">
         <div class="mb-1 text-center border-b-2 border-gray-200 shadow-sm pb-2">
-          <p class="font-bold text-orange-400 text-lg lg:text-2xl mb-2">Đăng Nhập </p>
+          <p class="font-bold text-orange-400 text-lg xl:text-2xl mb-2">Đăng Nhập </p>
           <div class="flex justify-center items-center">
             <a class="flex justify-center items-center" href="<?php echo BASE_URL . '/' ?>">
               <img src="./Public/images/icon.jpg" alt="icon" style="width: 35px;height: 35px;">
-              <p class="text-[12px] lg:text-sm ms-2 text-gray-500">WildHorizon BookShop</p>
+              <p class="text-[12px] xl:text-sm ms-2 text-gray-500">WildHorizon BookShop</p>
             </a>
           </div>
         </div>
@@ -59,19 +59,19 @@ Session::delete('failLogin');
             <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
             <div class="py-1 mb-5">
               <label class="block">
-                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-[12px] lg:text-sm font-medium text-slate-500 ms-2">
+                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-[12px] xl:text-sm font-medium text-slate-500 ms-2">
                   Email
                 </span>
                 <input
                   type="email"
                   name="email"
-                  class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1 text-[12px] lg:text-sm"
+                  class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1 text-[12px] xl:text-sm"
                   placeholder="nguyenvana@gmail.com" />
               </label>
             </div>
             <div>
               <label class="block">
-                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-[12px] lg:text-sm font-medium text-slate-500 ms-2">
+                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-[12px] xl:text-sm font-medium text-slate-500 ms-2">
                   Mật khẩu
                 </span>
                 <div class="relative">
@@ -79,22 +79,22 @@ Session::delete('failLogin');
                     type="password"
                     id="whr-login-password"
                     name="password"
-                    class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1 text-[12px] lg:text-sm"
+                    class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md focus:ring-1 text-[12px] xl:text-sm"
                     placeholder="NQH@123" />
                   <div class="whr-show-hidden-pw-icon flex z-50 absolute right-3 top-1/2 transform -translate-y-1/2">
                     <div class="cursor-pointer flex items-center justify-center" style="width: 24px;height: 24px;" id="togglePassword">
-                      <div class="whr-show-pw-icon text-[12px] lg:text-[15px]">
+                      <div class="whr-show-pw-icon text-[12px] xl:text-[15px]">
                         <i class="fa-regular fa-eye"></i>
                       </div>
-                      <div class="whr-hidden-pw-icon hidden text-[12px] lg:text-[15px]">
+                      <div class="whr-hidden-pw-icon hidden text-[12px] xl:text-[15px]">
                         <i class="fa-regular fa-eye-slash"></i>
                       </div>
                     </div>
                   </div>
                 </div>
               </label>
-              <div class="flex justify-end my-2 lg:pb-4">
-                <span class="text-[12px] lg:text-sm text-gray-400"><a href="#">Quên mật khẩu</a></span>
+              <div class="flex justify-end my-2 xl:pb-4">
+                <span class="text-[12px] xl:text-sm text-gray-400"><a href="#">Quên mật khẩu</a></span>
               </div>
             </div>
             <div class="bg-purple-500 p-2 text-center rounded-full">
@@ -103,16 +103,16 @@ Session::delete('failLogin');
           </form>
         </div>
         <div class="flex justify-center mt-3">
-          <span class="text-[11px] lg:text-sm text-gray-400">Bạn chưa có tài khoản? <a href="<?php echo BASE_URL . '/dang-ky' ?>" class="text-sky-500">Đăng ký ngay</a></span>
+          <span class="text-[11px] xl:text-sm text-gray-400">Bạn chưa có tài khoản? <a href="<?php echo BASE_URL . '/dang-ky' ?>" class="text-sky-500">Đăng ký ngay</a></span>
         </div>
         <div class="flex flex-col items-center mt-3 pb-3 justify-center">
-          <span class="text-gray-400 text-[11px] lg:text-sm">Hoặc, đăng nhập với</span>
+          <span class="text-gray-400 text-[11px] xl:text-sm">Hoặc, đăng nhập với</span>
           <div class="flex justify-center mt-3">
-            <div class="flex items-center text-[11px] lg:text-sm text-gray-500 mr-4 cursor-pointer lg:p-2 hover:text-orange-400 ">
+            <div class="flex items-center text-[11px] xl:text-sm text-gray-500 mr-4 cursor-pointer xl:p-2 hover:text-orange-400 ">
               <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/ax1vudmlwi60dp4wqjaf.webp" alt="" style="width: 22px;height: 22px;">
               <span class="ms-2">Google</span>
             </div>
-            <div class="flex items-center text-[11px] lg:text-sm text-gray-500 mr-4 cursor-pointer lg:p-2 hover:text-orange-400 ">
+            <div class="flex items-center text-[11px] xl:text-sm text-gray-500 mr-4 cursor-pointer xl:p-2 hover:text-orange-400 ">
               <a href="<?php echo BASE_URL ?>/dang-nhap/facebook" class="flex items-center">
                 <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/js8t7yjmysggys22xrpg.png" alt="" style="width: 22px;height: 22px;">
                 <span class="ms-2">Facebook</span>
