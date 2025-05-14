@@ -1,0 +1,108 @@
+2025-03-10 17:28:12 - {
+    "username": "abc",
+    "password": "123",
+    "msg": "success"
+}
+2025-03-10 17:28:34 - {
+    "username": "",
+    "password": "",
+    "msg": "success"
+}
+2025-03-10 17:28:34 - {
+    "data": {
+        "username": "",
+        "password": "",
+        "msg": "success"
+    }
+}
+2025-03-10 17:31:17 - {
+    "username": "abc",
+    "password": "123",
+    "msg": "success"
+}
+2025-03-10 17:31:26 - {
+    "username": "",
+    "password": "",
+    "msg": "success"
+}
+2025-03-10 17:31:26 - {
+    "username": "",
+    "password": "",
+    "msg": "success"
+}
+2025-03-10 17:35:57 - {
+    "username": "abc",
+    "password": "123",
+    "msg": "success"
+}
+2025-03-10 17:38:19 - {
+    "username": "da",
+    "password": "\u0111a",
+    "msg": "success"[08-May-2025 10:14:01 Europe/Berlin] PHP Warning:  Undefined array key "HTTP_X_REQUESTED_WITH" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\Controller.php on line 29
+[08-May-2025 11:24:12 Europe/Berlin] PHP Warning:  Undefined array key "dataLoad" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\DanhSachSanPhamController.php on line 87
+[08-May-2025 11:24:13 Europe/Berlin] PHP Warning:  Undefined array key "dataLoad" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\DanhSachSanPhamController.php on line 87
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerController.php on line 18
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\AccountController.php on line 37
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\AccountController.php on line 39
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\AccountController.php on line 43
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type null in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\AccountController.php on line 44
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\layout\sidebar-customer.php on line 8
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 55
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 59
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 64
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 68
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 80
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 83
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 89
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 92
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 96
+[09-May-2025 18:15:26 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\WildHorizon-BookShop\views\user\accounts\account.php on line 99
+[10-May-2025 10:11:01 Europe/Berlin] PHP Warning:  Undefined array key "csrf_token" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\AuthController.php on line 259
+[10-May-2025 10:24:06 Europe/Berlin] PHP Warning:  Undefined array key "dataLoad" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\DanhSachSanPhamController.php on line 87
+[10-May-2025 11:45:36 Europe/Berlin] PHP Warning:  Undefined array key "dataLoad" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\DanhSachSanPhamController.php on line 87
+[11-May-2025 14:15:23 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: Illegal offset type in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\AuthController.php:243
+Stack trace:
+#0 [internal function]: App\Controllers\User\AuthController->resendOTP()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(238): Core\Router->handleRequest()
+#6 C:\xampp\htdocs\WildHorizon-BookShop\index.php(45): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\AuthController.php on line 243
+[12-May-2025 11:51:16 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000]: General error: 2006 MySQL server has gone away in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\FlashSales.php:48
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Models\FlashSales.php(48): PDOStatement->execute()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\HomeController.php(36): App\Models\FlashSales->getLimit(10, 0)
+#2 [internal function]: App\Controllers\User\HomeController->index()
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#6 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#7 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(239): Core\Router->handleRequest()
+#8 C:\xampp\htdocs\WildHorizon-BookShop\index.php(45): require_once('C:\\xampp\\htdocs...')
+#9 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\FlashSales.php on line 48
+[12-May-2025 12:19:28 Europe/Berlin] PHP Warning:  Undefined array key "dataLoad" in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\DanhSachSanPhamController.php on line 87
+[12-May-2025 15:29:48 Europe/Berlin] PHP Parse error:  Unclosed '{' on line 64 in C:\xampp\htdocs\WildHorizon-BookShop\views\user\layout\sidebarone.php on line 94
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:04:40 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
