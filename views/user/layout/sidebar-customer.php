@@ -48,7 +48,7 @@
               </div>
             </li>
             <li>
-              <div class="flex items-center ps-0">
+              <div class="flex items-center ps-0 <?php echo $customer['fb_id'] != null || $customer['gg_id'] != null ? 'hidden' : 'block' ?>">
                 <div class="mx-2 text-center text-lg text-gray-500" style="height: 24px;width: 24px;">
                 </div>
                 <a class="w-full" href="<?php echo BASE_URL ?>/customer/changepassword">

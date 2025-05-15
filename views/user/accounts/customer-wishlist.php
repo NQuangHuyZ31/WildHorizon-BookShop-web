@@ -10,6 +10,7 @@
         <div class="bg-white rounded-md shadow-lg w-full p-4 border border-gray-100 xl:mx-2">
           <p class="text-[15px] xl:text-lg font-bold text-center">Chức năng chưa được phát triển</p>
         </div>
+        <div class="bg-none opacity-100"></div>
       </div>
     </div>
   </div>

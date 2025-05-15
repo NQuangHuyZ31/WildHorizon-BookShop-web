@@ -27,7 +27,8 @@ spl_autoload_register(function ($class) {
 
 // Cho phép mọi nguồn truy cập (hoặc thay thế bằng domain cụ thể)
 
-header("Access-Control-Allow-Origin: https://wildhorizonbs.shoplands.store/");
+header("Access-Control-Allow-Origin: *");
+// header("Access-Control-Allow-Origin: https://wildhorizonbs.shoplands.store/");
 
 // Cho phép các phương thức HTTP cụ thể
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");

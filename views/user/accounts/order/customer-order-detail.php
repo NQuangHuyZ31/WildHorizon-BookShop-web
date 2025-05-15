@@ -61,46 +61,38 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
             <p class="text-[10px] xl:text-[12px] text-gray-400">Ngày đặt hàng: <?php echo date('d/m/Y', strtotime($order['order_date'])) ?></p>
           </div>
 
-          <div class="relative mt-6 mb-8">
-            <!-- Line background -->
-            <div class="absolute bg-gray-200 h-[2px] top-[25%] left-[5%] xl:top-[30%] xl:left-[3%]" style="width: calc(100% - 50px);"></div>
-
-            <!-- Line progress -->
-            <div class="absolute bg-green-600 h-[2px] top-[30%] left-[3%] transition-all duration-500" style="width: calc(<?php echo $step_line ?>);"></div>
-            <div class="flex justify-between gap-2 xl:gap-0 w-full">
+          <div class="relative mt-6 mb-8 w-full">
+            <div class="flex flex-col w-full">
               <!-- Step 1 -->
-              <div class="flex flex-col items-center text-center z-10">
+              <div class="flex justify-around gap-2 items-center text-center z-50 relative">
                 <div
-                  class="order-step flex items-center justify-center border <?php echo in_array($order['status'], ['Chờ xác nhận', 'Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
+                  class="order-step flex items-center justify-center border z-50 <?php echo in_array($order['status'], ['Chờ xác nhận', 'Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
                   <span>1</span>
                 </div>
-                <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Chờ xác nhận', 'Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Chờ xác nhận</p>
-              </div>
-
-              <!-- Step 2 -->
-              <div class="flex flex-col items-center text-center z-10">
                 <div
-                  class="order-step flex items-center justify-center border <?php echo in_array($order['status'], ['Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
+                  class="order-step flex items-center justify-center border z-50 <?php echo in_array($order['status'], ['Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
                   <span>2</span>
-                </div>
-                <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Chuẩn bị hàng</p>
-              </div>
 
-              <!-- Step 3 -->
-              <div class="flex flex-col items-center text-center z-10">
+                </div>
                 <div
-                  class="order-step flex items-center justify-center border <?php echo in_array($order['status'], ['Đang giao hàng', 'Đã giao hàng'])  ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
+                  class="order-step flex items-center justify-center border z-50 <?php echo in_array($order['status'], ['Đang giao hàng', 'Đã giao hàng'])  ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
                   <span>3</span>
                 </div>
-                <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Đang giao hàng', 'Đã giao hàng']) ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Đang giao hàng</p>
-              </div>
-
-              <!-- Step 4 -->
-              <div class="flex flex-col items-center text-center z-10">
                 <div
-                  class="order-step flex items-center justify-center border <?php echo in_array($order['status'], ['Đã giao hàng'])  ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
+                  class="order-step flex items-center justify-center border z-50 <?php echo in_array($order['status'], ['Đã giao hàng'])  ? 'bg-green-600 border-green-600 text-white' : 'bg-white text-gray-500 border-gray-400' ?> ">
                   <span>4</span>
                 </div>
+                <!-- Line background -->
+                <div class="absolute bg-gray-200 h-[2px] top-[50%] left-[10%] w-[calc(100%-80px)] xl:top-[50%] xl:left-[12%] xl:w-[calc(100%-200px)]"></div>
+
+                <!-- Line progress -->
+                <div class="absolute bg-green-600 h-[2px] top-[50%] left-[10%] xl:top-[50%] xl:left-[12%] transition-all duration-500" style="width: calc(<?php echo $step_line ?>);"></div>
+              </div>
+              <!-- Step 2 -->
+              <div class="flex justify-around items-center text-center z-10">
+                <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Chờ xác nhận', 'Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Chờ xác nhận</p>
+                <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Chuẩn bị hàng', 'Đang giao hàng', 'Đã giao hàng']) ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Chuẩn bị hàng</p>
+                <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Đang giao hàng', 'Đã giao hàng']) ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Đang giao hàng</p>
                 <p class="text-[10px] xl:text-xs mt-2 <?php echo in_array($order['status'], ['Đã giao hàng'])  ? 'text-green-600 font-medium' : 'text-gray-500' ?>">Đã giao hàng</p>
               </div>
             </div>

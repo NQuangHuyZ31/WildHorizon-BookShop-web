@@ -135,7 +135,7 @@ class CustomerAddressController extends CustomerController
   {
     $pageName = $this->page;
     $customer = $this->customer;
-    $address = $this->customer_address->getAddressByID($id);
+    $address = $this->customer_address->getAddressByID($id, $customer['id']);
 
     require_once VIEW_PATH . 'user/accounts/address/customer-address-edit.php';
   }

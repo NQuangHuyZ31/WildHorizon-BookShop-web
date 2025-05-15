@@ -39,6 +39,7 @@ use App\Controllers\User\Customer_Account\CustomerSpecialEventController;
 use App\Controllers\User\Customer_Account\CustomerVoucherController;
 use App\Controllers\User\Customer_Account\CustomerWishListController;
 use App\Controllers\User\LoginFacebookController;
+use App\Controllers\User\LoginGoogleController;
 use App\Controllers\User\VoucherController;
 use App\Middleware\AuthAdminMiddleware;
 // User Middleware
@@ -56,9 +57,13 @@ $router->get('/', [HomeController::class, 'index']);
 $router->get('/dang-nhap', [AuthController::class, 'index']);
 $router->post('/dang-nhap', [AuthController::class, 'handelLogin']);
 
-// Route đến Lofin Facebook
+// Route đến Login Facebook
 $router->get('/dang-nhap/facebook', [LoginFacebookController::class, 'redirectToFacebook']);
 $router->get('/fb-callback', [LoginFacebookController::class, 'handleFacebookCallback']);
+
+// Route đến trang Login Google
+$router->get('/dang-nhap/google', [LoginGoogleController::class, 'redirectToGoogle']);
+$router->get('/dang-nhap/google-callback', [LoginGoogleController::class, 'handleGoogleCallback']);
 
 // Route đến trang đăng ký
 $router->get('/dang-ky', [AuthController::class, 'register']);

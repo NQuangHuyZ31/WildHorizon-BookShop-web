@@ -503,25 +503,25 @@ $(document).ready(function () {
                         for (let index = 1; index <= 5; index++) {
                             rating += `<input type="radio" name="rating-product-${
                                 review.product_id
-                            }" value="${index}" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500" aria-label="${index} star" ${
+                            }" value="${index}" class="mask mask-star-2 w-[17px] h-[17px] bg-green-500 pointer-events-none" aria-label="${index} star" ${
                                 review.product_rating == index ? 'checked' : ''
-                            } disabled/>`;
+                            }/>`;
                         }
 
                         $('.review-product-content').append(`
                              <div class="text-[14px] text-gray-400 mt-2">
-                                <div class="flex items-center ">
+                                <div class="flex items-center text-black">
                                     <img src="${review.product_image}" alt="hình ảnh" class="product-review-image">
                                     <p class="ms-3">${review.product_name}</p>
                                 </div>
                                 <div class="rating w-full">
-                                    <div class="mt-1 text-center w-full">
+                                    <div class="mt-1 text-center w-full bg-white opacity-100">
                                          ${rating}
                                     </div>
                                 </div>
                                 <textarea type="text" name="comment-product-${
                                     review.product_id
-                                }" placeholder="Viết bình luận của bạn về sản phẩm" class="textarea textarea-info w-full mt-2" readonly>${
+                                }" placeholder="Viết bình luận của bạn về sản phẩm" class="textarea textarea-info w-full mt-2 text-black" readonly>${
                             review.product_comment != '' ? review.product_comment : 'Không có đánh giá cho sản phẩm này'
                         }</textarea>
                             </div>   

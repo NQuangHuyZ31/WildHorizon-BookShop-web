@@ -106,3 +106,210 @@ Stack trace:
 [13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
 [13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
 [13-May-2025 17:05:16 Europe/Berlin] PHP Warning:  Undefined array key "product_id" in C:\xampp\htdocs\WildHorizon-BookShop\views\user\index.php on line 186
+[15-May-2025 13:07:03 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\CustomerAddress::getAddressByID(), 1 passed in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php on line 138 and exactly 2 expected in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php:25
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php(138): App\Models\CustomerAddress->getAddressByID('1')
+#1 [internal function]: App\Controllers\User\Customer_Account\CustomerAddressController->showPageEditAddress('1')
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(94): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\App\Middleware\AuthMiddleware.php(59): Core\Router->Core\{closure}(Array)
+#7 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(93): App\Middleware\AuthMiddleware->handle(Array, Object(Closure))
+#8 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#9 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#10 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(241): Core\Router->handleRequest()
+#11 C:\xampp\htdocs\WildHorizon-BookShop\index.php(45): require_once('C:\\xampp\\htdocs...')
+#12 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php on line 25
+[15-May-2025 13:07:15 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\CustomerAddress::getAddressByID(), 1 passed in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php on line 138 and exactly 2 expected in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php:25
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php(138): App\Models\CustomerAddress->getAddressByID('1')
+#1 [internal function]: App\Controllers\User\Customer_Account\CustomerAddressController->showPageEditAddress('1')
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(94): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\App\Middleware\AuthMiddleware.php(59): Core\Router->Core\{closure}(Array)
+#7 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(93): App\Middleware\AuthMiddleware->handle(Array, Object(Closure))
+#8 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#9 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#10 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(241): Core\Router->handleRequest()
+#11 C:\xampp\htdocs\WildHorizon-BookShop\index.php(45): require_once('C:\\xampp\\htdocs...')
+#12 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php on line 25
+[15-May-2025 13:07:39 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\CustomerAddress::getAddressByID(), 1 passed in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php on line 138 and exactly 2 expected in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php:25
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php(138): App\Models\CustomerAddress->getAddressByID('1')
+#1 [internal function]: App\Controllers\User\Customer_Account\CustomerAddressController->showPageEditAddress('1')
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(94): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\App\Middleware\AuthMiddleware.php(59): Core\Router->Core\{closure}(Array)
+#7 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(93): App\Middleware\AuthMiddleware->handle(Array, Object(Closure))
+#8 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#9 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#10 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(241): Core\Router->handleRequest()
+#11 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#12 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php on line 25
+[15-May-2025 13:08:42 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function App\Models\CustomerAddress::getAddressByID(), 1 passed in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php on line 138 and exactly 2 expected in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php:25
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\Customer_Account\CustomerAddressController.php(138): App\Models\CustomerAddress->getAddressByID('1')
+#1 [internal function]: App\Controllers\User\Customer_Account\CustomerAddressController->showPageEditAddress('1')
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(94): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\App\Middleware\AuthMiddleware.php(59): Core\Router->Core\{closure}(Array)
+#7 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(93): App\Middleware\AuthMiddleware->handle(Array, Object(Closure))
+#8 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#9 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#10 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(241): Core\Router->handleRequest()
+#11 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#12 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Models\CustomerAddress.php on line 25
+[15-May-2025 14:34:09 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function createAuthUrl() on null in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:27
+Stack trace:
+#0 [internal function]: App\Controllers\User\LoginGoogleController->redirectToGoogle()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#6 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 27
+[15-May-2025 14:34:29 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function createAuthUrl() on null in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:27
+Stack trace:
+#0 [internal function]: App\Controllers\User\LoginGoogleController->redirectToGoogle()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#6 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 27
+[15-May-2025 14:37:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: Object of class App\Controllers\User\LoginGoogleController could not be converted to string in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:16
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(64): App\Controllers\User\LoginGoogleController->__construct()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#5 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 16
+[15-May-2025 14:37:59 Europe/Berlin] PHP Fatal error:  Uncaught Error: Object of class App\Controllers\User\LoginGoogleController could not be converted to string in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:16
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(64): App\Controllers\User\LoginGoogleController->__construct()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#5 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 16
+[15-May-2025 14:42:52 Europe/Berlin] PHP Fatal error:  Uncaught Error: Object of class App\Controllers\User\LoginGoogleController could not be converted to string in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:17
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(64): App\Controllers\User\LoginGoogleController->__construct()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#5 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 17
+[15-May-2025 14:43:17 Europe/Berlin] PHP Fatal error:  Uncaught Error: Object of class App\Controllers\User\LoginGoogleController could not be converted to string in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:19
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(64): App\Controllers\User\LoginGoogleController->__construct()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#5 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 19
+[15-May-2025 14:43:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Object of class App\Controllers\User\LoginGoogleController could not be converted to string in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:19
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(64): App\Controllers\User\LoginGoogleController->__construct()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#5 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 19
+[15-May-2025 14:43:44 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to a member function get() on null in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php:42
+Stack trace:
+#0 [internal function]: App\Controllers\User\LoginGoogleController->handleGoogleCallback()
+#1 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#6 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#7 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php on line 42
+[15-May-2025 14:44:16 Europe/Berlin] PHP Fatal error:  Uncaught InvalidArgumentException: invalid json token in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php:569
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php(38): Google\Client->setAccessToken(NULL)
+#1 [internal function]: App\Controllers\User\LoginGoogleController->handleGoogleCallback()
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#7 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php on line 569
+[15-May-2025 14:45:51 Europe/Berlin] PHP Fatal error:  Uncaught InvalidArgumentException: invalid json token in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php:569
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php(38): Google\Client->setAccessToken(NULL)
+#1 [internal function]: App\Controllers\User\LoginGoogleController->handleGoogleCallback()
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#7 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php on line 569
+[15-May-2025 14:47:31 Europe/Berlin] PHP Fatal error:  Uncaught InvalidArgumentException: invalid json token in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php:569
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php(38): Google\Client->setAccessToken(NULL)
+#1 [internal function]: App\Controllers\User\LoginGoogleController->handleGoogleCallback()
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#7 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php on line 569
+[15-May-2025 14:49:04 Europe/Berlin] PHP Fatal error:  Uncaught InvalidArgumentException: invalid json token in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php:569
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php(38): Google\Client->setAccessToken(NULL)
+#1 [internal function]: App\Controllers\User\LoginGoogleController->handleGoogleCallback()
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#7 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php on line 569
+[15-May-2025 15:09:04 Europe/Berlin] PHP Fatal error:  Uncaught InvalidArgumentException: invalid json token in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php:569
+Stack trace:
+#0 C:\xampp\htdocs\WildHorizon-BookShop\App\Controllers\User\LoginGoogleController.php(44): Google\Client->setAccessToken(NULL)
+#1 [internal function]: App\Controllers\User\LoginGoogleController->handleGoogleCallback()
+#2 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(66): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(97): Core\Router->Core\{closure}(Array)
+#4 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(101): Core\Router->Core\{closure}(Array)
+#5 C:\xampp\htdocs\WildHorizon-BookShop\Core\Router.php(56): Core\Router->runMiddleware(Array, Object(Closure))
+#6 C:\xampp\htdocs\WildHorizon-BookShop\Router\web.php(246): Core\Router->handleRequest()
+#7 C:\xampp\htdocs\WildHorizon-BookShop\index.php(46): require_once('C:\\xampp\\htdocs...')
+#8 {main}
+  thrown in C:\xampp\htdocs\WildHorizon-BookShop\vendor\google\apiclient\src\Client.php on line 569

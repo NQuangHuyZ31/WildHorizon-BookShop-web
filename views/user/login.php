@@ -109,8 +109,10 @@ Session::delete('failLogin');
           <span class="text-gray-400 text-[11px] xl:text-sm">Hoặc, đăng nhập với</span>
           <div class="flex justify-center mt-3">
             <div class="flex items-center text-[11px] xl:text-sm text-gray-500 mr-4 cursor-pointer xl:p-2 hover:text-orange-400 ">
-              <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/ax1vudmlwi60dp4wqjaf.webp" alt="" style="width: 22px;height: 22px;">
-              <span class="ms-2">Google</span>
+              <a href="<?php echo BASE_URL ?>/dang-nhap/google" class="flex items-center">
+                <img src="https://res.cloudinary.com/whr-clound/image/upload/v1745417547/ax1vudmlwi60dp4wqjaf.webp" alt="" style="width: 22px;height: 22px;">
+                <span class="ms-2">Google</span>
+              </a>
             </div>
             <div class="flex items-center text-[11px] xl:text-sm text-gray-500 mr-4 cursor-pointer xl:p-2 hover:text-orange-400 ">
               <a href="<?php echo BASE_URL ?>/dang-nhap/facebook" class="flex items-center">

@@ -12,7 +12,7 @@ class User extends Model
 
   public function insert($data)
   {
-    $query = "INSERT INTO $this->table(username,email,password,fb_id,status,created_at) values(?,?,?,?,?,?)";
+    $query = "INSERT INTO $this->table(username,email,password,fb_id,gg_id,status,created_at) values(?,?,?,?,?,?,?)";
 
     $stmt = $this->db->prepare($query);
 
@@ -20,8 +20,9 @@ class User extends Model
     $stmt->bindValue(2, $data['email'], PDO::PARAM_STR);
     $stmt->bindValue(3, $data['password'], PDO::PARAM_STR);
     $stmt->bindValue(4, $data['fb_id']);
-    $stmt->bindValue(5, $data['status']);
-    $stmt->bindValue(6, date('Y-m-d H:i:s'));
+    $stmt->bindValue(5, $data['gg_id']);
+    $stmt->bindValue(6, $data['status']);
+    $stmt->bindValue(7, date('Y-m-d H:i:s'));
     $stmt->execute();
     return $this->db->lastInsertId();
   }

@@ -9,8 +9,8 @@ $csrf_token = Core\CSRF::generateToken();
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 ?>
 <!-- Content -->
-<div class="p-1 xl:container xl:p-0">
-    <div class="w-full xl:max-w-screen-xl xl:mx-auto">
+<div class="p-1 w-full xl:container xl:mx-auto xl:p-0">
+    <div class="w-full xl:max-w-screen-xl xl:mx-auto my-4">
         <div class="flex w-full justify-between xl:h-[320px]">
             <?php if ($banner_headers != null) { ?>
                 <div class="single-item shadow-md flex-1">

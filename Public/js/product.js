@@ -83,7 +83,8 @@ $(document).ready(function () {
     });
 
     // Tìm theo filter
-    if (window.location.pathname == '/product' || window.location.pathname.includes('/category/')) {
+    const urlActive = window.location.pathname.split('/', 3)[2];
+    if (urlActive == 'product' || urlActive == 'category') {
         innitProductFilter();
     }
 
@@ -283,7 +284,7 @@ $(document).ready(function () {
                         $('#loadMore-product').addClass('hidden');
                     },
                 });
-            }, 1200);
+            }, 500);
         }
     }
 

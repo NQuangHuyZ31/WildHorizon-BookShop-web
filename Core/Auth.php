@@ -52,6 +52,33 @@ class Auth
         return false;
     }
 
+    public function loginWithoutPassword($email)
+    {
+        // Truy vấn người dùng theo email
+        $stmt = $this->db->prepare("select * from users where email = ? and status = 'active'");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        // Kiểm tra người dùng và xác minh mật khẩu
+        if ($user) {
+
+            Session::set('user', [
+                'id' => $user['id'],
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'role' => $user['role'],
+            ]);
+
+            // if ($user['role'] === 'customer') {
+            // return $user;
+            // }
+            // Lưu thông tin người dùng vào session
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Kiểm tra người dùng đã đăng nhập
      *

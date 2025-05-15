@@ -86,7 +86,7 @@ class LoginFacebookController extends Controller
     if ($existingUser) {
       if ($existingUser['fb_id'] == $fbUser->getId() || empty($existingUser['fb_id'])) {
         $this->user->updateColumn('fb_id', $fbUser['id'], $existingUser['id']);
-        $this->auth->login($email, PW_DEFAULT);
+        $this->auth->loginWithoutPassword($email);
       }
     } else {
       $dataUser = [
@@ -94,6 +94,7 @@ class LoginFacebookController extends Controller
         'email' => $email,
         'password' => password_hash(PW_DEFAULT, PASSWORD_DEFAULT),
         'fb_id' => $fbUser->getId(),
+        'gg_id' => null,
         'status' => 'active'
       ];
 

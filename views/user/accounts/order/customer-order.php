@@ -139,7 +139,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
           </div>
           <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
         </div>
-        <div class="flex justify-end text-[13px]">
+        <div class="flex justify-end text-[13px] mt-3">
           <button type="button" class="px-7 py-2 text-white font-semibold bg-red-700 rounded-md" id="btn-save-review">Gửi</button>
         </div>
       </div>

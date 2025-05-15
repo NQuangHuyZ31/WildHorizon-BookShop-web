@@ -35,7 +35,7 @@ $csrf_token = Core\CSRF::generateToken();
 
 <body class="dark:text-black text-black" style="background-color: #f5f5f5;">
   <?php if (isset($homePage) && $banner_top_headers != null) { ?>
-    <div class=" banner-top w-[99vw]] bg-banner-top py-2" style="height: 80px;">
+    <div class=" banner-top w-[99vw] bg-banner-top py-2" style="height: 80px;">
       <!-- <div class="flex align-middle relative h-full" style="background: url(<?php echo BASE_URL ?>/Public/images/DESK.gif); background-repeat: no-repeat;">
       </div> -->
       <div class="flex align-middle relative h-full">
@@ -48,8 +48,8 @@ $csrf_token = Core\CSRF::generateToken();
       </div>
     </div>
   <?php } ?>
-  <div class="w-full mx-auto relative">
-    <div class="container-fuild m-auto ">
+  <div class="w-full relative">
+    <div class="max-w-screen-xl mx-auto ">
       <ul class="hidden py-1 xl:flex xl:justify-around" style="font-size: 12px;margin-left: 100px;">
         <li class=""><a href="<?php echo BASE_URL . '/feedback' ?>" class="text-blue-900 hover:text-orange-400 uppercase">Góp ý</a></li>
         <li class=""><a href="#" class="text-blue-900 hover:text-orange-400 uppercase">Tiết kiệm hơn với ứng dụng</a></li>

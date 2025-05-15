@@ -5,7 +5,8 @@
         "facebook/graph-sdk": "~5.0",
         "firebase/php-jwt": "^6.11",
         "phpmailer/phpmailer": "^6.9.2",
-        "cloudinary/cloudinary_php": "^2"
+        "cloudinary/cloudinary_php": "^2",
+        "google/apiclient": "2.18"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

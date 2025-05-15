@@ -132,6 +132,7 @@ class AuthController extends Controller
       'email' => $data['email'],
       'password' =>  password_hash($data['password'], PASSWORD_DEFAULT),
       'fb_id' => null,
+      'gg_id' => null,
       'status' => 'is_active'
     ];
 

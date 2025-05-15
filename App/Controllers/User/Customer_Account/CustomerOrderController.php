@@ -83,15 +83,15 @@ class CustomerOrderController extends CustomerController
     $order = $this->order->getOrderByID($orderID, $customer['id']);
 
     if ($order['status'] == "Chuẩn bị hàng") {
-      $step_line = '25% + 50px';
+      $step_line = '25%';
     }
 
     if ($order['status'] == "Đang giao hàng") {
-      $step_line = '50% + 100px';
+      $step_line = '50%';
     }
 
     if ($order['status'] == "Đã giao hàng") {
-      $step_line = '75% + 150px';
+      $step_line = '75%';
     }
 
     $order_details = $this->order_detail->getOrderDetailByOrderID($orderID);
