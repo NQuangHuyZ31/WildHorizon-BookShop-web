@@ -214,6 +214,11 @@ $(document).ready(function () {
             error: function (response) {
                 if (response) {
                     $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
+                    if (response.responseJSON.btn) {
+                        if (response.responseJSON.btn == 1) {
+                            window.location.href = URL_CART;
+                        }
+                    }
                     toastr['error'](response.responseJSON.error.msg);
                 }
             },

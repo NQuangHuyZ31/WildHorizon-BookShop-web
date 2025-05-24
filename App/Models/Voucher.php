@@ -13,8 +13,8 @@ class Voucher extends Model
   public function getAll()
   {
     $query = "SELECT v.id, v.name, v.description, v.code, v.type, v.discount_type, v.discount_value, v.min_order_value,
-    v.max_discount_amount, v.start_date, v.end_date, v.quantity, v.status, uv.voucher_id
-    FROM $this->table v left join user_vouchers uv on v.id = uv.voucher_id WHERE v.end_date > now() and v.status = 'active'";
+    v.max_discount_amount, v.start_date, v.end_date, v.quantity, v.status
+    FROM $this->table v WHERE v.end_date > now() and v.status = 'active'";
     $stmt = $this->db->prepare($query);
     $stmt->execute();
 

@@ -26,13 +26,13 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
                 <?php foreach ($products as $product) { ?>
                   <div class="flex items-center bg-white px-3 py-2 cart-product-item mb-3 rounded-sm">
                     <div class="flex items-center">
-                      <div class="border border-orange-500 bg-orange-500 rounded-sm cursor-pointer cart-item-checkbox relative" style="width: 16px; height: 17px;">
+                      <div class="border border-orange-500 bg-orange-500 rounded-sm cursor-pointer cart-item-checkbox relative" style="width: 20px; height: 17px;">
                         <i class="px-0.5 text-sm fa-solid fa-check text-white absolute top-0 cart-icon-checkbox cursor-pointer"></i>
                         <input type="checkbox" class="hidden cart-input-checkbox" name="cart-product-id[]" value="<?php echo $product['id'] ?>" checked>
                       </div>
                       <div class="xl:ms-3 align-middle">
                         <a href="<?php echo BASE_URL . '/product/' . CreateSlug::createSlug($product['product_name']) . '-' . $product['id'] ?>">
-                          <img src="<?php echo $product['product_image'] ?>" alt="img-product" style="width: 70px;height: 80px;">
+                          <img src="<?php echo $product['product_image'] ?>" alt="img-product" class="w-28 h-24">
                         </a>
                       </div>
                     </div>
@@ -76,11 +76,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'
             </div>
             <div class="flex justify-between text-gray-500 text-[12px] xl:text-sm mb-4">
               <p class="checkout-subtotal">Thành tiền</p>
-              <p class="mr-2 checkout-subtotal-price text-sm"><span id="cart-subtotal"><?php echo Format::forMatPrice($totalPrice) ?></span> <u>đ</u></p>
-            </div>
-            <div class="flex justify-between text-gray-500 text-[12px] xl:text-sm mb-4">
-              <p class="checkout-subtotal">Giảm giá</p>
-              <p class="mr-2 checkout-subtotal-price text-red-400">- <span id="cart-saved"><?php echo Format::forMatPrice($saveprice) ?></span> <u>đ</u></p>
+              <p class="mr-2 checkout-subtotal-price text-sm"><span id="cart-subtotal"><?php echo Format::forMatPrice($totalPrice - $saveprice) ?></span> <u>đ</u></p>
             </div>
             <div class="flex justify-between text-gray-500 text-[12px] xl:text-sm mb-4">
               <p class="checkout-subtotal">Phí vận chuyển (tiêu chuẩn)</p>

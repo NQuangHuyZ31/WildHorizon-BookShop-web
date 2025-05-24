@@ -80,7 +80,8 @@ class Router
 
         // Nếu không tìm thấy route phù hợp
         http_response_code(404);
-        echo '<img src="' . BASE_URL . '/Public/images/unnamed-13.jpg" alt="" style="width:100%;height:100%">';
+        // echo '<img src="' . BASE_URL . '/Public/images/unnamed-13.jpg" alt="" style="width:100%;height:100%">';
+        header('location:' . BASE_URL . '/');
     }
     // Xử lí middleware
     private function runMiddleware($middlewareList, $next)

@@ -6,10 +6,10 @@ use Helpers\Format;
 include_once VIEW_PATH_USER_LAYOUT . 'header.php';
 
 ?>
-<form action="<?php echo BASE_URL . '/saveorder' ?>" method="post">
+<form action="<?php echo BASE_URL . '/saveorder' ?>" method="post" class="w-full xl:container">
   <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
   <div class="container-fuild mx-auto h-auto xl:p-0 px-2">
-    <div class="bg-white w-full px-2 py-2 mt-3 xl:px-4 ">
+    <div class="bg-white w-full px-2 py-2 mt-3 xl:px-4 rounded-md">
       <p class="text-[15px] xl:text-lg uppercase font-bold py-2 border-b">Địa chỉ giao hàng</p>
       <?php if ($customerAddress != null) { ?>
         <div class="mt-3" id="checkout-address">
@@ -48,10 +48,9 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         <?php require_once VIEW_PATH . 'user/checkouts/checkout-new-address.php' ?>
       <?php } ?>
     </div>
-    <div class="bg-white w-full px-4 py-2 mt-3">
+    <div class="bg-white w-full px-4 py-2 mt-3 rounded-md">
       <p class="xl:text-lg text-[15px] uppercase font-bold py-2 border-b">Phương thức vận chuyển</p>
       <div class="flex items-center py-2">
-
         <label class="xl:text-sm text-[12px] text-slate-500 flex items-center cursor-pointer">
           <input type="radio" name="shipping-fee" class="accent-blue-600 dark:accent-blue-400 mr-3 shipping-fee" value="23000" checked>
           <p>Vận chuyển tiêu chuẩn (23.000 đ)</p>
@@ -64,7 +63,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </label>
       </div>
     </div>
-    <div class="bg-white w-full px-4 py-2 mt-3">
+    <div class="bg-white w-full px-4 py-2 mt-3 rounded-md">
       <p class="xl:text-lg text-[15px] uppercase font-bold py-2 border-b">Phương thức thanh toán</p>
       <div class="flex items-center">
         <label class="xl:text-sm text-[12px] flex items-center cursor-pointer">
@@ -88,7 +87,14 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
         </label>
       </div>
     </div>
-    <div class="bg-white w-full px-2 py-2 mt-3 xl:px-4 xl:mb-48">
+    <div class="bg-white w-full px-4 py-2 mt-3 rounded-md">
+      <div class="flex items-center justify-between xl:justify-start border-b border-gray-200 py-2">
+        <p class="font-bold uppercase">Mã khuyến mãi</p>
+        <button type="button" class="text-blue-500 xl:text-sm xl:ms-14" id="btn_show_voucher">Chọn mã khuyến mãi<i class="fa-solid fa-chevron-right ms-2"></i></button>
+      </div>
+    </div>
+    <!--  -->
+    <div class="bg-white w-full px-2 py-2 mt-3 xl:px-4 xl:mb-48 rounded-md">
       <p class="xl:text-lg text-[15px] uppercase font-bold py-2 border-b">Kiểm tra lại đơn hàng</p>
       <?php foreach ($cartItems as $item) { ?>
         <div class="mt-3 flex">
@@ -163,8 +169,189 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
       </div>
     </div>
   </div>
+
 </form>
 
+<!-- Modal voucher -->
+<div class="w-full xl:w-[550px] fixed top-[10%] left-[50%] z-[99999] bg-white rounded-md p-2 h-[85%] max-h-[800px] hidden" id="voucher_checkout_main" style="transform: translate(-50%,0);">
+  <div class="w-full h-full">
+    <div class="flex items-center justify-between p-3">
+      <div class="flex items-center gap-2 text-[12px] xl:text-sm text-blue-500 uppercase">
+        <i class="fa-solid fa-ticket-simple"></i>
+        <p>Chọn mã khuyến mãi</p>
+      </div>
+      <i class="fa-solid fa-xmark text-gray-300 cursor-pointer" id="hide_voucher_content"></i>
+    </div>
+    <div class="h-full overflow-x-hidden overflow-y-auto">
+      <div class="grid grid-cols-1 gap-2 mt-3">
+        <?php foreach ($vouchers as $voucher) { ?>
+          <div class="border border-gray-200 rounded-md p-2">
+            <div class="flex items-center">
+              <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+              <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+                <div>
+                  <p><?php echo $voucher['name'] ?></p>
+                  <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+                </div>
+                <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+                <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                  <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                  <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+                </div>
+              </div>
+            </div>
+            <?php if ($voucher['quantity'] <= 0) { ?>
+              <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+            <?php } ?>
+            <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+          </div>
+        <?php } ?>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+        <div class="border border-gray-200 rounded-md p-2">
+          <div class="flex items-center">
+            <i class="fa-solid fa-ticket text-[80px] xl:text-[100px] text-green-500"></i>
+            <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 gap-1 flex-1">
+              <div>
+                <p><?php echo $voucher['name'] ?></p>
+                <p class="font-normal text-[10px] xl:text-[12px]"><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+              </div>
+              <div class="bg-gray-300 w-32 tracking-wider text-black px-2 py-1 rounded-md text-[13px] xl:text-sm"><?php echo $voucher['code'] ?></div>
+              <div class="flex justify-between items-center text-[11px] xl:text-[13px]">
+                <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
+                <button type="button" class="bg-blue-500 text-white p-2 user-select-none rounded-md text-[12px] text-nowrap xl:text-sm" onclick="copyVoucher('<?php echo $voucher['code'] ?>',event.target)">Sao chép mã</button>
+              </div>
+            </div>
+          </div>
+          <?php if ($voucher['quantity'] <= 0) { ?>
+            <p class="text-[11px] font-normal text-red-500">Voucher đã hết lượt sử dụng</p>
+          <?php } ?>
+          <div class="text-red-500 text-[12px] <?php echo $voucher['used'] == 1 ? 'block' : 'hidden' ?>">Đã sử dụng</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fixed float-left top-0 left-0 w-full h-full z-[2000] bg-gray-500 opacity-50 hidden" id="cover_page"></div>
 <!-- Modal thêm địa chỉ -->
 <dialog id="checkout_new_address_modal" class="modal">
   <div class="modal-box bg-white dark:bg-gray-900">

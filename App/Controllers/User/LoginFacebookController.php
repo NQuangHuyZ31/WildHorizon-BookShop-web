@@ -104,7 +104,7 @@ class LoginFacebookController extends Controller
       }
     }
 
-    Redirect::redirectWithSuccess(200, 'Đăng nhập thành công', '/');
+    Session::has('current_url') ? Redirect::redirectCurrentURL('Đăng nhập thành công', 1) : Redirect::redirectWithSuccess(200, 'Đăng nhập thành công', '/');
     exit;
   }
 }

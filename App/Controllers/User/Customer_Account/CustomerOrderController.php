@@ -10,6 +10,7 @@ use App\Models\Reviews;
 use Core\CSRF;
 use Core\Response;
 use Core\Session;
+use Helpers\Redirect;
 
 class CustomerOrderController extends CustomerController
 {
@@ -81,6 +82,10 @@ class CustomerOrderController extends CustomerController
     $step_line = '';
 
     $order = $this->order->getOrderByID($orderID, $customer['id']);
+
+    if (empty($order)) {
+      Redirect::redirectCurrentURL('Đơn hàng không phải của bạn', 0);
+    }
 
     if ($order['status'] == "Chuẩn bị hàng") {
       $step_line = '25%';

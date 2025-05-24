@@ -199,6 +199,17 @@ $(document).ready(function () {
         });
     }
 
+    // Hiển thị voucher
+    $('#btn_show_voucher').click(function (e) {
+        $('#voucher_checkout_main').toggleClass('hidden');
+        $('#cover_page').toggleClass('hidden');
+    });
+
+    // Ẩn voucher
+    $('#hide_voucher_content').click(function (e) {
+        $('#voucher_checkout_main').toggleClass('hidden');
+        $('#cover_page').toggleClass('hidden');
+    });
     // Submit form checkout
     $('#cart-checkout').click((e) => {
         e.preventDefault();

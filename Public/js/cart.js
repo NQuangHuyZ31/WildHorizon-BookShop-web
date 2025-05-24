@@ -103,8 +103,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (response) {
                     $('meta[name="csrf_token"]').attr('content', response.token);
-                    $('#cart-subtotal').text(response.data.totalprice);
-                    $('#cart-saved').text(response.data.saveprice);
+                    $('#cart-subtotal').text(response.data.subtotal);
+                    $('#fee-shipping').text(response.data.shipping_price);
                     $('#cart-total').text(response.data.total);
                     if (response.data.total == 0) {
                         $('#cart-checkout').removeClass('bg-orange-500').addClass('bg-gray-300');

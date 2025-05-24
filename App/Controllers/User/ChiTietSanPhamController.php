@@ -12,6 +12,7 @@ use App\Models\ProductAttribute;
 use App\Models\Reviews;
 use Core\CSRF;
 use Core\Response;
+use Helpers\CreateSlug;
 
 class ChiTietSanPhamController extends Controller
 {
@@ -41,6 +42,10 @@ class ChiTietSanPhamController extends Controller
   public function index($slug, $id)
   {
     $product = $this->product->find($id);
+
+    if (CreateSlug::createSlug($product['product_name']) !== $slug) {
+      header('location:' . Session::get('current_url') . '');
+    }
 
     $product_attrs = $this->product_attrs->getProductAttr($id);
 

@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
             1024: {
                 slidesPerView: 6, // Desktop
             },
+            1280: {
+                slidesPerView: 6,
+            },
+            1536: {
+                slidesPerView: 6,
+            },
         },
         // navigation: {
         //   nextEl: '.swiper-button-next',
@@ -44,6 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             1024: {
                 slidesPerView: 6, // Desktop
+            },
+            1280: {
+                slidesPerView: 6,
+            },
+            1536: {
+                slidesPerView: 6,
             },
         },
     });

@@ -28,10 +28,10 @@ class Redirect
     exit;
   }
 
-  public static function redirectCurrentURL($msg)
+  public static function redirectCurrentURL($msg, $status)
   {
     Session::set('success', [
-      'status' => 0,
+      'status' => $status,
       'msg' => $msg
     ]);
     header('location: ' . Session::get('current_url') . '');

@@ -35,7 +35,7 @@
                 <li class="py-2"><a href="#">Điều khoản sử dụng</a></li>
                 <li class="py-2"><a href="#">Chính sách bảo mật thông tin cá nhân</a></li>
                 <li class="py-2"><a href="#">Chính sách bảo mật thanh toán</a></li>
-                <li class="py-2"><a href="#">Giới thiệu Wildhorizon</a></li>
+                <li class="py-2"><a href="<?php echo BASE_URL ?>/gioi-thieu">Giới thiệu Wildhorizon</a></li>
                 <li class="py-2"><a href="#">Hệ thống trung tâm - nhà sách</a></li>
               </ul>
             </div>

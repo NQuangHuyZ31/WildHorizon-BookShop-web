@@ -6,6 +6,7 @@ require_once 'vendor/autoload.php';
 
 use App\Controllers\Controller;
 use App\Models\User;
+use Core\Session;
 use Google\Client;
 use Google\Service\Oauth2;
 use Helpers\Redirect;
@@ -74,6 +75,6 @@ class LoginGoogleController extends Controller
       }
     }
     // Trả về trang chủ
-    Redirect::redirectWithSuccess(200, 'Đăng nhập thành công', '/');
+    Session::has('current_url') ? Redirect::redirectCurrentURL('Đăng nhập thành công', 1) : Redirect::redirectWithSuccess(200, 'Đăng nhập thành công', '/');
   }
 }

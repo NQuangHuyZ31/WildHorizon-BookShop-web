@@ -59,40 +59,40 @@ $csrf_token = Core\CSRF::generateToken();
         <?php if (!empty($user)) { ?>
           <li class="whr-menu-user-popup text-gray-400 uppercase cursor-pointer relative" id="whr-menu-user">
             <p><?php echo htmlspecialchars($user['username']); ?></p>
-            <div class="pt-2 absolute whr-menu-user">
-              <div class="relative bg-white border border-gray-300 z-50 shadow-sm px-4 pt-3 pb-2 text-[11px]">
+            <div class="pt-2 absolute whr-menu-user min-w-60">
+              <div class="relative bg-white border border-gray-300 z-50 shadow-sm pt-3 pb-2 text-[11px]">
                 <div class="whr-meu-user-content top-content">
                   <ul class="mt-2 text-nowrap">
-                    <li class="px-2 mt-1 my-3">
-                      <a href="<?php echo BASE_URL . '/customer/account' ?>" class="flex items-center">
+                    <li class="py-2 border-t border-gray-100 hover:bg-gray-200 rounded-sm transition ease-in-out duration-100">
+                      <a href="<?php echo BASE_URL . '/customer/account' ?>" class="flex items-center px-4">
                         <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-face-smile"></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Quản lí tài khoản</p>
+                        <p class="ms-3">Quản lí tài khoản</p>
                       </a>
                     </li>
-                    <li class="ps-2 mt-1 my-3">
-                      <a href="<?php echo BASE_URL ?>/customer/order" class="flex items-center">
+                    <li class="py-2 border-t border-gray-100 hover:bg-gray-200 rounded-sm transition ease-in-out duration-100">
+                      <a href="<?php echo BASE_URL ?>/customer/order" class="flex items-center px-4">
                         <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-gem"></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Đơn hàng của tôi</p>
+                        <p class="ms-3">Đơn hàng của tôi</p>
                       </a>
                     </li>
-                    <li class="ps-2 mt-1 my-3">
-                      <a href="<?php echo BASE_URL ?>/customer/wishlist" class="flex items-center">
+                    <li class="py-2 border-t border-gray-100 hover:bg-gray-200 rounded-sm transition ease-in-out duration-100">
+                      <a href="<?php echo BASE_URL ?>/customer/wishlist" class="flex items-center px-4">
                         <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-heart"></i></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Danh sách yêu thích</p>
+                        <p class="ms-3">Danh sách yêu thích</p>
                       </a>
                     </li>
-                    <li class="ps-2 mt-1 my-3">
-                      <a href="<?php echo BASE_URL ?>/customer/review" class="flex items-center">
+                    <li class="py-2 border-t border-gray-100 hover:bg-gray-200 rounded-sm transition ease-in-out duration-100">
+                      <a href="<?php echo BASE_URL ?>/customer/review" class="flex items-center px-4">
                         <span class="text-2xl text-gray-400"><i class="text-[20px] fa-regular fa-star"></i></span>
-                        <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline">Nhận xét của tôi</p>
+                        <p class="ms-3">Nhận xét của tôi</p>
                       </a>
                     </li>
-                    <li class="ps-2 mt-1 my-3">
+                    <li class="py-2 border-t border-gray-100 hover:bg-gray-200 rounded-sm transition ease-in-out duration-100">
                       <form action="<?php echo BASE_URL . '/dang-xuat' ?>" method="post">
                         <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
-                        <button type="submit" class="flex items-center">
+                        <button type="submit" class="flex items-center px-4">
                           <span class="text-2xl text-gray-400"><i class="text-[20px] fa-solid fa-arrow-right-from-bracket"></i></span>
-                          <p class="ms-2 hover:text-orange-400 hover:underline-offset-1 hover:underline uppercase">Đăng xuất</p>
+                          <p class="ms-3 uppercase">Đăng xuất</p>
                         </button>
                       </form>
                     </li>

@@ -3,6 +3,7 @@
 namespace App\Controllers\User;
 
 use App\Controllers\Controller;
+use App\Models\User;
 use App\Models\UserVoucher;
 use App\Models\Voucher;
 use Core\CSRF;
@@ -14,18 +15,40 @@ class VoucherController extends Controller
   protected $page = 'Voucher';
   protected $voucher;
   protected $customer_voucher;
+  protected $user;
 
   public function __construct()
   {
     parent::__construct();
     $this->voucher = new Voucher();
     $this->customer_voucher = new UserVoucher();
+    $this->user = new User();
   }
 
   public function index()
   {
     $pageName = $this->page;
+    $customer = Session::has('user') ? $this->user->find(Session::get('user')['id']) : '';
+    $arrayVoucher = [];
     $vouchers = $this->voucher->getAll();
+    foreach ($vouchers as $voucher) {
+      $voucherID = $voucher['id'];
+
+      $voucherItem = $this->voucher->findByID($voucherID);
+      if (!isset($arrayVoucher[$voucherID])) {
+        $arrayVoucher[$voucherID] = [
+          'voucher' => $voucherItem,
+          'customer_voucher' => []
+        ];
+
+        $customer_voucher = [];
+        if (!empty($customer)) {
+          $customer_voucher = $this->customer_voucher->findByVoucherID($voucherID, $customer['id']);
+        }
+
+        $arrayVoucher[$voucherID]['customer_voucher'] = $customer_voucher;
+      }
+    }
 
     require_once VIEW_PATH . 'user/promotions/voucher.php';
   }

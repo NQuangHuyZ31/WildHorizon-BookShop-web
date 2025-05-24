@@ -21,6 +21,11 @@ class Controller
       die("Lỗi: Không thể kết nối database!");
     }
 
+    // Bắt đầu phiên làm việc nếu chưa có
+    if (session_status() === PHP_SESSION_NONE) {
+      session_start();
+    }
+
     $this->auth = new Auth();
   }
 

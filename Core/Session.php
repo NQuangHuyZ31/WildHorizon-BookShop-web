@@ -11,16 +11,17 @@ class Session
             session_set_cookie_params([
                 'lifetime' => 0, // session cookie (xóa khi đóng trình duyệt)
                 'path' => '/',
-                'domain' => '', // Để trống là mặc định theo domain hiện tại
+                'domain' => 'https://wildhorizonbs.shoplands.store', // Để trống là mặc định theo domain hiện tại
                 'secure' => isset($_SERVER['HTTPS']), // Gửi cookie chỉ qua HTTPS nếu có
                 'httponly' => true, // Ngăn JS truy cập
-                'samesite' => 'Strict' // Hoặc 'Lax' nếu cần chia sẻ giữa subdomain
+                'samesite' => 'Lax' // Hoặc 'Lax' nếu cần chia sẻ giữa subdomain
             ]);
 
             ini_set('session.use_only_cookies', 1);
             ini_set('session.use_strict_mode', 1);
             ini_set('session.cookie_httponly', 1);
             ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) ? 1 : 0);
+            ini_set('session.gc_maxlifetime', 3600); // 1 giờ
             session_start();
         }
     }
@@ -61,6 +62,7 @@ class Session
         self::start();
         session_unset();
         session_destroy();
+        setcookie(session_name(), '', time() - 3600, '/');
     }
 
     public static function debug()

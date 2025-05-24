@@ -101,6 +101,7 @@ class CartController extends Controller
         'error' => [
           'msg' => 'Sản phẩm đã có trong giỏ hàng'
         ],
+        'btn' => $_POST['event'] == 1 ? 1 : 0,
         'token' => $token
       ], 400);
     }
@@ -231,16 +232,19 @@ class CartController extends Controller
     CSRF::destroyToken();
     $token = CSRF::generateToken();
 
-    $totalPrice = 0;
+    $subTotal = 0;
+    $total = 0;
+    $shipping_fee = Format::forMatPrice(23000);
     $savePrice = 0;
 
     if (!isset($_POST['data'])) {
       Response::json([
         'success' => ['message' => 'Cập nhật thành công'],
         'data' => [
-          'totalprice' => Format::forMatPrice($totalPrice),
-          'saveprice' => Format::forMatPrice($savePrice),
-          'total' => Format::forMatPrice($totalPrice - $savePrice)
+          'subtotal' => $subTotal,
+          'total' => Format::forMatPrice($total),
+          'saver_price' => $savePrice,
+          'shipping_price' => $shipping_fee
         ],
         'token' => $token
       ], 200);
@@ -256,7 +260,7 @@ class CartController extends Controller
 
       $product = $this->cart->find($userID, $productID);
 
-      $totalPrice += $product['price'] * $quantity;
+      $total += $product['price'] * $quantity;
 
       $savePrice += ($product['f_discount_price'] != null ? $product['f_discount_price'] / 100 * $product['price']
         : $product['discount_price'] / 100 * $product['price']) * $item['quantity'];
@@ -267,11 +271,10 @@ class CartController extends Controller
       'success' => ['message' => 'Cập nhật thành công'],
 
       'data' => [
-        'totalprice' => Format::forMatPrice($totalPrice),
-
+        'subtotal' => Format::forMatPrice($total - $savePrice),
+        'total' => Format::forMatPrice($total - $savePrice + 23000),
         'saveprice' => Format::forMatPrice($savePrice),
-
-        'total' => Format::forMatPrice($totalPrice - $savePrice + 23000)
+        'shipping_price' => $shipping_fee
       ],
 
       'product' => [

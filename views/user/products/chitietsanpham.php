@@ -204,7 +204,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php';
               </a>
               <a <?php echo !Session::has('user') ? 'href="' . BASE_URL . '/dang-nhap' . '"' : '' ?> class="<?php echo Session::has('user') ? 'addToCart' : '' ?> cursor-pointer" data-event="1" data-id="<?php echo $product['id'] ?>">
                 <button type="button" class="flex items-center h-[45px] px-2 justify-center rounded-md bg-red-700" <?php echo $product['stock'] <= 0 ? 'disabled' : '' ?>>
-                  <p class="text-white text-sm font-bold">Mua ngay</p>
+                  <p class="text-white text-sm font-bold text-nowrap">Mua ngay</p>
                 </button>
               </a>
             </div>

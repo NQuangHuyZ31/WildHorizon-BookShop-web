@@ -120,7 +120,7 @@ $(document).ready(function () {
         if ((from && from !== '') || (to && to !== '') || (supplier && supplier !== '') || (brand && brand !== '') || (color && color !== '')) {
             fetchProductFilter(selectedFilters);
         }
-        console.log(selectedFilters);
+        // console.log(selectedFilters);
 
         // Xử lí check khi reload lại trang
         if (from && to) {

@@ -9,6 +9,8 @@ use App\Models\Categories;
 use App\Models\Color;
 use App\Models\ProductDetail;
 use App\Models\Supplier;
+use Core\Session;
+use Helpers\CreateSlug;
 
 class CategoryController extends Controller
 {
@@ -37,6 +39,12 @@ class CategoryController extends Controller
     $slug = $slug;
 
     $id = $id;
+
+    $categorie = $this->categories->findCatalog($id);
+
+    if ($slug !== CreateSlug::createSlug($categorie['catalog_name'])) {
+      header('location: ' . Session::get('current_url') . '');
+    }
 
     $categories = $this->categories->getAll();
 

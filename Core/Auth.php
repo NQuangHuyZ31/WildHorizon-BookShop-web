@@ -34,7 +34,7 @@ class Auth
 
         // Kiểm tra người dùng và xác minh mật khẩu
         if ($user && password_verify($password, $user['password'])) {
-
+            session_regenerate_id(true); // chống session fixation
             Session::set('user', [
                 'id' => $user['id'],
                 'username' => $user['username'],

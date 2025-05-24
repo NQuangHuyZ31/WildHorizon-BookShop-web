@@ -555,4 +555,24 @@ $(document).ready(function () {
             feedback_modal.showModal();
         }, 500);
     });
+
+    // Click tab voucher
+    window.activeVoucher = function (event) {
+        const allVoucherTab = $('.voucher_item');
+        const voucherTab = $('#' + event);
+        // Chuyển tab
+        allVoucherTab.removeClass('border-b-2 border-red-700 text-red-700');
+        voucherTab.addClass('border-b-2 border-red-700 text-red-700');
+        // hiển thị tab
+        // Ẩn hết các tab
+        $('.tab_content').hide();
+        $('#' + event + '_tab').show();
+    };
+
+    // Copy code voucher
+    window.copyVoucher = function (text, button) {
+        navigator.clipboard.writeText(text);
+        toastr['success']('Đã copy mã');
+        $(button).addClass('pointer-events-none bg-gray-200');
+    };
 });

@@ -12,6 +12,7 @@ use App\Models\OrderShippingAddress;
 use App\Models\Products;
 use App\Models\User;
 use App\Models\Vnpay_payment;
+use App\Models\Voucher;
 use App\Requests\CheckoutValidate;
 use Core\CSRF;
 use Core\Response;
@@ -34,6 +35,7 @@ class CheckoutController extends Controller
   protected $flashsale;
   protected $ordershippingaddress;
   protected $vnpay_payment;
+  protected $voucher;
 
   public function __construct()
   {
@@ -58,6 +60,8 @@ class CheckoutController extends Controller
     $this->ordershippingaddress = new OrderShippingAddress();
 
     $this->vnpay_payment = new Vnpay_payment();
+
+    $this->voucher = new Voucher();
   }
 
   // Lưu dữ liệu giỏ hàng khi gửi qua
@@ -84,6 +88,7 @@ class CheckoutController extends Controller
 
     $pageName = $this->page;
     $customerAddress = $this->customerAddress->getAddress($this->user_id);
+    $vouchers = $this->voucher->getAll();
 
     if (!Session::has('data-cart')) {
       header('location: ' . BASE_URL . '/gio-hang');
@@ -105,6 +110,10 @@ class CheckoutController extends Controller
     foreach ($cartItems as $item) {
       $total +=  $item['f_discount_price'] > 0 ? ($item['price'] - ($item['price'] * $item['f_discount_price'] / 100)) * $item['quantity'] : ($item['price'] - ($item['price'] * $item['discount_price'] / 100)) * $item['quantity'];
     }
+
+    // Lưu lại tổng tiền đơn hàng
+    Session::set('total_price', $total);
+
     require VIEW_PATH . 'user/checkouts/checkout.php';
   }
 
@@ -331,6 +340,7 @@ class CheckoutController extends Controller
 
       $this->db->commit();
       Session::delete('data-cart');
+      Session::delete('total_price');
       //     // Xử lí thanh toán vnpay
       if ($payment_method == 'VNPAY') {
         $this->vnPayCheckout($orderID, $total_price + $shipping_fee);
@@ -361,12 +371,12 @@ class CheckoutController extends Controller
     $order = $this->order->getOrderByID($orderID, Session::get('user')['id']);
 
     if ($order == null) {
-      Redirect::redirectCurrentURL('Đơn hàng này không phải của bạn');
+      Redirect::redirectCurrentURL('Đơn hàng này không phải của bạn', 0);
     }
 
     // Kiểm tra đon hàng đã thanh toán chưa
     if ($order['payment_method'] != 'VNPAY' || ($order['payment_method'] == 'VNPAY' && $order['is_payment'] != 0)) {
-      Redirect::redirectCurrentURL('Đơn hàng này không phải thanh toán vnpay hoặc đã được thanh toán');
+      Redirect::redirectCurrentURL('Đơn hàng này không phải thanh toán vnpay hoặc đã được thanh toán', 0);
     }
 
     $this->vnPayCheckout($order['id'], $order['total_price'] + $order['shipping_fee']);
@@ -498,6 +508,7 @@ class CheckoutController extends Controller
 
             $this->vnpay_payment->insert($data);
             $this->order->updateColumn($dataVNPAY['order_id'], 'is_payment', 1);
+            $this->order->updateColumn($dataVNPAY['order_id'], 'payment_date', date('Y-m-d h:i:s'));
             $this->db->commit();
 
             Redirect::redirectWithSuccess(200, 'Thanh toán thành công', '/customer/order/detail/' . $data['order_id'] . '');

@@ -10,22 +10,22 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
         <img src="https://res.cloudinary.com/whr-clound/image/upload/v1746515620/qacztkzptp4ubpmqnquh.png" alt="" class="w-full h-[50%]">
       </div>
       <div class="grid grid-cols-1 gap-2 xl:grid-cols-2 mt-3">
-        <?php foreach ($vouchers as $voucher) { ?>
+        <?php foreach ($arrayVoucher as $voucher) { ?>
           <div class="border border-gray-200 rounded-md p-3">
             <div class="flex">
               <i class="fa-solid fa-ticket text-[100px] text-green-500"></i>
-              <div class="text-[13px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 flex-1">
+              <div class="text-[12px] xl:text-sm font-semibold my-3 flex flex-col justify-between px-3 flex-1">
                 <div>
-                  <p><?php echo $voucher['name'] ?></p>
-                  <p><?php echo $voucher['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['min_order_value']) ?>đ</p>
+                  <p><?php echo $voucher['voucher']['name'] ?></p>
+                  <p class="font-normal"><?php echo $voucher['voucher']['description'] ?> cho đơn hàng từ <?php echo Format::formatNumber($voucher['voucher']['min_order_value']) ?>đ</p>
                 </div>
                 <div class="">
                   <div class="flex justify-between items-center">
-                    <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['end_date'])) ?></p>
-                    <?php if ($voucher['voucher_id'] == $voucher['id']) { ?>
+                    <p class="text-blue-500">Hạn sử dụng: <?php echo date('d-m-Y', strtotime($voucher['voucher']['end_date'])) ?></p>
+                    <?php if ($voucher['customer_voucher'] && $voucher['voucher']['id'] == $voucher['customer_voucher']['voucher_id']) { ?>
                       <button type="button" class="bg-gray-300 w-[120px] h-[30px] text-white rounded-sm pointer-events-none user-select-none">Đã lưu</button>
                     <?php } else { ?>
-                      <button type="button" class="<?php echo $voucher['quantity'] > 0 ? 'bg-blue-500' : 'bg-gray-300 pointer-events-none' ?> w-[120px] h-[30px] text-white rounded-sm user-select-none btn-save-voucher" data-id="<?php echo $voucher['id'] ?>">Lưu mã</button>
+                      <button type="button" class="<?php echo $voucher['voucher']['quantity'] > 0 ? 'bg-blue-500' : 'bg-gray-300 pointer-events-none' ?> w-[120px] h-[30px] text-white rounded-sm user-select-none btn-save-voucher" data-id="<?php echo $voucher['voucher']['id'] ?>">Lưu mã</button>
                     <?php } ?>
                   </div>
                 </div>

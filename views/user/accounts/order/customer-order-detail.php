@@ -58,7 +58,14 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
           <?php } ?>
           <div class="flex items-center justify-between text-[12px] xl:text-[14px]">
             <p class=" text-orange-700 font-semibold mt-2">Mã đơn hàng: #<?php echo $order['id'] ?></p>
-            <p class="text-[10px] xl:text-[12px] text-gray-400">Ngày đặt hàng: <?php echo date('d/m/Y', strtotime($order['order_date'])) ?></p>
+            <p class="text-[10px] xl:text-[13px] text-gray-400">Ngày đặt hàng: <?php echo date('d/m/Y', strtotime($order['order_date'])) ?></p>
+          </div>
+          <div class="text-[10px] xl:text-[13px] py-1 ps-2 text-gray-500 <?php echo $order['payment_date'] == null ? 'hidden' : 'block' ?>">
+            <p>Ngày thanh toán: <span class="text-black"><?php echo date('d-m-Y', strtotime($order['payment_date'])) ?></span></p>
+          </div>
+          <div class="text-[10px] xl:text-[12px] py-1 ps-2 text-gray-500">
+            <p>Ngày dự kiến giao hàng: <span class="text-black"><?php $date = new DateTime();
+                                                                echo $date->modify('+3 day')->format('d-m-Y'); ?></span></p>
           </div>
 
           <div class="relative mt-6 mb-8 w-full">
