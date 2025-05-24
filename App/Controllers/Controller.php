@@ -36,10 +36,14 @@ class Controller
     //   exit('Forbidden');
     // }
 
-    // if (!isset($_SERVER['HTTP_REFERER']) || stripos($_SERVER['HTTP_REFERER'], 'yourdomain.com') === false) {
-    //   http_response_code(403);
-    //   exit('Forbidden');
-    // }
+    if (!isset($_SERVER['HTTP_REFERER']) || stripos($_SERVER['HTTP_REFERER'], 'https://wildhorizonbs.shoplands.store/') === false) {
+      Response::json([
+        'error' => [
+          'msg' => 'Có lỗi xảy ra. Vui lòng thử lại'
+        ],
+        'token' => $csrf_token
+      ], 405);
+    }
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
       Response::json([

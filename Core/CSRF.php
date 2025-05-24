@@ -27,4 +27,9 @@ class CSRF
   {
     Session::delete('csrf_token');
   }
+
+  public static function e($string)
+  {
+    echo htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+  }
 }

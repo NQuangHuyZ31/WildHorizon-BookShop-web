@@ -1,5 +1,6 @@
 <?php
 
+use Core\CSRF;
 use Helpers\Format;
 
 include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
@@ -49,7 +50,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
           </div>
         </div>
         <div class="w-full bg-white rounded-md shadow-sm xl:shadow-md p-4 mt-3">
-          <input type="hidden" name="csrf_token" value="<?php echo $csrf_token ?>">
+          <input type="hidden" name="csrf_token" value="<?php CSRF::e($csrf_token) ?>">
           <p class="text-[14px] xl:text-xl text-gray-500 font-bold">Hồ sơ cá nhân</p>
           <div class="w-full mt-3">
             <div class="w-full flex items-center py-3">

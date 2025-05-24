@@ -11,7 +11,7 @@ class Session
             session_set_cookie_params([
                 'lifetime' => 0, // session cookie (xóa khi đóng trình duyệt)
                 'path' => '/',
-                'domain' => 'https://wildhorizonbs.shoplands.store', // Để trống là mặc định theo domain hiện tại
+                'domain' => 'https://wildhorizonbs.shoplands.store/', // Để trống là mặc định theo domain hiện tại
                 'secure' => isset($_SERVER['HTTPS']), // Gửi cookie chỉ qua HTTPS nếu có
                 'httponly' => true, // Ngăn JS truy cập
                 'samesite' => 'Lax' // Hoặc 'Lax' nếu cần chia sẻ giữa subdomain
