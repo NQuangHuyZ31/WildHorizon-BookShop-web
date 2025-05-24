@@ -143,6 +143,7 @@ class OrderController extends Controller
             if ($status && $status === 'Đã giao hàng') {
                 $order = new Order();
                 $order->updateColumn($order_id, 'is_payment', 1);
+                $order->updateColumn($order_id, 'payment_date', date('Y-m-d H:i:s'));
             }
 
             if ($stmt->execute()) {
