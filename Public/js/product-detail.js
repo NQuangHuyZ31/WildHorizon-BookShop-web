@@ -151,12 +151,14 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response) {
+                    $('input[name="csrf_token"]').val(response.token);
                     $('meta[name="csrf_token"]').attr('content', response.token);
                     $('.product-detail-quantity').val(response.quantity);
                 }
             },
             error: function (response) {
                 if (response) {
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
                     $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
                     $('.product-detail-quantity').val(response.responseJSON.quantity);
                     toastr['error'](response.responseJSON.error.msg);
@@ -201,6 +203,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response) {
+                    $('input[name="csrf_token"]').val(response.token);
                     $('meta[name="csrf_token"]').attr('content', response.token);
                     if (response.event == 0) {
                         toastr['success'](response.success.msg);
@@ -214,6 +217,7 @@ $(document).ready(function () {
             error: function (response) {
                 if (response) {
                     $('meta[name="csrf_token"]').attr('content', response.responseJSON.token);
+                    $('input[name="csrf_token"]').val(response.responseJSON.token);
                     if (response.responseJSON.btn) {
                         if (response.responseJSON.btn == 1) {
                             window.location.href = URL_CART;

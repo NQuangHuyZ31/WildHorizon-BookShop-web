@@ -52,7 +52,7 @@ class CustomerChangePasswordController extends CustomerController
           'msg' => $error,
         ],
         'token' => $token
-      ], 404);
+      ], 400);
     }
 
     // Kiểm tra mật khẩu hiện tại
@@ -64,7 +64,7 @@ class CustomerChangePasswordController extends CustomerController
           'msg' => 'Mật khẩu hiện tại không đúng',
         ],
         'token' => $token
-      ], 404);
+      ], 400);
     }
 
     // Sen code verify change passoword

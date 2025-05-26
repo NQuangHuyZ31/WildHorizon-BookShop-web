@@ -8,6 +8,7 @@ use Core\CSRF;
 use Core\Response;
 use Core\Session;
 use Exception;
+use Helpers\Redirect;
 
 class CustomerAddressController extends CustomerController
 {
@@ -136,6 +137,10 @@ class CustomerAddressController extends CustomerController
     $pageName = $this->page;
     $customer = $this->customer;
     $address = $this->customer_address->getAddressByID($id, $customer['id']);
+
+    if (!$address) {
+      Redirect::redirectCurrentURL('Địa chỉ này không phải của bạn', 0);
+    }
 
     require_once VIEW_PATH . 'user/accounts/address/customer-address-edit.php';
   }
