@@ -45,7 +45,7 @@ include_once VIEW_PATH_USER_LAYOUT . 'header.php'; ?>
         </div>
         <?php if (count($products) > 10) { ?>
           <div class="mb-2 pt-3">
-            <button type="button" id="loadMore-product" class="load-more-product w-[100px] xl:w-full xl:text-sm text-[11px] xl:h-[40px] h-[35px] flex items-center justify-center" data-offset="30">Xem thêm sản phẩm</button>
+            <button type="button" id="loadMore-product" class="load-more-product w-[180px] xl:w-full xl:text-sm text-[11px] xl:h-[40px] h-[35px] flex items-center justify-center" data-offset="30">Xem thêm sản phẩm</button>
           </div>
         <?php } ?>
       <?php } else { ?>
